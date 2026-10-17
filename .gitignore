@@ -1,0 +1,5 @@
+# local-only artifacts
+node_modules/
+*.log
+local.properties
+.idea/
