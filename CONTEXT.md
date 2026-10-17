@@ -124,3 +124,4 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 - 2026-10-17 — Cloned 3 repos at pinned commits onto branch `fusion-v3-integration`; wrote `PLAN.md`.
 - 2026-10-17 — **S1 done:** built SDK test APK, ran on Redmi 8. Model works (17–32 tok/s). Found & fixed chat-template content-dropping bug (patched config). 7/8 SDK tests pass (8th is a test-design mismatch).
 - 2026-10-17 — Created this `CONTEXT.md`.
+- 2026-10-17 — Published project root as PUBLIC repo https://github.com/AdribMahmud101/fusion_wallet (docs, plan, context, handoff zip; 3 code repos as submodules pinned to their commits). Commits use the GitHub noreply identity (local git config); global git identity looks misconfigured (name is an email, email differs from the GitHub account) — not changed. Phone serial removed from CONTEXT.md for the public repo. Integration branches `fusion-v3-integration` in the 3 code repos are still local-only.
