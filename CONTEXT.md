@@ -1,7 +1,7 @@
 # fusion_wallet — Project Context & Handoff
 
 > **Living document.** Any agent working on this project: read this first, and append to the *Progress log* (bottom) + update the *Status* and *TODO* tables whenever something is done, decided, or found. Detailed schedule/rationale: `PLAN.md`. Full spec: `Fusion_Wallet_Final_Base_Architecture.md` (+ handoff zip).
-> Last updated: **2026-10-17 20:20 (Asia/Dhaka)**
+> Last updated: **2026-10-17 20:40 (Asia/Dhaka)**
 
 ## 1. What this is
 **fusion_wallet** (renamed from "Kavachi"): an Android AI treasury assistant for a small business, Topic F "Agent Wallet" hackathon entry. It reserves cash for owner-approved obligations, and only sweeps true surplus into two demo ERC-4626 vaults. A small **on-device LLM** picks one pre-computed candidate action ID (or HOLD) — it never invents amounts/addresses/keys. Rust previews, a separate **signer** app re-checks and signs, and a **Solidity wallet** enforces hard limits on-chain even if everything else is bypassed. Test assets only (DemoUSD, Anvil + Base Sepolia). No mainnet, no real funds.
@@ -69,6 +69,8 @@ The wallet repo has a proper `gradlew` (Gradle 8.13, AGP 8.11.0, Kotlin 2.0.21, 
 10. **UI restructure (owner-approved 2026-10-17):** 3 tabs — **Treasury** (what you have; the Accountant is a role inside it, not a tab) · **Agent** (AI-as-participant: passport/mandate + decision timeline with per-layer checks) · **Proof** (scorecard, attack arena, receipts, privacy/egress log). Chat/Tokens/Ledger tabs removed from navigation. English + 中文 runtime toggle.
 11. **Currency/vault decision (owner-approved):** unit = **Aave Base Sepolia test USDC** (`0xba50…4D5f`, 6 dp). Vault A = real Aave ERC-4626 wrapper `waBasSepUSDC` (`0xf430…b32a`); Vault B = our own OZ ERC-4626 demo vault on the same USDC. Supersedes DemoUSD + two custom vaults. ETH is gas (not ERC-20, excluded from total). Show Aave **APR** (real: 0.21 %), never APY, never invented yields.
 
+12. **UI principles (owner feedback: "too complex"; guided by the installed `ui-ux-pro-max` plugin):** one dominant message per screen; progressive disclosure (details behind a tap via `Expander`); plain words (Home / AI Agent / Safety, "Spare cash", "Set aside for bills"); sentence-case titles; Inter for text, mono only for numbers; calm tones in `ui/common/Common.kt` `Tone` (no purple); touch targets ≥ 44–48 dp; never colour-only status; every string in `strings_accountant.xml` for EN and zh. Keep new screens within this rule: **headline → status → one action → details on tap.**
+
 ## 5. Findings so far
 - **S1 (done): LFM2.5-230M runs on bundled MNN 3.6.1** on the Redmi 8 — no MNN rebuild needed. Decode ~17–32 tok/s, prefill 176–529 ms, first token ~0.2–0.5 s. 7/8 SDK instrumented tests pass.
 - **BUG: shipped LFM2 chat template drops all message text.** `llm_config.json` template uses `message.get("content")` / `messages[0].get("content")`; MNN 3.6.1's jinja returns empty → prompt renders as `<|im_start|>user\n<|im_end|>`. Fixed by replacing with `["content"]` (patched copy above; **must ship the patched config in `:inference` provisioning and record its sha256**). SDK's own template test is too weak (only checks for `<|im_start|>`) — add a product test asserting the user text appears in `renderPrompt`.
@@ -112,7 +114,7 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 | A6 | Instrumented Room tests on device (DAO queries, latest-per-asset, schema) | ⬜ | queries are only compile-checked so far |
 | A7 | Chain→Room sync: Aave V3 aToken `balanceOf`/`scaledBalanceOf`, liquidity index, supply APY on Base Sepolia; replace demo seeder in real mode | ⬜ | depends on Rust/RPC path (J06) |
 | A8 | Accountant UI strings to `strings.xml` (EN + zh) | ✅ | `strings_accountant.xml` ×2; accessibility pass still ⬜ |
-| U1 | 3-tab shell (Treasury / Agent / Proof), top bar honesty, language toggle | ✅ | |
+| U1 | 3-tab shell (Home / AI Agent / Safety), top bar honesty, language toggle | ✅ | simplified per owner feedback 2026-10-17 20:30 |
 | U2 | Agent tab real data: decisions/mandate/queue from chain + signer journal; wire Pause & Cancel | ⬜ | blocked on J03/J04/J07 |
 | U3 | Proof tab real data: arena runner (7 scenarios) against Anvil, benign cases for FBR, scorecard | ⬜ | blocked on J03/J05; see spec ENHANCEMENTS_AND_UX.md |
 | U4 | Decoded action card (extend `PreFlightGuardrailCard`) + owner-review screen in `:signer` | ⬜ | |
@@ -161,5 +163,6 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 - 2026-10-17 — **S1 done:** built SDK test APK, ran on Redmi 8. Model works (17–32 tok/s). Found & fixed chat-template content-dropping bug (patched config). 7/8 SDK tests pass (8th is a test-design mismatch).
 - 2026-10-17 — Created this `CONTEXT.md`.
 - 2026-10-17 — Published project root as PUBLIC repo https://github.com/AdribMahmud101/fusion_wallet (docs, plan, context, handoff zip; 3 code repos as submodules pinned to their commits). Commits use the GitHub noreply identity (local git config); global git identity looks misconfigured (name is an email, email differs from the GitHub account) — not changed. Phone serial removed from this file for the public repo.
+- 2026-10-17 — **Simplification pass:** owner said the UI was too complex. Installed the `ui-ux-pro-max` plugin and applied its rules (the `ui-styling` skill is web/Tailwind only, so not used for Compose). Home = one "Spare cash" headline + status + Ask tile; Agent = summary + tap-to-expand decision cards; Safety = one headline + expanders for cloud/advanced; plain labels, plurals, number formatting, sky-blue instead of violet, slim top bar, ≥44 dp targets. Verified on Redmi 8 in EN and 中文; tests green.
 - 2026-10-17 — **UX review + restructure:** validated currency model against live Aave contracts on Base Sepolia (`docs/ASSETS_AND_AAVE.md`); corrected my own errors (invented 4.2 % yield, APY vs APR label, missing gas concept, Accountant as a tab). Owner approved: 3 tabs, real Aave USDC + own vault, EN+中文. Built Treasury/Agent/Proof, new Room entities (mandate, decisions, arena), full zh strings with runtime switch. Verified on Redmi 8; 45 tests green. Commit on `fusion-v3-integration`.
 - 2026-10-17 — **Owner pivot:** build Accountant Agent + Room entities + DeepInfra cloud LLM + guardrails + UI first. Read docs.deepinfra.com; wrote `docs/ACCOUNTANT_AGENT.md`; implemented `app.fusion.wallet.accountant` (data/domain/cloud/agent), Accountant tab and ViewModel; 40 unit tests pass; installed and verified on Redmi 8; fixed nav-bar inset + system-bar icon bugs. Committed `2fb680b` on `fusion-v3-integration` in `Fintech_Wallet_Agent`. Live DeepInfra test pending API key.
