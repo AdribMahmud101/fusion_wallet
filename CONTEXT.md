@@ -1,7 +1,7 @@
 # fusion_wallet — Project Context & Handoff
 
 > **Living document.** Any agent working on this project: read this first, and append to the *Progress log* (bottom) + update the *Status* and *TODO* tables whenever something is done, decided, or found. Detailed schedule/rationale: `PLAN.md`. Full spec: `Fusion_Wallet_Final_Base_Architecture.md` (+ handoff zip).
-> Last updated: **2026-10-17 19:55 (Asia/Dhaka)**
+> Last updated: **2026-10-17 20:20 (Asia/Dhaka)**
 
 ## 1. What this is
 **fusion_wallet** (renamed from "Kavachi"): an Android AI treasury assistant for a small business, Topic F "Agent Wallet" hackathon entry. It reserves cash for owner-approved obligations, and only sweeps true surplus into two demo ERC-4626 vaults. A small **on-device LLM** picks one pre-computed candidate action ID (or HOLD) — it never invents amounts/addresses/keys. Rust previews, a separate **signer** app re-checks and signs, and a **Solidity wallet** enforces hard limits on-chain even if everything else is bypassed. Test assets only (DemoUSD, Anvil + Base Sepolia). No mainnet, no real funds.
@@ -18,6 +18,7 @@ Five required features: (1) three buckets free/reserved/deployed, (2) live attac
 | Model (pinned HF `taobao-mnn/LFM2.5-230M-MNN` @ `216a2236272d566697c9f417d11d42c852b2f014`, Apache-2.0, 132 MB) | `D:\Android\models\LFM2.5-230M-MNN\` (+ `SHA256SUMS`); **patched config** `D:\Android\models\llm_config.patched.json` |
 | Android SDK / NDKs / adb | `D:\Android\Sdk` (platforms 36+34, build-tools 36.0.0+34.0.0, NDK 27.0.12077973 + 25.1.8937393, CMake 3.22.1, platform-tools 37.0.1) |
 | Rust / Foundry | **WSL Ubuntu** (user `tory`): Rust 1.94.0 (+`aarch64-linux-android`, rustfmt, clippy), cargo-ndk 4.1.2, Foundry 1.8.5 (forge/anvil/cast), gcc/clang. Linux NDK r27 at `/mnt/d/Android/ndk-linux/android-ndk-r27` (`ANDROID_NDK_HOME` in `~/.bashrc`) |
+| Assets / Aave verified facts + glossary | `docs/ASSETS_AND_AAVE.md` (addresses, live market state, plain-English terms) |
 | Accountant design doc | `docs/ACCOUNTANT_AGENT.md` (entities, data-egress classification, guardrails, DeepInfra specifics) |
 | Agent memory | `C:\Users\UseR\.claude\projects\C--Users-UseR-Documents-fusion-wallet\memory\` (Claude Code only; not portable — everything important is repeated here) |
 | Session scratch (temporary, may vanish) | `...\Temp\claude\...\scratchpad\` — has `backup/` of the *original "Kavachi"-named* docs and a Python venv used to run the handoff's verification scripts |
@@ -65,6 +66,9 @@ The wallet repo has a proper `gradlew` (Gradle 8.13, AGP 8.11.0, Kotlin 2.0.21, 
 8. **Accountant Agent + cloud LLM (decided 2026-10-17, by the project owner):** build an accountant with embedded Room DB entities (balances, Aave aTokens/lending positions, obligations, ledger…) and a **DeepInfra** cloud analyst, plus the Android UI. This **deliberately relaxes the spec's "no private context to a cloud LLM" rule** to: *cloud is OFF by default, opt-in with versioned consent, and receives only a coarse read-only brief behind a fail-closed egress guard*. Cloud text is untrusted advice; it never feeds the planner/policy/signer/contract. On-device LFM still handles anything that selects or executes an action. Details: `docs/ACCOUNTANT_AGENT.md`.
 9. DeepInfra: `https://api.deepinfra.com/v1/openai/chat/completions`, Bearer key; host pinned; **`google/` and `anthropic/` models refused** (DeepInfra says those providers retain data); default model `meta-llama/Llama-3.3-70B-Instruct-Turbo`. API key: Keystore-wrapped at runtime; debug-only fallback `DEEPINFRA_API_KEY` in gitignored `fusion-core-android/local.properties`. **Repo is public — never commit a key; rotate any key pasted into chat.**
 
+10. **UI restructure (owner-approved 2026-10-17):** 3 tabs — **Treasury** (what you have; the Accountant is a role inside it, not a tab) · **Agent** (AI-as-participant: passport/mandate + decision timeline with per-layer checks) · **Proof** (scorecard, attack arena, receipts, privacy/egress log). Chat/Tokens/Ledger tabs removed from navigation. English + 中文 runtime toggle.
+11. **Currency/vault decision (owner-approved):** unit = **Aave Base Sepolia test USDC** (`0xba50…4D5f`, 6 dp). Vault A = real Aave ERC-4626 wrapper `waBasSepUSDC` (`0xf430…b32a`); Vault B = our own OZ ERC-4626 demo vault on the same USDC. Supersedes DemoUSD + two custom vaults. ETH is gas (not ERC-20, excluded from total). Show Aave **APR** (real: 0.21 %), never APY, never invented yields.
+
 ## 5. Findings so far
 - **S1 (done): LFM2.5-230M runs on bundled MNN 3.6.1** on the Redmi 8 — no MNN rebuild needed. Decode ~17–32 tok/s, prefill 176–529 ms, first token ~0.2–0.5 s. 7/8 SDK instrumented tests pass.
 - **BUG: shipped LFM2 chat template drops all message text.** `llm_config.json` template uses `message.get("content")` / `messages[0].get("content")`; MNN 3.6.1's jinja returns empty → prompt renders as `<|im_start|>user\n<|im_end|>`. Fixed by replacing with `["content"]` (patched copy above; **must ship the patched config in `:inference` provisioning and record its sha256**). SDK's own template test is too weak (only checks for `<|im_start|>`) — add a product test asserting the user text appears in `renderPrompt`.
@@ -78,6 +82,10 @@ The wallet repo has a proper `gradlew` (Gradle 8.13, AGP 8.11.0, Kotlin 2.0.21, 
 - Build facts: wallet repo builds with `gradlew :app:testDebugUnitTest :app:assembleDebug` (Gradle 8.13, JDK 17; Room 2.6.1 + KSP 2.0.21-1.0.28). Kotlin-DSL gotcha: `java.util.Properties` must be imported (`java` resolves to the Gradle extension). Python on Windows rewrites LF→CRLF in text mode — use `newline=''` when editing repo files.
 - Phone must stay unlocked/portrait for screenshots: `adb shell settings put system accelerometer_rotation 0`; taps near the bottom hit the system nav bar unless the tab bar is inset (now fixed).
 
+- **UI verified on Redmi 8 (2026-10-17 20:08):** Treasury / Agent / Proof render in EN and 中文; live queue countdown ticks; blocked-attack card shows ✗ on the model layer. 45 JVM tests pass (0 skipped). Dead code still in the repo but unreachable: `MainViewModel`, `DemoIntentSource`/`DemoData`, `ChatFeed`, `PromptComposer`, `PreFlightGuardrailCard`, `TokensScreen`, `LedgerScreen`, `SettingsDrawer`, terminal sheet, `TopHealthAppBar` top bar (its `FusionBottomBar` is still used). **Remove before release** (spec: a TESTNET release must not link the fixture intent interpreter). `PreFlightGuardrailCard` is the intended base for the decoded action card — extract, don't delete blindly.
+- The agent's Pause/Cancel/Run buttons are present but **disabled** (explained in-app) until the contract/signer exist; the arena shows "not run"; scorecard shows "not measured". Do not fake them. Decision/arena/mandate rows come only from the debug seeder.
+- Real data checked: Aave USDC market active/not paused, supply APR 0.2075 %, waUSDC is ERC-4626 (see `docs/ASSETS_AND_AAVE.md`).
+
 ## 6. Status snapshot
 | Area | State |
 |---|---|
@@ -87,6 +95,7 @@ The wallet repo has a proper `gradlew` (Gradle 8.13, AGP 8.11.0, Kotlin 2.0.21, 
 | Repos cloned at pinned commits | ✅ (no code changes yet) |
 | S1 model go/no-go | ✅ GO (with template patch) |
 | Accountant Agent (Room entities, local analyst, DeepInfra client, egress guard, UI) | ✅ Built, 40 unit tests green, runs on phone; ⛔ live cloud test needs API key |
+| UI: Treasury / Agent / Proof, EN + 中文, honest badges | ✅ Built and verified on phone (data is debug fixtures) |
 | Rest of the implementation (J00–J10) | ⬜ Not started (J00 next) |
 
 ## 7. TODO (brief; detailed items in `PLAN.md`)
@@ -102,7 +111,14 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 | A5 | **Live DeepInfra test** (real key → real call → check payload in activity log, reply validates) | ⛔ | Needs `DEEPINFRA_API_KEY`; then rotate it |
 | A6 | Instrumented Room tests on device (DAO queries, latest-per-asset, schema) | ⬜ | queries are only compile-checked so far |
 | A7 | Chain→Room sync: Aave V3 aToken `balanceOf`/`scaledBalanceOf`, liquidity index, supply APY on Base Sepolia; replace demo seeder in real mode | ⬜ | depends on Rust/RPC path (J06) |
-| A8 | Move Accountant UI strings to `strings.xml`; accessibility pass | ⬜ | |
+| A8 | Accountant UI strings to `strings.xml` (EN + zh) | ✅ | `strings_accountant.xml` ×2; accessibility pass still ⬜ |
+| U1 | 3-tab shell (Treasury / Agent / Proof), top bar honesty, language toggle | ✅ | |
+| U2 | Agent tab real data: decisions/mandate/queue from chain + signer journal; wire Pause & Cancel | ⬜ | blocked on J03/J04/J07 |
+| U3 | Proof tab real data: arena runner (7 scenarios) against Anvil, benign cases for FBR, scorecard | ⬜ | blocked on J03/J05; see spec ENHANCEMENTS_AND_UX.md |
+| U4 | Decoded action card (extend `PreFlightGuardrailCard`) + owner-review screen in `:signer` | ⬜ | |
+| U5 | Delete dead demo code listed in §5 before any release build | ⬜ | |
+| U6 | Obligations editor (draft → owner commitment), gas top-up hint, onboarding/mandate-setup flow | ⬜ | judges' "set mandate once" moment |
+| U7 | Confirm test-USDC faucet + ability to deposit into `waBasSepUSDC` on a Base Sepolia fork | ⬜ | before building the contract |
 | J00 | Baseline: `cargo test --locked` (WSL), wallet `assembleDebug`, install on phone, screenshots of all screens, record failures; write `integration-lock.json` | ⬜ | **Next up** |
 | J01 | Fix SDK CI ABI-matched import check; build SDK AAR → local Maven + checksum | ⬜ | |
 | J02 | Rust: `amount/treasury/policy/obligations/candidates/preview/protocol`, V3 DTOs, vector parity, remove raw-key export, regen UniFFI | ⬜ | Parallel track A |
@@ -145,4 +161,5 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 - 2026-10-17 — **S1 done:** built SDK test APK, ran on Redmi 8. Model works (17–32 tok/s). Found & fixed chat-template content-dropping bug (patched config). 7/8 SDK tests pass (8th is a test-design mismatch).
 - 2026-10-17 — Created this `CONTEXT.md`.
 - 2026-10-17 — Published project root as PUBLIC repo https://github.com/AdribMahmud101/fusion_wallet (docs, plan, context, handoff zip; 3 code repos as submodules pinned to their commits). Commits use the GitHub noreply identity (local git config); global git identity looks misconfigured (name is an email, email differs from the GitHub account) — not changed. Phone serial removed from this file for the public repo.
+- 2026-10-17 — **UX review + restructure:** validated currency model against live Aave contracts on Base Sepolia (`docs/ASSETS_AND_AAVE.md`); corrected my own errors (invented 4.2 % yield, APY vs APR label, missing gas concept, Accountant as a tab). Owner approved: 3 tabs, real Aave USDC + own vault, EN+中文. Built Treasury/Agent/Proof, new Room entities (mandate, decisions, arena), full zh strings with runtime switch. Verified on Redmi 8; 45 tests green. Commit on `fusion-v3-integration`.
 - 2026-10-17 — **Owner pivot:** build Accountant Agent + Room entities + DeepInfra cloud LLM + guardrails + UI first. Read docs.deepinfra.com; wrote `docs/ACCOUNTANT_AGENT.md`; implemented `app.fusion.wallet.accountant` (data/domain/cloud/agent), Accountant tab and ViewModel; 40 unit tests pass; installed and verified on Redmi 8; fixed nav-bar inset + system-bar icon bugs. Committed `2fb680b` on `fusion-v3-integration` in `Fintech_Wallet_Agent`. Live DeepInfra test pending API key.
