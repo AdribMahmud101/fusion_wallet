@@ -1,7 +1,7 @@
 # fusion_wallet — Project Context & Handoff
 
 > **Living document.** Any agent working on this project: read this first, and append to the *Progress log* (bottom) + update the *Status* and *TODO* tables whenever something is done, decided, or found. Detailed schedule/rationale: `PLAN.md`. Full spec: `Fusion_Wallet_Final_Base_Architecture.md` (+ handoff zip).
-> Last updated: **2026-10-17 20:40 (Asia/Dhaka)**
+> Last updated: **2026-10-17 20:55 (Asia/Dhaka)**
 
 ## 1. What this is
 **fusion_wallet** (renamed from "Kavachi"): an Android AI treasury assistant for a small business, Topic F "Agent Wallet" hackathon entry. It reserves cash for owner-approved obligations, and only sweeps true surplus into two demo ERC-4626 vaults. A small **on-device LLM** picks one pre-computed candidate action ID (or HOLD) — it never invents amounts/addresses/keys. Rust previews, a separate **signer** app re-checks and signs, and a **Solidity wallet** enforces hard limits on-chain even if everything else is bypassed. Test assets only (DemoUSD, Anvil + Base Sepolia). No mainnet, no real funds.
@@ -71,6 +71,8 @@ The wallet repo has a proper `gradlew` (Gradle 8.13, AGP 8.11.0, Kotlin 2.0.21, 
 
 12. **UI principles (owner feedback: "too complex"; guided by the installed `ui-ux-pro-max` plugin):** one dominant message per screen; progressive disclosure (details behind a tap via `Expander`); plain words (Home / AI Agent / Safety, "Spare cash", "Set aside for bills"); sentence-case titles; Inter for text, mono only for numbers; calm tones in `ui/common/Common.kt` `Tone` (no purple); touch targets ≥ 44–48 dp; never colour-only status; every string in `strings_accountant.xml` for EN and zh. Keep new screens within this rule: **headline → status → one action → details on tap.**
 
+13. **Demo sign-in & roles (owner-requested 2026-10-17):** login screen with real salted-PBKDF2 checks + 5-try/30 s lockout; 3 public demo accounts — `mei@fusion.demo` / `Owner#2026` (Owner), `wei@fusion.demo` / `Manager#2026` (Finance manager), `judge@fusion.demo` / `Auditor#2026` (Auditor, view-only). Accounts hold no financial data and unlock nothing on-chain; they are provisioned in **all** build types (unlike the financial fixtures, which are debug-only). Roles only gate UI (Owner: cloud/privacy settings + pause + approve; Manager: pause; Auditor: none) — **the contract/signer, not the app, enforce spending limits**. Avatar = 6 colours × 7 glyphs (incl. initials), editable in the profile sheet (top-right avatar). Session = user id in `fusion_prefs`.
+
 ## 5. Findings so far
 - **S1 (done): LFM2.5-230M runs on bundled MNN 3.6.1** on the Redmi 8 — no MNN rebuild needed. Decode ~17–32 tok/s, prefill 176–529 ms, first token ~0.2–0.5 s. 7/8 SDK instrumented tests pass.
 - **BUG: shipped LFM2 chat template drops all message text.** `llm_config.json` template uses `message.get("content")` / `messages[0].get("content")`; MNN 3.6.1's jinja returns empty → prompt renders as `<|im_start|>user\n<|im_end|>`. Fixed by replacing with `["content"]` (patched copy above; **must ship the patched config in `:inference` provisioning and record its sha256**). SDK's own template test is too weak (only checks for `<|im_start|>`) — add a product test asserting the user text appears in `renderPrompt`.
@@ -119,6 +121,8 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 | U3 | Proof tab real data: arena runner (7 scenarios) against Anvil, benign cases for FBR, scorecard | ⬜ | blocked on J03/J05; see spec ENHANCEMENTS_AND_UX.md |
 | U4 | Decoded action card (extend `PreFlightGuardrailCard`) + owner-review screen in `:signer` | ⬜ | |
 | U5 | Delete dead demo code listed in §5 before any release build | ⬜ | |
+| U8 | Demo sign-in, roles, profile, avatars (EN + zh); role gating in UI and VM | ✅ | `app.fusion.wallet.auth`, `ui/auth`; 54 tests green; verified on Redmi 8 |
+| U9 | Real auth later: biometric unlock / device-bound keys for the signer app; per-user data | ⬜ | not needed for demo |
 | U6 | Obligations editor (draft → owner commitment), gas top-up hint, onboarding/mandate-setup flow | ⬜ | judges' "set mandate once" moment |
 | U7 | Confirm test-USDC faucet + ability to deposit into `waBasSepUSDC` on a Base Sepolia fork | ⬜ | before building the contract |
 | J00 | Baseline: `cargo test --locked` (WSL), wallet `assembleDebug`, install on phone, screenshots of all screens, record failures; write `integration-lock.json` | ⬜ | **Next up** |
@@ -153,6 +157,11 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 - Never edit generated UniFFI Kotlin (`fusion-core-kotlin/.../fusion_core.kt`) by hand — regenerate.
 - Don't upgrade dependency versions while wiring the pipeline.
 
+## 9b. Mistakes made once — don't repeat
+- **Never run `git submodule update --remote` in the root repo.** It checks the wallet submodule out at upstream `main` (the original commit), the working tree "loses" my branch's files, and a following `git add -A` records the wrong pointer. (Happened 2026-10-17; fixed by `git switch fusion-v3-integration` in `repos/Fintech_Wallet_Agent` and re-committing the pointer; no work was lost.) Bump pointers with `git add repos/<name>` only, after confirming the submodule is on its branch (`git -C repos/<name> branch --show-current`).
+- Python text-mode writes rewrite LF as CRLF on Windows — pass `newline=''`.
+- An unexplained one-off: right after a `pm clear` + install, the app once opened already signed in as user 1. Could not reproduce in two clean runs; if it appears again, check `AuthViewModel` and `shared_prefs/fusion_prefs.xml`.
+
 ## 10. Progress log (append newest at bottom; one line per event, with date)
 - 2026-10-17 — Read & summarised spec/handoff (Kavachi architecture; 11 jobs J00–J10; 133 acceptance defs, 119 core).
 - 2026-10-17 — Renamed Kavachi → fusion_wallet across `.md`, `.docx`, and the zip (53 files); regenerated V3 test-vector hashes + 5 fixtures; rebuilt `SHA256SUMS`; package checks + 10 gate self-tests pass. Originals backed up in session scratchpad.
@@ -163,6 +172,7 @@ Legend: ⬜ todo · 🟦 in progress · ✅ done · ⛔ blocked. Job IDs match t
 - 2026-10-17 — **S1 done:** built SDK test APK, ran on Redmi 8. Model works (17–32 tok/s). Found & fixed chat-template content-dropping bug (patched config). 7/8 SDK tests pass (8th is a test-design mismatch).
 - 2026-10-17 — Created this `CONTEXT.md`.
 - 2026-10-17 — Published project root as PUBLIC repo https://github.com/AdribMahmud101/fusion_wallet (docs, plan, context, handoff zip; 3 code repos as submodules pinned to their commits). Commits use the GitHub noreply identity (local git config); global git identity looks misconfigured (name is an email, email differs from the GitHub account) — not changed. Phone serial removed from this file for the public repo.
+- 2026-10-17 — **Sign-in + profile:** added login (PBKDF2, lockout), three demo roles, role-aware controls, profile sheet with editable avatar/name/language and sign-out, avatar in the top bar; EN+zh; 9 new tests (54 total). Verified on Redmi 8: wrong password error, owner/manager/auditor differences, avatar edit, session restore. Also fixed my submodule-pointer mistake (see §9b).
 - 2026-10-17 — **Simplification pass:** owner said the UI was too complex. Installed the `ui-ux-pro-max` plugin and applied its rules (the `ui-styling` skill is web/Tailwind only, so not used for Compose). Home = one "Spare cash" headline + status + Ask tile; Agent = summary + tap-to-expand decision cards; Safety = one headline + expanders for cloud/advanced; plain labels, plurals, number formatting, sky-blue instead of violet, slim top bar, ≥44 dp targets. Verified on Redmi 8 in EN and 中文; tests green.
 - 2026-10-17 — **UX review + restructure:** validated currency model against live Aave contracts on Base Sepolia (`docs/ASSETS_AND_AAVE.md`); corrected my own errors (invented 4.2 % yield, APY vs APR label, missing gas concept, Accountant as a tab). Owner approved: 3 tabs, real Aave USDC + own vault, EN+中文. Built Treasury/Agent/Proof, new Room entities (mandate, decisions, arena), full zh strings with runtime switch. Verified on Redmi 8; 45 tests green. Commit on `fusion-v3-integration`.
 - 2026-10-17 — **Owner pivot:** build Accountant Agent + Room entities + DeepInfra cloud LLM + guardrails + UI first. Read docs.deepinfra.com; wrote `docs/ACCOUNTANT_AGENT.md`; implemented `app.fusion.wallet.accountant` (data/domain/cloud/agent), Accountant tab and ViewModel; 40 unit tests pass; installed and verified on Redmi 8; fixed nav-bar inset + system-bar icon bugs. Committed `2fb680b` on `fusion-v3-integration` in `Fintech_Wallet_Agent`. Live DeepInfra test pending API key.
