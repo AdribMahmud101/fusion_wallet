@@ -1,9 +1,9 @@
-[submodule "repos/Fintech_Wallet_Agent"]
-	path = repos/Fintech_Wallet_Agent
+[submodule "src/Fintech_Wallet_Agent"]
+	path = src/Fintech_Wallet_Agent
 	url = https://github.com/AdribMahmud101/Fintech_Wallet_Agent.git
-[submodule "repos/mnn-android-sdk"]
-	path = repos/mnn-android-sdk
+[submodule "src/mnn-android-sdk"]
+	path = src/mnn-android-sdk
 	url = https://github.com/AdribMahmud101/mnn-android-sdk.git
-[submodule "repos/ahem"]
-	path = repos/ahem
+[submodule "src/ahem"]
+	path = src/ahem
 	url = https://github.com/AdribMahmud101/ahem.git
