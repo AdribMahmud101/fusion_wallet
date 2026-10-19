@@ -46,7 +46,7 @@ def main():
         else:args+=['--compilation-profile','safe-legacy']
         if name=='module':args+=['--libraries',f'src/KavachiPolicyLib.sol:KavachiPolicyLib:{library}']
         try:
-            if name == 'safe':
+            if name == 'safe' and not manifest['contracts']['safeProxyFactory'].get('deploymentTxHash'):
                 # The canonical factory emits official 0.7.6 / Istanbul / unoptimized proxies.
                 # Compile the same unmodified source under its original source-unit path.
                 with tempfile.TemporaryDirectory(prefix='safe-verify-',dir=ROOT/'scripts') as temp:

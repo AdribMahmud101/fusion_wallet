@@ -226,6 +226,186 @@
           "activeAt": "1792407498"
         }
       }
+    },
+    {
+      "id": "E9",
+      "txHash": "0x4fe8a794c15a91bf70e841549b2bf1907290100ee46f6a1abfa98cdc1221b603",
+      "block": 48317855,
+      "blockHash": "0xd7fc2eb2896a0bdc56978ac6c7ca167381d2dad850187e6b90b8f8f0406cedc9",
+      "kind": "ACTION_APPROVED",
+      "scenario": "K2 operational script; deterministic, Linux host",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "ActionApproved",
+        "signature": "ActionApproved(bytes32,uint256,uint256,uint64)",
+        "topic0": "0xde46f81a4e31d7a9957706e7494f62247337082c4cf1446a8603ff83df033ab5",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 267,
+        "fields": {
+          "digest": "0xa7ff5e70a06dd4e7e26a37ca0b4dfca8a0129bd1dac1445ff9b4c7d220c59d45",
+          "policyEpoch": "3",
+          "expectedNonce": "0",
+          "validUntil": "1792404876"
+        }
+      }
+    },
+    {
+      "id": "E10",
+      "txHash": "0x35ff759c17bc48442a1d25b02a75fb66aac2307502cd0402e36b40916d65d726",
+      "block": 48317876,
+      "blockHash": "0xffbc2be89fba4f6e78c9ce976fbc0eb6449ab16e7c770408ac895c8bd2fb7478",
+      "kind": "DEPOSIT",
+      "scenario": "K2 operational script; deterministic, Linux host",
+      "status": 1,
+      "decisionHash": "0x5eb5af80144b77c4d87b045e35ffbf982c9ea56c5d5418062eeccdeb9b684ed6",
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+      "selector": "0x4cc7ca06",
+      "expectedEvent": {
+        "name": "ActionExecuted",
+        "signature": "ActionExecuted(bytes32,uint256,bytes32,uint8,uint256,uint256,uint256,uint256,uint256,uint256,bytes32)",
+        "topic0": "0xec3c5fb2a9f98228404a340d65a7da26d4bb846738b0d1f39b0de18f0a0154e8",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 262,
+        "fields": {
+          "actionDigest": "0xa7ff5e70a06dd4e7e26a37ca0b4dfca8a0129bd1dac1445ff9b4c7d220c59d45",
+          "nonce": "0",
+          "decisionHash": "0x5eb5af80144b77c4d87b045e35ffbf982c9ea56c5d5418062eeccdeb9b684ed6",
+          "kind": "0",
+          "assets": "1850000000",
+          "sharesBurned": "0",
+          "sharesMinted": "1486199996",
+          "cashAfter": "8150000000",
+          "reservedAfter": "583000000",
+          "policyEpoch": "3",
+          "sessionId": "0x1d1e90f4772b1bf1c4203d45a06cdd15a14c53ffbb7249cf34cfe2ad81216798"
+        }
+      },
+      "actionDigest": "0xa7ff5e70a06dd4e7e26a37ca0b4dfca8a0129bd1dac1445ff9b4c7d220c59d45",
+      "passport": "evidence/passports/84532-5eb5af80144b77c4d87b045e35ffbf982c9ea56c5d5418062eeccdeb9b684ed6.json"
+    },
+    {
+      "id": "E16",
+      "txHash": "0x8f9dde942e571fad7b19c7e1f7a75564a80d18a893731539438a817100d30a70",
+      "block": 48317882,
+      "blockHash": "0xd35cca18754c4b83035ec7d53d903c474c2ce66b40d22cad89bd960cc0a4f784",
+      "kind": "INTENTIONAL_REVERT",
+      "scenario": "Cooling payee rejected",
+      "status": 0,
+      "decisionHash": "0x400877f55be37835a93cb9821cac973cc6bb5660b4d91c3c8625867ff6726907",
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+      "selector": "0x4cc7ca06",
+      "expectedEvent": null,
+      "passport": "evidence/passports/84532-400877f55be37835a93cb9821cac973cc6bb5660b4d91c3c8625867ff6726907.json",
+      "expectedRevertSelector": "0x7e667784",
+      "actionDigest": "0xeb5242f4e3039e263849897d02151f892c93081650ee3a8a0df1b77e3eafa747"
+    },
+    {
+      "id": "E16",
+      "txHash": "0xe1d5dba152fb9a183192794e37bd17c98fe5530e1fcb937970ef2739904baa17",
+      "block": 48317887,
+      "blockHash": "0x90bcaaa6e1cb57a3b8ee357518013b67f74b93ff2d944248c751d06edd60fa01",
+      "kind": "INTENTIONAL_REVERT",
+      "scenario": "Delayed action cannot bypass queue",
+      "status": 0,
+      "decisionHash": "0xb80fcb673184402b6f106f1fc5fc0e5a716a8dcfea4589f31da006e3926d093b",
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+      "selector": "0x4cc7ca06",
+      "expectedEvent": null,
+      "passport": "evidence/passports/84532-b80fcb673184402b6f106f1fc5fc0e5a716a8dcfea4589f31da006e3926d093b.json",
+      "expectedRevertSelector": "0x5f39c024",
+      "actionDigest": "0x1735ffa70c138fb2bcba56851f2aacf1483294f07ce382031d218bbe9b164353"
+    },
+    {
+      "id": "FUNDING",
+      "txHash": "0xfd7cd40d688fddbaa2dbf68d9dabbbfd65c163934d23ac2a88cbcdf6d293dbba",
+      "block": 48318006,
+      "blockHash": "0x7cd70e99a5193d0617f0d924f199391f016ed48faee53088f9fec51b38ea431c",
+      "kind": "OWNER_ALLOCATION",
+      "scenario": "Explicit threshold-two owner allocation; not agent execution",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "Deposit",
+        "signature": "Deposit(address,address,uint256,uint256)",
+        "topic0": "0xdcbc1c05240f31ff3ad067ef1ee35ce4997762752e3a095284754544f4c709d7",
+        "address": "0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a",
+        "logIndex": 142,
+        "fields": {
+          "sender": "0x029869910714d9e09b854a2688311afd42fbb44e",
+          "owner": "0x029869910714d9e09b854a2688311afd42fbb44e",
+          "assets": "3000000000",
+          "shares": "2410054006"
+        }
+      }
+    },
+    {
+      "id": "FUNDING",
+      "txHash": "0xfd7cd40d688fddbaa2dbf68d9dabbbfd65c163934d23ac2a88cbcdf6d293dbba",
+      "block": 48318006,
+      "blockHash": "0x7cd70e99a5193d0617f0d924f199391f016ed48faee53088f9fec51b38ea431c",
+      "kind": "OWNER_ALLOCATION",
+      "scenario": "Explicit threshold-two owner allocation; not agent execution",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "Deposit",
+        "signature": "Deposit(address,address,uint256,uint256)",
+        "topic0": "0xdcbc1c05240f31ff3ad067ef1ee35ce4997762752e3a095284754544f4c709d7",
+        "address": "0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D",
+        "logIndex": 148,
+        "fields": {
+          "sender": "0x029869910714d9e09b854a2688311afd42fbb44e",
+          "owner": "0x029869910714d9e09b854a2688311afd42fbb44e",
+          "assets": "4000000000",
+          "shares": "4000000000"
+        }
+      }
+    },
+    {
+      "id": "E16",
+      "txHash": "0x55d44a2b3f7dedab3d898528a14cdd66aefaa49cf1eaa658b84dd3b777505d27",
+      "block": 48318011,
+      "blockHash": "0x5c341d37ec1fde03599c79426b7b3b9725cf83b20e6e681ff4eafb3793687e01",
+      "kind": "INTENTIONAL_REVERT",
+      "scenario": "Reserve raid rejected before queue creation",
+      "status": 0,
+      "decisionHash": "0x3ab47bb5f7d432195863257fd43361c02c268e2bdb13bbfdb8249aa0eaccbfbd",
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+      "selector": "0xf63baabc",
+      "expectedEvent": null,
+      "passport": "evidence/passports/84532-3ab47bb5f7d432195863257fd43361c02c268e2bdb13bbfdb8249aa0eaccbfbd.json",
+      "expectedRevertSelector": "0xae94ee9f",
+      "actionDigest": "0x9eb64841be9f925b17e048a4e17f3b7487448143326cada944c12cc62c1e474b",
+      "preconfirmationBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "inclusionNote": "RPC preconfirmation blockHash=0 replaced with the canonical included receipt block hash."
     }
   ]
 }

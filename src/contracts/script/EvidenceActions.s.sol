@@ -3,6 +3,8 @@ pragma solidity 0.8.24;
 
 import {SafeScript} from "./SafeScript.sol";
 import {IKavachiModule as I} from "../src/IKavachiModule.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
 
 /// @notice K2 operational evidence only. Golden*.s.sol remains owned by K9.
 contract EvidenceActions is SafeScript {
@@ -57,6 +59,34 @@ contract EvidenceActions is SafeScript {
                 ),
                 0
             );
+        } else if (operation == keccak256("seedVaults")) {
+            uint256 scale = vm.envOr("AMOUNT_DIVISOR", uint256(1));
+            address asset = vm.envAddress("TREASURY_ASSET");
+            address a = vm.envAddress("VAULT_A");
+            address b = vm.envAddress("VAULT_B");
+            I.Policy memory policy = module.getPolicy();
+            require(
+                IERC20(asset).balanceOf(safe)
+                    >= 7000e6 / scale + module.getState().reservedRaw + policy.operatingBufferRaw,
+                "owner allocation must preserve reserve and buffer"
+            );
+            require(
+                IERC4626(a).convertToAssets(IERC20(a).balanceOf(safe)) + 3000e6 / scale <= 6000e6 / scale,
+                "vault A exposure cap"
+            );
+            require(
+                IERC4626(b).convertToAssets(IERC20(b).balanceOf(safe)) + 4000e6 / scale <= 6000e6 / scale,
+                "vault B exposure cap"
+            );
+            bytes memory batch = bytes.concat(
+                _entry(asset, abi.encodeCall(IERC20.approve, (a, 3000e6 / scale))),
+                _entry(a, abi.encodeCall(IERC4626.deposit, (3000e6 / scale, safe))),
+                _entry(asset, abi.encodeCall(IERC20.approve, (a, 0))),
+                _entry(asset, abi.encodeCall(IERC20.approve, (b, 4000e6 / scale))),
+                _entry(b, abi.encodeCall(IERC4626.deposit, (4000e6 / scale, safe))),
+                _entry(asset, abi.encodeCall(IERC20.approve, (b, 0)))
+            );
+            _safeTx(safe, vm.envAddress("SAFE_MULTISEND"), abi.encodeWithSignature("multiSend(bytes)", batch), 1);
         } else {
             revert("unknown evidence operation");
         }

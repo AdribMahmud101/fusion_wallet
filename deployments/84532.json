@@ -52,6 +52,13 @@
           "chainId": "84532",
           "address": "0x029869910714D9e09b854a2688311AFd42fBb44E"
         }
+      },
+      "compiler": {
+        "version": "0.7.6+commit.7338295f",
+        "evmVersion": "istanbul",
+        "viaIR": false,
+        "optimizer": false,
+        "optimizerRuns": 200
       }
     },
     "asset": {
@@ -79,7 +86,8 @@
         "status": "EXTERNAL",
         "url": "https://sepolia.basescan.org/address/0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a#code",
         "note": "Canonical external contract; runtime and implementation pins verified independently"
-      }
+      },
+      "implementationCodeHash": "0xfe5266bf44bbdbb9c36ff6685553f1f8836cdcaa34ceec6166590782c7ae6fc1"
     },
     "vaultB": {
       "address": "0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D",
@@ -104,6 +112,13 @@
           "chainId": "84532",
           "address": "0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D"
         }
+      },
+      "compiler": {
+        "version": "0.8.24+commit.e11b9ed9",
+        "evmVersion": "cancun",
+        "viaIR": true,
+        "optimizer": true,
+        "optimizerRuns": 200
       }
     },
     "sanctionsList": {
@@ -129,6 +144,13 @@
           "chainId": "84532",
           "address": "0xd2716e08BCe6eb5B1f01329FF5E1a2dd0468B678"
         }
+      },
+      "compiler": {
+        "version": "0.8.24+commit.e11b9ed9",
+        "evmVersion": "cancun",
+        "viaIR": true,
+        "optimizer": true,
+        "optimizerRuns": 200
       }
     },
     "module": {
@@ -155,6 +177,16 @@
           "chainId": "84532",
           "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f"
         }
+      },
+      "compiler": {
+        "version": "0.8.24+commit.e11b9ed9",
+        "evmVersion": "cancun",
+        "viaIR": true,
+        "optimizer": true,
+        "optimizerRuns": 200
+      },
+      "linkedLibraries": {
+        "src/KavachiPolicyLib.sol:KavachiPolicyLib": "0x7ee721922dffe2bee9ec8e4ef51646110e6cbc1f"
       }
     },
     "safeSingleton": {
@@ -232,6 +264,13 @@
           "chainId": "84532",
           "address": "0x7ee721922DFFe2beE9Ec8E4eF51646110E6CBC1f"
         }
+      },
+      "compiler": {
+        "version": "0.8.24+commit.e11b9ed9",
+        "evmVersion": "cancun",
+        "viaIR": true,
+        "optimizer": true,
+        "optimizerRuns": 200
       }
     },
     "payeeRegistry": {
@@ -257,6 +296,13 @@
           "chainId": "84532",
           "address": "0xD798F4DF0dEf13971870AEfEE7fce4691F739B5b"
         }
+      },
+      "compiler": {
+        "version": "0.8.24+commit.e11b9ed9",
+        "evmVersion": "cancun",
+        "viaIR": true,
+        "optimizer": true,
+        "optimizerRuns": 200
       }
     }
   },
@@ -321,5 +367,11 @@
     "0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa",
     "0x8c2a208fed80010e4dfdeaf227f344d80d4411ee1669389abfaabd9d1a4e6ad0",
     "0xabb5bd793393a221a72d773a8b65708d65ae7cc0be1a3064fe98ed088adf4f94"
-  ]
+  ],
+  "ownerSeedAllocation": {
+    "txHash": "0xfd7cd40d688fddbaa2dbf68d9dabbbfd65c163934d23ac2a88cbcdf6d293dbba",
+    "vaultAAssetsRaw": "3000000000",
+    "vaultBAssetsRaw": "4000000000",
+    "purpose": "Reference working-cash state for reserve-raid proof; explicit threshold-two owner allocation, not agent execution"
+  }
 }

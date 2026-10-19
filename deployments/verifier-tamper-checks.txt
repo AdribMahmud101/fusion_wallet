@@ -1,0 +1,7 @@
+PASS reject changed decision hash: passport bytes hash mismatch
+PASS reject wrong event emitter: expected event missing or ambiguous
+PASS reject wrong transaction selector: transaction selector mismatch
+PASS reject changed action digest: event actionDigest mismatch
+PASS reject wrong block: block mismatch
+PASS reject wrong receipt status: receipt status mismatch
+PASS reject wrong revert selector: trace custom error mismatch

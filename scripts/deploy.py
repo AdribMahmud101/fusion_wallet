@@ -74,7 +74,9 @@ def metadata(rpc, name, addr, receipt=None, source=None):
     if receipt:
         item.update(deploymentTxHash=receipt['transactionHash'],deploymentBlock=int(receipt['blockNumber'],16))
     slot = rpc.call('eth_getStorageAt', [addr,IMPLEMENTATION_SLOT,'latest'])
-    if int(slot,16): item['implementation'] = '0x'+slot[-40:]
+    if int(slot,16):
+        item['implementation'] = '0x'+slot[-40:]
+        item['implementationCodeHash']=keccak(rpc.call('eth_getCode',[item['implementation'],'latest']))
     if int(rpc.call('eth_chainId',[]),16) == 84532:
         item['explorer'] = 'https://sepolia.basescan.org/address/'+addr
         item['verification'] = {'status':'PENDING','url':item['explorer']+'#code'}
@@ -131,7 +133,7 @@ def deploy(chain, rpc, profile):
         source = SOURCES[name][0]
         if chain==84532 and name=='asset': source='Aave test USDC (external)' if profile=='FULL' else 'Circle test USDC (external)'
         if chain==84532 and name=='vaultA' and profile=='FULL': source='Aave waUSDC (external ERC-4626)'
-        if chain==84532 and name=='safeSingleton': source='Safe v1.4.1 SafeL2 (canonical external deployment)'
+        if chain==84532 and name=='safeSingleton' and receipt is None: source='Safe v1.4.1 SafeL2 (canonical external deployment)'
         manifest['contracts'][name]=metadata(rpc,name,addr,receipt,source)
     # §10.3 stable application fields, alongside the detailed auditable contract records.
     for name in ['safe','module','asset','vaultA','vaultB','sanctionsList']:

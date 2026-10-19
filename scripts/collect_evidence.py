@@ -47,8 +47,9 @@ def collect(path, rpc, *, tx, evidence_id, kind, scenario, event=None, emitter=N
     if revert_selector: row['expectedRevertSelector'] = revert_selector
     if status == 0 and not revert_selector: raise ValueError('Revert row needs an expected custom error selector')
     if row['decisionHash'] and not passport: raise ValueError('Agent decision needs a published passport')
-    identity = (row['id'], row['txHash'], row['kind'])
-    if any((r['id'], r['txHash'], r['kind']) == identity for r in doc['rows']): return row
+    def identity(r):
+        return (r['id'],r['txHash'],r['kind'],(r.get('expectedEvent') or {}).get('logIndex'))
+    if any(identity(r) == identity(row) for r in doc['rows']): return row
     doc['rows'].append(row)
     write_json(path, doc)
     return row

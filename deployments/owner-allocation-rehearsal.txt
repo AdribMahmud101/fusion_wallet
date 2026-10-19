@@ -1,0 +1,7 @@
+PASS: owner seed allocation rehearsed on a Base Sepolia fork, chain 31337.
+Anvil block before allocation: 0x2e145ed
+Fork-only transaction (NOT Base Sepolia): 0xb44926b876fa313b6a15e2071ba7c445505e6d6b6ccde2bd6bafa2b3b0f36b5d
+PASS: exactly one threshold-two Safe batch; nonce increments once.
+PASS: cash debit exactly 7,000 USDC; both vault share balances increase.
+PASS: Aave Deposit 3,000 USDC and demo-vault Deposit 4,000 USDC, owner=Safe.
+PASS: both token allowances return to zero.

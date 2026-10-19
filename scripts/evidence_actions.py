@@ -177,7 +177,7 @@ def before_cooling(e):
     if not e.has(scenario='Delayed action cannot bypass queue'):
         a,p,path=e.action(0,50*10**6//scale)
         e.revert(a,p,path,'QueueRequired','Delayed action cannot bypass queue')
-    if e.chain==31337 and not e.has(scenario='Reserve raid rejected before queue creation'):
+    if (e.chain==31337 or e.has(kind='OWNER_ALLOCATION')) and not e.has(scenario='Reserve raid rejected before queue creation'):
         a,p,path=e.action(0,100*10**6//scale,delayed=True)
         e.revert(a,p,path,'ReserveViolation','Reserve raid rejected before queue creation','queueAction')
 
@@ -221,13 +221,21 @@ def rehearse(manifest,rpc):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('stage',choices=['before-cooling','after-cooling','finish-queue','rehearse'])
+    p.add_argument('stage',choices=['before-cooling','after-cooling','finish-queue','rehearse','owner-allocation'])
     p.add_argument('--chain',type=int,choices=[31337,84532],default=84532);p.add_argument('--rpc-url')
     a=p.parse_args();manifest=read_manifest(a.chain);rpc=Rpc(a.rpc_url or manifest['rpcUrl'])
     if int(rpc.call('eth_chainId',[]),16)!=a.chain:raise ValueError('RPC chain mismatch')
     if a.stage=='rehearse':return rehearse(manifest,rpc)
     e=Evidence(manifest,rpc)
-    if a.stage=='before-cooling':before_cooling(e)
+    if a.stage=='owner-allocation':
+        if e.has(kind='OWNER_ALLOCATION'):raise ValueError('Owner allocation already recorded; refusing to repeat')
+        receipt=e.operation('seedVaults')
+        for name,amount in [('vaultA',3000),('vaultB',4000)]:
+            collect(e.file,rpc,tx=receipt['transactionHash'],evidence_id='FUNDING',kind='OWNER_ALLOCATION',
+                scenario='Explicit threshold-two owner allocation; not agent execution',event='Deposit',
+                emitter=manifest['contracts'][name]['address'],fields={'assets':str(amount*10**6//manifest['amountDivisor'])})
+        print('Owner seed positions confirmed:',receipt['transactionHash'])
+    elif a.stage=='before-cooling':before_cooling(e)
     elif a.stage=='after-cooling':after_cooling(e)
     else:
         pending=json.loads((ROOT/f'evidence/pending-queue-{a.chain}.json').read_text())

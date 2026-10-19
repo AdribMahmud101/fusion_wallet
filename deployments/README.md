@@ -34,6 +34,9 @@ python3 scripts/deploy.py deploy --chain 84532 --profile FULL
 python3 scripts/source_verify.py
 python3 scripts/deploy.py setup --chain 84532
 python3 scripts/evidence_actions.py before-cooling --chain 84532
+# K2's extra FULL-profile owner seed allocation (already executed in the committed deployment):
+# python3 scripts/evidence_actions.py owner-allocation --chain 84532
+# python3 scripts/evidence_actions.py before-cooling --chain 84532  # add reserve-raid rejection
 # Wait until deployments/84532.json payeesActiveAt (chain time).
 python3 scripts/evidence_actions.py after-cooling --chain 84532
 # Wait for the delayed PAY queue's readyAt; normally 181 seconds.
@@ -49,8 +52,13 @@ Foundry broadcast files before resuming; do not delete a Base Sepolia manifest t
 
 The FULL profile uses Aave's test USDC and waUSDC plus a KavachiDemoVault. Local rehearsal uses
 3,000 MockUSDC, matching §19.6 arithmetic. On Base Sepolia the faucet mints 10,000 Aave USDC
-directly to the Safe, as requested; it consequently has a larger operating cushion. The local
-reserve-raid rejection is not presented as Base Sepolia evidence. D2/SCALED uses Circle USDC
+directly to the Safe. To reproduce the runbook's working-cash reserve boundary on Base Sepolia,
+K2 allocates 3,000 to waUSDC and 4,000 to the demo vault in an explicit threshold-two owner batch.
+These owner allocations are separate from the agent's 1,850-USDC Aave deposit, preserve the
+reserve/buffer and exposure caps, and leave 1,150 USDC cash. They are labelled `OWNER_ALLOCATION`
+and have no agent decision passport. The owner batch was first rehearsed on an Anvil fork;
+see `owner-allocation-rehearsal.txt` and `scripts/rehearse_owner_allocation.py`.
+D2/SCALED uses Circle USDC
 and two demo vaults; obtain at least 30 Circle USDC for the Safe before setup.
 
 All operational action rows are explicitly `SCRIPT`, `deterministic`, `linux-host`.
