@@ -1,0 +1,52 @@
+{
+  "attack": {
+    "txHash": "0xf210438b948c1d9aa8c386731f096a20e64de036c5e243887401243cd435f00b",
+    "status": 0,
+    "blockNumber": 20,
+    "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+    "returnValue": "0x5f39c024",
+    "gasUsed": 97348
+  },
+  "extra": [],
+  "stopped": true,
+  "revert_selector": "0x5f39c024",
+  "naive": {
+    "receipt": {
+      "txHash": "0xc1c11a3e0f3aab78c580a6953deec8d9e33f4686b98dfe0e9ac50b9d656de313",
+      "status": 1,
+      "blockNumber": 22,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000a7d8c0",
+      "gasUsed": 109574
+    },
+    "outcome": "Agent deposited without the attacked policy/risk check (exposure, not realized loss)",
+    "treasury_outflow_raw": 11000000,
+    "realized_attacker_receipt_raw": 0
+  },
+  "transactions": [
+    {
+      "txHash": "0xf210438b948c1d9aa8c386731f096a20e64de036c5e243887401243cd435f00b",
+      "status": 0,
+      "blockNumber": 20,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x5f39c024",
+      "gasUsed": 97348
+    },
+    {
+      "txHash": "0xf81e61d09636b3e1ddd4c74c7955ddf76bc65e2a7eaf3022a8b785e40fa39f50",
+      "status": 1,
+      "blockNumber": 21,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001",
+      "gasUsed": 50228
+    },
+    {
+      "txHash": "0xc1c11a3e0f3aab78c580a6953deec8d9e33f4686b98dfe0e9ac50b9d656de313",
+      "status": 1,
+      "blockNumber": 22,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000a7d8c0",
+      "gasUsed": 109574
+    }
+  ]
+}

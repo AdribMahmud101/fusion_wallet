@@ -1,0 +1,61 @@
+{
+  "attack": {
+    "txHash": "0x36fd197372abfdb8c1619fdf91fa8bda5b450c7d3635954b108b1e9b503b6cff",
+    "status": 0,
+    "blockNumber": 20,
+    "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+    "returnValue": "0x82b42900",
+    "gasUsed": 29740
+  },
+  "extra": [
+    {
+      "txHash": "0x300537300d56a5f1205954a3755ebe7571929c87996c02a0a2d6a6538e8859a6",
+      "status": 0,
+      "blockNumber": 21,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x82b42900",
+      "gasUsed": 21557
+    }
+  ],
+  "stopped": true,
+  "revert_selector": "0x82b42900",
+  "naive": {
+    "receipt": {
+      "txHash": "0x804eb9adb51c5f244444e5ae7574804f5089cdc6544e362a2e42977624772ef6",
+      "status": 1,
+      "blockNumber": 22,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001",
+      "gasUsed": 50576
+    },
+    "treasury_outflow_raw": 0,
+    "outcome": "Unlimited token allowance granted by agent; semantic authority comparator",
+    "allowance_raw": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+  },
+  "transactions": [
+    {
+      "txHash": "0x36fd197372abfdb8c1619fdf91fa8bda5b450c7d3635954b108b1e9b503b6cff",
+      "status": 0,
+      "blockNumber": 20,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x82b42900",
+      "gasUsed": 29740
+    },
+    {
+      "txHash": "0x300537300d56a5f1205954a3755ebe7571929c87996c02a0a2d6a6538e8859a6",
+      "status": 0,
+      "blockNumber": 21,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x82b42900",
+      "gasUsed": 21557
+    },
+    {
+      "txHash": "0x804eb9adb51c5f244444e5ae7574804f5089cdc6544e362a2e42977624772ef6",
+      "status": 1,
+      "blockNumber": 22,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001",
+      "gasUsed": 50576
+    }
+  ]
+}

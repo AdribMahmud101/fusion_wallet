@@ -1,0 +1,69 @@
+{
+  "attack": {
+    "txHash": "0x3d98848d21482b42545ea88db55b5a02a4e9166cd7ffe0478e887340e680d3a7",
+    "status": 0,
+    "blockNumber": 22,
+    "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+    "returnValue": "0x4bd574ec",
+    "gasUsed": 79138
+  },
+  "extra": [
+    {
+      "txHash": "0x9312ec614bf9f3b3eca71d28a5cb415337e1792efe645c75526acca73ac70ec8",
+      "status": 1,
+      "blockNumber": 20,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x0bb7fd33a6607b36650757e1cadb3232c1be2fd1b1507e4a7aaf1849beb83abb",
+      "gasUsed": 267697
+    }
+  ],
+  "stopped": true,
+  "revert_selector": "0x4bd574ec",
+  "naive": {
+    "receipt": {
+      "txHash": "0x3d5c142ecbd48497aaa7538da767a9118f1eef93d22098b574f76b7dc9d3f689",
+      "status": 1,
+      "blockNumber": 23,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001",
+      "gasUsed": 38529
+    },
+    "outcome": "Agent transferred the attacked payment without policy checks",
+    "treasury_outflow_raw": 10000000,
+    "realized_attacker_receipt_raw": 0
+  },
+  "transactions": [
+    {
+      "txHash": "0x9312ec614bf9f3b3eca71d28a5cb415337e1792efe645c75526acca73ac70ec8",
+      "status": 1,
+      "blockNumber": 20,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x0bb7fd33a6607b36650757e1cadb3232c1be2fd1b1507e4a7aaf1849beb83abb",
+      "gasUsed": 267697
+    },
+    {
+      "txHash": "0x6e9f740f0c46216da2b61778f9fc291a80164df74b1b56fb1c9af7b7ebd503cf",
+      "status": 1,
+      "blockNumber": 21,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001",
+      "gasUsed": 38529
+    },
+    {
+      "txHash": "0x3d98848d21482b42545ea88db55b5a02a4e9166cd7ffe0478e887340e680d3a7",
+      "status": 0,
+      "blockNumber": 22,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x4bd574ec",
+      "gasUsed": 79138
+    },
+    {
+      "txHash": "0x3d5c142ecbd48497aaa7538da767a9118f1eef93d22098b574f76b7dc9d3f689",
+      "status": 1,
+      "blockNumber": 23,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001",
+      "gasUsed": 38529
+    }
+  ]
+}

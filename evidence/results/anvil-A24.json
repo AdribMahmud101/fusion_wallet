@@ -1,0 +1,69 @@
+{
+  "attack": {
+    "txHash": "0xcc08cfd5b5ef9056525d17cd039d84deb1d23bef3227c69ba5aed211563b54d3",
+    "status": 0,
+    "blockNumber": 21,
+    "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+    "returnValue": "0x6f288d36",
+    "gasUsed": 103467
+  },
+  "extra": [
+    {
+      "txHash": "0xb912c41519a4fbade2d23b768ff51cdf5fec9b8306c6fade4de307507ff2f2da",
+      "status": 1,
+      "blockNumber": 20,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0xe70f9804f80362ebd1f9061e821ebefda1ca0042c527c9949519c600818e9c2f",
+      "gasUsed": 357282
+    }
+  ],
+  "stopped": true,
+  "revert_selector": "0x6f288d36",
+  "naive": {
+    "receipt": {
+      "txHash": "0x3159b0df6cbc035b694d97e311bb83638cb0c349a42dbce59d61218a287b28b7",
+      "status": 1,
+      "blockNumber": 23,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000a7d8c0",
+      "gasUsed": 109574
+    },
+    "outcome": "Agent deposited without the attacked policy/risk check (exposure, not realized loss)",
+    "treasury_outflow_raw": 11000000,
+    "realized_attacker_receipt_raw": 0
+  },
+  "transactions": [
+    {
+      "txHash": "0xb912c41519a4fbade2d23b768ff51cdf5fec9b8306c6fade4de307507ff2f2da",
+      "status": 1,
+      "blockNumber": 20,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0xe70f9804f80362ebd1f9061e821ebefda1ca0042c527c9949519c600818e9c2f",
+      "gasUsed": 357282
+    },
+    {
+      "txHash": "0xcc08cfd5b5ef9056525d17cd039d84deb1d23bef3227c69ba5aed211563b54d3",
+      "status": 0,
+      "blockNumber": 21,
+      "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      "returnValue": "0x6f288d36",
+      "gasUsed": 103467
+    },
+    {
+      "txHash": "0x68944d02043a28d4e690416f5e2128bfc622ec4d27592312de94a419ea36deee",
+      "status": 1,
+      "blockNumber": 22,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001",
+      "gasUsed": 50228
+    },
+    {
+      "txHash": "0x3159b0df6cbc035b694d97e311bb83638cb0c349a42dbce59d61218a287b28b7",
+      "status": 1,
+      "blockNumber": 23,
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "returnValue": "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000a7d8c0",
+      "gasUsed": 109574
+    }
+  ]
+}
