@@ -133,6 +133,12 @@ def deploy(chain, rpc, profile):
         if chain==84532 and name=='vaultA' and profile=='FULL': source='Aave waUSDC (external ERC-4626)'
         if chain==84532 and name=='safeSingleton': source='Safe v1.4.1 SafeL2 (canonical external deployment)'
         manifest['contracts'][name]=metadata(rpc,name,addr,receipt,source)
+    # §10.3 stable application fields, alongside the detailed auditable contract records.
+    for name in ['safe','module','asset','vaultA','vaultB','sanctionsList']:
+        manifest[name]=addresses[name]
+    manifest['codeHashes']={name:item['runtimeCodeHash'] for name,item in manifest['contracts'].items()}
+    manifest['deploymentBlock']=min(int(r['blockNumber'],16) for r in [library_receipt]+receipts)
+    manifest['explorerBaseUrl']='https://sepolia.basescan.org' if chain==84532 else None
     write_json(target,manifest)
     evidence = ROOT / ('evidence/anvil.json' if chain==31337 else 'evidence/base-sepolia.json')
     safe_receipt = next(r for r in receipts if any(l['address'].lower()==addresses['safe'].lower() for l in r['logs']))

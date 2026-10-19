@@ -1,0 +1,37 @@
+{
+  "chainId": 84532,
+  "rows": [
+    {
+      "id": "E1",
+      "txHash": "0x957ef32ef5e4244b6c76ec20c6aa857b2ca57d2402ed1176eecf4bafcccb9e7b",
+      "block": 48317703,
+      "blockHash": "0xe5c2e683e9160d648177b8fd15d82442da105010c61a7ae305b3736d9d2c19d3",
+      "kind": "SAFE_CREATION",
+      "scenario": "Official Safe v1.4.1, two owners, threshold 2",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec67",
+      "selector": "0x1688f0b9",
+      "expectedEvent": {
+        "name": "SafeSetup",
+        "signature": "SafeSetup(address,address[],uint256,address,address)",
+        "topic0": "0x141df868a6331af528e38c83b7aa03edc19be66e37ae67f9285bf4f8e3c6a1a8",
+        "address": "0x029869910714D9e09b854a2688311AFd42fBb44E",
+        "logIndex": 58,
+        "fields": {
+          "initiator": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec67",
+          "owners": [
+            "0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79",
+            "0x208bfee9f222d611b4db71d5ee53b3dab1a2188a"
+          ],
+          "threshold": "2",
+          "initializer": "0x0000000000000000000000000000000000000000",
+          "fallbackHandler": "0xfd0732dc9e303f09fcef3a7388ad10a83459ec99"
+        }
+      }
+    }
+  ]
+}

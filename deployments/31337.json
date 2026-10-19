@@ -177,5 +177,27 @@
     "0x48328583e7fb2f1c9d19f7802bae464a96e1eba1a8d19902cad2bd2a928d7f24",
     "0x372b02119625dd0ac55ab6fb2218516e8fb2e79cc4ecaa718b6abfb8a1a40f75",
     "0x452fb6ba368293188dbb101ce7f8e877f17048ceeed6cf8b4194d2935d4569d0"
-  ]
+  ],
+  "safe": "0xB51348c1651F9C36dEE22034C60514a66F8CF4Ca",
+  "module": "0xc2F72F63b134EAF479E9fa4fDc47d6e8C6F966B6",
+  "asset": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+  "vaultA": "0xed2f5c653fa68EE120F00a07665273a6C8a66fDc",
+  "vaultB": "0x4beEd29cF74Ca447B1BeF851C82E512D87AaDEc9",
+  "sanctionsList": "0x3E7d0cA147ddD8075575509F7D529FcCe68204Aa",
+  "codeHashes": {
+    "safe": "0x4833fa308fed03b2c415aa7fd73a4bd1741b460e27720aaac65b2de9d604cf22",
+    "asset": "0x0bb08bad43c1c8e81e9bb46742cf3774387587f54b63804d973e87ec7f5a36c0",
+    "vaultA": "0x783c86f2d664cbb24717daaa8d7e870d48f92d8c6f7264fba67cb624a0ddbf14",
+    "vaultB": "0x783c86f2d664cbb24717daaa8d7e870d48f92d8c6f7264fba67cb624a0ddbf14",
+    "sanctionsList": "0xdf12e63d3de14c6eb04901e8522690508a833409719ef2ced37ce7407b022856",
+    "module": "0xc7c6fe5ee4f1386292716a98e803177ac9f18a59d9e9fe61c7ccc379489b2758",
+    "safeSingleton": "0xaf7f9c0d19e65cc3af8519244192e5099a64d445926491dae647d4cdd7a7f4a9",
+    "safeProxyFactory": "0x366ea5225869e87b16d2f5d1861f3f39ceb21b38da5ebc22311098ee4e1db9d3",
+    "safeFallbackHandler": "0x0d61c1ac4de3ff623f071b6011b32ac3fdd8dc95a16a1a1c35c92648b5a21e2c",
+    "multiSendCallOnly": "0x7e97f8b5dea9e0eb021a9fd1a276e141fdfefb0c54253e2f701ff37a340df9dd",
+    "policyLibrary": "0x0c0079f55ee516a788ef6fe46b59d00a88f0ea29189618157ab65a5bac28ef02",
+    "payeeRegistry": "0x73e5191af8c24f297d880088c9a3c8e146df35b38348358b6297e030ebfda9c9"
+  },
+  "deploymentBlock": 1,
+  "explorerBaseUrl": null
 }
