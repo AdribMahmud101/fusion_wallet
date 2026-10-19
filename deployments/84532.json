@@ -448,5 +448,51 @@
     "vaultAAssetsRaw": "3000000000",
     "vaultBAssetsRaw": "4000000000",
     "purpose": "Reference working-cash state for reserve-raid proof; explicit threshold-two owner allocation, not agent execution"
-  }
+  },
+  "handoffSnapshot": {
+    "block": 48319954,
+    "blockHash": "0xcf5101d8926d7b0198606640ff75dab905f43db5f2351111ad949b3d90bc8a70",
+    "timestamp": 1792408196,
+    "moduleState": {
+      "configured": true,
+      "paused": true,
+      "policyEpoch": "6",
+      "policyHash": "0xd23e010f3c36f64c006aaa5ac48cdb1932749b94473578ae4ccc4ee85024e1f3",
+      "mandateHash": "0xa243986168698a82690f99b2140b37da0836e86945650adc86499a8228403240",
+      "obligationsRoot": "0x29e3f1325c87d0d9fb36ddca27bca79b5847e2781cd97654c4fa8d8b02c02165",
+      "reservedRaw": "50000000",
+      "obligationCount": "5",
+      "actionNonce": "6",
+      "dailyDayIndex": "20745",
+      "dailyUsedRaw": "2093000000",
+      "sessionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "sessionStartEpoch": "0",
+      "sessionKey": "0x0000000000000000000000000000000000000000",
+      "sessionExpiresAt": "0",
+      "sessionLimitRaw": "0",
+      "sessionUsedRaw": "0"
+    },
+    "cashRaw": "9467001235",
+    "vaultSharesRaw": {
+      "vaultA": "0",
+      "vaultB": "0"
+    },
+    "allowancesRaw": {
+      "vaultA": "0",
+      "vaultB": "0"
+    },
+    "paidMarkers": [
+      true,
+      true,
+      true,
+      true,
+      false
+    ],
+    "dailyLimitRaw": "4000000000",
+    "dailyRemainingRaw": "1907000000",
+    "evidenceRows": 30,
+    "uniqueEvidenceTransactions": 26,
+    "source": "SCRIPT"
+  },
+  "evidenceComplete": true
 }
