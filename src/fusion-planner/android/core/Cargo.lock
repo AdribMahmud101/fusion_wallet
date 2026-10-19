@@ -1998,8 +1998,10 @@ version = "1.0.0"
 dependencies = [
  "alloy",
  "fusion-core",
+ "serde",
  "serde_json",
  "uniffi",
+ "zeroize",
 ]
 
 [[package]]

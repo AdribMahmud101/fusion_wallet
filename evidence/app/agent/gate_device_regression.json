@@ -1,0 +1,769 @@
+{
+  "pass": true,
+  "device": "OnePlus CPH2447",
+  "android": "16",
+  "runs": [
+    {
+      "request": {
+        "prompt": "A) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "A",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-0",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-0",
+        "label": "A",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"A\"}",
+        "rawAttempts": [
+          "{\"choice\":\"A\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 621.059479,
+          "ttftMs": 562.119948
+        },
+        "load": {
+          "coldLoadMs": 945.869479,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "B) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "B",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-1",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-1",
+        "label": "B",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"B\"}",
+        "rawAttempts": [
+          "{\"choice\":\"B\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 428.719062,
+          "ttftMs": 397.407239
+        },
+        "load": {
+          "coldLoadMs": 746.3218740000001,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "G) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "G",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-2",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-2",
+        "label": "G",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"G\"}",
+        "rawAttempts": [
+          "{\"choice\":\"G\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 446.747552,
+          "ttftMs": 414.20151
+        },
+        "load": {
+          "coldLoadMs": 901.522656,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "H) Hold; no eligible action is available.",
+        "labels": [
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-3",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-3",
+        "label": "H",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"H\"}",
+        "rawAttempts": [
+          "{\"choice\":\"H\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 387.61578099999997,
+          "ttftMs": 357.39687399999997
+        },
+        "load": {
+          "coldLoadMs": 864.549219,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "B) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "B",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-4",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-4",
+        "label": "B",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"B\"}",
+        "rawAttempts": [
+          "{\"choice\":\"B\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 448.522448,
+          "ttftMs": 416.828125
+        },
+        "load": {
+          "coldLoadMs": 948.6255719999999,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "G) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "G",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-5",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-5",
+        "label": "G",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"G\"}",
+        "rawAttempts": [
+          "{\"choice\":\"G\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 458.51927,
+          "ttftMs": 424.272551
+        },
+        "load": {
+          "coldLoadMs": 940.7239059999999,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "A) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "A",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-6",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-6",
+        "label": "A",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"A\"}",
+        "rawAttempts": [
+          "{\"choice\":\"A\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 447.843646,
+          "ttftMs": 417.089948
+        },
+        "load": {
+          "coldLoadMs": 950.900364,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "H) Hold; no eligible action is available.",
+        "labels": [
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-7",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-7",
+        "label": "H",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"H\"}",
+        "rawAttempts": [
+          "{\"choice\":\"H\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 402.049896,
+          "ttftMs": 369.31776
+        },
+        "load": {
+          "coldLoadMs": 944.702812,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "G) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "G",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-8",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-8",
+        "label": "G",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"G\"}",
+        "rawAttempts": [
+          "{\"choice\":\"G\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 447.277292,
+          "ttftMs": 417.40015600000004
+        },
+        "load": {
+          "coldLoadMs": 955.198437,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    },
+    {
+      "request": {
+        "prompt": "A) Pay 8 USDC; bill due window ELIGIBLE; payee ACTIVE; cash FUNDED; route INSTANT\nH) Hold",
+        "labels": [
+          "A",
+          "H"
+        ],
+        "candidateSetDigest": "android-gate-9",
+        "mode": "ahem-g",
+        "budgetMs": 25000,
+        "banAll": false
+      },
+      "result": {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "android-gate-9",
+        "label": "A",
+        "modelCalls": 1,
+        "raw": "{\"choice\":\"A\"}",
+        "rawAttempts": [
+          "{\"choice\":\"A\"}"
+        ],
+        "rawValid": true,
+        "sampling": {
+          "type": "greedy"
+        },
+        "timings": {
+          "totalMs": 451.41583299999996,
+          "ttftMs": 420.059896
+        },
+        "load": {
+          "coldLoadMs": 940.4028119999999,
+          "hashes": {
+            "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+            "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+            "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+            "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+            "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+            "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+            "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+            "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+            "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+            "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+          },
+          "plannerKind": "mnn+ahem-g@android",
+          "sampling": {
+            "type": "greedy"
+          },
+          "state": "READY"
+        },
+        "process": "app.fusion.wallet:inference",
+        "pid": 24050,
+        "plannerKind": "mnn+ahem-g@android"
+      }
+    }
+  ],
+  "banAll": {
+    "ahem": {
+      "g": {
+        "aborted": true,
+        "forcedTokens": 3,
+        "mode": "ahem-g",
+        "retries": 8,
+        "vetoes": 9
+      },
+      "l": {
+        "mode": "off"
+      }
+    },
+    "attempts": 1,
+    "candidateSetDigest": "android-ban-all",
+    "label": "H",
+    "modelCalls": 1,
+    "raw": "",
+    "rawAttempts": [],
+    "rawValid": false,
+    "sampling": {
+      "type": "greedy"
+    },
+    "timings": {
+      "totalMs": 517.591197,
+      "ttftMs": 494.018385
+    },
+    "load": {
+      "coldLoadMs": 960.471614,
+      "hashes": {
+        "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+        "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+        "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+        "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+        "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+        "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+        "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+        "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+        "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+        "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+      },
+      "plannerKind": "mnn+ahem-g@android",
+      "sampling": {
+        "type": "greedy"
+      },
+      "state": "READY"
+    },
+    "process": "app.fusion.wallet:inference",
+    "pid": 24050,
+    "plannerKind": "mnn+ahem-g@android"
+  },
+  "afterAbort": {
+    "ahem": {
+      "g": {
+        "aborted": false,
+        "forcedTokens": 5,
+        "mode": "ahem-g",
+        "retries": 0,
+        "vetoes": 0
+      },
+      "l": {
+        "mode": "off"
+      }
+    },
+    "attempts": 1,
+    "candidateSetDigest": "android-after-abort",
+    "label": "A",
+    "modelCalls": 1,
+    "raw": "{\"choice\":\"A\"}",
+    "rawAttempts": [
+      "{\"choice\":\"A\"}"
+    ],
+    "rawValid": true,
+    "sampling": {
+      "type": "greedy"
+    },
+    "timings": {
+      "totalMs": 451.81973899999997,
+      "ttftMs": 419.948229
+    },
+    "load": {
+      "coldLoadMs": 930.4121869999999,
+      "hashes": {
+        "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+        "libMNN.so": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+        "libMNN_CL.so": "00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1",
+        "libMNN_Express.so": "b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb",
+        "libMNN_Vulkan.so": "fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc",
+        "libllm.so": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+        "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+        "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+        "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+        "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+      },
+      "plannerKind": "mnn+ahem-g@android",
+      "sampling": {
+        "type": "greedy"
+      },
+      "state": "READY"
+    },
+    "process": "app.fusion.wallet:inference",
+    "pid": 24050,
+    "plannerKind": "mnn+ahem-g@android"
+  }
+}

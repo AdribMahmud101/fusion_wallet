@@ -19,3 +19,8 @@ cd "$ROOT/src/fusion-planner/android/core"
 
 mkdir -p "$APP/src/main/java/app/fusion/wallet/inference/core"
 cp "$CARGO_TARGET_DIR/generated-kotlin/app/fusion/wallet/inference/core/fusion_android_core.kt" "$APP/src/main/java/app/fusion/wallet/inference/core/"
+
+python3 - "$APP/src/main/java/app/fusion/wallet/inference/core/fusion_android_core.kt" <<'PYFMT'
+import pathlib,sys
+p=pathlib.Path(sys.argv[1]); p.write_text('\n'.join(line.rstrip() for line in p.read_text().splitlines())+'\n')
+PYFMT

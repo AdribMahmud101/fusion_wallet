@@ -1,0 +1,11 @@
+{
+  "blockNumber": 48331092,
+  "blockHash": "0x9c090c8d12390508819bed8d854f8f7181405bf053cc8612c1e718b5188ed04f",
+  "policyEpoch": "14",
+  "actionNonce": "10",
+  "reservedRaw": "0",
+  "obligationCount": "1",
+  "obligationsRoot": "0x482228389b916b93bbf879109698bf754b0914aa1f7b4781c57b06933e30c102",
+  "choice": "H",
+  "broadcast": false
+}
