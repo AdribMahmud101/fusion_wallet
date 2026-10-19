@@ -35,4 +35,37 @@ Per the Card K9 instructions ("Do not edit other `src/fusion-core/src/**` files;
 
 ### Test Case
 - Calling `queueAction` with `deadline = now + 120` reverts with `0x769d11e4` (`InvalidDeadline()`).
-- Calling `queueAction` with `deadline = now + delaySeconds + 300` succeeds and emits `ActionQueued`.
+- Calling `queueAction` with `deadline = now + delaySeconds + 600` succeeds and emits `ActionQueued`.
+
+## Blocker 2: ActionKind Enum Inversion in `src/fusion-core/src/snapshot.rs`
+
+### Severity
+Critical (blocks queued obligation execution if not worked around).
+
+### Details
+In `src/contracts/src/IKavachiModule.sol`, `enum ActionKind` is defined as:
+```solidity
+enum ActionKind {
+    DEPOSIT,        // 0
+    WITHDRAW,       // 1
+    REBALANCE,      // 2
+    PAY_OBLIGATION  // 3
+}
+```
+However, in `src/fusion-core/src/snapshot.rs` (lines 211–216), `convert_action` maps:
+```rust
+let kind = match a.kind {
+    0 => ActionKind::Deposit,
+    1 => ActionKind::Withdraw,
+    2 => ActionKind::PayObligation,
+    3 => ActionKind::Rebalance,
+    ...
+};
+```
+When `getQueue()` returns an active queued bill with Solidity enum value `3` (`PAY_OBLIGATION`), `snapshot.rs` erroneously parses it as `ActionKind::Rebalance`. As a result, calculating the action digest or attempting to execute the action results in `UnsupportedAction` or `BadDigest`.
+
+### Workaround in `src/fusion-core/src/bin/agent-runner.rs`
+When synchronizing `choice.action` from `snapshot.queue.action` during queue execution (`choice.route == Route::Queue && snapshot.queue.exists`):
+1. Check if `q_act.kind == ActionKind::Rebalance` and remap it to `ActionKind::PayObligation`.
+2. Recompute candidate ID and preserve the original locked `decisionHash` from the queued action.
+

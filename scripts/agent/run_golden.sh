@@ -45,8 +45,10 @@ fi
 
 mkdir -p "${PASSPORTS_DIR}" "${RUNS_DIR}" "${WORKTREE_DIR}/evidence/agent/dryrun"
 
-# Initialize golden.json
-echo "[]" > "${GOLDEN_JSON}"
+# Initialize golden.json if missing
+if [ ! -f "${GOLDEN_JSON}" ]; then
+    echo "[]" > "${GOLDEN_JSON}"
+fi
 
 TMP_LOG="/tmp/agent_runner_step.log"
 
@@ -56,103 +58,119 @@ extract_and_save_run_log() {
     tx_hash=$(grep -oE "Tx submitted: 0x[0-9a-fA-F]{64}" "${tmp_file}" | awk '{print $3}' | head -n 1 || true)
     if [ -n "${tx_hash}" ]; then
         echo "Saving full execution log for ${tx_hash}..."
-        cat "${tmp_file}" >> "${RUNS_DIR}/${tx_hash}.log"
-        cat "${tmp_file}" >> "${RUNS_DIR}/${tx_hash,,}.log"
+        cat "${tmp_file}" > "${RUNS_DIR}/${tx_hash}.log"
+        cat "${tmp_file}" > "${RUNS_DIR}/${tx_hash,,}.log"
     fi
 }
 
 # -----------------------------------------------------------------------------
 # Tx 1: Instant PAY (Bill 0: 8.00 USDC to Acme)
 # -----------------------------------------------------------------------------
-echo ""
-echo ">>> [Tx 1/3] Executing Instant PAY (8.00 USDC)..."
-"${BIN}" \
-    --manifest "${MANIFEST}" \
-    --obligations "${OBLIGATIONS}" \
-    --planner host \
-    --planner-bin "${PLANNER_BIN}" \
-    --model-dir "${MODEL_DIR}" \
-    --choice B \
-    --user-goal "Pay small bill B immediately" \
-    --evidence-out "${GOLDEN_JSON}" \
-    --evidence-id "E7-AGENT" \
-    --passport-dir "${PASSPORTS_DIR}" \
-    --runs-dir "${RUNS_DIR}" \
-    --source "AGENT" 2>&1 | tee "${TMP_LOG}"
+if grep -q "E7-AGENT" "${GOLDEN_JSON}" 2>/dev/null; then
+    echo ">>> [Tx 1/3] Already executed and recorded in golden.json, skipping."
+else
+    echo ""
+    echo ">>> [Tx 1/3] Executing Instant PAY (8.00 USDC)..."
+    "${BIN}" \
+        --manifest "${MANIFEST}" \
+        --obligations "${OBLIGATIONS}" \
+        --planner host \
+        --planner-bin "${PLANNER_BIN}" \
+        --model-dir "${MODEL_DIR}" \
+        --choice B \
+        --user-goal "Pay small bill B immediately" \
+        --evidence-out "${GOLDEN_JSON}" \
+        --evidence-id "E7-AGENT" \
+        --passport-dir "${PASSPORTS_DIR}" \
+        --runs-dir "${RUNS_DIR}" \
+        --source "AGENT" 2>&1 | tee "${TMP_LOG}"
 
-extract_and_save_run_log "${TMP_LOG}"
+    extract_and_save_run_log "${TMP_LOG}"
+fi
 
 # -----------------------------------------------------------------------------
 # Tx 2: Queue Delayed PAY (Bill 1: 50.00 USDC to Payroll)
 # -----------------------------------------------------------------------------
-echo ""
-echo ">>> [Tx 2/3] Queueing Delayed PAY (50.00 USDC)..."
-"${BIN}" \
-    --manifest "${MANIFEST}" \
-    --obligations "${OBLIGATIONS}" \
-    --planner host \
-    --planner-bin "${PLANNER_BIN}" \
-    --model-dir "${MODEL_DIR}" \
-    --choice A \
-    --user-goal "Pay payroll bill A" \
-    --evidence-out "${GOLDEN_JSON}" \
-    --evidence-id "E8-QUEUE" \
-    --passport-dir "${PASSPORTS_DIR}" \
-    --runs-dir "${RUNS_DIR}" \
-    --source "AGENT" 2>&1 | tee "${TMP_LOG}"
+if grep -q "E8-QUEUE" "${GOLDEN_JSON}" 2>/dev/null; then
+    echo ">>> [Tx 2/3] Already queued and recorded in golden.json, skipping."
+else
+    echo ""
+    echo ">>> [Tx 2/3] Queueing Delayed PAY (50.00 USDC)..."
+    "${BIN}" \
+        --manifest "${MANIFEST}" \
+        --obligations "${OBLIGATIONS}" \
+        --planner host \
+        --planner-bin "${PLANNER_BIN}" \
+        --model-dir "${MODEL_DIR}" \
+        --choice A \
+        --user-goal "Pay payroll bill A" \
+        --evidence-out "${GOLDEN_JSON}" \
+        --evidence-id "E8-QUEUE" \
+        --passport-dir "${PASSPORTS_DIR}" \
+        --runs-dir "${RUNS_DIR}" \
+        --source "AGENT" 2>&1 | tee "${TMP_LOG}"
 
-extract_and_save_run_log "${TMP_LOG}"
+    extract_and_save_run_log "${TMP_LOG}"
+fi
 
 # -----------------------------------------------------------------------------
 # Wait for Timelock (delaySeconds = 180s)
 # -----------------------------------------------------------------------------
-echo ""
-echo ">>> Waiting 185s for timelock delay to elapse..."
-for remaining in $(seq 185 -15 1); do
-    echo "    Timelock countdown: ${remaining}s remaining..."
-    sleep 15
-done
-echo "    Timelock elapsed. Proceeding to execution."
+if grep -q "E8-EXEC" "${GOLDEN_JSON}" 2>/dev/null; then
+    echo ">>> [Tx 3/3] Already executed and recorded in golden.json, skipping delay."
+else
+    echo ""
+    echo ">>> Waiting 185s for timelock delay to elapse..."
+    for remaining in $(seq 185 -15 1); do
+        echo "    Timelock countdown: ${remaining}s remaining..."
+        sleep 15
+    done
+    echo "    Timelock elapsed. Proceeding to execution."
 
-# -----------------------------------------------------------------------------
-# Tx 3: Execute Queued Delayed PAY (Bill 1: 50.00 USDC to Payroll)
-# -----------------------------------------------------------------------------
-echo ""
-echo ">>> [Tx 3/3] Executing Queued Delayed PAY (50.00 USDC)..."
-"${BIN}" \
-    --manifest "${MANIFEST}" \
-    --obligations "${OBLIGATIONS}" \
-    --planner host \
-    --planner-bin "${PLANNER_BIN}" \
-    --model-dir "${MODEL_DIR}" \
-    --choice A \
-    --user-goal "Execute queued payroll bill A" \
-    --evidence-out "${GOLDEN_JSON}" \
-    --evidence-id "E8-EXEC" \
-    --passport-dir "${PASSPORTS_DIR}" \
-    --runs-dir "${RUNS_DIR}" \
-    --source "AGENT" 2>&1 | tee "${TMP_LOG}"
+    # -----------------------------------------------------------------------------
+    # Tx 3: Execute Queued Delayed PAY (Bill 1: 50.00 USDC to Payroll)
+    # -----------------------------------------------------------------------------
+    echo ""
+    echo ">>> [Tx 3/3] Executing Queued Delayed PAY (50.00 USDC)..."
+    "${BIN}" \
+        --manifest "${MANIFEST}" \
+        --obligations "${OBLIGATIONS}" \
+        --planner host \
+        --planner-bin "${PLANNER_BIN}" \
+        --model-dir "${MODEL_DIR}" \
+        --choice A \
+        --user-goal "Execute queued payroll bill A" \
+        --evidence-out "${GOLDEN_JSON}" \
+        --evidence-id "E8-EXEC" \
+        --passport-dir "${PASSPORTS_DIR}" \
+        --runs-dir "${RUNS_DIR}" \
+        --source "AGENT" 2>&1 | tee "${TMP_LOG}"
 
-extract_and_save_run_log "${TMP_LOG}"
+    extract_and_save_run_log "${TMP_LOG}"
+fi
 
 # -----------------------------------------------------------------------------
 # Step 4: HOLD Decision (no remaining unpaid obligations)
 # -----------------------------------------------------------------------------
-echo ""
-echo ">>> [Step 4] Evaluating Autonomous HOLD Decision..."
-"${BIN}" \
-    --manifest "${MANIFEST}" \
-    --obligations "${OBLIGATIONS}" \
-    --planner host \
-    --planner-bin "${PLANNER_BIN}" \
-    --model-dir "${MODEL_DIR}" \
-    --choice H \
-    --user-goal "Maintain runway and hold" \
-    --evidence-out "${GOLDEN_JSON}" \
-    --evidence-id "HOLD-AGENT" \
-    --passport-dir "${PASSPORTS_DIR}" \
-    --runs-dir "${RUNS_DIR}" \
-    --source "AGENT" 2>&1 | tee "${TMP_LOG}"
+if grep -q "HOLD-AGENT" "${GOLDEN_JSON}" 2>/dev/null; then
+    echo ">>> [Step 4] HOLD already evaluated and recorded in golden.json, skipping."
+else
+    echo ""
+    echo ">>> [Step 4] Evaluating Autonomous HOLD Decision..."
+    "${BIN}" \
+        --manifest "${MANIFEST}" \
+        --obligations "${OBLIGATIONS}" \
+        --planner host \
+        --planner-bin "${PLANNER_BIN}" \
+        --model-dir "${MODEL_DIR}" \
+        --choice H \
+        --user-goal "Maintain runway and hold" \
+        --evidence-out "${GOLDEN_JSON}" \
+        --evidence-id "HOLD-AGENT" \
+        --passport-dir "${PASSPORTS_DIR}" \
+        --runs-dir "${RUNS_DIR}" \
+        --source "AGENT" 2>&1 | tee "${TMP_LOG}"
+fi
 
 # -----------------------------------------------------------------------------
 # Verification (check_golden.py)

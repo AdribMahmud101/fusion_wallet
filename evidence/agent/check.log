@@ -1,0 +1,32 @@
+[check_golden] Expected Session Signer: 0xb52cb48ec1cc5ad1171c83f162228e31752f87fa
+[check_golden] Module Address:          0xa560ec10259657e9badd297e68286d2838cd5a8f
+[check_golden] Loaded 26 existing K2 tx hashes from /root/projects/fusion_wallet-wt/K9/evidence/base-sepolia.json
+[check_golden] Found 3 AGENT transaction rows in golden.json
+
+--- Checking Row #1 [E7-AGENT] (PAY_INSTANT): 0x8bab484456d4f6c842281b1dfdf1ffcbd25ad3c0d0221353242c8c9530ebb3a6 ---
+  [OK] Hash absent from evidence/base-sepolia.json
+  [OK] Run log exists (0x8bab484456d4f6c842281b1dfdf1ffcbd25ad3c0d0221353242c8c9530ebb3a6.log, 3576 bytes)
+  [OK] Passport keccak matches row decisionHash: 0x731de9277e77e12b22a7f53904ba2ee3b5a7f5d608cb5853567c16465928eeff
+  [OK] Receipt status is 1 on https://sepolia.base.org (Block #48322748)
+  [OK] Signer is session address: 0xb52cb48ec1cc5ad1171c83f162228e31752f87fa
+  [OK] Module event 'ActionExecuted' anchored decisionHash: 0x731de9277e77e12b22a7f53904ba2ee3b5a7f5d608cb5853567c16465928eeff
+
+--- Checking Row #2 [E8-QUEUE] (ACTION_QUEUED): 0x5b7cd0573e6f0be53f6869b8908d886fcc27d7fcabd1192ea2a49a66f6743a95 ---
+  [OK] Hash absent from evidence/base-sepolia.json
+  [OK] Run log exists (0x5b7cd0573e6f0be53f6869b8908d886fcc27d7fcabd1192ea2a49a66f6743a95.log, 1711 bytes)
+  [OK] Passport keccak matches row decisionHash: 0xe04da051f45afb1caf95fb2159bfef7fca83c26ae7e25d0286aade47f4054151
+  [OK] Receipt status is 1 on https://sepolia.base.org (Block #48324683)
+  [OK] Signer is session address: 0xb52cb48ec1cc5ad1171c83f162228e31752f87fa
+  [OK] Module event 'ActionQueued' anchored decisionHash: 0xe04da051f45afb1caf95fb2159bfef7fca83c26ae7e25d0286aade47f4054151
+
+--- Checking Row #3 [E8-EXEC] (PAY_DELAYED): 0xf1e0afcb65cda6355cf8743b26f159afe76f0a634629a96e519eab98e9525f33 ---
+  [OK] Hash absent from evidence/base-sepolia.json
+  [OK] Run log exists (0xf1e0afcb65cda6355cf8743b26f159afe76f0a634629a96e519eab98e9525f33.log, 1785 bytes)
+  [OK] Passport keccak matches row decisionHash: 0xe04da051f45afb1caf95fb2159bfef7fca83c26ae7e25d0286aade47f4054151
+  [OK] Receipt status is 1 on https://sepolia.base.org (Block #48324784)
+  [OK] Signer is session address: 0xb52cb48ec1cc5ad1171c83f162228e31752f87fa
+  [OK] Module event 'ActionExecuted' anchored decisionHash: 0xe04da051f45afb1caf95fb2159bfef7fca83c26ae7e25d0286aade47f4054151
+
+============================================================
+SUCCESS: All 3 AGENT golden path transactions verified cleanly on Base Sepolia!
+============================================================

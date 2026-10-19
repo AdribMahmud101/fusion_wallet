@@ -1,0 +1,19 @@
+Starting Kavachi agent-runner v4...
+Configuration: planner=host evidenceId=E8-QUEUE dryRun=false
+Snapshot read at block #48323748 (0x72cf8bbe821573094fde4d6b3f516c0d2b25e3c76e233b0b612d2a22d2f42940): safe_cash=9459001235 USDC raw (paused=false)
+Obligation bill_0 (0x0d4d71fd67835d6043b6894acd22c3bab86f972a128441dab9e359396f2b339b) is marked PAID on-chain; excluding.
+Enumerated 1 candidate(s). Set digest: 0xdfe26153232cca88430b945cdb4b549690e5ef83c0494fc249eb6cd0e9f0df0d
+  - [A] kind=PayObligation assets=50000000 route=Queue reason=BILL_DUE
+Using explicit candidate choice label: A
+Final Choice: label=A kind=PayObligation reason=BILL_DUE assets=50000000
+Decision passport JCS hash: 0x28ae5f8ab28800677e13be3fa012a0863eaeda96868b4ccd2231e568e021b3b8
+Preview passed for action queueing (Rule 6 deferred until readyAt).
+Passport written to /root/projects/fusion_wallet-wt/K9/evidence/agent/passports/0x28ae5f8ab28800677e13be3fa012a0863eaeda96868b4ccd2231e568e021b3b8.json
+Signed transaction: txHash=0xf182ed171d162d224fce071943feccad821b27da922007d15b785f8cbadb5b75 nonce=14
+Broadcasting raw transaction...
+Tx submitted: 0xf182ed171d162d224fce071943feccad821b27da922007d15b785f8cbadb5b75. Awaiting receipt...
+Tx confirmed in block #48323751: status=0 gasUsed=350000
+Tx-named passport written to /root/projects/fusion_wallet-wt/K9/evidence/agent/passports/0xf182ed171d162d224fce071943feccad821b27da922007d15b785f8cbadb5b75.json
+Run log written to /root/projects/fusion_wallet-wt/K9/evidence/agent/runs/0xf182ed171d162d224fce071943feccad821b27da922007d15b785f8cbadb5b75.log
+Appended evidence row E8-QUEUE to /root/projects/fusion_wallet-wt/K9/evidence/agent/golden.json
+Agent runner execution finished cleanly.

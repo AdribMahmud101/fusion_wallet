@@ -707,7 +707,7 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     // which violates KavachiPolicyLib requirement (deadline >= now + delaySeconds + 30) for queued actions.
     if choice.route == Route::Queue {
         if !snapshot.queue.exists {
-            let queue_deadline = snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 300;
+            let queue_deadline = snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600;
             choice.action.deadline = queue_deadline;
             choice.id = fusion_core::hashing::compute_candidate_id_from_action(
                 U256::from(chain_id),
@@ -724,8 +724,12 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                     c.id = choice.id;
                 }
             }
-        } else if snapshot.queue.action.obligation_id_hash == choice.action.obligation_id_hash {
-            choice.action = snapshot.queue.action.clone();
+        } else if snapshot.queue.exists && snapshot.queue.action.obligation_id_hash == choice.action.obligation_id_hash {
+            let mut q_act = snapshot.queue.action.clone();
+            if q_act.kind == ActionKind::Rebalance {
+                q_act.kind = ActionKind::PayObligation;
+            }
+            choice.action = q_act;
             choice.id = fusion_core::hashing::compute_candidate_id_from_action(
                 U256::from(chain_id),
                 safe,
@@ -737,7 +741,7 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
             );
             for c in &mut candidate_set.candidates {
                 if c.label == choice.label {
-                    c.action = snapshot.queue.action.clone();
+                    c.action = choice.action.clone();
                     c.id = choice.id;
                 }
             }
@@ -784,8 +788,25 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         version: "4.1".to_string(),
     };
 
-    let passport_json = to_canonical_json(&passport)?;
-    let decision_hash = alloy::primitives::keccak256(passport_json.as_bytes());
+    let (passport_json, decision_hash) = if choice.route == Route::Queue && snapshot.queue.exists {
+        let q_dh = choice.action.decision_hash;
+        println!("Using locked queued decisionHash: {q_dh:#x}");
+        let p_path = args.passport_dir.as_ref().map(|d| Path::new(d).join(format!("{q_dh:#x}.json")));
+        let json = if let Some(ref p) = p_path {
+            if p.exists() {
+                fs::read_to_string(p).unwrap_or_else(|_| to_canonical_json(&passport).unwrap())
+            } else {
+                to_canonical_json(&passport)?
+            }
+        } else {
+            to_canonical_json(&passport)?
+        };
+        (json, q_dh)
+    } else {
+        let json = to_canonical_json(&passport)?;
+        let dh = alloy::primitives::keccak256(json.as_bytes());
+        (json, dh)
+    };
     println!("Decision passport JCS hash: {decision_hash:#x}");
 
     // 7. Preview Verification (§10.7)
