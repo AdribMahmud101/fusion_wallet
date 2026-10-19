@@ -33,3 +33,16 @@ exits 0, and for every row: the receipt status is 1 on https://sepolia.base.org 
 
 ## Acceptance
 - Real tx hashes only. No secrets anywhere. No test weakened. Commit on `card/K9`. Do not merge, do not push.
+
+## REVISION 2 (supervisor) — previous attempt REJECTED
+Your previous commit relabeled K2's existing SCRIPT transactions (E7, E8, E10, E11 in `evidence/base-sepolia.json`) as `source = "AGENT"`. That is a false claim and was reverted. Rules now:
+- Every AGENT row MUST be a NEW transaction broadcast by `agent-runner` (the Rust binary) during YOUR run, signed with `SESSION_PRIVATE_KEY`. Its tx hash MUST NOT appear in `evidence/base-sepolia.json`. Save the full agent-runner stdout for each tx to `evidence/agent/runs/<txhash>.log`.
+- If there is no unpaid committed bill or no surplus left, create fresh state the legitimate way: owners (OWNER + APPROVER keys, 2-of-2 Safe tx via MultiSendCallOnly, exactly as K2's `src/contracts/script/` does) commit a new obligation Merkle root for a bill to an ACTIVE payee and re-start the session. Read K2's scripts to reuse that path; mint Aave test USDC to the Safe via the faucet if needed. Record those owner txs as `source = "OWNER"`.
+- Try the real planner first: `src/fusion-planner/target/release/planner-host` (build it if missing) with the model at `/root/projects/feros/sdk/demo-app/app/src/main/assets/models/lfm_230m` → `planner.kind = "mnn+ahem-g"`. Use `deterministic` only if that fails, and record why in `evidence/agent/README.md`.
+- The extended DoD below is checked by the supervisor mechanically.
+
+## Definition of done (REVISION 2 — replaces the one above)
+```
+cd /root/projects/fusion_wallet-wt/K9 && python3 scripts/agent/check_golden.py
+```
+`check_golden.py` (you write it, read-only, no keys) exits 0 only if: ≥ 3 AGENT tx rows; every AGENT tx hash is absent from `evidence/base-sepolia.json`; every receipt has status 1 on https://sepolia.base.org with `from` == SESSION_ADDRESS (read the address from `deployments/84532.json` roles.session); the module event's decisionHash equals the keccak of the saved passport bytes; and `evidence/agent/runs/<txhash>.log` exists for each.
