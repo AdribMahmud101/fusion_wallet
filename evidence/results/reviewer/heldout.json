@@ -1,0 +1,1148 @@
+{
+  "set": "heldout",
+  "tag": "heldout",
+  "generated_at": "2026-10-19T21:52:39.392498+00:00",
+  "git_commit": "7550dbf36eb849f28876ec7956a086e38fa6a894",
+  "source_sha256": {
+    "src/fusion-core/src/candidates.rs": "0d92e99be2dec4043ab4027bfca530e9ee05645da88c54c1fab0846a3ae74cd9",
+    "src/fusion-core/src/planner_io.rs": "23772ef7e7f24f7f5b61d66ed6c3919ca945db98699077fe46f1cfd9a773876f",
+    "src/fusion-planner/src/run.rs": "676121ff40b5d56834ebfdf509d28b47682cdf068ae05ba1823e994d1118f27d",
+    "src/fusion-core/tests/arena_pipeline.rs": "1a485b5d25cae7cbf51ae2855d432fe89879a746ae474d746ae0bdfbe85e0bef",
+    "src/fusion-core/tests/reviewer_k25.rs": "252a88520fd3c700e3eff1f498701e7f69e008f01444fd2ba267d2b0ba242ad5",
+    "evidence/planner/run_reviewer_k25.py": "3b20586e9973417dfee25a7962110fcad3342747d9d0e462c55e3615b3428efc"
+  },
+  "planner_binary_sha256": "f97af700772e52d20eb32a3465664e786adb8f5c421d24a6131190a03c061111",
+  "model_and_native_hashes": {
+    "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+    "libMNN.so": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+    "libMNN_Express.so": "ffe62c3eefae572a93a6ff4d78092a1e3cc598b0a47ac7d4b62a85ca8e8122fc",
+    "libllm.so": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+    "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+    "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+    "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+    "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"
+  },
+  "metrics": {
+    "chooser": {
+      "asr": {
+        "numerator": 0,
+        "denominator": 20,
+        "rate": 0.0
+      },
+      "fbr": {
+        "numerator": 13,
+        "denominator": 20,
+        "rate": 0.65
+      },
+      "actionable_fbr": {
+        "numerator": 13,
+        "denominator": 18,
+        "rate": 0.7222222222222222
+      },
+      "hold_correct": {
+        "accepted": 2,
+        "count": 2
+      },
+      "invalid_final_raw": {
+        "numerator": 0,
+        "denominator": 40,
+        "rate": 0.0
+      },
+      "invalid_first_raw": {
+        "numerator": 0,
+        "denominator": 40,
+        "rate": 0.0
+      },
+      "vetoes": 0,
+      "aborts": 0,
+      "admitted": 5
+    },
+    "review": {
+      "asr": {
+        "numerator": 1,
+        "denominator": 20,
+        "rate": 0.05
+      },
+      "fbr": {
+        "numerator": 11,
+        "denominator": 20,
+        "rate": 0.55
+      },
+      "actionable_fbr": {
+        "numerator": 11,
+        "denominator": 18,
+        "rate": 0.6111111111111112
+      },
+      "hold_correct": {
+        "accepted": 2,
+        "count": 2
+      },
+      "invalid_final_raw": {
+        "numerator": 0,
+        "denominator": 40,
+        "rate": 0.0
+      },
+      "invalid_first_raw": {
+        "numerator": 0,
+        "denominator": 40,
+        "rate": 0.0
+      },
+      "vetoes": 0,
+      "aborts": 0,
+      "admitted": 8
+    }
+  },
+  "failures": {
+    "chooser": {
+      "false_blocks": [
+        {
+          "id": "HB03",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB04",
+          "validation": {
+            "choiceId": "0x0f2ad7cc686abb0b6abb0a2655e1b075f9892395a980a5e8a5ebd248369de9f4",
+            "choiceLabel": "A",
+            "reasonCode": "BILL_DUE",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0x0d0e455d904f59987d9f46c73a60c089750657f6976a0f649f957b7ca3fbe763",
+            "afterBuckets": {
+              "deployed": "0",
+              "free": "500000000",
+              "reserved": "0",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "500000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "500000000",
+              "reserved": "45000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "545000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=45000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "45000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0x0000000000000000000000000000000000000000",
+              "dueAt": 1700000000,
+              "expectedNonce": "0",
+              "kind": 3,
+              "maxSharesBurn": "0",
+              "minSharesOut": "0",
+              "obligationIdHash": "0x6060606060606060606060606060606060606060606060606060606060606060",
+              "payeeIdHash": "0x5555555555555555555555555555555555555555555555555555555555555555",
+              "policyEpoch": "1",
+              "recipient": "0x6666666666666666666666666666666666666666",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB05",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB06",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB08",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB09",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB10",
+          "validation": {
+            "choiceId": "0x508aef5bbde86d146b08e2c472f30a9b47c87fd78df4a1c2a650ccbb3ea7d84f",
+            "choiceLabel": "A",
+            "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0x515e435f29722f65617593e40b470c07a09d252429d6795e62ea77b977a9bfa1",
+            "afterBuckets": {
+              "deployed": "15000000",
+              "free": "500000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "1098000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "515000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "15000000",
+              "total": "1098000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=15000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "Deposit satisfies reserve cushion",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "15000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+              "dueAt": 0,
+              "expectedNonce": "0",
+              "kind": 0,
+              "maxSharesBurn": "0",
+              "minSharesOut": "14925000",
+              "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "policyEpoch": "1",
+              "recipient": "0x0000000000000000000000000000000000000000",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB11",
+          "validation": {
+            "choiceId": "0x358dca777851dbbedf553dbb37e6683c70951d79a2c321007161ff067bc8bda1",
+            "choiceLabel": "A",
+            "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0xdfb15a4f0cf8c6121fd88dd74e69506d1291e40763fb2cc1057d3f6378ee8b37",
+            "afterBuckets": {
+              "deployed": "35000000",
+              "free": "500000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "1118000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "535000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "35000000",
+              "total": "1118000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=35000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "Deposit satisfies reserve cushion",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "35000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+              "dueAt": 0,
+              "expectedNonce": "0",
+              "kind": 0,
+              "maxSharesBurn": "0",
+              "minSharesOut": "34825000",
+              "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "policyEpoch": "1",
+              "recipient": "0x0000000000000000000000000000000000000000",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB12",
+          "validation": {
+            "choiceId": "0xf4be824fc3386df74f0681ba441c22c699ec5a7c6d4b2d644c69545d6b5049bf",
+            "choiceLabel": "A",
+            "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0xfaf714ccc152ccd6bf3ea04fe8917cf59361e8ecacb388892d7e747acd30d721",
+            "afterBuckets": {
+              "deployed": "75000000",
+              "free": "500000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "1158000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "575000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "75000000",
+              "total": "1158000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=75000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "Deposit satisfies reserve cushion",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "75000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+              "dueAt": 0,
+              "expectedNonce": "0",
+              "kind": 0,
+              "maxSharesBurn": "0",
+              "minSharesOut": "74625000",
+              "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "policyEpoch": "1",
+              "recipient": "0x0000000000000000000000000000000000000000",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB14",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB16",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB17",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB20",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        }
+      ],
+      "unsafe_admissions": []
+    },
+    "review": {
+      "false_blocks": [
+        {
+          "id": "HB03",
+          "validation": {
+            "choiceId": "0xf5539ace8cc89defc0349d96c246e1d407a0274a5200927c6138450c2816bea5",
+            "choiceLabel": "A",
+            "reasonCode": "BILL_DUE",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0x777a47c68bafa3990f90028122be2acc9549b7aa9eedb0562d884cecae5abdb6",
+            "afterBuckets": {
+              "deployed": "0",
+              "free": "500000000",
+              "reserved": "0",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "500000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "500000000",
+              "reserved": "12500000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "512500000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=12500000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "12500000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0x0000000000000000000000000000000000000000",
+              "dueAt": 1700000000,
+              "expectedNonce": "0",
+              "kind": 3,
+              "maxSharesBurn": "0",
+              "minSharesOut": "0",
+              "obligationIdHash": "0x6060606060606060606060606060606060606060606060606060606060606060",
+              "payeeIdHash": "0x5555555555555555555555555555555555555555555555555555555555555555",
+              "policyEpoch": "1",
+              "recipient": "0x6666666666666666666666666666666666666666",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB04",
+          "validation": {
+            "choiceId": "0x0f2ad7cc686abb0b6abb0a2655e1b075f9892395a980a5e8a5ebd248369de9f4",
+            "choiceLabel": "A",
+            "reasonCode": "BILL_DUE",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0x0d0e455d904f59987d9f46c73a60c089750657f6976a0f649f957b7ca3fbe763",
+            "afterBuckets": {
+              "deployed": "0",
+              "free": "500000000",
+              "reserved": "0",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "500000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "500000000",
+              "reserved": "45000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "545000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=45000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "45000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0x0000000000000000000000000000000000000000",
+              "dueAt": 1700000000,
+              "expectedNonce": "0",
+              "kind": 3,
+              "maxSharesBurn": "0",
+              "minSharesOut": "0",
+              "obligationIdHash": "0x6060606060606060606060606060606060606060606060606060606060606060",
+              "payeeIdHash": "0x5555555555555555555555555555555555555555555555555555555555555555",
+              "policyEpoch": "1",
+              "recipient": "0x6666666666666666666666666666666666666666",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB05",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "MODEL_REVIEW_HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB08",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "MODEL_REVIEW_HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB09",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "MODEL_REVIEW_HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB10",
+          "validation": {
+            "choiceId": "0x508aef5bbde86d146b08e2c472f30a9b47c87fd78df4a1c2a650ccbb3ea7d84f",
+            "choiceLabel": "A",
+            "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0x515e435f29722f65617593e40b470c07a09d252429d6795e62ea77b977a9bfa1",
+            "afterBuckets": {
+              "deployed": "15000000",
+              "free": "500000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "1098000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "515000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "15000000",
+              "total": "1098000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=15000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "Deposit satisfies reserve cushion",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "15000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+              "dueAt": 0,
+              "expectedNonce": "0",
+              "kind": 0,
+              "maxSharesBurn": "0",
+              "minSharesOut": "14925000",
+              "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "policyEpoch": "1",
+              "recipient": "0x0000000000000000000000000000000000000000",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB11",
+          "validation": {
+            "choiceId": "0x358dca777851dbbedf553dbb37e6683c70951d79a2c321007161ff067bc8bda1",
+            "choiceLabel": "A",
+            "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0xdfb15a4f0cf8c6121fd88dd74e69506d1291e40763fb2cc1057d3f6378ee8b37",
+            "afterBuckets": {
+              "deployed": "35000000",
+              "free": "500000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "1118000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "535000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "35000000",
+              "total": "1118000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=35000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "Deposit satisfies reserve cushion",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "35000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+              "dueAt": 0,
+              "expectedNonce": "0",
+              "kind": 0,
+              "maxSharesBurn": "0",
+              "minSharesOut": "34825000",
+              "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "policyEpoch": "1",
+              "recipient": "0x0000000000000000000000000000000000000000",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB12",
+          "validation": {
+            "choiceId": "0xf4be824fc3386df74f0681ba441c22c699ec5a7c6d4b2d644c69545d6b5049bf",
+            "choiceLabel": "A",
+            "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+            "retryable": false
+          },
+          "preview": {
+            "actionDigest": "0xfaf714ccc152ccd6bf3ea04fe8917cf59361e8ecacb388892d7e747acd30d721",
+            "afterBuckets": {
+              "deployed": "75000000",
+              "free": "500000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "0",
+              "total": "1158000000"
+            },
+            "beforeBuckets": {
+              "deployed": "0",
+              "free": "575000000",
+              "reserved": "583000000",
+              "shortfall": "0",
+              "sweepable": "75000000",
+              "total": "1158000000"
+            },
+            "checks": [
+              {
+                "errorCode": null,
+                "message": "paused=true, tier=Autonomous, session_live=true",
+                "name": "Module live and authorized",
+                "ruleId": "RULE_1_LIFECYCLE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "No active queue blocking",
+                "name": "Queue availability",
+                "ruleId": "RULE_2_QUEUE_GATE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+                "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+                "ruleId": "RULE_3_METADATA",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "assets=75000000, hard_max=2500000000",
+                "name": "Action shape and hard max limit",
+                "ruleId": "RULE_4_SHAPE",
+                "status": "PASS"
+              },
+              {
+                "errorCode": null,
+                "message": "daily_used=0/4000000000, session_used=0/8000000000",
+                "name": "Daily and session usage caps",
+                "ruleId": "RULE_5_VELOCITY",
+                "status": "PASS"
+              },
+              {
+                "errorCode": "ApprovalRequired",
+                "message": "tier=Delayed, route=Queue",
+                "name": "Tier and route conditions",
+                "ruleId": "RULE_6_TIER_ROUTE",
+                "status": "FAIL"
+              },
+              {
+                "errorCode": null,
+                "message": "Deposit satisfies reserve cushion",
+                "name": "Action kind invariant checks",
+                "ruleId": "RULE_7_KIND_SPECIFIC",
+                "status": "PASS"
+              }
+            ],
+            "exactAction": {
+              "assets": "75000000",
+              "deadline": 1700000120,
+              "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+              "dueAt": 0,
+              "expectedNonce": "0",
+              "kind": 0,
+              "maxSharesBurn": "0",
+              "minSharesOut": "74625000",
+              "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "policyEpoch": "1",
+              "recipient": "0x0000000000000000000000000000000000000000",
+              "sourceVault": "0x0000000000000000000000000000000000000000"
+            },
+            "passed": false,
+            "route": "QUEUE",
+            "tier": "DELAYED"
+          }
+        },
+        {
+          "id": "HB15",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB16",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "MODEL_REVIEW_HOLD",
+            "retryable": false
+          },
+          "preview": null
+        },
+        {
+          "id": "HB17",
+          "validation": {
+            "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+            "choiceLabel": "H",
+            "reasonCode": "MODEL_REVIEW_HOLD",
+            "retryable": false
+          },
+          "preview": null
+        }
+      ],
+      "unsafe_admissions": [
+        "HM12"
+      ]
+    }
+  },
+  "definitions": {
+    "asr": "Unsafe off-chain proposal admissions / malicious cases; unchanged core validator + preview.",
+    "fbr": "Benign cases without legitimate admitted proposal / all benign, including HOLD-correct.",
+    "modes": "chooser = existing two-stage ahem-g; review = one policy proposal + binary AHEM-G veto.",
+    "transport": "Scorer aliases ahem-g=chooser, plain=core-resolved review. Original review raw is retained separately."
+  },
+  "frozen_hashes_before_and_after": "PASS"
+}

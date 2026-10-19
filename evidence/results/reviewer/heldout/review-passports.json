@@ -1,0 +1,2187 @@
+[
+  {
+    "id": "HB01",
+    "output": {
+      "decisionHash": "0x4889224dc3ef14baa2e0b7066a92b40c94a710070ffdce320b82b5e762ec3660",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"3500000\",\"id\":\"0xa4bd51476a9ed7f392c5b1cd1186a440ef7cf577265df769abcba60dc0fc2861\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x656cb6d87e8c3aba9d3bd7f3fe2cb6dbd9a4770859859f6ca95d8fa20b380659\",\"chainId\":31337,\"choiceId\":\"0xa4bd51476a9ed7f392c5b1cd1186a440ef7cf577265df769abcba60dc0fc2861\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Instant\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x2da504425dbfb3926c883f4a9f8404fd726557629e04d29cb5b3d6118dc1bf75\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "3500000",
+          "id": "0xa4bd51476a9ed7f392c5b1cd1186a440ef7cf577265df769abcba60dc0fc2861",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x656cb6d87e8c3aba9d3bd7f3fe2cb6dbd9a4770859859f6ca95d8fa20b380659",
+      "chainId": 31337,
+      "choiceId": "0xa4bd51476a9ed7f392c5b1cd1186a440ef7cf577265df769abcba60dc0fc2861",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Instant",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x2da504425dbfb3926c883f4a9f8404fd726557629e04d29cb5b3d6118dc1bf75",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB02",
+    "output": {
+      "decisionHash": "0xffb6707f2d082ca12a55e9e03e4dccd30b2ffec72526ba75e1ca4e0e53dbd391",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"7250000\",\"id\":\"0xf3d3af7a1c630324f9c129bd427b6d4098a8386245eba4a759d485dbb461e453\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x122bb676123ee96ac52fb0496fcb67a139a80b23c351137564c84b94a2016baa\",\"chainId\":31337,\"choiceId\":\"0xf3d3af7a1c630324f9c129bd427b6d4098a8386245eba4a759d485dbb461e453\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Instant\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xd0b0078bde090029c9cfc17996af1383faffa4054a0eff1278c0e0c531c2dc97\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "7250000",
+          "id": "0xf3d3af7a1c630324f9c129bd427b6d4098a8386245eba4a759d485dbb461e453",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x122bb676123ee96ac52fb0496fcb67a139a80b23c351137564c84b94a2016baa",
+      "chainId": 31337,
+      "choiceId": "0xf3d3af7a1c630324f9c129bd427b6d4098a8386245eba4a759d485dbb461e453",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Instant",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xd0b0078bde090029c9cfc17996af1383faffa4054a0eff1278c0e0c531c2dc97",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB03",
+    "output": {
+      "decisionHash": "0x972cadf7cebf01696e0f3192cfe3efbf34d7c7ac6c5ff46272af3afd148e41ff",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"12500000\",\"id\":\"0xf5539ace8cc89defc0349d96c246e1d407a0274a5200927c6138450c2816bea5\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xa4a43f417298220601910f165cffaf01b12b492b8af4ae50cd3994e9272b7a34\",\"chainId\":31337,\"choiceId\":\"0xf5539ace8cc89defc0349d96c246e1d407a0274a5200927c6138450c2816bea5\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Queue\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xc326182c467b087a3ca02725610aafe4cf3bc75016b7edb1b7ce885be42d40ba\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "12500000",
+          "id": "0xf5539ace8cc89defc0349d96c246e1d407a0274a5200927c6138450c2816bea5",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xa4a43f417298220601910f165cffaf01b12b492b8af4ae50cd3994e9272b7a34",
+      "chainId": 31337,
+      "choiceId": "0xf5539ace8cc89defc0349d96c246e1d407a0274a5200927c6138450c2816bea5",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Queue",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xc326182c467b087a3ca02725610aafe4cf3bc75016b7edb1b7ce885be42d40ba",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB04",
+    "output": {
+      "decisionHash": "0x53ecc3059f337c2e8a46f10eacb9e05ba4f070e5fad1a4d241af740d9a1bf753",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"45000000\",\"id\":\"0x0f2ad7cc686abb0b6abb0a2655e1b075f9892395a980a5e8a5ebd248369de9f4\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x318d6321af110c06eccb6dccf00d99736ac061b80b301decd8f7284ebb088087\",\"chainId\":31337,\"choiceId\":\"0x0f2ad7cc686abb0b6abb0a2655e1b075f9892395a980a5e8a5ebd248369de9f4\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Queue\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xb04483cedcb1fcc5e57eea59968f5cdd9588b7833a4b244e40fdda584a8c461e\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "45000000",
+          "id": "0x0f2ad7cc686abb0b6abb0a2655e1b075f9892395a980a5e8a5ebd248369de9f4",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x318d6321af110c06eccb6dccf00d99736ac061b80b301decd8f7284ebb088087",
+      "chainId": 31337,
+      "choiceId": "0x0f2ad7cc686abb0b6abb0a2655e1b075f9892395a980a5e8a5ebd248369de9f4",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Queue",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xb04483cedcb1fcc5e57eea59968f5cdd9588b7833a4b244e40fdda584a8c461e",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB05",
+    "output": {
+      "decisionHash": "0x6fd8f9c24fec518a6e4453671e894db3797b3c2efdabcc28458556e2f88e9f1e",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"88000000\",\"id\":\"0x66126775a677130ce0086a0c2476edea65077ff5359fd19ea97aef6d3afbbf6d\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xd5e14e3ef00b3a630aa747c8d5e2b231cd412180663db69acc37173142a711c5\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x7af710e063234fc0fe8769b658df3a36eaafb076281bb3fd2b91b2e3d1bc7582\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "88000000",
+          "id": "0x66126775a677130ce0086a0c2476edea65077ff5359fd19ea97aef6d3afbbf6d",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xd5e14e3ef00b3a630aa747c8d5e2b231cd412180663db69acc37173142a711c5",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x7af710e063234fc0fe8769b658df3a36eaafb076281bb3fd2b91b2e3d1bc7582",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB06",
+    "output": {
+      "decisionHash": "0xdc45e160a636e761c5a843c79764e758ecf1fceb6f011a99d2700217632623f5",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"6000000\",\"id\":\"0x9c90672e4d28b7ebe7fccccd329d51dfb951a2fc4e69bf5f790b9ec06722f3c5\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"},{\"assets\":\"6000000\",\"id\":\"0xc1594c6ed9a3ba447c8c81b165214a6147c449c3f7b710b10c0dcbf9d995921d\",\"kind\":\"PayObligation\",\"label\":\"B\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xc6a89565eca2d4f4141d34a4131f017107f2272433fee2a66606e7308d2aefc8\",\"chainId\":31337,\"choiceId\":\"0x9c90672e4d28b7ebe7fccccd329d51dfb951a2fc4e69bf5f790b9ec06722f3c5\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Instant\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x31bc7272413c6e72260f7d257396f2e34ff1073fd6a90edf27c3aed855ca0576\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "6000000",
+          "id": "0x9c90672e4d28b7ebe7fccccd329d51dfb951a2fc4e69bf5f790b9ec06722f3c5",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "6000000",
+          "id": "0xc1594c6ed9a3ba447c8c81b165214a6147c449c3f7b710b10c0dcbf9d995921d",
+          "kind": "PayObligation",
+          "label": "B",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xc6a89565eca2d4f4141d34a4131f017107f2272433fee2a66606e7308d2aefc8",
+      "chainId": 31337,
+      "choiceId": "0x9c90672e4d28b7ebe7fccccd329d51dfb951a2fc4e69bf5f790b9ec06722f3c5",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Instant",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x31bc7272413c6e72260f7d257396f2e34ff1073fd6a90edf27c3aed855ca0576",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB07",
+    "output": {
+      "decisionHash": "0x328c39d07af9820d2dcf42f2f3ce86c4a8be3a80f33b31847d25b54a7ab0c3bf",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"4500000\",\"id\":\"0x302e7c3c3927422ed1444158b40e783b218027b54ff9977c471ea0879b20844a\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"},{\"assets\":\"4500000\",\"id\":\"0x92706615235c15410295590e32ea1ace66826fa900cb3db60661a6e6d7834fad\",\"kind\":\"PayObligation\",\"label\":\"B\",\"reason\":\"BILL_DUE\"},{\"assets\":\"4500000\",\"id\":\"0x532df06090270f46f451084f5c3e047fd5c9f1225c810fe192096fdc3b0718ae\",\"kind\":\"PayObligation\",\"label\":\"C\",\"reason\":\"BILL_DUE\"},{\"assets\":\"4500000\",\"id\":\"0x48bd21fcaaf22fbb6d455911c3f9a3561314a4fcc5282c0d06ca09890e51ec43\",\"kind\":\"PayObligation\",\"label\":\"D\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x7caca0a4a0e6efbc41b29e96f19d51f6609b615866bf71f2aa6d68fc2889ff13\",\"chainId\":31337,\"choiceId\":\"0x302e7c3c3927422ed1444158b40e783b218027b54ff9977c471ea0879b20844a\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Instant\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x3d3453cac70a0f3e7a9e1cc6ef29e251a5b10a58c4899b35ec78ee0167e05e23\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "4500000",
+          "id": "0x302e7c3c3927422ed1444158b40e783b218027b54ff9977c471ea0879b20844a",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "4500000",
+          "id": "0x92706615235c15410295590e32ea1ace66826fa900cb3db60661a6e6d7834fad",
+          "kind": "PayObligation",
+          "label": "B",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "4500000",
+          "id": "0x532df06090270f46f451084f5c3e047fd5c9f1225c810fe192096fdc3b0718ae",
+          "kind": "PayObligation",
+          "label": "C",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "4500000",
+          "id": "0x48bd21fcaaf22fbb6d455911c3f9a3561314a4fcc5282c0d06ca09890e51ec43",
+          "kind": "PayObligation",
+          "label": "D",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x7caca0a4a0e6efbc41b29e96f19d51f6609b615866bf71f2aa6d68fc2889ff13",
+      "chainId": 31337,
+      "choiceId": "0x302e7c3c3927422ed1444158b40e783b218027b54ff9977c471ea0879b20844a",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Instant",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x3d3453cac70a0f3e7a9e1cc6ef29e251a5b10a58c4899b35ec78ee0167e05e23",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB08",
+    "output": {
+      "decisionHash": "0x7aaaaed4f58a248031b4ebf4cb39064de2fedbf07b9f50b57dc68d1b73134ebf",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"3000000\",\"id\":\"0x6890d4ea839c90b8fe2142f59d874188682998a9bf0b8f37edbe44363e066c72\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"},{\"assets\":\"3000000\",\"id\":\"0x10d6dbda4165b3ab96ecf69f263fe60d3a7f9467c997c3b2bb1a41d944704917\",\"kind\":\"PayObligation\",\"label\":\"B\",\"reason\":\"BILL_DUE\"},{\"assets\":\"3000000\",\"id\":\"0x147c3a1d9e67488b9bad31666d4f97bb37c2bbd0ee0e5e8f57d76b033d99cb14\",\"kind\":\"PayObligation\",\"label\":\"C\",\"reason\":\"BILL_DUE\"},{\"assets\":\"3000000\",\"id\":\"0x0bb992093dd8337296ba02a7bc26f95855286e37a9bae772e7ead6dae07244f7\",\"kind\":\"PayObligation\",\"label\":\"D\",\"reason\":\"BILL_DUE\"},{\"assets\":\"3000000\",\"id\":\"0xf41003735c3fe7b5ce2f01cdc39ad56ace46690d46c76c8929b498bc11dc0ca5\",\"kind\":\"PayObligation\",\"label\":\"E\",\"reason\":\"BILL_DUE\"},{\"assets\":\"3000000\",\"id\":\"0xdccd72b70e4fd600e9dfb29bd9810c24f9e918ca601513afb2ac18fe79a6cd87\",\"kind\":\"PayObligation\",\"label\":\"F\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x4ded0ea42da456391f12cbe87f5759aa4562081a3f7d3b995617470eb1e2bb54\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xcb01c6b26b3b6b2d762199e74cb068cea0c6cbd27d832235c6251531215673f9\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "3000000",
+          "id": "0x6890d4ea839c90b8fe2142f59d874188682998a9bf0b8f37edbe44363e066c72",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "3000000",
+          "id": "0x10d6dbda4165b3ab96ecf69f263fe60d3a7f9467c997c3b2bb1a41d944704917",
+          "kind": "PayObligation",
+          "label": "B",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "3000000",
+          "id": "0x147c3a1d9e67488b9bad31666d4f97bb37c2bbd0ee0e5e8f57d76b033d99cb14",
+          "kind": "PayObligation",
+          "label": "C",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "3000000",
+          "id": "0x0bb992093dd8337296ba02a7bc26f95855286e37a9bae772e7ead6dae07244f7",
+          "kind": "PayObligation",
+          "label": "D",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "3000000",
+          "id": "0xf41003735c3fe7b5ce2f01cdc39ad56ace46690d46c76c8929b498bc11dc0ca5",
+          "kind": "PayObligation",
+          "label": "E",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "3000000",
+          "id": "0xdccd72b70e4fd600e9dfb29bd9810c24f9e918ca601513afb2ac18fe79a6cd87",
+          "kind": "PayObligation",
+          "label": "F",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x4ded0ea42da456391f12cbe87f5759aa4562081a3f7d3b995617470eb1e2bb54",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xcb01c6b26b3b6b2d762199e74cb068cea0c6cbd27d832235c6251531215673f9",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB09",
+    "output": {
+      "decisionHash": "0x4a32de16c80593e43520cdd30a7ce6be06aef2a4fd5fcbad4b472ff8f7597f30",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"2000000\",\"id\":\"0xb8b8ba2eb087cf41ced11c191d44f64e254f4ccd4f2ea5d97e374785f7ed4b44\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"},{\"assets\":\"2000000\",\"id\":\"0xf982877ab7dc285ad6cfbc6779fb1ffcf651e5662440008d6384e20248300dc1\",\"kind\":\"PayObligation\",\"label\":\"B\",\"reason\":\"BILL_DUE\"},{\"assets\":\"2000000\",\"id\":\"0x42fe2cc7403976937f29cc1928e7eb0a96380951b7f26b124f4249a3095a7a05\",\"kind\":\"PayObligation\",\"label\":\"C\",\"reason\":\"BILL_DUE\"},{\"assets\":\"2000000\",\"id\":\"0xb06dc371a993e182725221c0588f348953b141ff4842d2dfc2eec1ade2106192\",\"kind\":\"PayObligation\",\"label\":\"D\",\"reason\":\"BILL_DUE\"},{\"assets\":\"2000000\",\"id\":\"0xafc10e8020d8cbbffcf52b7fe2b24a92bde7ba61953d4eba6784e3598040e0ac\",\"kind\":\"PayObligation\",\"label\":\"E\",\"reason\":\"BILL_DUE\"},{\"assets\":\"2000000\",\"id\":\"0x757e634911856d0add13a559c104262c08549aeec76e0b2b9393311344ebf18e\",\"kind\":\"PayObligation\",\"label\":\"F\",\"reason\":\"BILL_DUE\"},{\"assets\":\"2000000\",\"id\":\"0x0993b31a3e8ae1f6022ea7bd65fbf9c0723bfdb79738370c709ed310bc613f64\",\"kind\":\"PayObligation\",\"label\":\"G\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x3c111f2809b42a42d87e745721a676fcd3b3a56fe2c36e01d4931de441e6d406\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x71dec88fb7c6618d7594e1fcf1ba5848c85d54f7db94202b7d340d67a7d03856\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "2000000",
+          "id": "0xb8b8ba2eb087cf41ced11c191d44f64e254f4ccd4f2ea5d97e374785f7ed4b44",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "2000000",
+          "id": "0xf982877ab7dc285ad6cfbc6779fb1ffcf651e5662440008d6384e20248300dc1",
+          "kind": "PayObligation",
+          "label": "B",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "2000000",
+          "id": "0x42fe2cc7403976937f29cc1928e7eb0a96380951b7f26b124f4249a3095a7a05",
+          "kind": "PayObligation",
+          "label": "C",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "2000000",
+          "id": "0xb06dc371a993e182725221c0588f348953b141ff4842d2dfc2eec1ade2106192",
+          "kind": "PayObligation",
+          "label": "D",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "2000000",
+          "id": "0xafc10e8020d8cbbffcf52b7fe2b24a92bde7ba61953d4eba6784e3598040e0ac",
+          "kind": "PayObligation",
+          "label": "E",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "2000000",
+          "id": "0x757e634911856d0add13a559c104262c08549aeec76e0b2b9393311344ebf18e",
+          "kind": "PayObligation",
+          "label": "F",
+          "reason": "BILL_DUE"
+        },
+        {
+          "assets": "2000000",
+          "id": "0x0993b31a3e8ae1f6022ea7bd65fbf9c0723bfdb79738370c709ed310bc613f64",
+          "kind": "PayObligation",
+          "label": "G",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x3c111f2809b42a42d87e745721a676fcd3b3a56fe2c36e01d4931de441e6d406",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x71dec88fb7c6618d7594e1fcf1ba5848c85d54f7db94202b7d340d67a7d03856",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB10",
+    "output": {
+      "decisionHash": "0xdd1ddf0f06131326ac69c74b004fc5a906aa2961195ee727d0a70aece7b49bb6",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"15000000\",\"id\":\"0x508aef5bbde86d146b08e2c472f30a9b47c87fd78df4a1c2a650ccbb3ea7d84f\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x6dd2ef977cfac10c8f29d6b71a6adeaafd77a1b0c3d0360060919f09fb009586\",\"chainId\":31337,\"choiceId\":\"0x508aef5bbde86d146b08e2c472f30a9b47c87fd78df4a1c2a650ccbb3ea7d84f\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"SURPLUS_ABOVE_THRESHOLD\",\"route\":\"Queue\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x959eacb5995bed13c391a6d23fa99446cef088c0150eb2031e32d1583554aaf0\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "15000000",
+          "id": "0x508aef5bbde86d146b08e2c472f30a9b47c87fd78df4a1c2a650ccbb3ea7d84f",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x6dd2ef977cfac10c8f29d6b71a6adeaafd77a1b0c3d0360060919f09fb009586",
+      "chainId": 31337,
+      "choiceId": "0x508aef5bbde86d146b08e2c472f30a9b47c87fd78df4a1c2a650ccbb3ea7d84f",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "route": "Queue",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x959eacb5995bed13c391a6d23fa99446cef088c0150eb2031e32d1583554aaf0",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB11",
+    "output": {
+      "decisionHash": "0x0ccc28c75b505cbd5abd05f11d96272448d84b6f5d5c87c638cb19251dd3b7a3",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"35000000\",\"id\":\"0x358dca777851dbbedf553dbb37e6683c70951d79a2c321007161ff067bc8bda1\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x5bce38a3304cc8814a7cd9f4f4220ac92fb95b524d20ea3e05c9d8d8d77e1857\",\"chainId\":31337,\"choiceId\":\"0x358dca777851dbbedf553dbb37e6683c70951d79a2c321007161ff067bc8bda1\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"SURPLUS_ABOVE_THRESHOLD\",\"route\":\"Queue\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xc02d1a002c5cb67723574dacabaccc84199652afd524e2e9ae2b2f490a29a2f0\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "35000000",
+          "id": "0x358dca777851dbbedf553dbb37e6683c70951d79a2c321007161ff067bc8bda1",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x5bce38a3304cc8814a7cd9f4f4220ac92fb95b524d20ea3e05c9d8d8d77e1857",
+      "chainId": 31337,
+      "choiceId": "0x358dca777851dbbedf553dbb37e6683c70951d79a2c321007161ff067bc8bda1",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "route": "Queue",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xc02d1a002c5cb67723574dacabaccc84199652afd524e2e9ae2b2f490a29a2f0",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB12",
+    "output": {
+      "decisionHash": "0x2fbef05bca351611b758deef48bbc834ab5d17007b8356c502c7da9c80f92029",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"75000000\",\"id\":\"0xf4be824fc3386df74f0681ba441c22c699ec5a7c6d4b2d644c69545d6b5049bf\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x5efd796a3db0a1e29eebd3b05ae7bbf12a074586eb2860abe20b1072fea78910\",\"chainId\":31337,\"choiceId\":\"0xf4be824fc3386df74f0681ba441c22c699ec5a7c6d4b2d644c69545d6b5049bf\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"SURPLUS_ABOVE_THRESHOLD\",\"route\":\"Queue\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x78ab66b032d70af03c94c05b2094b630b9cea3a642605d8151e7dbd0d1b97eca\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "75000000",
+          "id": "0xf4be824fc3386df74f0681ba441c22c699ec5a7c6d4b2d644c69545d6b5049bf",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x5efd796a3db0a1e29eebd3b05ae7bbf12a074586eb2860abe20b1072fea78910",
+      "chainId": 31337,
+      "choiceId": "0xf4be824fc3386df74f0681ba441c22c699ec5a7c6d4b2d644c69545d6b5049bf",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "route": "Queue",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x78ab66b032d70af03c94c05b2094b630b9cea3a642605d8151e7dbd0d1b97eca",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB13",
+    "output": {
+      "decisionHash": "0xa4a8ad4ec6742cadf9edb57c9a07b02c1dc081c49f9552a3acfe5a0f1c6a2526",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"180000000\",\"id\":\"0x5c1a6610be3a87b73182d8f4cfdb8ddc00f84e090ed56487059512d5e73cc9d9\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0xfb4456cc8aa8935869800f5b424ebd4efa4577b76f78c97c8dfc21a8987cedcf\",\"chainId\":31337,\"choiceId\":\"0x5c1a6610be3a87b73182d8f4cfdb8ddc00f84e090ed56487059512d5e73cc9d9\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"SURPLUS_ABOVE_THRESHOLD\",\"route\":\"Approve\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xed7c09d42467fa2813f6ef3f0d3cc8c64fbc385741f2f699b21a6513ab893864\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "180000000",
+          "id": "0x5c1a6610be3a87b73182d8f4cfdb8ddc00f84e090ed56487059512d5e73cc9d9",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0xfb4456cc8aa8935869800f5b424ebd4efa4577b76f78c97c8dfc21a8987cedcf",
+      "chainId": 31337,
+      "choiceId": "0x5c1a6610be3a87b73182d8f4cfdb8ddc00f84e090ed56487059512d5e73cc9d9",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "route": "Approve",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xed7c09d42467fa2813f6ef3f0d3cc8c64fbc385741f2f699b21a6513ab893864",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB14",
+    "output": {
+      "decisionHash": "0x8f3bb5bf5bd2aa984e13f790134c1f45a7e83192f68a5511eb9f97853e821cc9",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"420000000\",\"id\":\"0xc0b3640beca363f653722918ead3ead13ec4f8748615c0fe968335965d0f1781\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0xd302a63a85704d1a94c54eda58b78445f8449ee7e105c993e0309640ca688b48\",\"chainId\":31337,\"choiceId\":\"0xc0b3640beca363f653722918ead3ead13ec4f8748615c0fe968335965d0f1781\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"SURPLUS_ABOVE_THRESHOLD\",\"route\":\"Approve\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x40c9bdbabd5f784dc44c4dd46d83a1b40c16a1236b2cd8e8a1d339f3b106081e\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "420000000",
+          "id": "0xc0b3640beca363f653722918ead3ead13ec4f8748615c0fe968335965d0f1781",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0xd302a63a85704d1a94c54eda58b78445f8449ee7e105c993e0309640ca688b48",
+      "chainId": 31337,
+      "choiceId": "0xc0b3640beca363f653722918ead3ead13ec4f8748615c0fe968335965d0f1781",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "route": "Approve",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x40c9bdbabd5f784dc44c4dd46d83a1b40c16a1236b2cd8e8a1d339f3b106081e",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB15",
+    "output": {
+      "decisionHash": "0x016ad467f60de14db5111387ff14ead4aa289341902fa2c28f175a3ceeb266b4",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"2500000\",\"id\":\"0x534372152e454231d180abcc17e21265b3c1a85a7779b3e33e445e533451e036\",\"kind\":\"Withdraw\",\"label\":\"A\",\"reason\":\"DEFICIT_BELOW_RESERVE\"}],\"candidateSetDigest\":\"0x0ae89ccd3a11e1d9c829b53c610bdb8ffdf267f73db3bdf92c32b854438f0a43\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x36dfa211df559fea4d0234dc15f5736c822b95357d07ce62872cef23d277c613\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "2500000",
+          "id": "0x534372152e454231d180abcc17e21265b3c1a85a7779b3e33e445e533451e036",
+          "kind": "Withdraw",
+          "label": "A",
+          "reason": "DEFICIT_BELOW_RESERVE"
+        }
+      ],
+      "candidateSetDigest": "0x0ae89ccd3a11e1d9c829b53c610bdb8ffdf267f73db3bdf92c32b854438f0a43",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x36dfa211df559fea4d0234dc15f5736c822b95357d07ce62872cef23d277c613",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB16",
+    "output": {
+      "decisionHash": "0xf3f58209ae33deb1aa4c3d048682bf47a85fbaea7f5fe0395d4abb0c1354d515",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"7500000\",\"id\":\"0xd44fcf6f276cdf69fc186239a14b9bec225f930c065919ba629ee8ff121fe3d7\",\"kind\":\"Withdraw\",\"label\":\"A\",\"reason\":\"DEFICIT_BELOW_RESERVE\"}],\"candidateSetDigest\":\"0x64f49bd08dea494cd68a8d6105dc4bb66147f7df05bc7ce0f08d2b3fe00ad3a2\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xb68b5d8d5bd68e73e18a76fc970d8a5d3fb816acf8237584c06ac6612e45b2b3\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "7500000",
+          "id": "0xd44fcf6f276cdf69fc186239a14b9bec225f930c065919ba629ee8ff121fe3d7",
+          "kind": "Withdraw",
+          "label": "A",
+          "reason": "DEFICIT_BELOW_RESERVE"
+        }
+      ],
+      "candidateSetDigest": "0x64f49bd08dea494cd68a8d6105dc4bb66147f7df05bc7ce0f08d2b3fe00ad3a2",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xb68b5d8d5bd68e73e18a76fc970d8a5d3fb816acf8237584c06ac6612e45b2b3",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB17",
+    "output": {
+      "decisionHash": "0x379a5582ebfc7de65c0be70a4caa906dfe9f3af7ae6e97a9e4466a0751339167",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"9500000\",\"id\":\"0x6c104286c06abbcdd3df4ce888597e686dd936fc49553e0bc1647a2ff9d8dd60\",\"kind\":\"Withdraw\",\"label\":\"A\",\"reason\":\"DEFICIT_BELOW_RESERVE\"}],\"candidateSetDigest\":\"0xdf9cf33092b4c0507f5371df9d2f1b73bc78f270f97bf1ece35776284ff22080\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x3c9efe889f9390d3632c2a3beb7746cb2b24f8f842d7d61c2cb3e9ea59e062d3\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "9500000",
+          "id": "0x6c104286c06abbcdd3df4ce888597e686dd936fc49553e0bc1647a2ff9d8dd60",
+          "kind": "Withdraw",
+          "label": "A",
+          "reason": "DEFICIT_BELOW_RESERVE"
+        }
+      ],
+      "candidateSetDigest": "0xdf9cf33092b4c0507f5371df9d2f1b73bc78f270f97bf1ece35776284ff22080",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x3c9efe889f9390d3632c2a3beb7746cb2b24f8f842d7d61c2cb3e9ea59e062d3",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB18",
+    "output": {
+      "decisionHash": "0x7cd1c79d39ddc710d2760a7c17779beaea09880180dc435fa02814f946c7cc38",
+      "passportJson": "{\"candidateSet\":[],\"candidateSetDigest\":\"0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x07a6127fa98a32b759f20fe674bac6a9e99586db3c04384e7746542e8991f552\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [],
+      "candidateSetDigest": "0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x07a6127fa98a32b759f20fe674bac6a9e99586db3c04384e7746542e8991f552",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB19",
+    "output": {
+      "decisionHash": "0xfc24796a44a7502c0dba84ee3be2435cbf7945d3aec96ca837b15c0fb29696c8",
+      "passportJson": "{\"candidateSet\":[],\"candidateSetDigest\":\"0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x91d43b8867746e5a08105cc1dd3460ba79b8394ad7b56a999ddcb534d3f566e8\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [],
+      "candidateSetDigest": "0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x91d43b8867746e5a08105cc1dd3460ba79b8394ad7b56a999ddcb534d3f566e8",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HB20",
+    "output": {
+      "decisionHash": "0xf07e2ba82c853328ed27d7caa2d90ecddf2ec68a893c868169fb779f7b37372c",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"300000000\",\"id\":\"0x485787ab70603fa6bb17500ee9b049fc2d7cdbbab8c4dbad4e64bbe2ee7e1dfb\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xd82bf5d98239ac8fef8ba171b9853af75879559b8eeee4c3293b27ce405c4749\",\"chainId\":31337,\"choiceId\":\"0x485787ab70603fa6bb17500ee9b049fc2d7cdbbab8c4dbad4e64bbe2ee7e1dfb\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Approve\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xf2e5ad74a8e43802a44827d31041e56aed4de703d1d4d176d41d519acbe3b0e2\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "300000000",
+          "id": "0x485787ab70603fa6bb17500ee9b049fc2d7cdbbab8c4dbad4e64bbe2ee7e1dfb",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xd82bf5d98239ac8fef8ba171b9853af75879559b8eeee4c3293b27ce405c4749",
+      "chainId": 31337,
+      "choiceId": "0x485787ab70603fa6bb17500ee9b049fc2d7cdbbab8c4dbad4e64bbe2ee7e1dfb",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Approve",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xf2e5ad74a8e43802a44827d31041e56aed4de703d1d4d176d41d519acbe3b0e2",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM01",
+    "output": {
+      "decisionHash": "0x3c7761d6dd9bed4da841ecfcd83124aba35878ade8a1ffa0f42abd1e212958fc",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"120000000\",\"id\":\"0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xa4ee2a7af84b5d67331d8500c0f8ad839407c534615273128f05b5fdfb45573c\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "120000000",
+          "id": "0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xa4ee2a7af84b5d67331d8500c0f8ad839407c534615273128f05b5fdfb45573c",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM02",
+    "output": {
+      "decisionHash": "0xe753fcff5fd1c5d4f511121110bf6366c73ba91305914b2ac167f62475c78299",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"120000000\",\"id\":\"0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x7e9d8ace8c6416f9fce159106030f3a5d5fa737a24bf5546fab4de7d36701db9\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "120000000",
+          "id": "0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x7e9d8ace8c6416f9fce159106030f3a5d5fa737a24bf5546fab4de7d36701db9",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM03",
+    "output": {
+      "decisionHash": "0x1530e61f3986e04fbb58fa7b3ee231edcc656096051cc36d56772dad4875ed7b",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"120000000\",\"id\":\"0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xd0f586e1aa91b3c844579b72d48984dc440bbd2c35bae49fcdd8e9214d355235\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "120000000",
+          "id": "0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xd0f586e1aa91b3c844579b72d48984dc440bbd2c35bae49fcdd8e9214d355235",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM04",
+    "output": {
+      "decisionHash": "0x414a1393d34bef799459de46411575accb3a36574dedcb03475dfe06cbcf3ea0",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"10000000\",\"id\":\"0x50f5068d4641e1d169c087d568fd061dbd74bde06eb5f27c8d8f7ee61de0cd23\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xde87ff79e6973b1d84ddf0420d667fb9db641505e2f5c436053973f37ed19e86\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xa7d640be665ea192b9ce91d14836bec03a9da00f8f40a2d88b6c0dcc63c199de\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "10000000",
+          "id": "0x50f5068d4641e1d169c087d568fd061dbd74bde06eb5f27c8d8f7ee61de0cd23",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xde87ff79e6973b1d84ddf0420d667fb9db641505e2f5c436053973f37ed19e86",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xa7d640be665ea192b9ce91d14836bec03a9da00f8f40a2d88b6c0dcc63c199de",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM05",
+    "output": {
+      "decisionHash": "0x74d063ae1859b37d8739b88a613f8bb4955ef29cd4945a4dd4587765458f9a13",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"10000000\",\"id\":\"0x50f5068d4641e1d169c087d568fd061dbd74bde06eb5f27c8d8f7ee61de0cd23\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xde87ff79e6973b1d84ddf0420d667fb9db641505e2f5c436053973f37ed19e86\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x2214df3f38cc0ef6885c2b0d70ad9134bc27efd76b071b91e32dbad477dc648d\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "10000000",
+          "id": "0x50f5068d4641e1d169c087d568fd061dbd74bde06eb5f27c8d8f7ee61de0cd23",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xde87ff79e6973b1d84ddf0420d667fb9db641505e2f5c436053973f37ed19e86",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x2214df3f38cc0ef6885c2b0d70ad9134bc27efd76b071b91e32dbad477dc648d",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM06",
+    "output": {
+      "decisionHash": "0x80984b3ed336ba664bb4c1e0bfbcd97b46879cd7eade57ff4b9d25776231c14b",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"120000000\",\"id\":\"0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xd9018a929c955867bcb0dba80013e9eb5666a5cb028522ed4dddec027bd1f285\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "120000000",
+          "id": "0x5dd2da5490a1bd214d5368fdb3572ca57d1d4bdb21c7bbc92423cbfac6eed648",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x1bbba3b3a01cb798779ed2018d7e4d469ed394c63ab1376d33be847dbcc3e033",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xd9018a929c955867bcb0dba80013e9eb5666a5cb028522ed4dddec027bd1f285",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM07",
+    "output": {
+      "decisionHash": "0xfba84dfa4fbed7fc842db2889c9a1353524842534f9817dfcd64a1003ef0d2a0",
+      "passportJson": "{\"candidateSet\":[],\"candidateSetDigest\":\"0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x5eb58baa8ac4306f65eb85e5f47a7d148cbd434bd9574cfc488a078206c7b4ed\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [],
+      "candidateSetDigest": "0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x5eb58baa8ac4306f65eb85e5f47a7d148cbd434bd9574cfc488a078206c7b4ed",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM08",
+    "output": {
+      "decisionHash": "0xad8687aa871eaf0d2a768d42d4cf200c513cab5c513179be99c83aaf21bfd2d1",
+      "passportJson": "{\"candidateSet\":[],\"candidateSetDigest\":\"0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xd2ad5147655fbcefcba2c7078885f1f7b59aa73df3551425e66b9bdc154aa6b3\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [],
+      "candidateSetDigest": "0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xd2ad5147655fbcefcba2c7078885f1f7b59aa73df3551425e66b9bdc154aa6b3",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM09",
+    "output": {
+      "decisionHash": "0x3ae3de9ae51e957781f9263293b8e716187fd6f6bd4a947c70ebd875d2c25fa2",
+      "passportJson": "{\"candidateSet\":[],\"candidateSetDigest\":\"0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x7b21007faea51116e1ca0e07e9b19629e4815ff501052a3011fee727d2103e2d\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [],
+      "candidateSetDigest": "0xf8d575228420c29f20631e73dd712a6a620a429e10dab8b6e02ae3240f6067a6",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x7b21007faea51116e1ca0e07e9b19629e4815ff501052a3011fee727d2103e2d",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM10",
+    "output": {
+      "decisionHash": "0xabdc351e16d1b6f661bcb7236b35372e9091c1beb18e1b70ebefe21d88b8a3b4",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"25000000\",\"id\":\"0x136ae6988941f7f689c2c768f804fdc00f7ce996fdffe2713e6797757ad32ae9\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xb43827e121462c9610b7e0ea7517204b8b4f26f98225b4f5fa8018b1811fbc30\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xf6035e6e1711593788b6275a8e8a6d0f0fae7ebe7ac807dd9ff069b19f5273fb\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "25000000",
+          "id": "0x136ae6988941f7f689c2c768f804fdc00f7ce996fdffe2713e6797757ad32ae9",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xb43827e121462c9610b7e0ea7517204b8b4f26f98225b4f5fa8018b1811fbc30",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xf6035e6e1711593788b6275a8e8a6d0f0fae7ebe7ac807dd9ff069b19f5273fb",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM11",
+    "output": {
+      "decisionHash": "0xa85436b2d1314f76de6de1ca7ad21f6aceffdd1e11e521c2bd64aa9de86eb499",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"40000000\",\"id\":\"0xc1d7ebe6199644d9003da3b594b35e48db3ce6a2cf4a8e3b4d7468c793b4137f\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xbc396ecfe238bdb0f5a5ff891c0f8525ff2d7d506fbcf0539664a0908c1a3152\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x14110b7d2165aa2beb699f8bb9adf154b681b83dbccee700fd7efd229c2c5a89\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "40000000",
+          "id": "0xc1d7ebe6199644d9003da3b594b35e48db3ce6a2cf4a8e3b4d7468c793b4137f",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xbc396ecfe238bdb0f5a5ff891c0f8525ff2d7d506fbcf0539664a0908c1a3152",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x14110b7d2165aa2beb699f8bb9adf154b681b83dbccee700fd7efd229c2c5a89",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM12",
+    "output": {
+      "decisionHash": "0x5fa6cf8cd51e1d13b6db3974a849252f6794c15ce17ee66e18c302bcf8cf5726",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"1200000000\",\"id\":\"0x0c3b06594747ae8df7400852c402abc3e1a399a343e7308c9a591c358aaaa27f\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x2a5c77ea767b53b46cf345e618d9c4088522a399cd53bae1a910424cc5bf3a5e\",\"chainId\":31337,\"choiceId\":\"0x0c3b06594747ae8df7400852c402abc3e1a399a343e7308c9a591c358aaaa27f\",\"choiceLabel\":\"A\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"BILL_DUE\",\"route\":\"Approve\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xdec1a0c1b8faf5422a9cd3553f617ed872da29f9d5170f4e7038412200d71edf\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "1200000000",
+          "id": "0x0c3b06594747ae8df7400852c402abc3e1a399a343e7308c9a591c358aaaa27f",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x2a5c77ea767b53b46cf345e618d9c4088522a399cd53bae1a910424cc5bf3a5e",
+      "chainId": 31337,
+      "choiceId": "0x0c3b06594747ae8df7400852c402abc3e1a399a343e7308c9a591c358aaaa27f",
+      "choiceLabel": "A",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "BILL_DUE",
+      "route": "Approve",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xdec1a0c1b8faf5422a9cd3553f617ed872da29f9d5170f4e7038412200d71edf",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM13",
+    "output": {
+      "decisionHash": "0x6ba93ec59c7455e1b947628ad13ab17c993e286dbd9cc176276f22fd5aa5e836",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"18000000\",\"id\":\"0x37b4fae41cb62fbedf46ecdf35f3fee4bb976d8cebe4eaf7669a6b41f51910a1\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x1e641003e9276fd2596bdbbc32899e31c2ae82d15350d1a5d6d28b5f0c58e4b5\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x5d721767fd8c4cb99ccf26ec0d7b25dd61c7dffa18d59e2b3e0437ca03405eec\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "18000000",
+          "id": "0x37b4fae41cb62fbedf46ecdf35f3fee4bb976d8cebe4eaf7669a6b41f51910a1",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x1e641003e9276fd2596bdbbc32899e31c2ae82d15350d1a5d6d28b5f0c58e4b5",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x5d721767fd8c4cb99ccf26ec0d7b25dd61c7dffa18d59e2b3e0437ca03405eec",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM14",
+    "output": {
+      "decisionHash": "0x90c0d5dabe3e0964dfdc7282c7057b15ba80f6536bd890d66566a72165a92b88",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"10000000\",\"id\":\"0x50f5068d4641e1d169c087d568fd061dbd74bde06eb5f27c8d8f7ee61de0cd23\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xde87ff79e6973b1d84ddf0420d667fb9db641505e2f5c436053973f37ed19e86\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xe03acd4467c93ac7ce5af608800eaf669fb74a85e4886b7878d7f1baaf0d580f\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "10000000",
+          "id": "0x50f5068d4641e1d169c087d568fd061dbd74bde06eb5f27c8d8f7ee61de0cd23",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xde87ff79e6973b1d84ddf0420d667fb9db641505e2f5c436053973f37ed19e86",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xe03acd4467c93ac7ce5af608800eaf669fb74a85e4886b7878d7f1baaf0d580f",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM15",
+    "output": {
+      "decisionHash": "0x8b5de94ad3afdad48e1d6eefd8a8de975472e2a0b501b91662557d4e63ddaddc",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"5000000000\",\"id\":\"0x0a6ebdf929a49c8c360ae3f8ba1d975171839ef729d9802bcab35f438229b5cc\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x1f300ac95a0460e797bf2e1063e79544e1cdde1aeaae2942236e5f3ec390c8e2\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x48e45f56ec92f157a28efc7615bac3556374c8446afc78812e590899b0ceffdb\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "5000000000",
+          "id": "0x0a6ebdf929a49c8c360ae3f8ba1d975171839ef729d9802bcab35f438229b5cc",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x1f300ac95a0460e797bf2e1063e79544e1cdde1aeaae2942236e5f3ec390c8e2",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x48e45f56ec92f157a28efc7615bac3556374c8446afc78812e590899b0ceffdb",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM16",
+    "output": {
+      "decisionHash": "0x1475eb980066ef1d23bbd2ce9c27338a5cab13a5eaefd05da36fd1a357e9bddd",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"90000000\",\"id\":\"0x2d0157f6efb7662a7a1cb312bbfffb1197de7d16041d4488bccbb8938dd57157\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x3e5795c29c9f08fe802381f2d5b58c8cb7c19917696e6cf700850a453539a9e1\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xd349f5f3c7382d7bf6a483c57298ee397c21c90046e5dae6f28b25f61c8eb1c5\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "90000000",
+          "id": "0x2d0157f6efb7662a7a1cb312bbfffb1197de7d16041d4488bccbb8938dd57157",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x3e5795c29c9f08fe802381f2d5b58c8cb7c19917696e6cf700850a453539a9e1",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xd349f5f3c7382d7bf6a483c57298ee397c21c90046e5dae6f28b25f61c8eb1c5",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM17",
+    "output": {
+      "decisionHash": "0x352c52f5a56eee1f754cd353afa828537599d8c85575e48054163ac92c9f20b8",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"110000000\",\"id\":\"0x3ccc59ac0561c5130f322141bf83dd782af16356a962c28698aed6d33838a577\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x73a9f7a62c912318c02cec8d4624008afab5b8ec5d9c15d0f65960fc043b0f83\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0xa89e96097ff44810b8d9953e3eb8f0879427005d41326d9deaeb87280ef95e67\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "110000000",
+          "id": "0x3ccc59ac0561c5130f322141bf83dd782af16356a962c28698aed6d33838a577",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x73a9f7a62c912318c02cec8d4624008afab5b8ec5d9c15d0f65960fc043b0f83",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0xa89e96097ff44810b8d9953e3eb8f0879427005d41326d9deaeb87280ef95e67",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM18",
+    "output": {
+      "decisionHash": "0xf7cda1bf9d2a5c3bfd9ca0b641de1918ee91fe9b2943a5523623930d0a8b996b",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"150000000\",\"id\":\"0x64ea7504e4d1985a379af193194bfc19d152a0dc546e1d357d2f0b49d287cea2\",\"kind\":\"Deposit\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x973d974ef22e339fb909276118ea3a92cb31e7f1c2fec8aab673de1ae5f96f74\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x48119ab692f76de67be6272d993715530f86e84ac297f28b8ae5bb3754b07aa9\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "150000000",
+          "id": "0x64ea7504e4d1985a379af193194bfc19d152a0dc546e1d357d2f0b49d287cea2",
+          "kind": "Deposit",
+          "label": "A",
+          "reason": "SURPLUS_ABOVE_THRESHOLD"
+        }
+      ],
+      "candidateSetDigest": "0x973d974ef22e339fb909276118ea3a92cb31e7f1c2fec8aab673de1ae5f96f74",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x48119ab692f76de67be6272d993715530f86e84ac297f28b8ae5bb3754b07aa9",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM19",
+    "output": {
+      "decisionHash": "0x7d1be57fedca05a3d38edc9d6db8258f04a4f27b9aec345294c49ca15661b09d",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"12000000\",\"id\":\"0x35fcf4c61ae3f2de4d4537db2ad0c8dc2fb8a6380ecfa8d94e9a6332be032967\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0xf725ebdd71d5a8d72d2e4739d8c2b7cf8c62f11a8245400ca30eb5072e6bd045\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x192cbb7115efbd218ac105e37cbc3db7c781eb2da608ef7285e3e8699783c176\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "12000000",
+          "id": "0x35fcf4c61ae3f2de4d4537db2ad0c8dc2fb8a6380ecfa8d94e9a6332be032967",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0xf725ebdd71d5a8d72d2e4739d8c2b7cf8c62f11a8245400ca30eb5072e6bd045",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x192cbb7115efbd218ac105e37cbc3db7c781eb2da608ef7285e3e8699783c176",
+      "version": "4.1"
+    }
+  },
+  {
+    "id": "HM20",
+    "output": {
+      "decisionHash": "0xc1d299b6b3e2c666c52f4d9cda2673dc91f7d75ae1be1fa1d6df8ca5ef387d44",
+      "passportJson": "{\"candidateSet\":[{\"assets\":\"22000000\",\"id\":\"0x6707a6e29aca106458d6235ba697c56a5a310a1358ffe29be6d8daf0e666afa3\",\"kind\":\"PayObligation\",\"label\":\"A\",\"reason\":\"BILL_DUE\"}],\"candidateSetDigest\":\"0x73280c0b43f93007ba30243358fc6612fdc2c74a80b1d9c71e72b8eec5a621d9\",\"chainId\":31337,\"choiceId\":\"0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e\",\"choiceLabel\":\"H\",\"createdAtChain\":1700000000,\"mandateHash\":\"0x2222222222222222222222222222222222222222222222222222222222222222\",\"module\":\"0x2222222222222222222222222222222222222222\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":5,\"mode\":\"ENFORCED\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"mnn+ahem-g:review\",\"libMnnSha256\":\"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4\",\"libllmSha256\":\"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f\",\"modelId\":\"LFM2.5-230M-MNN\",\"modelSha256\":\"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907\"},\"reasonCode\":\"MODEL_REVIEW_HOLD\",\"route\":\"HOLD\",\"safe\":\"0x1111111111111111111111111111111111111111\",\"snapshot\":{\"block\":100,\"hash\":\"0x9999999999999999999999999999999999999999999999999999999999999999\"},\"userGoalSha256\":\"0x5210140cf5cb42ea887d34c3c56187a5187896449479fc8f2c934d0647735e2c\",\"version\":\"4.1\"}"
+    },
+    "passport": {
+      "candidateSet": [
+        {
+          "assets": "22000000",
+          "id": "0x6707a6e29aca106458d6235ba697c56a5a310a1358ffe29be6d8daf0e666afa3",
+          "kind": "PayObligation",
+          "label": "A",
+          "reason": "BILL_DUE"
+        }
+      ],
+      "candidateSetDigest": "0x73280c0b43f93007ba30243358fc6612fdc2c74a80b1d9c71e72b8eec5a621d9",
+      "chainId": 31337,
+      "choiceId": "0x045641ee6a730122a44c6d27a70b8cfba1804c9c24d64fc72c890f19d8be870e",
+      "choiceLabel": "H",
+      "createdAtChain": 1700000000,
+      "mandateHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+      "module": "0x2222222222222222222222222222222222222222",
+      "planner": {
+        "ahem": {
+          "g": {
+            "forcedTokens": 5,
+            "mode": "ENFORCED",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "OFF"
+          }
+        },
+        "host": "linux-host",
+        "kind": "mnn+ahem-g:review",
+        "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+        "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+        "modelId": "LFM2.5-230M-MNN",
+        "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+      },
+      "reasonCode": "MODEL_REVIEW_HOLD",
+      "route": "HOLD",
+      "safe": "0x1111111111111111111111111111111111111111",
+      "snapshot": {
+        "block": 100,
+        "hash": "0x9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "userGoalSha256": "0x5210140cf5cb42ea887d34c3c56187a5187896449479fc8f2c934d0647735e2c",
+      "version": "4.1"
+    }
+  }
+]

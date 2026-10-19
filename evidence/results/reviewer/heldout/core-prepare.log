@@ -1,0 +1,8 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.34s
+     Running tests/arena_pipeline.rs (src/fusion-core/target/debug/deps/arena_pipeline-006a25c917f1a2cb)
+
+running 1 test
+test arena_pipeline ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
