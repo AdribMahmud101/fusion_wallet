@@ -19,8 +19,10 @@ Deadline: **Oct 20 15:59 UTC = 21:59 your time**. Everything below is merged on 
 2. Your evening deliverables (deck, PDFs, video, upload) — numbers above are the ones to use. Deck: https://claude.ai/artifact/G9EY4rAPs6mUYcyZtT3oZn (I will update its numbers: 23/24, held-out, in-app agent tx).
 3. Team names / university for the deck placeholders.
 
-## Still running
-- K25: experiment — model as reviewer (veto-only) to raise task completion; merged only if held-out ASR stays 0 and FBR improves.
+## Finished overnight
+- K25 experiment (policy proposes, model may only veto): **failed the safety gate** — ASR 1/30 frozen, 1/20 held-out (chooser 0/30, 0/20) for FBR 11/20 vs 13/20. Kept as an off-by-default mode with the ablation report `evidence/planner/REVIEWER_K25.md`; the chooser stays the default. Useful for judges: shows we pick safety over completion with evidence.
+
+Nothing is running now; the fleet is idle until you are back.
 
 ## Fleet notes
 Fixed tonight: router quota detection, Claude workers as root (`IS_SANDBOX`), Gradle RAM blow-up (one shared daemon), shared Rust toolchain, submodule-aware noop detection.
