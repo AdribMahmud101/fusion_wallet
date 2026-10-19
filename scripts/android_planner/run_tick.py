@@ -20,7 +20,13 @@ try:
  print('Session flock held; triggering Android app tick',request_id,flush=True)
  provision(server,args.local_host,args.serial)
  mode='dry-run' if args.dry_run else 'broadcast'
- command(args.local_host,args.serial,'am','broadcast','--allow-background-activity-starts','-n','app.fusion.wallet/.agent.AgentControlReceiver','--es','mode',mode,'--es','requestId',request_id)
+ command(args.local_host,args.serial,'input','keyevent','KEYCODE_WAKEUP',stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ command(args.local_host,args.serial,'wm','dismiss-keyguard',stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ # Android's cmd passes stdio FDs to system_server over Binder. A redirected
+ # edge log is a chroot file which system_server cannot accept; use pipes.
+ triggered=command(args.local_host,args.serial,'am','broadcast','--allow-background-activity-starts','-n','app.fusion.wallet/.agent.AgentControlReceiver','--es','mode',mode,'--es','requestId',request_id,
+                   stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ print(triggered.stdout.decode(errors='replace').strip(),flush=True)
  result=None; deadline=time.monotonic()+360
  while time.monotonic()<deadline:
   try:

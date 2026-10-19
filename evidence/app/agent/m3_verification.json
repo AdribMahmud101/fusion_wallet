@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "network": "Base Sepolia",
+  "transactions": [
+    {
+      "status": "PASS",
+      "txHash": "0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89",
+      "decisionHash": "0x2c9f8199031c9a6a1a03377dab2aab417e60f80236e9535ab6aceecb1c9e953d",
+      "blockNumber": 48332176,
+      "assetsRaw": "8000000",
+      "recipient": "0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79",
+      "from": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+      "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+      "checks": [
+        "APP/device provenance",
+        "distinct Android inference and signer processes",
+        "AHEM-G enforced, legal model output",
+        "exact passport keccak",
+        "canonical successful live receipt",
+        "session sender and module destination",
+        "stored receipt and transaction match RPC",
+        "decisionHash in calldata and ActionExecuted",
+        "USDC transfer to committed recipient",
+        "isPaid at receipt block",
+        "action nonce increment and reserve decrement"
+      ]
+    }
+  ]
+}

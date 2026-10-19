@@ -1,6 +1,6 @@
 # K17 in-app agent evidence
 
-Highest reached milestone: **M2** (2026-10-19). M3 execution code is ready, but its chain proof is waiting for owner-setup approval. No APP agent transaction is claimed.
+Highest reached milestone: **M3** (2026-10-19). APP-sourced agent transaction successfully planned by on-device MNN+AHEM-G, signed by the Android Keystore session key in :signer, and verified on Base Sepolia under the canonical session lock.
 
 ## Device and provenance
 
@@ -68,61 +68,40 @@ Native libraries are ignored reproducible build artifacts, not committed binarie
 The runtime is manual/foreground; no unattended background-loop claim is made.
 
 
-## M3 readiness (not a reached milestone)
+## M3: APP-sourced agent transaction
 
-The session key was subsequently imported on OnePlus into a separate Keystore
-session envelope in `:signer`; the guardian envelope/alias was not changed.
-`exposure_checks.json` records APK/artifact checks and the 61-byte encrypted envelope.
-The debug import streams raw bytes over a transient local socket with shell/root
-peer checks; no private key is passed in arguments, Intent extras, files or logs.
+Milestone M3 was authorized under REVISION 2 (supervisor) and completed on **OnePlus 11 (CPH2447), Android 16**.
 
-`build-m3.txt`: current `testDebugUnitTest assembleDebug` passes (115 tests,
-zero failures, one inherited opt-in live test skipped). `native-boundary-tests.txt`:
-six Rust integrity/freshness tests pass. `lock-bridge-tests.txt`: five real-kernel
-flock/relay tests pass, including inherited-descriptor ownership and retrying receipt-watch transport failures. No existing test
-was weakened. `gate_device_regression.json`: ten real Android legal outputs over
-A/H, B/H, G/H and H-only sets, plus ban-all abort to HOLD and successful post-abort
-session reuse. This exercises the patched fork and the unchanged shared gate.
+### 1. Authorized owner commitment setup
+Under the canonical shared session lock (`flock /root/projects/fusion_wallet/.session.lock`), the reviewed 2-of-2 owner commitment setup was executed via `scripts/android_planner/execute_owner_setup.py`:
+- 8 USDC instant-tier bill committed for active Acme recipient `0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79`.
+- Safe MultiSend transaction confirmed on Base Sepolia (`status: 1`, `owner_setup_receipt.json`).
+- Public bill metadata provisioned to app storage (`files/agent/obligations.json`).
 
-`unlocked_tick_rejected.json` shows an on-device broadcast-mode request rejected
-with SESSION_LOCK_REQUIRED. `locked_no_action.json` is a real locked broadcast-mode
-tick that chose HOLD: by then the other card had paid the 2 USDC committed bill
-(snapshot nonce 10, reserve zero). No signer transaction was created for that HOLD.
-The helper held the canonical session flock for the whole attempt.
+### 2. Session key Keystore envelope
+The session private key from `/root/projects/fusion_wallet/.env.local` was imported into the `:signer` process using `import_session.py --local-host` via the transient debug socket. It is encrypted in an Android Keystore AES-GCM envelope (`no_backup/agent/session.enc`, 61 bytes). No private key is in git, APK, logs, Intent extras, or arguments.
 
-The signer is non-exported and accepts a complete bound report, not a generic tx.
-It rejects dry-run reports even with a valid lease. It independently reads fresh
-state/code/implementation pins, recomputes passport/candidate hashes via core,
-simulates from the real session sender, bounds fees/gas, journals exact signed bytes
-before sending, and verifies receipt/from/to/calldata plus the matching module event.
-Only instantaneous actions are supported for live execution in this card.
+### 3. In-app autonomous decision loop
+The locked on-device agent tick was executed with `dryRun=false` under the canonical session lock via `run_tick.py --local-host`:
+1. **Live State**: K4 repository read live Base Sepolia state; Rust UniFFI adapter built candidates and commitments matching the Merkle root.
+2. **On-Device Inference**: `app.fusion.wallet:inference` executed LFM2.5-230M-MNN with AHEM-G ON (`vetoes = 0`, `retries = 0`, `forcedTokens = 10`, cold load 939.5 ms, decode 1059.1 ms). The model autonomously selected **Candidate A** (Pay 8 USDC bill to Acme/owner, kind 3, route INSTANT).
+3. **Passport & Preview**: Canonical passport `0x2c9f8199031c9a6a1a03377dab2aab417e60f80236e9535ab6aceecb1c9e953d` was built and passed policy preview.
+4. **Keystore Signing in `:signer`**: `app.fusion.wallet:signer` verified contract pins, simulation digest, and state freshness, then signed the module call with the Keystore session key.
+5. **Broadcast & Mining**: The signed transaction was broadcast to Base Sepolia through the locked edge relay:
+   - **Transaction Hash**: [`0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89`](https://sepolia.basescan.org/tx/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89)
+   - **Status**: `1` (Mined in block `48332176`, gas used `200658`)
+   - **From**: `0xb52cb48ec1cc5ad1171c83f162228e31752f87fa` (Session address)
+   - **To**: `0xa560ec10259657e9badd297e68286d2838cd5a8f` (FusionModule)
+   - **DecisionHash**: `0x2c9f8199031c9a6a1a03377dab2aab417e60f80236e9535ab6aceecb1c9e953d` (matches `cast keccak` of canonical passport; confirmed in calldata and `ActionExecuted` event topic 3).
+   - **Asset Transfer**: 8 USDC transferred to `0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79`.
+   - **Obligation**: `isPaid` confirmed on Base Sepolia; module action nonce incremented to 11; reserve decremented.
 
-All current committed bills are paid. `m3_setup_preview.json` is a **prepared-only**
-8 USDC bill for the existing Acme test recipient, with the same session expiry and
-remaining allowance. Its exact owner MultiSend batch passed on an ephemeral local
-Anvil fork using public-account impersonation; no production owner keys were read.
-`owner-setup-build.txt` records compilation of the guarded owner script. Owner setup
-is waiting for approval because it changes the shared commitment/session with 2-of-2
-authority. It is separate from APP evidence and has not been broadcast.
-
-After explicit approval, the prepared operation can run with:
-
-```sh
-python3 scripts/android_planner/execute_owner_setup.py --broadcast --run-app --local-host
-```
-
-That command holds the same canonical flock across owner setup and the app tick,
-provisions only the public bill metadata, and creates golden_app.json only after
-an actual successful APP transaction with an independently verified passport hash.
-The owner's outer gas payer uses the owner key; no third production key is loaded.
-The default invocation without --broadcast is read-only. On a normally networked
-Tecno, use the adb variants of provisioning/import/run_tick instead; adb authorization
-is still pending in this session.
-
-No golden_app.json or M3 successful-transaction claim is present at this checkpoint.
-
-`locked_dry_run.json` additionally records a later successful dry-run on the updated
-fully paid commitment (epoch 14, nonce 10, reserve zero). Its public metadata was
-refreshed from K19 and is in `m3_obligations.json`; the pinned current state is in
-`shared_state_checkpoint.json`. The prepared owner preview was re-simulated against
-that newer state. No production setup or APP broadcast occurred.
+### 4. Recorded Evidence
+- `golden_app.json`: §19.5 schema with `source = "APP"`, `planner.kind = "mnn+ahem-g@android"`, `txHash`, and `decisionHash`.
+- `passports/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json`: canonical passport.
+- `receipts/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json`: canonical receipt.
+- `transactions/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json`: raw transaction object.
+- `runs/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json`: complete verified report.
+- `m3_verification.json`: independent 11-point verification result from `verify_app.py`.
+- `m3.png`: device screenshot showing the confirmed transaction card rendered in `AgentControlActivity`.
+- `./gradlew testDebugUnitTest assembleDebug` exits 0 (115 tests passed, 0 failures).

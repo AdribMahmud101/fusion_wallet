@@ -39,6 +39,7 @@ class Server(socketserver.ThreadingTCPServer):
     def __init__(self,port=8766,locked=False,request_id='read-only'):
         super().__init__(('127.0.0.1',port),Gateway)
         self.token=secrets.token_hex(32); self.locked=False; self.accept_writes=False; self.request_id=request_id; self.session_lock=None
+        self.inherited_lock=False
         if locked:
             inherited=os.environ.get('K17_SESSION_LOCK_FD')
             if inherited is not None:
@@ -46,6 +47,7 @@ class Server(socketserver.ThreadingTCPServer):
                 expected=os.stat(SESSION_LOCK); actual=os.fstat(fd)
                 if (expected.st_dev,expected.st_ino)!=(actual.st_dev,actual.st_ino): raise ValueError('wrong inherited lock')
                 self.session_lock=os.fdopen(os.dup(fd),'a+')
+                self.inherited_lock=True
             else: self.session_lock=open(SESSION_LOCK,'a+')
             fcntl.flock(self.session_lock,fcntl.LOCK_EX)
             self.locked=True; self.accept_writes=True
@@ -74,8 +76,11 @@ class Server(socketserver.ThreadingTCPServer):
         with self.rpc_lock:
             if self.upstream: self.upstream.close(); self.upstream=None
             self.locked=False
-            if self.session_lock:
-                fcntl.flock(self.session_lock,fcntl.LOCK_UN); self.session_lock.close()
+            if self.session_lock and not self.session_lock.closed:
+                # A duplicated inherited FD shares the parent's lock. Explicit
+                # LOCK_UN would also unlock the owner's enclosing sequence.
+                if not self.inherited_lock: fcntl.flock(self.session_lock,fcntl.LOCK_UN)
+                self.session_lock.close()
     def config(self): return json.dumps({'host':'127.0.0.1','port':self.server_address[1],'token':self.token,'requestId':self.request_id})
 def wait_for_receipt(server,tx_hash,pause=time.sleep):
     # Read failures must not drop the session flock around an unresolved signed tx.
@@ -88,7 +93,7 @@ def wait_for_receipt(server,tx_hash,pause=time.sleep):
         except Exception: pass
         pause(2)
 def command(local_host,serial,*args,**kwargs):
-    cmd=['chroot','/proc/1/root','/system/bin/'+args[0],*args[1:]] if local_host else ['adb','-s',serial,'shell',shlex.join(args)]
+    cmd=['chroot','/proc/1/root','/system/bin/sh','-c','PATH=/system/bin "$@"', '--', *args] if local_host else ['adb','-s',serial,'shell',shlex.join(args)]
     return subprocess.run(cmd,check=True,**kwargs)
 def provision(server,local_host,serial):
     if not local_host:
