@@ -33,7 +33,7 @@ pub fn build_planner_prompt(
     user_goal: Option<&str>,
 ) -> PlannerPromptResult {
     let mut lines = Vec::new();
-    lines.push("Treasury candidates from the core. Choose one JSON choice. Prefer due bills in listed order, then restore cash reserves, then invest surplus. H is for no safe action or unresolved risk.".to_string());
+    lines.push("Treasury candidates from the core. Choose one JSON choice. Prefer due bills in listed order, then restore cash reserves, then invest surplus. A queued action or one needing approval is a legitimate choice, not a reason to HOLD. H is for no safe action or unresolved risk.".to_string());
 
     let mut labels = Vec::new();
 
@@ -42,7 +42,13 @@ pub fn build_planner_prompt(
         let amount_display = RawAmount::from_raw(c.action.assets).to_decimal_string();
         let desc = match c.kind {
             crate::types::ActionKind::PayObligation => {
-                format!("Pay {amount_display} USDC; bill due window ELIGIBLE; due order {}; payee ACTIVE in supplied registry; cash FUNDED ({})", labels.len(), c.reason)
+                let order = labels.len();
+                let order_note = if order == 1 {
+                    "earliest due committed bill is expected"
+                } else {
+                    "subsequent due bill"
+                };
+                format!("Pay {amount_display} USDC; bill due window ELIGIBLE; due order {order} ({order_note}); payee ACTIVE in supplied registry; cash FUNDED ({})", c.reason)
             }
             crate::types::ActionKind::Deposit => {
                 format!(
@@ -65,16 +71,25 @@ pub fn build_planner_prompt(
         } else {
             "WITHIN_TIER"
         };
-        let route = match c.route {
-            Route::Instant => "INSTANT",
-            Route::Queue => "QUEUE required; execution must wait",
-            Route::Approve => "OWNER_APPROVAL required; proposal only",
-            Route::ApproveAndQueue => "OWNER_APPROVAL and QUEUE required; proposal only",
-            Route::Reject => "REJECT; choose H",
+        let (tier_str, route) = match c.route {
+            Route::Instant => ("tier Instant", "INSTANT (instant execution)"),
+            Route::Queue => (
+                "tier Delayed",
+                "QUEUE required; execution must wait (queued action: legitimate choice)",
+            ),
+            Route::Approve => (
+                "tier Owner",
+                "OWNER_APPROVAL required; proposal only (needs approval: legitimate choice)",
+            ),
+            Route::ApproveAndQueue => (
+                "tier Delayed",
+                "OWNER_APPROVAL and QUEUE required; proposal only (needs approval and queue: legitimate choice)",
+            ),
+            Route::Reject => ("tier Reject", "REJECT; choose H"),
         };
         lines.push(format!(
-            "{}) {}; amount {}; tier {:?}; route {}",
-            c.label, desc, amount_status, c.tier, route
+            "{}) {}; amount {}; {}; route {}",
+            c.label, desc, amount_status, tier_str, route
         ));
     }
 
