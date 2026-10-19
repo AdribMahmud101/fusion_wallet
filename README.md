@@ -2,7 +2,7 @@
 
 > **Autonomous AI Treasury Agent for Small Businesses**  
 > *FinTechathon 2026 International Track — Topic F: Agent Wallet*  
-> Repository: [{{REPO_URL}}]({{REPO_URL}})
+> Reference Implementation & Submission Dossier (Phase 4)
 
 ---
 
@@ -47,26 +47,64 @@ Fusion Wallet replaces open-ended agent autonomy with a **bounded decision parad
 │   └── ahem/                          # Pinned AHEM token-level grammar gating submodule
 ├── deployments/                       # Chain manifests (84532.json for Base Sepolia)
 ├── evidence/                          # Execution artifacts, host results, and run logs
+│   ├── base-sepolia.json              # 30 operator script execution receipts (source: SCRIPT)
+│   ├── agent/                         # Autonomous golden path txs + passports (source: AGENT)
+│   ├── app/                           # In-app guardian pause + resume (source: APP / OWNER)
+│   ├── results/                       # 24 attack arena scenarios & latest.json benchmarks
 │   └── planner/                       # host_results.json (200 AHEM-G adversarial evaluations)
 ├── docs/                              # Auxiliary documentation (UI, assets, accountant)
+│   ├── EDGE_ANDROID_BUILD.md          # Complete Android edge build toolchain documentation
 │   └── submission/                    # Official FinTechathon submission deliverables
 │       ├── 01_TECHNICAL.md            # System architecture, core algorithm, security design
 │       ├── 02_DECK.md                 # 10-slide outline with speaker notes (≤ 10 min)
 │       ├── 03_VIDEO_SCRIPT.md         # 5-minute timed demonstration script and shot list
 │       ├── 05_SECURITY_SELF_ASSESSMENT.md # Permission matrix, controls mapping, known limits
-│       └── 06_EVIDENCE.md             # Execution table generated from on-chain receipts
-└── scripts/                           # Python verification and evidence collection utilities
+│       └── 06_EVIDENCE.md             # Complete evidence dossier generated from repo files
+└── scripts/                           # Independent verifiers and build automation scripts
+    ├── verify_evidence.py             # Keyless Base Sepolia receipt and revert verifier
+    ├── edge_android_build.sh          # Android edge compilation script
+    ├── edge_android_env.sh            # Android toolchain environment setup
+    └── agent/check_golden.py          # Keyless autonomous agent passport verifier
 ```
 
 ---
 
-## 3. Build, Test, and Deploy Instructions
+## 3. Provenance Framework
 
-### 3.1 Smart Contracts (`src/contracts`)
+To maintain absolute evaluation integrity, all execution records are categorized by their explicit provenance:
+
+| Provenance Tag | Execution Origin | Description & Boundaries | Keyless Verifier Tool |
+|---|---|---|---|
+| **`SCRIPT`** | Operator / Test Scripts | Deterministic deployment and verification scripts (`src/contracts/script/EvidenceActions.s.sol`). **Never designated as autonomous.** | `python3 scripts/verify_evidence.py evidence/base-sepolia.json` |
+| **`AGENT`** | Autonomous Agent Runner | Transactions broadcast autonomously by `agent-runner` with the on-device model under AHEM-G (`planner.kind = mnn+ahem-g`). Each `decisionHash` equals `keccak256(canonical_passport)`. | `python3 scripts/agent/check_golden.py` |
+| **`APP`** | Physical Android Phone | In-app actions triggered from the mobile user interface and broadcast by the isolated `:signer` process using an Android Keystore-wrapped key on real hardware (Tecno CL6). | Keyless receipt & event verification (`evidence/app/guardian_pause.json`) |
+| **`OWNER`** | Safe Multi-Signature (2-of-2) | Dual-signature administrative actions (Mei & Wei) configuring policy, committing bill roots, or resuming execution after an in-app pause. | `python3 scripts/verify_evidence.py evidence/base-sepolia.json` |
+
+---
+
+## 4. Keyless Verification: Run It Yourself
+
+Judges and independent auditors can verify all on-chain receipts, event logs, and passport cryptographic bindings keylessly without keys or specialized credentials:
+
+```bash
+# 1. Verify 30 operator script receipts against Base Sepolia RPC
+python3 scripts/verify_evidence.py evidence/base-sepolia.json
+
+# 2. Verify 3 autonomous agent golden path transactions and passport hashes
+python3 scripts/agent/check_golden.py
+
+# 3. Regenerate and verify the evidence dossier
+python3 docs/submission/gen_evidence.py
+```
+
+---
+
+## 5. Build, Test, and Verification Instructions
+
+### 5.1 Smart Contracts (`src/contracts`)
 The on-chain guard layer is developed with Foundry (Solidity `0.8.24`, Cancun EVM, `via_ir = true`, 200 optimizer runs).
 
 ```bash
-# Navigate to contracts directory
 cd src/contracts
 
 # Format check and ABI verification
@@ -89,7 +127,7 @@ FOUNDRY_PROFILE=ci forge test
 * Gas for `KavachiModule.execute(PAY_OBLIGATION)` in real Safe fixture: **292,385 gas**.
 * Emergency unwind gas for both vaults: completes well within the 1,000,000 gas ceiling on Anvil.
 
-### 3.2 Pure Rust Engine (`src/fusion-core`)
+### 5.2 Pure Rust Engine (`src/fusion-core`)
 `fusion-core` implements integer candidate enumeration, preview simulation, Merkle trees, and cryptographic hashing.
 
 ```bash
@@ -102,7 +140,7 @@ cargo test --locked
 cargo run --bin agent-runner -- --help
 ```
 
-### 3.3 Inference Engine & Planner (`src/fusion-planner`)
+### 5.3 Inference Engine & Planner (`src/fusion-planner`)
 `fusion-planner` integrates the AHEM-patched MNN runtime with LFM2.5-230M and enforces decode-time token gating.
 
 ```bash
@@ -118,30 +156,59 @@ FUSION_MODEL_DIR=/path/to/lfm_230m cargo test --release
 FUSION_MODEL_DIR=/path/to/lfm_230m python3 ../../evidence/planner/run_host.py
 ```
 
-### 3.4 Verification Tooling (`scripts/verify_evidence.py`)
-Fusion Wallet provides a standalone, read-only Python script to independently verify on-chain deployment receipts, Safe module configuration, and decision passport hash bindings against a public Base Sepolia RPC.
+### 5.4 Android Mobile Application (`src/Fintech_Wallet_Agent`)
+The Android mobile application features Jetpack Compose UI, a live Base Sepolia blockchain monitor, multi-process isolation (`:main`, `:inference`, `:signer`), and Android Keystore key management.
 
 ```bash
-# Verify all on-chain evidence
-python3 scripts/verify_evidence.py
+# 1. Initialize Android submodule
+git submodule update --init src/Fintech_Wallet_Agent
+
+# 2. Source Android build environment variables (Java 17, Android SDK 36, NDK 27)
+source scripts/edge_android_env.sh
+
+# 3. Run unit tests (96+ unit tests covering monitor, signer, and data models)
+cd src/Fintech_Wallet_Agent/fusion-core-android
+./gradlew test
+
+# 4. Compile native Rust cdylib and build Android debug APK on edge/aarch64
+cd /root/projects/fusion_wallet-wt/K15
+bash scripts/edge_android_build.sh
+# Output APK: src/Fintech_Wallet_Agent/fusion-core-android/app/build/outputs/apk/debug/app-debug.apk (~22 MB)
+# Detailed build guide: docs/EDGE_ANDROID_BUILD.md
 ```
 
 ---
 
-## 4. Test Suite & Verification Summary
+## 6. Empirical Verification & Evidence Summary
 
-### Smart Contract Verification (`src/contracts/STATUS.md`)
+Full evidence tables and transaction links are compiled in [`docs/submission/06_EVIDENCE.md`](docs/submission/06_EVIDENCE.md).
+
+### 1. Smart Contract Verification (`src/contracts/STATUS.md`)
 * **157/157 passing tests** with zero failures and zero skipped tests.
 * **Formal Invariant Campaign (I1–I7):** Verified via `TreasuryHandler` across 64 runs, 2,048 handler calls, and CI runs of 256 runs, 16,384 handler calls with zero reverts:
   * **I1:** Reserve preservation: $C \ge R + B$ holds across all deposit and investment operations.
-  * **I2:** Treasury assets can only leave the Safe to Vault A, Vault B, or an active, verified, non-sanctioned payee matching a committed unpaid Merkle leaf.
+  * **I2:** Treasury assets leave Safe only to Vault A, Vault B, or an active verified non-sanctioned payee matching a committed unpaid Merkle leaf.
   * **I3:** Cumulative limits strictly respected (gross daily limit $\le 4,000$ USDC, session limit $\le 8,000$ USDC).
   * **I4:** Invoices paid at most once across both agent and owner execution paths.
   * **I5:** Safe-to-vault ERC-20 allowances reset to exactly zero after every transaction.
   * **I6:** Paused module stops all agent operations; only 2-of-2 Safe transactions can unpause.
   * **I7:** Nonce consumption is strictly monotonic; cancelled/expired queues consume the nonce.
 
-### AI Planner & Grammar Gate Verification (`evidence/planner/host_results.json`)
+### 2. Autonomous Agent Golden Path (`evidence/agent/golden.json`)
+* **`E7-AGENT` (Instant Bill Payment):** Autonomous `PAY_INSTANT` of 8.00 USDC in block `48322748` (`0x8bab4844...`), `decisionHash: 0x731de927...`.
+* **`E8-QUEUE` (Delayed Bill Queued):** Autonomous queue of 75.00 USDC in block `48324683` (`0x5b7cd057...`), `decisionHash: 0xe04da051...`.
+* **`E8-EXEC` (Delayed Bill Executed):** Autonomous delayed execution after 180s timelock in block `48324784` (`0xf1e0afcb...`), `decisionHash: 0xe04da051...`.
+* **`HOLD-AGENT` (Fee Spike Defense):** Autonomous `HOLD` decision in block `48324783` when gas fees outweighed yield, preserving funds without broadcasting gas-wasting tx.
+
+### 3. In-App Mobile Kill Switch (`evidence/app/guardian_pause.json`)
+* **`E14-APP` (Guardian Pause):** Unilateral guardian pause (`0xb36b6d22...`) initiated from an Android phone (Tecno CL6) `:signer` process with Android Keystore-wrapped key in block `48325338`. Confirms `paused == true`.
+* **`E14-APP-RESUME` (Owner Resume):** 2-of-2 Safe transaction (`0x82916108...`) calling `KavachiModule.resume`, restoring `paused == false`.
+
+### 4. Adversarial Attack Arena & Corpus (`evidence/results/latest.json` & `ARENA.md`)
+* **Arena (24 Scenarios):** 21 stopped, 2 escaped (A12: x402 budget signer not built; A17: proxy implementation swap escapes code hash pin), 1 not implemented (A13: crash journal).
+* **Corpus (60 Cases):** Off-chain Attack Success Rate (ASR) is **0/30 (0.0%)** under AHEM-G; False Block Rate (FBR) is **25/30 (83.3%)** under AHEM-G (actionable FBR: **25/28 (89.3%)**).
+
+### 5. AI Planner & Grammar Gate Host Benchmarks (`evidence/planner/host_results.json`)
 Evaluated across a 200-sample adversarial suite including direct prompt injections, base64 encodings, and Morse code:
 * **AHEM-G-01 (Grammar Gating Enforced):** **200/200 legal outputs**, **0 illegal outputs**, 46 token-level vetoes logged, 1,000 forced token skeletons emitted.
 * **AHEM-G-02 (Unconstrained Plain Baseline):** 48 final invalid outputs (aborts) due to malformed JSON or unconstrained text.
@@ -149,16 +216,19 @@ Evaluated across a 200-sample adversarial suite including direct prompt injectio
 
 ---
 
-## 5. Security & Engineering Boundaries
+## 7. Security, Residual Risks & Engineering Boundaries
 
-In accordance with strict technical standards:
+In accordance with strict technical standards, Fusion Wallet explicitly discloses its architectural boundaries:
 * **Testnet Prototype:** Deployed on Base Sepolia using testnet assets and mock contracts. Not evaluated for mainnet custody.
 * **Unaudited Contracts:** The smart contract code has not undergone external commercial audit.
-* **Simulated Demo Parameters:** Payee cooling delay is configured to 3,600 seconds (1 hour) for demonstration purposes; production default is 86,400 seconds (24 hours). Sanctions screening utilizes an illustrative on-chain test oracle.
-* **Yield Calculations:** Vault yield rates are variable and scenario-based; no yield guarantees are made.
-* **Model Decisions:** AHEM-G guarantees that any output produced by the model is syntactically constrained to valid options; it does not claim that the model possesses human financial wisdom.
+* **Simulated Demo Parameters:** Payee cooling delay is configured to 3,600 seconds (1 hour) for demonstration purposes; production default is 86,400 seconds (24 hours). Sanctions screening utilizes an illustrative on-chain test oracle (`0xd2716e08BCe6eb5B1f01329FF5E1a2dd0468B678`).
+* **Known Residuals:**
+  * **A12:** Dedicated x402 budget signer is not implemented in current core.
+  * **A17:** Vault code-hash pinning validates proxy `extcodehash`, but does not detect underlying proxy implementation swaps without external oracle monitoring.
+  * **A13:** Durable write-ahead crash reconciliation journal is not implemented.
+  * **High FBR (83.3%):** Under AHEM-G, the compact 230M model conservatively defaults to HOLD on complex benign opportunities. Funds remain safe; owners can pay directly via `ownerPayObligation` (card K14 is actively optimizing).
 
 ---
 
-## 6. License
+## 8. License
 Dual-licensed under Apache-2.0 or MIT.
