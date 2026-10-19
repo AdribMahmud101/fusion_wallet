@@ -1,0 +1,12 @@
+CPU Group: [ 0  1  2 ], 307200 - 2016000
+CPU Group: [ 3  4  5  6 ], 499200 - 2803200
+CPU Group: [ 7 ], 595200 - 3187200
+The device supports: i8sdot:1, fp16:1, i8mm: 1, sve2: 0, sme2: 0
+A=542
+B=543
+C=544
+D=545
+E=546
+F=547
+G=548
+H=549
