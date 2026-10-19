@@ -14,7 +14,9 @@ elif [ -d "/usr/lib/jvm/default-runtime" ]; then
 fi
 
 # Ensure gradle user home has the aapt2 override
-export GRADLE_USER_HOME="${GRADLE_USER_HOME:-$HOME/.gradle}"
+# One shared Gradle home for every worker: per-account HOMEs each spawned
+# their own daemons and exhausted the phone's RAM (load 155, swap full).
+export GRADLE_USER_HOME=/root/.gradle
 mkdir -p "$GRADLE_USER_HOME"
 if ! grep -q "android.aapt2FromMavenOverride" "$GRADLE_USER_HOME/gradle.properties" 2>/dev/null; then
     echo "android.aapt2FromMavenOverride=$ANDROID_HOME/aapt2-arm64/aapt2" >> "$GRADLE_USER_HOME/gradle.properties"
