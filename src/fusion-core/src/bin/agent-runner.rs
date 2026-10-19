@@ -488,12 +488,24 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         let content = fs::read_to_string(path)?;
         serde_json::from_str::<Snapshot>(&content)?
     } else if let Some(ref man) = manifest {
-        if let Some(target_b) = args.block {
+        let mut attempts = 0;
+        loop {
+            attempts += 1;
             let url = Url::from_str(&man.rpc_url)?;
             let provider = ProviderBuilder::new().connect_http(url);
-            read_snapshot_at_block(&provider, man, Some(target_b)).await?
-        } else {
-            read_snapshot(man).await?
+            let res = if let Some(target_b) = args.block {
+                read_snapshot_at_block(&provider, man, Some(target_b)).await
+            } else {
+                read_snapshot(man).await
+            };
+            match res {
+                Ok(s) => break s,
+                Err(e) if attempts < 5 => {
+                    eprintln!("Warning: read_snapshot attempt {attempts} failed ({e}); retrying in 3s...");
+                    tokio::time::sleep(Duration::from_secs(3)).await;
+                }
+                Err(e) => return Err(e.into()),
+            }
         }
     } else {
         return Err("No snapshot available".into());
@@ -517,18 +529,27 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
             let provider = ProviderBuilder::new().connect_http(url);
             let mut unpaid = Vec::new();
             for ob in obligations {
-                match fusion_core::snapshot::is_obligation_paid(
-                    &provider,
-                    m.module,
-                    ob.obligation_id_hash,
-                    snapshot.block_number,
-                ).await {
-                    Ok(true) => {
-                        println!("Obligation {} ({:#x}) is marked PAID on-chain; excluding.", ob.obligation_id, ob.obligation_id_hash);
+                let mut attempts = 0;
+                let is_paid = loop {
+                    attempts += 1;
+                    match fusion_core::snapshot::is_obligation_paid(
+                        &provider,
+                        m.module,
+                        ob.obligation_id_hash,
+                        snapshot.block_number,
+                    ).await {
+                        Ok(p) => break p,
+                        Err(e) if attempts < 5 => {
+                            eprintln!("Warning: is_obligation_paid attempt {attempts} failed ({e}); retrying in 2s...");
+                            tokio::time::sleep(Duration::from_secs(2)).await;
+                        }
+                        Err(e) => return Err(e.into()),
                     }
-                    _ => {
-                        unpaid.push(ob);
-                    }
+                };
+                if is_paid {
+                    println!("Obligation {} ({:#x}) is marked PAID on-chain; excluding.", ob.obligation_id, ob.obligation_id_hash);
+                } else {
+                    unpaid.push(ob);
                 }
             }
             obligations = unpaid;
@@ -554,7 +575,7 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         .unwrap_or(true);
 
     // 4. Candidate Enumeration (§10.4)
-    let candidate_set = enumerate_candidates(
+    let mut candidate_set = enumerate_candidates(
         &snapshot,
         &obligations,
         &payees,
@@ -676,11 +697,52 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         }
     };
 
-    let choice = if choice_label == "H" {
+    let mut choice = if choice_label == "H" {
         candidate_set.hold.clone()
     } else {
         candidate_set.candidates.iter().find(|c| c.label == choice_label).cloned().unwrap_or_else(|| candidate_set.hold.clone())
     };
+
+    // Workaround for library bug in candidates.rs (§10.4): candidates.rs hardcodes deadline = now + 120,
+    // which violates KavachiPolicyLib requirement (deadline >= now + delaySeconds + 30) for queued actions.
+    if choice.route == Route::Queue {
+        if !snapshot.queue.exists {
+            let queue_deadline = snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 300;
+            choice.action.deadline = queue_deadline;
+            choice.id = fusion_core::hashing::compute_candidate_id_from_action(
+                U256::from(chain_id),
+                safe,
+                module,
+                snapshot.module_state.mandate_hash,
+                snapshot.module_state.session_id,
+                snapshot.block_hash,
+                &choice.action,
+            );
+            for c in &mut candidate_set.candidates {
+                if c.label == choice.label {
+                    c.action.deadline = queue_deadline;
+                    c.id = choice.id;
+                }
+            }
+        } else if snapshot.queue.action.obligation_id_hash == choice.action.obligation_id_hash {
+            choice.action = snapshot.queue.action.clone();
+            choice.id = fusion_core::hashing::compute_candidate_id_from_action(
+                U256::from(chain_id),
+                safe,
+                module,
+                snapshot.module_state.mandate_hash,
+                snapshot.module_state.session_id,
+                snapshot.block_hash,
+                &choice.action,
+            );
+            for c in &mut candidate_set.candidates {
+                if c.label == choice.label {
+                    c.action = snapshot.queue.action.clone();
+                    c.id = choice.id;
+                }
+            }
+        }
+    }
 
     println!(
         "Final Choice: label={} kind={:?} reason={} assets={}",
@@ -944,7 +1006,18 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         let raw_bytes = Bytes::from(hex::decode(raw_hex)?);
 
         println!("Broadcasting raw transaction...");
-        let pending = provider.send_raw_transaction(&raw_bytes).await?;
+        let mut attempts = 0;
+        let pending = loop {
+            attempts += 1;
+            match provider.send_raw_transaction(&raw_bytes).await {
+                Ok(p) => break p,
+                Err(e) if attempts < 5 => {
+                    eprintln!("Warning: send_raw_transaction attempt {attempts} failed ({e}); retrying in 3s...");
+                    tokio::time::sleep(Duration::from_secs(3)).await;
+                }
+                Err(e) => return Err(e.into()),
+            }
+        };
         let hash = *pending.tx_hash();
         println!("Tx submitted: {hash:#x}. Awaiting receipt...");
         let receipt = pending.get_receipt().await?;
