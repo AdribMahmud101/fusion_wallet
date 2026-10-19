@@ -505,12 +505,35 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     );
 
     // 3. Obligations & Rates
-    let (obligations, bill_proofs, payees) = if let Some(ref path) = args.obligations_path {
+    let (mut obligations, bill_proofs, payees) = if let Some(ref path) = args.obligations_path {
         let content = fs::read_to_string(path)?;
         parse_obligations_content(&content)?
     } else {
         (vec![], BTreeMap::new(), vec![])
     };
+
+    if let Some(ref m) = manifest {
+        if let Ok(url) = Url::from_str(&m.rpc_url) {
+            let provider = ProviderBuilder::new().connect_http(url);
+            let mut unpaid = Vec::new();
+            for ob in obligations {
+                match fusion_core::snapshot::is_obligation_paid(
+                    &provider,
+                    m.module,
+                    ob.obligation_id_hash,
+                    snapshot.block_number,
+                ).await {
+                    Ok(true) => {
+                        println!("Obligation {} ({:#x}) is marked PAID on-chain; excluding.", ob.obligation_id, ob.obligation_id_hash);
+                    }
+                    _ => {
+                        unpaid.push(ob);
+                    }
+                }
+            }
+            obligations = unpaid;
+        }
+    }
 
     let rates: Vec<VaultRateInfo> = if let Some(ref path) = args.rates_path {
         let content = fs::read_to_string(path)?;
