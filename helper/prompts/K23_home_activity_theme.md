@@ -30,3 +30,6 @@ exits 0, plus `ui/K23_SCREENS.md` listing each tile/screen → its data source.
 
 ## Acceptance
 - No hard-coded balances/hashes/counts in release paths. No Float/Double money. No test weakened. Commit inside the submodule on `card/K23`. Do not merge, do not push.
+
+## Supervisor device finding (after K21 merge)
+On the Tecno (1080 px) the Home title row breaks: the "Updated 2s ago · refreshing" chip sits in the same row as the screen title, so "Home" wraps to "Hom/e" and the subtitle is squeezed into a narrow column. Put freshness status on its own line under the subtitle (or in the hero tile), never in the title row. Check every screen title row the same way.
