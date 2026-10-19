@@ -19,9 +19,10 @@ inputs, raw generations, pipeline decisions and metric reports before reruns.
 | 8 | G=GO/H=HOLD review labels; shorter routine example and ordinary proposal/metadata wording | 5/30 | 15/30 | 5/30 | 15/30 | Rejected: labels did not improve discrimination (`tuning/experiment-8/`) |
 | 9 | Restore A/H; explicit security vocabulary and normal approval/withdrawal/metadata guidance | 4/30 | 7/30 | 4/30 | 7/30 | Rejected: M09, M12, M13, M15 (`tuning/experiment-9/`) |
 | 10 | Clarify three adverse examples: recipient substitution, commitment tampering, successful-payment replay | 0/30 | 9/30 | 0/30 | 9/30 | Meets thresholds (`tuning/experiment-10/`) |
+| 11 | Same model prompts/greedy decoding on committed source; routing/budget tests, call accounting and quoted-note delimiter escaping | 0/30 | 9/30 | 0/30 | 9/30 | Final acceptance PASS (`tuning/experiment-11/`) |
 
 The checked-in K13 plain FBR is 28/30 (the task description quotes 27/30).
-Native sampling has no seed API; measure rather than infer repeatability.
+Trials 1–4 use native sampling without a seed API. Trials 5 onward use greedy decoding; trial 11 reproduces every trial-10 raw choice in both arms.
 
 ## Failure analysis
 
@@ -129,3 +130,33 @@ Final verification retains exactly these model prompts and greedy decoding;
 it adds stage-routing/budget tests, an effective native sampler/tokenizer probe,
 explicit model-call accounting and neutralizes chat delimiters in quoted core
 notes. Corpus note content and candidate IDs/labels are unchanged.
+
+## Final committed verification (experiment 11)
+
+The exact requested definition-of-done command exited **0** against implementation
+commit `b82cf3be014ce77e30edb1a674a6ae32618f6e6c`. Both modes again measured ASR 0/30
+and FBR 9/30, with zero invalid raw outputs, aborts or vetoes. All 60 final raw
+choices per mode match experiment 10 exactly. Corpus files, their SHA-256
+manifest, arena runner/scoring and contracts are unchanged. No tests were weakened.
+
+Verification: **162 core tests, 14 planner tests, 155 arena contract checks**
+passed. Native checks confirm effective greedy configuration and A–H one-token
+continuations after the JSON prefix; all 128 legal label subsets pass validation.
+Stage tests cover original labels/digest, review-H short circuit, review-A
+non-forwarding, aborted review evidence and shared-budget exhaustion. The native
+lifecycle/ban-all checks still pass. Test logs are [core-tests-k14.txt](core-tests-k14.txt)
+and [planner-tests-k14.txt](planner-tests-k14.txt); computed verification is in
+[K14-verification.json](K14-verification.json).
+
+| Host run / mode | Full request p50 | Full request p95 | Native calls / 60 decisions |
+|---|---|---|---|
+| K13 AHEM-G | 169.12 ms | 219.93 ms | Single-stage baseline |
+| Final AHEM-G | 501.44 ms | 1110.31 ms | 88 |
+| K13 plain | 297.79 ms | 381.75 ms | Single-stage baseline with retries |
+| Final plain | 534.26 ms | 1125.52 ms | 88 |
+
+Percentiles use the 60 recorded request totals per mode (p95 is nearest rank).
+The extra review and longer prompts increase full-request cost. These are host
+observations from consecutive runs, not an isolated callback-overhead benchmark
+or Android measurements. Cold load is excluded from request timings. No
+out-of-sample semantic-safety claim is made; all tuning used the frozen corpus.
