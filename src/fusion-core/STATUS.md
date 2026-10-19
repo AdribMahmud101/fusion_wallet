@@ -44,7 +44,19 @@
   - Unit tests in `src/manifest.rs`, `src/buckets.rs`, `src/planner_io.rs`, `src/passport.rs`.
 
 ## Priority 3: Preview, Calldata Encoding, UniFFI Surface
-- **Status**: IN PROGRESS
+- **Status**: COMPLETE
+- **Modules**:
+  - `src/preview.rs`: Pure mirror of §7.7 normative rules in exact order (Rules 1–7, `PreviewResult`, `RuleOutcome`).
+  - `src/encode.rs`: Calldata encoders using `alloy::sol!` for `execute`, `queueAction`, `cancelQueuedAction`, `pause`, `emergencyUnwind`, `startSession`, `resume`, `commitObligations`, and Safe `execTransaction`.
+  - `src/lib.rs`: Complete UniFFI export surface (Appendix B §25) with `panic_guard` on every function returning `{"ok":false,"error":{"code":"PANIC"}}`.
+- **Tests**:
+  - `tests/preview_parity.rs`:
+    - `test_preview_instant_deposit_passes_all_checks`
+    - `test_preview_catches_paused_module`
+    - `test_preview_catches_bad_nonce`
+    - `test_preview_catches_missing_decision_hash`
+    - `test_preview_catches_reserve_raid`
+  - Unit tests in `src/preview.rs` and `src/encode.rs`.
 
 ## Priority 4: Snapshot, Signing, Agent Runner CLI
 - **Status**: PENDING
