@@ -1,0 +1,693 @@
+{"load":{"coldLoadMs":939.64526,"hashes":{"config.json":"9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20","libMNN.so":"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4","libllm.so":"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f","llm.mnn":"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907","llm.mnn.weight":"fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719","llm_config.json":"6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576","tokenizer.mtok":"27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"},"state":"READY"}}
+CPU Group: [ 0  1  2 ], 307200 - 2016000
+CPU Group: [ 3  4  5  6 ], 499200 - 2803200
+CPU Group: [ 7 ], 595200 - 3187200
+The device supports: i8sdot:1, fp16:1, i8mm: 1, sve2: 0, sme2: 0
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=42
+[AHEM] forwardRaw entered callback=0x573a25e81c
+[AHEM] forwardRaw latent ptr=0x574e61b580 rows=42 cols=1024 info=0x574e61b140 tensor=0x574e0e77f0
+[AHEM] forwardRaw entered callback=0x573a25e81c
+[AHEM] forwardRaw latent ptr=0x5754917f40 rows=1 cols=1024 info=0x5754317af0 tensor=0x574e617d50
+[AHEM] forwardRaw entered callback=0x573a25e81c
+[AHEM] forwardRaw latent ptr=0x575487db40 rows=1 cols=1024 info=0x5754831d30 tensor=0x5754317670
+[AHEM] forwardRaw entered callback=0x573a25e81c
+[AHEM] forwardRaw latent ptr=0x5754880640 rows=1 cols=1024 info=0x57548803d0 tensor=0x5754888500
+[AHEM] forwardRaw entered callback=0x573a25e81c
+[AHEM] forwardRaw latent ptr=0x5754881680 rows=1 cols=1024 info=0x5754825070 tensor=0x5754880340
+[AHEM] response end callback_calls=20 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=46
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=47
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=54
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=54
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=55
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=57
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=57
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=56
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=45
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=56
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=56
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=56
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=56
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=56
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=56
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=45
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=20 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=42
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=41
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=48
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=48
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=48
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[AHEM] response end callback_calls=20 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=47
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=54
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=54
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=54
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=45
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=42
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=20 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=20 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=46
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=46
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=42
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=45
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=52
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=48
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=55
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=55
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=55
+[AHEM] response end callback_calls=20 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=42
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=49
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=41
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=48
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=48
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=48
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=20 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=44
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=51
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=18 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=46
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=53
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=43
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=50
+[AHEM] response end callback_calls=14 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=641
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=648
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=648
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=647
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=264
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=271
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=271
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=273
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=278
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=285
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=285
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=285
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=580
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=587
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=587
+[AHEM] response end callback_calls=15 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=587
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=364
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=371
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=371
+[AHEM] response end callback_calls=16 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=371
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=337
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=344
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=344
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=345
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=487
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=494
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=494
+[AHEM] response end callback_calls=13 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=494
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=223
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=230
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=230
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=229
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=401
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=408
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=408
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=408
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=440
+[AHEM] response end callback_calls=17 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=447
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=447
+[AHEM] response end callback_calls=19 veto=0 status=1
+[AHEM] response_buf start callback=0x573a25e81c max_new_tokens=8
+[AHEM] tokenized prompt ids=448
+[AHEM] response end callback_calls=17 veto=0 status=1
