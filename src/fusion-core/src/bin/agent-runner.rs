@@ -20,7 +20,7 @@ use fusion_core::planner_io::build_planner_prompt;
 use fusion_core::preview::{preview_candidate, RuleStatus};
 use fusion_core::sign::{sign_eip1559_transaction, PreparedTransaction};
 use fusion_core::snapshot::{read_snapshot, read_snapshot_at_block};
-use fusion_core::types::{Obligation, Payee, Snapshot};
+use fusion_core::types::{ActionKind, Obligation, Payee, Snapshot};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::BTreeMap;
@@ -48,6 +48,7 @@ struct RunnerArgs {
     evidence_id: String,
     passport_dir: Option<String>,
     dryrun_dir: Option<String>,
+    runs_dir: Option<String>,
     source: String,
     choice: Option<String>,
     user_goal: String,
@@ -71,6 +72,7 @@ impl RunnerArgs {
         let mut evidence_id = "E7".to_string();
         let mut passport_dir = None;
         let mut dryrun_dir = None;
+        let mut runs_dir = None;
         let mut source = "AGENT".to_string();
         let mut choice = None;
         let mut user_goal = "Maintain business runway and yield".to_string();
@@ -160,6 +162,12 @@ impl RunnerArgs {
                         dryrun_dir = Some(args[i].clone());
                     }
                 }
+                "--runs-dir" => {
+                    i += 1;
+                    if i < args.len() {
+                        runs_dir = Some(args[i].clone());
+                    }
+                }
                 "--source" => {
                     i += 1;
                     if i < args.len() {
@@ -238,6 +246,7 @@ impl RunnerArgs {
             evidence_id,
             passport_dir,
             dryrun_dir,
+            runs_dir,
             source,
             choice,
             user_goal,
@@ -256,7 +265,8 @@ pub struct EvidenceRow {
     pub source: String,  // "AGENT" or "SCRIPT"
     pub planner: String, // "deterministic" | "mnn+ahem-g"
     pub host: String,    // "linux-host"
-    pub tx_hash: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tx_hash: Option<String>,
     pub decision_hash: String,
     pub action_digest: String,
     pub candidate_id: String,
@@ -266,6 +276,8 @@ pub struct EvidenceRow {
     pub status: u64,
     pub block_number: u64,
     pub gas_used: u64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub passport: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub passport_file: Option<String>,
 }
@@ -545,17 +557,38 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     // 5. Planner Selection (§10.6, §19.5)
     let (choice_label, planner_meta) = if let Some(ref forced) = args.choice {
         println!("Using explicit candidate choice label: {forced}");
-        let meta = PlannerMetadata {
-            ahem: AhemMetadata {
-                g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
-                l: AhemLReport { mode: "OFF".to_string() },
-            },
-            host: "linux-host".to_string(),
-            kind: args.planner.clone(),
-            lib_mnn_sha256: format!("{:#x}", B256::ZERO),
-            libllm_sha256: format!("{:#x}", B256::ZERO),
-            model_id: "none".to_string(),
-            model_sha256: format!("{:#x}", B256::ZERO),
+        let meta = if args.planner == "mnn+ahem-g" || args.planner == "host" {
+            match invoke_host_planner(&candidate_set, &args.user_goal, args.planner_bin.as_deref(), args.model_dir.as_deref()) {
+                Ok((_, m)) => m,
+                Err(e) => {
+                    eprintln!("Warning: host planner unavailable ({e}); using deterministic metadata");
+                    PlannerMetadata {
+                        ahem: AhemMetadata {
+                            g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
+                            l: AhemLReport { mode: "OFF".to_string() },
+                        },
+                        host: "linux-host".to_string(),
+                        kind: "deterministic".to_string(),
+                        lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                        libllm_sha256: format!("{:#x}", B256::ZERO),
+                        model_id: "none".to_string(),
+                        model_sha256: format!("{:#x}", B256::ZERO),
+                    }
+                }
+            }
+        } else {
+            PlannerMetadata {
+                ahem: AhemMetadata {
+                    g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
+                    l: AhemLReport { mode: "OFF".to_string() },
+                },
+                host: "linux-host".to_string(),
+                kind: args.planner.clone(),
+                lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                libllm_sha256: format!("{:#x}", B256::ZERO),
+                model_id: "none".to_string(),
+                model_sha256: format!("{:#x}", B256::ZERO),
+            }
         };
         (forced.clone(), meta)
     } else {
@@ -680,8 +713,16 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         module,
     );
 
+    let is_queue_creation = choice.route == Route::Queue && !snapshot.queue.exists;
+    let preview_passed = if is_queue_creation {
+        // In queue creation phase, Check 6 (delay gate) is deferred until readyAt
+        preview.checks.iter().all(|c| c.rule_id == "RULE_6_TIER_ROUTE" || c.status == RuleStatus::Pass)
+    } else {
+        preview.passed
+    };
+
     if choice.label != "H" {
-        if !preview.passed {
+        if !preview_passed {
             eprintln!("PREVIEW REJECTED candidate {}:", choice.label);
             for c in &preview.checks {
                 if c.status == RuleStatus::Fail {
@@ -692,11 +733,38 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                 return Err("Candidate failed preview checks".into());
             }
         } else {
-            println!("Preview passed all 7 normative rule gates.");
+            if is_queue_creation {
+                println!("Preview passed for action queueing (Rule 6 deferred until readyAt).");
+            } else {
+                println!("Preview passed all 7 normative rule gates.");
+            }
         }
     } else {
         println!("Decision is HOLD. Preview evaluated; no transaction proposed.");
     }
+
+    // Determine canonical kind adhering to §19.5
+    let canonical_kind = if choice.label == "H" {
+        "HOLD".to_string()
+    } else {
+        match choice.kind {
+            ActionKind::PayObligation => match choice.route {
+                Route::Instant => "PAY_INSTANT".to_string(),
+                Route::Queue => {
+                    if !snapshot.queue.exists {
+                        "ACTION_QUEUED".to_string()
+                    } else {
+                        "PAY_DELAYED".to_string()
+                    }
+                }
+                Route::Approve | Route::ApproveAndQueue => "PAY_OWNER_TIER".to_string(),
+                Route::Reject => "PAY_REJECTED".to_string(),
+            },
+            ActionKind::Deposit => "DEPOSIT".to_string(),
+            ActionKind::Withdraw => "WITHDRAW".to_string(),
+            ActionKind::Rebalance => "REBALANCE".to_string(),
+        }
+    };
 
     // Save dry-run outputs if requested
     if let Some(ref dir) = args.dryrun_dir {
@@ -723,13 +791,51 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         let target_path = Path::new(dir).join(&file_name);
         fs::write(&target_path, &passport_json)?;
         println!("Passport written to {}", target_path.display());
+
+        if choice.label == "H" {
+            let hold_path = Path::new(dir).join("hold.json");
+            fs::write(&hold_path, &passport_json)?;
+            println!("Hold passport written to {}", hold_path.display());
+        }
         Some(file_name)
     } else {
         None
     };
 
     if choice.label == "H" || choice.reason == "HOLD" {
-        println!("Decision is HOLD. Halting after passport generation.");
+        println!("Decision is HOLD. Recording passport and evidence row.");
+        if let Some(ref out_file) = args.evidence_out {
+            let row = EvidenceRow {
+                id: args.evidence_id.clone(),
+                source: args.source.clone(),
+                planner: planner_meta.kind.clone(),
+                host: "linux-host".to_string(),
+                tx_hash: None,
+                decision_hash: format!("{decision_hash:#x}"),
+                action_digest: format!("{:#x}", preview.action_digest),
+                candidate_id: format!("{:#x}", choice.id),
+                choice_label: choice.label,
+                kind: canonical_kind,
+                route: format!("{:?}", choice.route),
+                status: 1,
+                block_number: snapshot.block_number,
+                gas_used: 0,
+                passport: Some(format!("evidence/agent/passports/{decision_hash:#x}.json")),
+                passport_file: passport_file_rel,
+            };
+
+            let mut rows: Vec<EvidenceRow> = if Path::new(out_file).exists() {
+                let data = fs::read_to_string(out_file)?;
+                serde_json::from_str(&data).unwrap_or_default()
+            } else {
+                vec![]
+            };
+
+            rows.push(row.clone());
+            let json_data = serde_json::to_string_pretty(&rows)?;
+            fs::write(out_file, json_data)?;
+            println!("Appended evidence row {} to {}", row.id, out_file);
+        }
         return Ok(());
     }
 
@@ -758,7 +864,13 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
 
     let encoded_call = match choice.route {
         Route::Instant => encode_execute(module, &preview.exact_action, &choice.proof),
-        Route::Queue => encode_queue_action(module, &preview.exact_action, &choice.proof),
+        Route::Queue => {
+            if !snapshot.queue.exists {
+                encode_queue_action(module, &preview.exact_action, &choice.proof)
+            } else {
+                encode_execute(module, &preview.exact_action, &choice.proof)
+            }
+        }
         Route::Approve | Route::ApproveAndQueue => {
             encode_approve_action(module, &preview.exact_action, preview.exact_action.deadline)
         }
@@ -829,22 +941,35 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         println!("Tx-named passport written to {}", tx_passport_path.display());
     }
 
+    // Save run log if runs_dir is set
+    if let Some(ref dir) = args.runs_dir {
+        fs::create_dir_all(dir)?;
+        let run_log_path = Path::new(dir).join(format!("{tx_hash:#x}.log"));
+        let log_content = format!(
+            "agent-runner run log\nevidenceId: {}\nsource: {}\nplanner: {}\ntxHash: {:#x}\ndecisionHash: {:#x}\nblockNumber: {}\nstatus: {}\ngasUsed: {}\nchoice: {}\nkind: {}\n",
+            args.evidence_id, args.source, planner_meta.kind, tx_hash, decision_hash, block_number, status, gas_used, choice.label, canonical_kind
+        );
+        fs::write(&run_log_path, log_content)?;
+        println!("Run log written to {}", run_log_path.display());
+    }
+
     // 10. Write Evidence Row (§19.5)
     let row = EvidenceRow {
         id: args.evidence_id.clone(),
         source: args.source.clone(),
         planner: planner_meta.kind.clone(),
         host: "linux-host".to_string(),
-        tx_hash: format!("{tx_hash:#x}"),
+        tx_hash: Some(format!("{tx_hash:#x}")),
         decision_hash: format!("{decision_hash:#x}"),
         action_digest: format!("{:#x}", preview.action_digest),
         candidate_id: format!("{:#x}", choice.id),
         choice_label: choice.label,
-        kind: format!("{:?}", choice.kind),
+        kind: canonical_kind,
         route: format!("{:?}", choice.route),
         status,
         block_number,
         gas_used,
+        passport: Some(format!("evidence/agent/passports/{tx_hash:#x}.json")),
         passport_file: passport_file_rel,
     };
 
