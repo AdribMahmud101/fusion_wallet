@@ -1,0 +1,20 @@
+--- a/transformers/llm/engine/src/llm.cpp
++++ b/transformers/llm/engine/src/llm.cpp
+@@ -1442,9 +1442,15 @@
+         return run_fallback_gate();
+     }
+ 
+-    int cols = info->dim[info->size - 1];
++    // Variable::Info::size counts ELEMENTS, not dimensions. This is the
++    // dimension vector's rank; never index dim using the element count.
++    if (info->dim.empty()) return run_fallback_gate();
++    const size_t rank = info->dim.size();
++    int cols = info->dim.back();
+     int rows = 1;
+-    for (int i = 0; i < info->size - 1; ++i) {
++    for (size_t i = 0; i + 1 < rank; ++i) {
++        if (info->dim[i] <= 0 || rows > 2147483647 / info->dim[i])
++            return run_fallback_gate();
+         rows *= info->dim[i];
+     }
+     if (rows <= 0 || cols <= 0) {
