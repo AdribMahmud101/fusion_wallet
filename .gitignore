@@ -4,3 +4,4 @@ node_modules/
 local.properties
 .idea/
 .env.local
+.session.lock

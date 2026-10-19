@@ -1,0 +1,26 @@
+# Card K17 — The agent decides INSIDE the Android app (TIME-BOXED 5 h; milestones)
+
+Fusion Wallet (FinTechathon 2026, Topic F "AI wallet agent that autonomously executes on-chain"; deadline 2026-10-20 15:59 UTC). Today the model (LFM2.5-230M + AHEM-G) and `agent-runner` run in a Linux chroot on a phone, and the Android app only monitors and holds the guardian Stop key. Make the decision loop run **inside the app** so "the AI runs in your wallet app" is literally true, with APP-sourced agent transactions as proof.
+
+## Where you work
+- Umbrella worktree `/root/projects/fusion_wallet-wt/K17` (branch `card/K17`); Android submodule: `git submodule update --init src/Fintech_Wallet_Agent`, inside it `git fetch /root/projects/fusion_wallet/src/Fintech_Wallet_Agent fusion-v3-integration && git checkout -B card/K17 FETCH_HEAD`. Commit Android code inside the submodule; Rust/JNI build glue in the umbrella.
+- Build env (verified): `source /root/projects/fusion_wallet/scripts/edge_android_env.sh`; `docs/EDGE_ANDROID_BUILD.md` (cross-compiling Rust for `aarch64-linux-android` with system clang + NDK sysroot; arm64 aapt2).
+- Existing pieces: `src/fusion-planner` (host planner: AHEM-G gate, candidate letter grammar, tokenizer bridge, session); AHEM MNN fork Android build: `/root/projects/victor_fusion/ahem/third_party/MNN/build_a64_qnn/OFF/arm64-v8a/{libMNN.so,libllm.so}`; model: `/root/projects/feros/sdk/demo-app/app/src/main/assets/models/lfm_230m` (128 MB — do NOT put it in the APK or git; push to the app's files dir with adb). App already has `libfusion_core.so` (UniFFI), the live data layer (`data/`, `chain/`) and a `:signer` process (`signer/`, Keystore-wrapped keys, import activity) from cards K4/K12.
+- Devices: the demo phone Tecno CL6 is reachable over Wi-Fi adb at `192.168.0.105:5555` (install `android-tools` with pacman if `adb` is missing; `adb connect 192.168.0.105:5555`). Use `adb install -r` (keeps app data; the guardian key is imported there). Spec: §10.6, §11, §12.
+
+## Owned paths
+Umbrella: `src/fusion-planner/android/**` (new), `scripts/android_planner/**`, `evidence/app/agent/**`. Submodule: `.../wallet/inference/**`, `.../wallet/agent/**` (new runtime package), the `:inference` process entry in the manifest, jniLibs for the planner/MNN libs, and ONE new entry point on `MainViewModel` (`suspend fun runAgentTick(dryRun: Boolean): Result<AgentTickResult>`) plus one "Run agent now" button on the AI Agent screen. Do not edit `src/fusion-planner/src/**` logic (add an Android target/JNI wrapper beside it), `data/**`, `chain/**`, `signer/**` except calling their public APIs.
+
+## Session-key lock (MANDATORY before any broadcast)
+Another card broadcasts with the same session key. Before ANY Base Sepolia broadcast, hold the lock: on the edge `flock /root/projects/fusion_wallet/.session.lock <command>`; from the phone, have the app check that `/root/projects/fusion_wallet/.session.lock` is free via your edge-side helper, or coordinate by running the on-device tick only from an edge-side script that holds the flock while it triggers the app (`adb shell am broadcast …`) and waits for the receipt.
+
+## Milestones (commit after each; each is valuable alone)
+- **M1 (≤ 2 h): model on device.** `:inference` process loads libMNN/libllm + the model from app files dir and returns one legal letter for a fixed candidate list with AHEM-G ON. Instrumented or logcat evidence: load time, decode time, letter, veto count → `evidence/app/agent/m1.log`.
+- **M2 (≤ 3.5 h): full dry-run decision on live state.** Snapshot (K4 data layer) → candidates + passport (fusion-core via UniFFI) → on-device planner → preview; NO broadcast. Show the decision card in the app. `evidence/app/agent/m2_passport.json` + screenshot.
+- **M3 (≤ 5 h): APP-sourced agent tx.** Import the SESSION key the same way as the guardian (debug import activity in `:signer`, key from `/root/projects/fusion_wallet/.env.local` `SESSION_PRIVATE_KEY`, never in git/APK/logs), sign + broadcast the module call from the app, under the lock. Record `evidence/app/agent/golden_app.json` (§19.5 format, `source = "APP"`, `planner.kind = "mnn+ahem-g@android"`), passport, receipt; decisionHash = keccak(passport) must appear in calldata/event.
+
+## Definition of done (supervisor checks the highest milestone reached)
+M1: `evidence/app/agent/m1.log` shows a legal letter from the on-device run. M2: `m2_passport.json` exists and `assembleDebug` passes. M3: `golden_app.json` has ≥ 1 tx with status 1 on Base Sepolia, `from` == the session address, and the passport hash in its calldata. `./gradlew testDebugUnitTest assembleDebug` exits 0 at every milestone. Write `evidence/app/agent/README.md` stating exactly which milestone was reached.
+
+## Acceptance
+- No private keys in git, APK, logs. Model files not in git or APK. No test weakened. Honest labels. Commit on `card/K17` (both repos). Do not merge, do not push. At 5 h stop and commit whatever milestone you reached.
