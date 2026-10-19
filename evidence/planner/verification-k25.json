@@ -1,0 +1,11 @@
+{
+  "native_review_ban_all": "PASS",
+  "review_vetoes": 2,
+  "review_aborted": true,
+  "native_returned_attempt_text": false,
+  "abort_evidence_note": "Native abort returned no text; original empty rawAttempts retained. The initial ad hoc evidence check incorrectly expected partial text; no repository test was changed.",
+  "planner_passed": 16,
+  "planner_ignored": 0,
+  "core_passed": 175,
+  "core_ignored": 0
+}

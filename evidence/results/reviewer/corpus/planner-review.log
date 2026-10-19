@@ -1,0 +1,195 @@
+{"load":{"coldLoadMs":18579.347389,"hashes":{"config.json":"9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20","libMNN.so":"27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4","libMNN_Express.so":"ffe62c3eefae572a93a6ff4d78092a1e3cc598b0a47ac7d4b62a85ca8e8122fc","libllm.so":"f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f","llm.mnn":"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907","llm.mnn.weight":"fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719","llm_config.json":"6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576","tokenizer.mtok":"27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"},"sampling":{"type":"greedy"},"state":"READY"}}
+CPU Group: [ 0  1  2 ], 307200 - 2016000
+CPU Group: [ 3  4  5  6 ], 499200 - 2803200
+CPU Group: [ 7 ], 595200 - 3187200
+The device supports: i8sdot:1, fp16:1, i8mm: 1, sve2: 0, sme2: 0
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1256
+[AHEM] forwardRaw entered callback=0x5f9a870bf4
+[AHEM] forwardRaw latent ptr=0x5fc9bfdb00 rows=1256 cols=1024 info=0x5fc3243fb0 tensor=0x5fc2ff7b00
+[AHEM] forwardRaw entered callback=0x5f9a870bf4
+[AHEM] forwardRaw latent ptr=0x5fc3249200 rows=1 cols=1024 info=0x5fc8f3c310 tensor=0x5fc8f3be90
+[AHEM] forwardRaw entered callback=0x5f9a870bf4
+[AHEM] forwardRaw latent ptr=0x5fca75d4c0 rows=1 cols=1024 info=0x5fc8f2e3b0 tensor=0x5fc324a280
+[AHEM] forwardRaw entered callback=0x5f9a870bf4
+[AHEM] forwardRaw latent ptr=0x5fca768540 rows=1 cols=1024 info=0x5fc8f216f0 tensor=0x5fca768100
+[AHEM] forwardRaw entered callback=0x5f9a870bf4
+[AHEM] forwardRaw latent ptr=0x5fca75ecc0 rows=1 cols=1024 info=0x5fca7604d0 tensor=0x5fca7699a0
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1256
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1256
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1264
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1264
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1264
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1268
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1269
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1236
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1236
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1236
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1240
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1240
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1184
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1184
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1184
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1249
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1248
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1243
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1253
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1182
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1181
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1261
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1261
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1262
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1308
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1263
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1256
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1241
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1259
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1187
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1180
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1185
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1249
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1249
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1187
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1266
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1247
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1250
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1245
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1238
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1235
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1230
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1180
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1234
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1183
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1246
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1250
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1244
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1252
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1247
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1258
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x5f9a870bf4 max_new_tokens=8
+[AHEM] tokenized prompt ids=1249
+[AHEM] response end callback_calls=12 veto=0 status=1

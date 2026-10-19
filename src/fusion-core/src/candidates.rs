@@ -115,6 +115,28 @@ pub struct CandidateSet {
     pub hold: Candidate,
 }
 
+/// K25 policy proposal, before the model's veto. Enumeration already orders
+/// committed, funded bills to active payees by due time and obligation hash.
+/// Keep the original labels/IDs/digest, skip rejected tiers/routes, and never
+/// let untrusted notes or model output rank or modify candidates.
+/// This experiment deliberately uses bills, then surplus deposits, then HOLD;
+/// reserve withdrawals remain available to the default chooser only.
+pub fn policy_proposal(set: &CandidateSet) -> &Candidate {
+    set.candidates
+        .iter()
+        .find(|c| {
+            c.kind == ActionKind::PayObligation
+                && c.tier != Tier::Reject
+                && c.route != Route::Reject
+        })
+        .or_else(|| {
+            set.candidates.iter().find(|c| {
+                c.kind == ActionKind::Deposit && c.tier != Tier::Reject && c.route != Route::Reject
+            })
+        })
+        .unwrap_or(&set.hold)
+}
+
 /// Rate information for vault economics (§10.4).
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

@@ -1,0 +1,9 @@
+{
+  "dev_trials": [
+    1,
+    2,
+    3
+  ],
+  "decisions_per_trial": 60,
+  "all_final_raw_and_note_review_raw_identical": true
+}

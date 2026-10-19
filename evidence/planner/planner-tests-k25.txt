@@ -1,0 +1,62 @@
+
+running 11 tests
+...........
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+..
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 45.15s
+
+CPU Group: [ 0  1  2 ], 307200 - 2016000
+CPU Group: [ 3  4  5  6 ], 499200 - 2803200
+CPU Group: [ 7 ], 595200 - 3187200
+The device supports: i8sdot:1, fp16:1, i8mm: 1, sve2: 0, sme2: 0
+[AHEM] response_buf start callback=0x60c4380664 max_new_tokens=8
+[AHEM] tokenized prompt ids=559
+[AHEM] forwardRaw entered callback=0x60c4380664
+[AHEM] forwardRaw latent ptr=0x7186c30980 rows=559 cols=1024 info=0x7190239480 tensor=0x71900037b0
+[AHEM] forwardRaw entered callback=0x60c4380664
+[AHEM] forwardRaw latent ptr=0x7186578080 rows=1 cols=1024 info=0x71851703c0 tensor=0x719023bef0
+[AHEM] forwardRaw entered callback=0x60c4380664
+[AHEM] forwardRaw latent ptr=0x7187083d80 rows=1 cols=1024 info=0x7187042680 tensor=0x718516ff40
+[AHEM] forwardRaw entered callback=0x60c4380664
+[AHEM] forwardRaw latent ptr=0x718708ed80 rows=1 cols=1024 info=0x718702b280 tensor=0x718708e960
+[AHEM] forwardRaw entered callback=0x60c4380664
+[AHEM] forwardRaw latent ptr=0x7187085540 rows=1 cols=1024 info=0x7187086d50 tensor=0x7187090200
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x60c4380664 max_new_tokens=8
+[AHEM] tokenized prompt ids=559
+[AHEM] response end callback_calls=12 veto=0 status=1
+[AHEM] response_buf start callback=0x60c4380664 max_new_tokens=8
+[AHEM] tokenized prompt ids=551
+[Error]: LLM in error state. Status: 3
+[AHEM] response end callback_calls=16 veto=1 status=3
+
+running 3 tests
+..CPU Group: [ 0  1  2 ], 307200 - 2016000
+CPU Group: [ 3  4  5  6 ], 499200 - 2803200
+CPU Group: [ 7 ], 595200 - 3187200
+The device supports: i8sdot:1, fp16:1, i8mm: 1, sve2: 0, sme2: 0
+effective sampler_type=greedy
+A=542
+B=543
+C=544
+D=545
+E=546
+F=547
+G=548
+H=549
+.
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.46s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
