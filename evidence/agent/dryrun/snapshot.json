@@ -1,0 +1,75 @@
+{
+  "blockNumber": 48322577,
+  "blockHash": "0x867b9f1a064e68ec235b0a76100d422cf4183198ca0a31a81d3d6eddc02a8249",
+  "blockTimestamp": 1792413442,
+  "safeCash": "9467001235",
+  "vaultAShares": "0",
+  "vaultAAssets": "0",
+  "vaultBShares": "0",
+  "vaultBAssets": "0",
+  "moduleState": {
+    "configured": true,
+    "paused": false,
+    "policyEpoch": "8",
+    "policyHash": "0xd23e010f3c36f64c006aaa5ac48cdb1932749b94473578ae4ccc4ee85024e1f3",
+    "mandateHash": "0x7b983bc7fddf318ad4053069855bdf88b7ec79f2f8ae5e8ac2acbad634d98dc7",
+    "obligationsRoot": "0x4babe834df86564372eda4dea3205734324378b55561ccc62500f595dae7b9c6",
+    "reservedRaw": "58000000",
+    "obligationCount": "2",
+    "actionNonce": "6",
+    "dailyDayIndex": "20745",
+    "dailyUsedRaw": "2093000000",
+    "sessionId": "0x2f240b542e6f3d47e388905d809614a418977f1ad35615e136fd1870214aba27",
+    "sessionStartEpoch": "7",
+    "sessionKey": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+    "sessionExpiresAt": 1792495028,
+    "sessionLimitRaw": "8000000000",
+    "sessionUsedRaw": "0"
+  },
+  "policy": {
+    "permissionTier": 2,
+    "operatingBufferRaw": "500000000",
+    "microMaxRaw": "10000000",
+    "delayedMaxRaw": "100000000",
+    "hardMaxRaw": "2500000000",
+    "dailyLimitRaw": "4000000000",
+    "delaySeconds": 180,
+    "maxShareSlippageBps": 50,
+    "guardian": "0x46b8e40eb9767bd46e03c5ecf398c10e1372251e",
+    "vaults": [
+      {
+        "vault": "0xf052c0ed8404adeaaea773a5f8ae4628134aff6d",
+        "maxExposureRaw": "6000000000"
+      },
+      {
+        "vault": "0xf430cb6e2b85f99222fbfa6dfea18ff60fa6b32a",
+        "maxExposureRaw": "6000000000"
+      }
+    ],
+    "payeeDelaySeconds": 3600,
+    "payEarlyWindowSeconds": 259200
+  },
+  "queue": {
+    "exists": false,
+    "actionDigest": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "sessionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "readyAt": 0,
+    "expiresAt": 0,
+    "action": {
+      "kind": 0,
+      "sourceVault": "0x0000000000000000000000000000000000000000",
+      "destinationVault": "0x0000000000000000000000000000000000000000",
+      "assets": "0",
+      "minSharesOut": "0",
+      "maxSharesBurn": "0",
+      "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "recipient": "0x0000000000000000000000000000000000000000",
+      "dueAt": 0,
+      "expectedNonce": "0",
+      "policyEpoch": "0",
+      "deadline": 0,
+      "decisionHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+}

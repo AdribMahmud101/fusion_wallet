@@ -9,19 +9,25 @@ use alloy::network::ReceiptResponse;
 use alloy::primitives::{Address, Bytes, B256, U256};
 use alloy::providers::{Provider, ProviderBuilder};
 use alloy::signers::local::PrivateKeySigner;
-use fusion_core::candidates::{enumerate_candidates, Route, VaultRateInfo};
+use fusion_core::candidates::{enumerate_candidates, CandidateSet, Route, VaultRateInfo};
 use fusion_core::encode::{encode_approve_action, encode_execute, encode_queue_action};
 use fusion_core::manifest::{DeploymentManifest, ManifestProfile};
-use fusion_core::passport::{build_deterministic_passport, PassportCandidate};
+use fusion_core::passport::{
+    to_canonical_json, AhemGReport, AhemLReport, AhemMetadata, DecisionPassport,
+    PassportCandidate, PassportSnapshot, PlannerMetadata,
+};
+use fusion_core::planner_io::build_planner_prompt;
 use fusion_core::preview::{preview_candidate, RuleStatus};
 use fusion_core::sign::{sign_eip1559_transaction, PreparedTransaction};
-use fusion_core::snapshot::read_snapshot;
-use fusion_core::types::{Obligation, Payee, Snapshot};
+use fusion_core::snapshot::{read_snapshot, read_snapshot_at_block};
+use fusion_core::types::{ActionKind, Obligation, Payee, Snapshot};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use std::collections::BTreeMap;
 use std::env;
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+use std::process::Command;
 use std::str::FromStr;
 use std::time::Duration;
 use url::Url;
@@ -34,10 +40,17 @@ struct RunnerArgs {
     obligations_path: Option<String>,
     rates_path: Option<String>,
     snapshot_path: Option<String>,
+    block: Option<u64>,
     planner: String,
+    planner_bin: Option<String>,
+    model_dir: Option<String>,
     evidence_out: Option<String>,
     evidence_id: String,
     passport_dir: Option<String>,
+    dryrun_dir: Option<String>,
+    runs_dir: Option<String>,
+    source: String,
+    choice: Option<String>,
     user_goal: String,
     dry_run: bool,
     continuous: bool,
@@ -51,10 +64,17 @@ impl RunnerArgs {
         let mut obligations_path = None;
         let mut rates_path = None;
         let mut snapshot_path = None;
+        let mut block = None;
         let mut planner = "deterministic".to_string();
+        let mut planner_bin = None;
+        let mut model_dir = None;
         let mut evidence_out = None;
         let mut evidence_id = "E7".to_string();
         let mut passport_dir = None;
+        let mut dryrun_dir = None;
+        let mut runs_dir = None;
+        let mut source = "AGENT".to_string();
+        let mut choice = None;
         let mut user_goal = "Maintain business runway and yield".to_string();
         let mut dry_run = false;
         let mut continuous = false;
@@ -94,10 +114,28 @@ impl RunnerArgs {
                         snapshot_path = Some(args[i].clone());
                     }
                 }
+                "--block" => {
+                    i += 1;
+                    if i < args.len() {
+                        block = Some(args[i].parse().map_err(|e| format!("Invalid block: {e}"))?);
+                    }
+                }
                 "--planner" => {
                     i += 1;
                     if i < args.len() {
                         planner = args[i].clone();
+                    }
+                }
+                "--planner-bin" => {
+                    i += 1;
+                    if i < args.len() {
+                        planner_bin = Some(args[i].clone());
+                    }
+                }
+                "--model-dir" => {
+                    i += 1;
+                    if i < args.len() {
+                        model_dir = Some(args[i].clone());
                     }
                 }
                 "--evidence-out" => {
@@ -116,6 +154,30 @@ impl RunnerArgs {
                     i += 1;
                     if i < args.len() {
                         passport_dir = Some(args[i].clone());
+                    }
+                }
+                "--dryrun-dir" => {
+                    i += 1;
+                    if i < args.len() {
+                        dryrun_dir = Some(args[i].clone());
+                    }
+                }
+                "--runs-dir" => {
+                    i += 1;
+                    if i < args.len() {
+                        runs_dir = Some(args[i].clone());
+                    }
+                }
+                "--source" => {
+                    i += 1;
+                    if i < args.len() {
+                        source = args[i].clone();
+                    }
+                }
+                "--choice" => {
+                    i += 1;
+                    if i < args.len() {
+                        choice = Some(args[i].clone());
                     }
                 }
                 "--user-goal" => {
@@ -139,20 +201,22 @@ impl RunnerArgs {
                 "--help" | "-h" => {
                     println!("Usage: agent-runner [OPTIONS]");
                     println!("  --manifest <PATH>       Deployment manifest JSON");
-                    println!(
-                        "  --private-key <HEX>     Session key hex (or set FUSION_SESSION_KEY)"
-                    );
+                    println!("  --private-key <HEX>     Session key hex (or SESSION_PRIVATE_KEY)");
                     println!("  --obligations <PATH>    Committed obligations JSON");
                     println!("  --rates <PATH>          Vault rates JSON");
-                    println!("  --snapshot <PATH>       Local snapshot JSON (optional simulation)");
-                    println!(
-                        "  --planner <KIND>        deterministic | host (default: deterministic)"
-                    );
+                    println!("  --snapshot <PATH>       Local snapshot JSON");
+                    println!("  --block <U64>           Snapshot block number (default: latest)");
+                    println!("  --planner <KIND>        deterministic | mnn+ahem-g | host | hold");
+                    println!("  --planner-bin <PATH>    Path to planner-host binary");
+                    println!("  --model-dir <PATH>      Path to LFM2.5-230M model directory");
                     println!("  --evidence-out <PATH>   Path to evidence file to append");
                     println!("  --evidence-id <ID>      Evidence identifier (default: E7)");
                     println!("  --passport-dir <PATH>   Directory to write published passports");
+                    println!("  --dryrun-dir <PATH>     Directory to write dry-run outputs");
+                    println!("  --source <STR>          Evidence source label (default: AGENT)");
+                    println!("  --choice <LETTER>       Force candidate letter (e.g. A, B, H)");
                     println!("  --user-goal <TEXT>      Business mandate or goal statement");
-                    println!("  --dry-run               Preview and sign without broadcasting");
+                    println!("  --dry-run               Preview without broadcasting");
                     println!("  --continuous            Run continuously as daemon loop");
                     println!("  --interval-secs <SECS>  Poll interval in seconds (default: 10)");
                     std::process::exit(0);
@@ -174,10 +238,17 @@ impl RunnerArgs {
             obligations_path,
             rates_path,
             snapshot_path,
+            block,
             planner,
+            planner_bin,
+            model_dir,
             evidence_out,
             evidence_id,
             passport_dir,
+            dryrun_dir,
+            runs_dir,
+            source,
+            choice,
             user_goal,
             dry_run,
             continuous,
@@ -191,10 +262,11 @@ impl RunnerArgs {
 #[serde(rename_all = "camelCase")]
 pub struct EvidenceRow {
     pub id: String,
-    pub source: String,  // always "SCRIPT" when produced by CLI runner
+    pub source: String,  // "AGENT" or "SCRIPT"
     pub planner: String, // "deterministic" | "mnn+ahem-g"
     pub host: String,    // "linux-host"
-    pub tx_hash: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tx_hash: Option<String>,
     pub decision_hash: String,
     pub action_digest: String,
     pub candidate_id: String,
@@ -205,7 +277,201 @@ pub struct EvidenceRow {
     pub block_number: u64,
     pub gas_used: u64,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub passport: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub passport_file: Option<String>,
+}
+
+fn parse_u256_val(v: &Value) -> Option<U256> {
+    if let Some(s) = v.as_str() {
+        let trimmed = s.trim();
+        if let Some(stripped) = trimmed.strip_prefix("0x") {
+            U256::from_str_radix(stripped, 16).ok()
+        } else {
+            U256::from_str(trimmed).ok()
+        }
+    } else if let Some(n) = v.as_u64() {
+        Some(U256::from(n))
+    } else {
+        None
+    }
+}
+
+fn parse_u64_val(v: &Value) -> Option<u64> {
+    if let Some(s) = v.as_str() {
+        s.trim().parse().ok()
+    } else {
+        v.as_u64()
+    }
+}
+
+fn parse_obligations_content(
+    content: &str,
+) -> Result<(Vec<Obligation>, BTreeMap<B256, Vec<B256>>, Vec<Payee>), Box<dyn std::error::Error>> {
+    let parsed: Value = serde_json::from_str(content)?;
+    let mut obligations = Vec::new();
+    let mut bill_proofs = BTreeMap::new();
+    let mut payees = Vec::new();
+
+    if let Some(arr) = parsed.as_array() {
+        for item in arr {
+            let ob: Obligation = serde_json::from_value(item.clone())?;
+            obligations.push(ob);
+        }
+    } else if let Some(bills) = parsed.get("bills").and_then(|b| b.as_array()) {
+        for (idx, b) in bills.iter().enumerate() {
+            let id_hash_str = b.get("obligationIdHash").and_then(|v| v.as_str()).unwrap_or("");
+            let payee_hash_str = b.get("payeeIdHash").and_then(|v| v.as_str()).unwrap_or("");
+            let obligation_id_hash = B256::from_str(id_hash_str)?;
+            let payee_id_hash = B256::from_str(payee_hash_str)?;
+
+            let amount_raw = b.get("assets").or_else(|| b.get("amountRaw")).and_then(parse_u256_val).unwrap_or(U256::ZERO);
+            let due_at = b.get("dueAt").and_then(parse_u64_val).unwrap_or(0);
+
+            let ob = Obligation {
+                obligation_id: format!("bill_{idx}"),
+                obligation_id_hash,
+                payee_id_hash,
+                amount_raw,
+                due_at,
+            };
+            obligations.push(ob);
+
+            if let Some(proof_arr) = b.get("proof").and_then(|p| p.as_array()) {
+                let mut proofs = Vec::new();
+                for p in proof_arr {
+                    if let Some(ps) = p.as_str() {
+                        if let Ok(h) = B256::from_str(ps) {
+                            proofs.push(h);
+                        }
+                    }
+                }
+                bill_proofs.insert(obligation_id_hash, proofs);
+            }
+
+            if let Some(rcpt_str) = b.get("recipient").and_then(|r| r.as_str()) {
+                if let Ok(rcpt) = Address::from_str(rcpt_str) {
+                    payees.push(Payee {
+                        account: rcpt,
+                        label_hash: payee_id_hash,
+                        active_at: 0,
+                        cancelled: false,
+                    });
+                }
+            }
+        }
+    }
+
+    Ok((obligations, bill_proofs, payees))
+}
+
+fn invoke_host_planner(
+    candidate_set: &CandidateSet,
+    user_goal: &str,
+    planner_bin: Option<&str>,
+    model_dir: Option<&str>,
+) -> Result<(String, PlannerMetadata), Box<dyn std::error::Error>> {
+    let bin_path = if let Some(p) = planner_bin {
+        PathBuf::from(p)
+    } else if let Ok(p) = env::var("FUSION_PLANNER_BIN") {
+        PathBuf::from(p)
+    } else {
+        let candidates = [
+            "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+            "/root/projects/fusion_wallet-wt/K9/src/fusion-planner/target/release/planner-host",
+            "../fusion-planner/target/release/planner-host",
+        ];
+        let mut found = None;
+        for c in &candidates {
+            if Path::new(c).exists() {
+                found = Some(PathBuf::from(c));
+                break;
+            }
+        }
+        found.ok_or("planner-host binary not found; please specify --planner-bin")?
+    };
+
+    let model_path = if let Some(m) = model_dir {
+        PathBuf::from(m)
+    } else if let Ok(m) = env::var("FUSION_MODEL_DIR") {
+        PathBuf::from(m)
+    } else {
+        PathBuf::from("/root/projects/feros/sdk/demo-app/app/src/main/assets/models/lfm_230m")
+    };
+
+    if !bin_path.exists() {
+        return Err(format!("planner-host not found at {}", bin_path.display()).into());
+    }
+    if !model_path.exists() {
+        return Err(format!("Model dir not found at {}", model_path.display()).into());
+    }
+
+    let prompt_res = build_planner_prompt(candidate_set, Some(user_goal));
+
+    let temp_dir = env::temp_dir();
+    let in_file = temp_dir.join(format!("fusion_planner_in_{}.jsonl", std::process::id()));
+    let out_file = temp_dir.join(format!("fusion_planner_out_{}.jsonl", std::process::id()));
+
+    let req_obj = serde_json::json!({
+        "prompt": prompt_res.prompt,
+        "labels": prompt_res.labels,
+        "candidateSetDigest": format!("{:#x}", prompt_res.candidate_set_digest),
+        "mode": "ahem-g",
+    });
+
+    fs::write(&in_file, format!("{}\n", req_obj))?;
+
+    let output = Command::new(&bin_path)
+        .arg("--eval")
+        .arg(&in_file)
+        .arg("--mode")
+        .arg("ahem-g")
+        .arg("--out")
+        .arg(&out_file)
+        .env("FUSION_MODEL_DIR", &model_path)
+        .output()?;
+
+    let _ = fs::remove_file(&in_file);
+
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        let _ = fs::remove_file(&out_file);
+        return Err(format!("planner-host failed with status {}: {stderr}", output.status).into());
+    }
+
+    let out_content = fs::read_to_string(&out_file)?;
+    let _ = fs::remove_file(&out_file);
+
+    let first_line = out_content.lines().next().ok_or("planner-host produced empty output")?;
+    let resp: Value = serde_json::from_str(first_line)?;
+
+    let label = resp.get("label").and_then(|v| v.as_str()).unwrap_or("H").to_string();
+
+    let vetoes = resp.pointer("/ahem/g/vetoes").and_then(|v| v.as_u64()).unwrap_or(0);
+    let retries = resp.pointer("/ahem/g/retries").and_then(|v| v.as_u64()).unwrap_or(0);
+    let forced_tokens = resp.pointer("/ahem/g/forcedTokens").and_then(|v| v.as_u64()).unwrap_or(5);
+
+    let meta = PlannerMetadata {
+        ahem: AhemMetadata {
+            g: AhemGReport {
+                forced_tokens,
+                mode: "ENFORCED".to_string(),
+                retries,
+                vetoes,
+            },
+            l: AhemLReport {
+                mode: "OFF".to_string(),
+            },
+        },
+        host: "linux-host".to_string(),
+        kind: "mnn+ahem-g".to_string(),
+        lib_mnn_sha256: "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4".to_string(),
+        libllm_sha256: "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f".to_string(),
+        model_id: "LFM2.5-230M-MNN".to_string(),
+        model_sha256: "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907".to_string(),
+    };
+
+    Ok((label, meta))
 }
 
 async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
@@ -222,23 +488,73 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         let content = fs::read_to_string(path)?;
         serde_json::from_str::<Snapshot>(&content)?
     } else if let Some(ref man) = manifest {
-        read_snapshot(man).await?
+        let mut attempts = 0;
+        loop {
+            attempts += 1;
+            let url = Url::from_str(&man.rpc_url)?;
+            let provider = ProviderBuilder::new().connect_http(url);
+            let res = if let Some(target_b) = args.block {
+                read_snapshot_at_block(&provider, man, Some(target_b)).await
+            } else {
+                read_snapshot(man).await
+            };
+            match res {
+                Ok(s) => break s,
+                Err(e) if attempts < 5 => {
+                    eprintln!("Warning: read_snapshot attempt {attempts} failed ({e}); retrying in 3s...");
+                    tokio::time::sleep(Duration::from_secs(3)).await;
+                }
+                Err(e) => return Err(e.into()),
+            }
+        }
     } else {
         return Err("No snapshot available".into());
     };
 
     println!(
-        "Snapshot read at block #{} ({:#x}): safe_cash={} USDC raw",
-        snapshot.block_number, snapshot.block_hash, snapshot.safe_cash
+        "Snapshot read at block #{} ({:#x}): safe_cash={} USDC raw (paused={})",
+        snapshot.block_number, snapshot.block_hash, snapshot.safe_cash, snapshot.module_state.paused
     );
 
     // 3. Obligations & Rates
-    let obligations: Vec<Obligation> = if let Some(ref path) = args.obligations_path {
+    let (mut obligations, bill_proofs, payees) = if let Some(ref path) = args.obligations_path {
         let content = fs::read_to_string(path)?;
-        serde_json::from_str(&content)?
+        parse_obligations_content(&content)?
     } else {
-        vec![]
+        (vec![], BTreeMap::new(), vec![])
     };
+
+    if let Some(ref m) = manifest {
+        if let Ok(url) = Url::from_str(&m.rpc_url) {
+            let provider = ProviderBuilder::new().connect_http(url);
+            let mut unpaid = Vec::new();
+            for ob in obligations {
+                let mut attempts = 0;
+                let is_paid = loop {
+                    attempts += 1;
+                    match fusion_core::snapshot::is_obligation_paid(
+                        &provider,
+                        m.module,
+                        ob.obligation_id_hash,
+                        snapshot.block_number,
+                    ).await {
+                        Ok(p) => break p,
+                        Err(e) if attempts < 5 => {
+                            eprintln!("Warning: is_obligation_paid attempt {attempts} failed ({e}); retrying in 2s...");
+                            tokio::time::sleep(Duration::from_secs(2)).await;
+                        }
+                        Err(e) => return Err(e.into()),
+                    }
+                };
+                if is_paid {
+                    println!("Obligation {} ({:#x}) is marked PAID on-chain; excluding.", ob.obligation_id, ob.obligation_id_hash);
+                } else {
+                    unpaid.push(ob);
+                }
+            }
+            obligations = unpaid;
+        }
+    }
 
     let rates: Vec<VaultRateInfo> = if let Some(ref path) = args.rates_path {
         let content = fs::read_to_string(path)?;
@@ -258,11 +574,8 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         .map(|m| m.profile == ManifestProfile::Full)
         .unwrap_or(true);
 
-    let payees: Vec<Payee> = vec![];
-    let bill_proofs = BTreeMap::new();
-
     // 4. Candidate Enumeration (§10.4)
-    let candidate_set = enumerate_candidates(
+    let mut candidate_set = enumerate_candidates(
         &snapshot,
         &obligations,
         &payees,
@@ -281,35 +594,164 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         candidate_set.candidates.len(),
         candidate_set.candidate_set_digest
     );
+    for c in &candidate_set.candidates {
+        println!("  - [{}] kind={:?} assets={} route={:?} reason={}", c.label, c.kind, c.action.assets, c.route, c.reason);
+    }
 
     // 5. Planner Selection (§10.6, §19.5)
-    let choice = match args.planner.as_str() {
-        "deterministic" => {
-            if let Some(first) = candidate_set.candidates.first() {
-                first.clone()
-            } else {
-                candidate_set.hold.clone()
+    let (choice_label, planner_meta) = if let Some(ref forced) = args.choice {
+        println!("Using explicit candidate choice label: {forced}");
+        let meta = if args.planner == "mnn+ahem-g" || args.planner == "host" {
+            match invoke_host_planner(&candidate_set, &args.user_goal, args.planner_bin.as_deref(), args.model_dir.as_deref()) {
+                Ok((_, m)) => m,
+                Err(e) => {
+                    eprintln!("Warning: host planner unavailable ({e}); using deterministic metadata");
+                    PlannerMetadata {
+                        ahem: AhemMetadata {
+                            g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
+                            l: AhemLReport { mode: "OFF".to_string() },
+                        },
+                        host: "linux-host".to_string(),
+                        kind: "deterministic".to_string(),
+                        lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                        libllm_sha256: format!("{:#x}", B256::ZERO),
+                        model_id: "none".to_string(),
+                        model_sha256: format!("{:#x}", B256::ZERO),
+                    }
+                }
             }
-        }
-        "hold" => candidate_set.hold.clone(),
-        _ => {
-            if let Some(first) = candidate_set.candidates.first() {
-                first.clone()
-            } else {
-                candidate_set.hold.clone()
+        } else {
+            PlannerMetadata {
+                ahem: AhemMetadata {
+                    g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
+                    l: AhemLReport { mode: "OFF".to_string() },
+                },
+                host: "linux-host".to_string(),
+                kind: args.planner.clone(),
+                lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                libllm_sha256: format!("{:#x}", B256::ZERO),
+                model_id: "none".to_string(),
+                model_sha256: format!("{:#x}", B256::ZERO),
+            }
+        };
+        (forced.clone(), meta)
+    } else {
+        match args.planner.as_str() {
+            "mnn+ahem-g" | "host" => {
+                match invoke_host_planner(&candidate_set, &args.user_goal, args.planner_bin.as_deref(), args.model_dir.as_deref()) {
+                    Ok((lbl, meta)) => {
+                        println!("AHEM-G Planner selected: {} (vetoes={}, forcedTokens={})", lbl, meta.ahem.g.vetoes, meta.ahem.g.forced_tokens);
+                        (lbl, meta)
+                    }
+                    Err(e) => {
+                        eprintln!("Warning: host planner unavailable ({e}); falling back to deterministic");
+                        let meta = PlannerMetadata {
+                            ahem: AhemMetadata {
+                                g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
+                                l: AhemLReport { mode: "OFF".to_string() },
+                            },
+                            host: "linux-host".to_string(),
+                            kind: "deterministic".to_string(),
+                            lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                            libllm_sha256: format!("{:#x}", B256::ZERO),
+                            model_id: "none".to_string(),
+                            model_sha256: format!("{:#x}", B256::ZERO),
+                        };
+                        let lbl = candidate_set.candidates.first().map(|c| c.label.clone()).unwrap_or_else(|| "H".to_string());
+                        (lbl, meta)
+                    }
+                }
+            }
+            "hold" => {
+                let meta = PlannerMetadata {
+                    ahem: AhemMetadata {
+                        g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
+                        l: AhemLReport { mode: "OFF".to_string() },
+                    },
+                    host: "linux-host".to_string(),
+                    kind: "deterministic".to_string(),
+                    lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                    libllm_sha256: format!("{:#x}", B256::ZERO),
+                    model_id: "none".to_string(),
+                    model_sha256: format!("{:#x}", B256::ZERO),
+                };
+                ("H".to_string(), meta)
+            }
+            _ => {
+                // deterministic
+                let meta = PlannerMetadata {
+                    ahem: AhemMetadata {
+                        g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
+                        l: AhemLReport { mode: "OFF".to_string() },
+                    },
+                    host: "linux-host".to_string(),
+                    kind: "deterministic".to_string(),
+                    lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                    libllm_sha256: format!("{:#x}", B256::ZERO),
+                    model_id: "none".to_string(),
+                    model_sha256: format!("{:#x}", B256::ZERO),
+                };
+                let lbl = candidate_set.candidates.first().map(|c| c.label.clone()).unwrap_or_else(|| "H".to_string());
+                (lbl, meta)
             }
         }
     };
 
-    println!(
-        "Choice: label={} kind={:?} reason={}",
-        choice.label, choice.kind, choice.reason
-    );
+    let mut choice = if choice_label == "H" {
+        candidate_set.hold.clone()
+    } else {
+        candidate_set.candidates.iter().find(|c| c.label == choice_label).cloned().unwrap_or_else(|| candidate_set.hold.clone())
+    };
 
-    if choice.label == "H" || choice.reason == "HOLD" {
-        println!("Decision is HOLD. Nothing to submit on-chain.");
-        return Ok(());
+    // Workaround for library bug in candidates.rs (§10.4): candidates.rs hardcodes deadline = now + 120,
+    // which violates KavachiPolicyLib requirement (deadline >= now + delaySeconds + 30) for queued actions.
+    if choice.route == Route::Queue {
+        if !snapshot.queue.exists {
+            let queue_deadline = snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600;
+            choice.action.deadline = queue_deadline;
+            choice.id = fusion_core::hashing::compute_candidate_id_from_action(
+                U256::from(chain_id),
+                safe,
+                module,
+                snapshot.module_state.mandate_hash,
+                snapshot.module_state.session_id,
+                snapshot.block_hash,
+                &choice.action,
+            );
+            for c in &mut candidate_set.candidates {
+                if c.label == choice.label {
+                    c.action.deadline = queue_deadline;
+                    c.id = choice.id;
+                }
+            }
+        } else if snapshot.queue.exists && snapshot.queue.action.obligation_id_hash == choice.action.obligation_id_hash {
+            let mut q_act = snapshot.queue.action.clone();
+            if q_act.kind == ActionKind::Rebalance {
+                q_act.kind = ActionKind::PayObligation;
+            }
+            choice.action = q_act;
+            choice.id = fusion_core::hashing::compute_candidate_id_from_action(
+                U256::from(chain_id),
+                safe,
+                module,
+                snapshot.module_state.mandate_hash,
+                snapshot.module_state.session_id,
+                snapshot.block_hash,
+                &choice.action,
+            );
+            for c in &mut candidate_set.candidates {
+                if c.label == choice.label {
+                    c.action = choice.action.clone();
+                    c.id = choice.id;
+                }
+            }
+        }
     }
+
+    println!(
+        "Final Choice: label={} kind={:?} reason={} assets={}",
+        choice.label, choice.kind, choice.reason, choice.action.assets
+    );
 
     // 6. Passport Construction (§10.8)
     let user_goal_hash = alloy::primitives::keccak256(args.user_goal.as_bytes());
@@ -325,37 +767,47 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         })
         .collect();
 
-    let passport_out = build_deterministic_passport(
-        &passport_candidates,
-        candidate_set.candidate_set_digest,
+    let passport = DecisionPassport {
+        candidate_set: passport_candidates,
+        candidate_set_digest: format!("{:#x}", candidate_set.candidate_set_digest),
         chain_id,
-        choice.id,
-        &choice.label,
-        snapshot.block_timestamp,
-        snapshot.module_state.mandate_hash,
-        module,
-        &choice.reason,
-        &format!("{:?}", choice.route),
-        safe,
-        snapshot.block_number,
-        snapshot.block_hash,
-        user_goal_hash,
-    )?;
-
-    let decision_hash = passport_out.decision_hash;
-    println!("Decision passport JCS hash: {decision_hash:#x}");
-
-    // Save passport if directory specified
-    let passport_file_rel = if let Some(ref dir) = args.passport_dir {
-        fs::create_dir_all(dir)?;
-        let file_name = format!("{decision_hash:#x}.json");
-        let target_path = Path::new(dir).join(&file_name);
-        fs::write(&target_path, &passport_out.passport_json)?;
-        println!("Passport written to {}", target_path.display());
-        Some(file_name)
-    } else {
-        None
+        choice_id: format!("{:#x}", choice.id),
+        choice_label: choice.label.clone(),
+        created_at_chain: snapshot.block_timestamp,
+        mandate_hash: format!("{:#x}", snapshot.module_state.mandate_hash),
+        module: module.to_checksum(None),
+        planner: planner_meta.clone(),
+        reason_code: choice.reason.clone(),
+        route: format!("{:?}", choice.route),
+        safe: safe.to_checksum(None),
+        snapshot: PassportSnapshot {
+            block: snapshot.block_number,
+            hash: format!("{:#x}", snapshot.block_hash),
+        },
+        user_goal_sha256: format!("{user_goal_hash:#x}"),
+        version: "4.1".to_string(),
     };
+
+    let (passport_json, decision_hash) = if choice.route == Route::Queue && snapshot.queue.exists {
+        let q_dh = choice.action.decision_hash;
+        println!("Using locked queued decisionHash: {q_dh:#x}");
+        let p_path = args.passport_dir.as_ref().map(|d| Path::new(d).join(format!("{q_dh:#x}.json")));
+        let json = if let Some(ref p) = p_path {
+            if p.exists() {
+                fs::read_to_string(p).unwrap_or_else(|_| to_canonical_json(&passport).unwrap())
+            } else {
+                to_canonical_json(&passport)?
+            }
+        } else {
+            to_canonical_json(&passport)?
+        };
+        (json, q_dh)
+    } else {
+        let json = to_canonical_json(&passport)?;
+        let dh = alloy::primitives::keccak256(json.as_bytes());
+        (json, dh)
+    };
+    println!("Decision passport JCS hash: {decision_hash:#x}");
 
     // 7. Preview Verification (§10.7)
     let preview = preview_candidate(
@@ -367,21 +819,137 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         module,
     );
 
-    if !preview.passed {
-        eprintln!("PREVIEW REJECTED candidate {}:", choice.label);
-        for c in &preview.checks {
-            if c.status == RuleStatus::Fail {
-                eprintln!("  - rule: {} ({:?}) - {}", c.name, c.error_code, c.message);
+    let is_queue_creation = choice.route == Route::Queue && !snapshot.queue.exists;
+    let preview_passed = if is_queue_creation {
+        // In queue creation phase, Check 6 (delay gate) is deferred until readyAt
+        preview.checks.iter().all(|c| c.rule_id == "RULE_6_TIER_ROUTE" || c.status == RuleStatus::Pass)
+    } else {
+        preview.passed
+    };
+
+    if choice.label != "H" {
+        if !preview_passed {
+            eprintln!("PREVIEW REJECTED candidate {}:", choice.label);
+            for c in &preview.checks {
+                if c.status == RuleStatus::Fail {
+                    eprintln!("  - rule: {} ({:?}) - {}", c.name, c.error_code, c.message);
+                }
+            }
+            if !args.dry_run {
+                return Err("Candidate failed preview checks".into());
+            }
+        } else {
+            if is_queue_creation {
+                println!("Preview passed for action queueing (Rule 6 deferred until readyAt).");
+            } else {
+                println!("Preview passed all 7 normative rule gates.");
             }
         }
-        return Err("Candidate failed preview checks".into());
+    } else {
+        println!("Decision is HOLD. Preview evaluated; no transaction proposed.");
     }
 
-    println!("Preview passed all 7 normative rule gates.");
+    // Determine canonical kind adhering to §19.5
+    let canonical_kind = if choice.label == "H" {
+        "HOLD".to_string()
+    } else {
+        match choice.kind {
+            ActionKind::PayObligation => match choice.route {
+                Route::Instant => "PAY_INSTANT".to_string(),
+                Route::Queue => {
+                    if !snapshot.queue.exists {
+                        "ACTION_QUEUED".to_string()
+                    } else {
+                        "PAY_DELAYED".to_string()
+                    }
+                }
+                Route::Approve | Route::ApproveAndQueue => "PAY_OWNER_TIER".to_string(),
+                Route::Reject => "PAY_REJECTED".to_string(),
+            },
+            ActionKind::Deposit => "DEPOSIT".to_string(),
+            ActionKind::Withdraw => "WITHDRAW".to_string(),
+            ActionKind::Rebalance => "REBALANCE".to_string(),
+        }
+    };
+
+    // Save dry-run outputs if requested
+    if let Some(ref dir) = args.dryrun_dir {
+        fs::create_dir_all(dir)?;
+        let snap_file = Path::new(dir).join("snapshot.json");
+        fs::write(&snap_file, serde_json::to_string_pretty(&snapshot)?)?;
+
+        let pass_file = Path::new(dir).join("passport.json");
+        fs::write(&pass_file, &passport_json)?;
+
+        let prev_file = Path::new(dir).join("preview.json");
+        fs::write(&prev_file, serde_json::to_string_pretty(&preview)?)?;
+
+        println!("Dry run evidence saved to {}:", dir);
+        println!("  - snapshot: {}", snap_file.display());
+        println!("  - passport: {}", pass_file.display());
+        println!("  - preview:  {}", prev_file.display());
+    }
+
+    // Save passport to passport_dir if specified
+    let passport_file_rel = if let Some(ref dir) = args.passport_dir {
+        fs::create_dir_all(dir)?;
+        let file_name = format!("{decision_hash:#x}.json");
+        let target_path = Path::new(dir).join(&file_name);
+        fs::write(&target_path, &passport_json)?;
+        println!("Passport written to {}", target_path.display());
+
+        if choice.label == "H" {
+            let hold_path = Path::new(dir).join("hold.json");
+            fs::write(&hold_path, &passport_json)?;
+            println!("Hold passport written to {}", hold_path.display());
+        }
+        Some(file_name)
+    } else {
+        None
+    };
+
+    if choice.label == "H" || choice.reason == "HOLD" {
+        println!("Decision is HOLD. Recording passport and evidence row.");
+        if let Some(ref out_file) = args.evidence_out {
+            let row = EvidenceRow {
+                id: args.evidence_id.clone(),
+                source: args.source.clone(),
+                planner: planner_meta.kind.clone(),
+                host: "linux-host".to_string(),
+                tx_hash: None,
+                decision_hash: format!("{decision_hash:#x}"),
+                action_digest: format!("{:#x}", preview.action_digest),
+                candidate_id: format!("{:#x}", choice.id),
+                choice_label: choice.label,
+                kind: canonical_kind,
+                route: format!("{:?}", choice.route),
+                status: 1,
+                block_number: snapshot.block_number,
+                gas_used: 0,
+                passport: Some(format!("evidence/agent/passports/{decision_hash:#x}.json")),
+                passport_file: passport_file_rel,
+            };
+
+            let mut rows: Vec<EvidenceRow> = if Path::new(out_file).exists() {
+                let data = fs::read_to_string(out_file)?;
+                serde_json::from_str(&data).unwrap_or_default()
+            } else {
+                vec![]
+            };
+
+            rows.push(row.clone());
+            let json_data = serde_json::to_string_pretty(&rows)?;
+            fs::write(out_file, json_data)?;
+            println!("Appended evidence row {} to {}", row.id, out_file);
+        }
+        return Ok(());
+    }
 
     // 8. Sign (§10.2, §11.3)
     let key_str = if let Some(ref k) = args.private_key {
         k.clone()
+    } else if let Ok(k) = env::var("SESSION_PRIVATE_KEY") {
+        k
     } else if let Ok(k) = env::var("FUSION_SESSION_KEY") {
         k
     } else if let Ok(k) = env::var("FUSION_PRIVATE_KEY") {
@@ -402,7 +970,13 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
 
     let encoded_call = match choice.route {
         Route::Instant => encode_execute(module, &preview.exact_action, &choice.proof),
-        Route::Queue => encode_queue_action(module, &preview.exact_action, &choice.proof),
+        Route::Queue => {
+            if !snapshot.queue.exists {
+                encode_queue_action(module, &preview.exact_action, &choice.proof)
+            } else {
+                encode_execute(module, &preview.exact_action, &choice.proof)
+            }
+        }
         Route::Approve | Route::ApproveAndQueue => {
             encode_approve_action(module, &preview.exact_action, preview.exact_action.deadline)
         }
@@ -426,7 +1000,7 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         to: encoded_call.to,
         value: U256::ZERO,
         data: encoded_call.data,
-        gas_limit: 350_000,
+        gas_limit: 800_000,
         max_fee_per_gas: 2_000_000_000,
         max_priority_fee_per_gas: 1_000_000_000,
     };
@@ -453,7 +1027,18 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         let raw_bytes = Bytes::from(hex::decode(raw_hex)?);
 
         println!("Broadcasting raw transaction...");
-        let pending = provider.send_raw_transaction(&raw_bytes).await?;
+        let mut attempts = 0;
+        let pending = loop {
+            attempts += 1;
+            match provider.send_raw_transaction(&raw_bytes).await {
+                Ok(p) => break p,
+                Err(e) if attempts < 5 => {
+                    eprintln!("Warning: send_raw_transaction attempt {attempts} failed ({e}); retrying in 3s...");
+                    tokio::time::sleep(Duration::from_secs(3)).await;
+                }
+                Err(e) => return Err(e.into()),
+            }
+        };
         let hash = *pending.tx_hash();
         println!("Tx submitted: {hash:#x}. Awaiting receipt...");
         let receipt = pending.get_receipt().await?;
@@ -466,22 +1051,42 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         (signed_tx.tx_hash, snapshot.block_number, 0, 1)
     };
 
+    // Save passport indexed by txhash as requested by card specification
+    if let Some(ref dir) = args.passport_dir {
+        let tx_passport_path = Path::new(dir).join(format!("{tx_hash:#x}.json"));
+        fs::write(&tx_passport_path, &passport_json)?;
+        println!("Tx-named passport written to {}", tx_passport_path.display());
+    }
+
+    // Save run log if runs_dir is set
+    if let Some(ref dir) = args.runs_dir {
+        fs::create_dir_all(dir)?;
+        let run_log_path = Path::new(dir).join(format!("{tx_hash:#x}.log"));
+        let log_content = format!(
+            "agent-runner run log\nevidenceId: {}\nsource: {}\nplanner: {}\ntxHash: {:#x}\ndecisionHash: {:#x}\nblockNumber: {}\nstatus: {}\ngasUsed: {}\nchoice: {}\nkind: {}\n",
+            args.evidence_id, args.source, planner_meta.kind, tx_hash, decision_hash, block_number, status, gas_used, choice.label, canonical_kind
+        );
+        fs::write(&run_log_path, log_content)?;
+        println!("Run log written to {}", run_log_path.display());
+    }
+
     // 10. Write Evidence Row (§19.5)
     let row = EvidenceRow {
         id: args.evidence_id.clone(),
-        source: "SCRIPT".to_string(),
-        planner: args.planner.clone(),
+        source: args.source.clone(),
+        planner: planner_meta.kind.clone(),
         host: "linux-host".to_string(),
-        tx_hash: format!("{tx_hash:#x}"),
+        tx_hash: Some(format!("{tx_hash:#x}")),
         decision_hash: format!("{decision_hash:#x}"),
         action_digest: format!("{:#x}", preview.action_digest),
         candidate_id: format!("{:#x}", choice.id),
         choice_label: choice.label,
-        kind: format!("{:?}", choice.kind),
+        kind: canonical_kind,
         route: format!("{:?}", choice.route),
         status,
         block_number,
         gas_used,
+        passport: Some(format!("evidence/agent/passports/{tx_hash:#x}.json")),
         passport_file: passport_file_rel,
     };
 

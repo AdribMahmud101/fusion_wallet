@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "actionDigest": "0xda02eebe73992624ac04a329432e0d548d8bc3352fbcd6551a213671c8aa641f",
+  "exactAction": {
+    "kind": 0,
+    "sourceVault": "0x0000000000000000000000000000000000000000",
+    "destinationVault": "0x0000000000000000000000000000000000000000",
+    "assets": "0",
+    "minSharesOut": "0",
+    "maxSharesBurn": "0",
+    "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "recipient": "0x0000000000000000000000000000000000000000",
+    "dueAt": 0,
+    "expectedNonce": "6",
+    "policyEpoch": "8",
+    "deadline": 1792413562,
+    "decisionHash": "0xba78b40d30d232a2ead8a7c70f4c48c27f742bc1f7b77c2e1f1f2d8166650abc"
+  },
+  "tier": "INSTANT",
+  "route": "INSTANT",
+  "beforeBuckets": {
+    "free": "9409001235",
+    "reserved": "58000000",
+    "sweepable": "8909001235",
+    "shortfall": "0",
+    "deployed": "0",
+    "total": "9467001235"
+  },
+  "afterBuckets": {
+    "free": "9409001235",
+    "reserved": "58000000",
+    "sweepable": "8909001235",
+    "shortfall": "0",
+    "deployed": "0",
+    "total": "9467001235"
+  },
+  "checks": [
+    {
+      "ruleId": "RULE_1_LIFECYCLE",
+      "name": "Module live and authorized",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "paused=true, tier=Autonomous, session_live=true"
+    },
+    {
+      "ruleId": "RULE_2_QUEUE_GATE",
+      "name": "Queue availability",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "No active queue blocking"
+    },
+    {
+      "ruleId": "RULE_3_METADATA",
+      "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true"
+    },
+    {
+      "ruleId": "RULE_4_SHAPE",
+      "name": "Action shape and hard max limit",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "assets=0, hard_max=2500000000"
+    },
+    {
+      "ruleId": "RULE_5_VELOCITY",
+      "name": "Daily and session usage caps",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "daily_used=2093000000/4000000000, session_used=0/8000000000"
+    },
+    {
+      "ruleId": "RULE_6_TIER_ROUTE",
+      "name": "Tier and route conditions",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "tier=Instant, route=Instant"
+    },
+    {
+      "ruleId": "RULE_7_KIND_SPECIFIC",
+      "name": "Action kind invariant checks",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "Deposit satisfies reserve cushion"
+    }
+  ]
+}
