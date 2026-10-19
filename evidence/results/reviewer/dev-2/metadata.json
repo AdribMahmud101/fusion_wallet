@@ -1,0 +1,19 @@
+{
+  "ahem": {
+    "g": {
+      "forcedTokens": 0,
+      "mode": "ENFORCED",
+      "retries": 0,
+      "vetoes": 0
+    },
+    "l": {
+      "mode": "OFF"
+    }
+  },
+  "host": "linux-host",
+  "kind": "mnn+ahem-g:review",
+  "libMnnSha256": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4",
+  "libllmSha256": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+  "modelId": "LFM2.5-230M-MNN",
+  "modelSha256": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719"
+}
