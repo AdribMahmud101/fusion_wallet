@@ -1,0 +1,26 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 84532
+
+Estimated gas price: 0.011 gwei
+
+Estimated total gas used for script: 280662
+
+Estimated amount required: 0.000003087282 ETH
+
+==========================
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /root/projects/fusion_wallet-wt/K17/scripts/android_planner/.forge/broadcast/OwnerDemoSetup.s.sol/84532/run-latest.json
+
+Sensitive values saved to: /root/projects/fusion_wallet-wt/K17/scripts/android_planner/.forge/cache/OwnerDemoSetup.s.sol/84532/run-latest.json
+

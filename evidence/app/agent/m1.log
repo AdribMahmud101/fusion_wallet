@@ -1,0 +1,24 @@
+K17 M1 — Android app process evidence (debug activity + bound PlannerService)
+Captured UTC: 2026-10-19T15:52:52.808398+00:00
+Device: OnePlus 11 / CPH2447
+Android: 16
+Tecno CL6 validation pending adb authorization; this is NOT Tecno evidence.
+Process: app.fusion.wallet:inference PID 13984
+Fixed candidate labels: A,H; prompt contains no addresses or keys.
+AHEM-G: ON; AHEM-L: OFF; sampler: greedy; model: LFM2.5-230M MNN
+coldLoadMs=988.373905 decodeMs=423.239062 letter=A vetoes=0 forcedTokens=5
+Native library mappings (app process, outside Linux chroot):
+6fb9812000-6fb987c000 r--p 00000000 fe:4f 111366                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libMNN.so
+6fb987f000-6fb9aaf000 r-xp 00069000 fe:4f 111366                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libMNN.so
+6fb9ab2000-6fb9ac1000 r--p 00298000 fe:4f 111366                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libMNN.so
+6fb9ac4000-6fb9ac5000 rw-p 002a6000 fe:4f 111366                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libMNN.so
+6fbc346000-6fbc3e5000 r-xp 00000000 fe:4f 111369                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libfusion_planner_android.so
+6fbc3e8000-6fbc3ef000 r--p 0009e000 fe:4f 111369                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libfusion_planner_android.so
+6fbc3f2000-6fbc3f3000 rw-p 000a4000 fe:4f 111369                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libfusion_planner_android.so
+7041216000-70412a4000 r--p 00000000 fe:4f 111367                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libllm.so
+70412a7000-70413cf000 r-xp 0008d000 fe:4f 111367                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libllm.so
+70413d2000-70413dc000 r--p 001b4000 fe:4f 111367                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libllm.so
+70413df000-70413e0000 rw-p 001bd000 fe:4f 111367                         /data/app/~~CCc5Mt-LDLrZRNS2tvG5oQ==/app.fusion.wallet-DXANjVWfdudnUMlqBIG9pw==/lib/arm64/libllm.so
+Instrumented response: {"ahem":{"g":{"aborted":false,"forcedTokens":5,"mode":"ahem-g","retries":0,"vetoes":0},"l":{"mode":"off"}},"attempts":1,"candidateSetDigest":"android-m1-fixed","label":"A","modelCalls":1,"raw":"{\"choice\":\"A\"}","rawAttempts":["{\"choice\":\"A\"}"],"rawValid":true,"sampling":{"type":"greedy"},"timings":{"totalMs":423.239062,"ttftMs":391.802396},"load":{"coldLoadMs":988.373905,"hashes":{"config.json":"9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20","libMNN.so":"f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9","libMNN_CL.so":"00dfb35090db1e8d460cc17651a3a4298b3f63e0017e889e413bfd5cec8406b1","libMNN_Express.so":"b017c20cd19247f4bcb959ccc1361e44777ad5c56aec49e79b7b90f226f47afb","libMNN_Vulkan.so":"fbf4f2a354654d432146ffebd77e0a218148eedc8bb49835c11d67db2ce255bc","libllm.so":"8bab837379b4d6f74f44818f245da99c9b52600757fa46ed5103ecc36a8cc001","llm.mnn":"9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907","llm.mnn.weight":"fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719","llm_config.json":"6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576","tokenizer.mtok":"27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433"},"plannerKind":"mnn+ahem-g@android","sampling":{"type":"greedy"},"state":"READY"},"process":"app.fusion.wallet:inference","pid":13984,"plannerKind":"mnn+ahem-g@android"}
+Validation: ./gradlew testDebugUnitTest assembleDebug exits 0 (build-m1.txt).
+Model is in app-private files/models/lfm_230m; no weights are packaged or committed.

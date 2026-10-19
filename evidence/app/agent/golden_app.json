@@ -1,0 +1,44 @@
+[
+  {
+    "id": "K17-APP",
+    "source": "APP",
+    "chainId": 84532,
+    "planner": {
+      "ahem": {
+        "g": {
+          "forcedTokens": 10,
+          "mode": "ENFORCED",
+          "retries": 0,
+          "vetoes": 0
+        },
+        "l": {
+          "mode": "OFF"
+        }
+      },
+      "host": "device",
+      "kind": "mnn+ahem-g@android",
+      "libMnnSha256": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+      "libllmSha256": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+      "modelId": "LFM2.5-230M-MNN",
+      "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+    },
+    "host": "device",
+    "device": "OnePlus CPH2447",
+    "txHash": "0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89",
+    "decisionHash": "0x2c9f8199031c9a6a1a03377dab2aab417e60f80236e9535ab6aceecb1c9e953d",
+    "actionDigest": "0x5fa731bfa826b63da2f48a6a724b404928698235e3dc4275f2c3d177676da6c3",
+    "candidateId": "0x6d39f525a7cfc59a135adf7b9de77b54663e7698a25e0faf8bb9109a06d95582",
+    "choiceLabel": "A",
+    "kind": "PAY_INSTANT",
+    "route": "INSTANT",
+    "status": 1,
+    "blockNumber": 48332176,
+    "gasUsed": 200658,
+    "from": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+    "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+    "passport": "evidence/app/agent/passports/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json",
+    "receipt": "evidence/app/agent/receipts/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json",
+    "transaction": "evidence/app/agent/transactions/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json",
+    "sessionLock": "fcntl.flock LOCK_EX held by edge run_tick.py through verified receipt"
+  }
+]

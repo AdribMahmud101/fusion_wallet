@@ -1,0 +1,14 @@
+    Blocking waiting for file lock on package cache
+   Compiling fusion-android-core v1.0.0 (/root/projects/fusion_wallet-wt/K17/src/fusion-planner/android/core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.10s
+     Running unittests src/lib.rs (src/fusion-core/target/debug/deps/fusion_android_core-1010b7af171e1989)
+
+running 6 tests
+test android_boundary_tests::canonical_bound_decision_encodes_real_module_and_passport_hash ... ok
+test android_boundary_tests::raw_output_with_extra_fields_is_rejected_independently ... ok
+test android_boundary_tests::hold_never_enters_signing_surface ... ok
+test android_boundary_tests::modified_action_cannot_keep_old_candidate_or_passport_binding ... ok
+test android_boundary_tests::noncanonical_passport_bytes_are_rejected ... ok
+test android_boundary_tests::stale_five_block_result_is_rejected ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s

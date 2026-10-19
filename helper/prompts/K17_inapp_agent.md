@@ -24,3 +24,6 @@ M1: `evidence/app/agent/m1.log` shows a legal letter from the on-device run. M2:
 
 ## Acceptance
 - No private keys in git, APK, logs. Model files not in git or APK. No test weakened. Honest labels. Commit on `card/K17` (both repos). Do not merge, do not push. At 5 h stop and commit whatever milestone you reached.
+
+## REVISION 2 (supervisor) — M3 authorized
+M1 and M2 are verified and merged. You stopped at M3 because every committed bill is paid and a fresh owner commitment was needed. **You are authorized** to create it: run the owners' 2-of-2 bill commitment exactly as K19's `scripts/demo/live_demo.sh` / K9's `scripts/agent/owner_setup.py` do (small instant-tier bill to an ACTIVE payee), holding `flock /root/projects/fusion_wallet/.session.lock` for the whole owner-commit + in-app-tick + receipt sequence. Then import the SESSION key into the app's `:signer` (debug import, runtime only) and run the in-app agent tick with `dryRun=false` on the OnePlus. Record M3 evidence as specified (golden_app.json, passport, receipt, decisionHash in calldata, screenshot). Start from your current `card/K17` branches (already merged up to M2; `git merge main` / submodule `fusion-v3-integration` first). Time box: 2 h.

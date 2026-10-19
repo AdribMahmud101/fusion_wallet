@@ -1,0 +1,18 @@
+{
+  "highestReached": "M2",
+  "m3Status": "Waiting for approval of shared owner commitment setup; no APP tx claimed",
+  "androidTests": {
+    "tests": 115,
+    "failures": 0,
+    "skipped": 1
+  },
+  "rustBoundaryTestsPassed": 6,
+  "lockBridgeTestsPassed": 5,
+  "realDeviceNormalGateRunsPassed": 10,
+  "banAllAbortAndRecoveryPassed": true,
+  "device": "OnePlus CPH2447 Android 16",
+  "tecnoStatus": "adb unauthorized",
+  "apkSha256": "cc2ed9fb6adeaf596f46ed469d21b5d40a640ba59999b4827cd01d0df332d8fd",
+  "sessionKeyProtection": "Android Keystore AES-GCM in :signer; 61-byte encrypted envelope",
+  "baseSepoliaBroadcastsByThisCard": 0
+}
