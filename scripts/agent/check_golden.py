@@ -58,17 +58,20 @@ def extract_decision_hash_from_logs(logs, module_address):
             raw_data = data
 
         if topics[0].lower() == ACTION_EXECUTED_TOPIC0.lower():
-            # ActionExecuted(bytes32 digest, uint256 nonce, bytes32 decisionHash, ...)
-            # decisionHash is 3rd word (bytes 64..96 -> chars 128..192)
-            if len(raw_data) >= 192:
+            # ActionExecuted(bytes32 indexed actionDigest, uint256 indexed nonce, bytes32 indexed decisionHash, ...)
+            if len(topics) >= 4:
+                return topics[3], "ActionExecuted"
+            elif len(raw_data) >= 192:
                 dh = "0x" + raw_data[128:192]
                 return dh, "ActionExecuted"
         elif topics[0].lower() == ACTION_QUEUED_TOPIC0.lower():
-            # ActionQueued(bytes32 digest, bytes32 sessionId, uint256 nonce, uint64 ready, uint64 expires, bytes32 decisionHash)
-            # decisionHash is 6th word (bytes 160..192 -> chars 320..384)
-            if len(raw_data) >= 384:
-                dh = "0x" + raw_data[320:384]
+            # ActionQueued(bytes32 indexed digest, bytes32 indexed sessionId, uint256 indexed nonce, uint64 readyAt, uint64 expiresAt, bytes32 decisionHash)
+            # data word 0: readyAt, word 1: expiresAt, word 2: decisionHash (chars 128..192)
+            if len(raw_data) >= 192:
+                dh = "0x" + raw_data[128:192]
                 return dh, "ActionQueued"
+            elif len(topics) >= 4:
+                return topics[3], "ActionQueued"
     return None, None
 
 def main():

@@ -979,7 +979,7 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         to: encoded_call.to,
         value: U256::ZERO,
         data: encoded_call.data,
-        gas_limit: 350_000,
+        gas_limit: 800_000,
         max_fee_per_gas: 2_000_000_000,
         max_priority_fee_per_gas: 1_000_000_000,
     };
