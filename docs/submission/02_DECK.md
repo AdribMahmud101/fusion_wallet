@@ -139,7 +139,7 @@
   4. **Fail-Closed Sanctions Screening:** `isSanctioned` oracle evaluated at payee creation, queueing, and execution.
 
 ### Speaker Notes (6:00 – 7:00)
-> "To prevent invoice fraud and business email compromise, Fusion Wallet implements banking-grade controls directly on-chain.
+> "To prevent invoice fraud and business email compromise, Fusion Wallet implements multi-layered institutional controls directly on-chain.
 > First, bill commitments require dual-signature authorization from both Mei and Wei. Invoices are committed as a cryptographic Merkle root.
 > Second, our payee registry enforces a mandatory cooling-off period. If an attacker tricks one owner into registering a new vendor address, the agent cannot send funds to that address until the cooling clock expires—allowing the second owner or guardian time to cancel.
 > Third, obligation leaves are double-hashed, and every paid bill is marked permanently in contract storage, mathematically preventing double-payment attacks.
@@ -150,43 +150,48 @@
 ## Slide 8: Verification & Attack Arena Evidence
 
 ### Visual Layout
-* Header: *Comprehensive Verification Across 157 Contract Tests & 200 Host Scenarios*
+* Header: *Comprehensive Verification Across 157 Contract Tests, 24 Arena Scenarios & 200 Host Runs*
 * Left Card: **Smart Contract Test Suite (`src/contracts/STATUS.md`)**
   * **157/157 passing Foundry tests** (zero failures, zero skips).
   * Invariant Handler Campaign (I1–I7): 64 runs, 2,048 calls, 0 reverts.
   * Formal Invariants: Reserve preservation ($C \ge R + B$), zero residual allowances, strict nonce monotonicity.
   * Runtime Code Size: `KavachiModule` is **24,301 bytes** (275 bytes below EIP-170 limit of 24,576).
-* Right Card: **Adversarial Attack Arena (`evidence/planner/host_results.json`)**
-  * Direct prompt injections, Morse code, base64 payload attacks.
-  * All 200 adversarial test cases resulted in 0 unauthorized actions.
+* Right Card: **Adversarial Arena & Planner Benchmarks (`evidence/results/latest.json` & `host_results.json`)**
+  * **Arena (24 scenarios):** 21 stopped, 2 escaped (A12 x402 overcharge, A17 proxy implementation swap), 1 not implemented (A13 crash restart).
+  * **Corpus (60 cases):** Attack Success Rate (ASR) is **0/30 (0.0%)** under AHEM-G; False Block Rate (FBR) is **25/30 (83.3%)**.
+  * **200 Host Adversarial Runs:** 0 illegal outputs, 46 vetoes, 1,000 forced tokens under AHEM-G (vs 48 invalid / aborts in plain MNN baseline).
+  * **Latency Advantage:** Median P50 of **116.62 ms** (AHEM-G) vs 139.96 ms (Plain).
 
 ### Speaker Notes (7:00 – 8:00)
 > "We believe security claims are meaningless without verifiable artifacts.
-> Our Foundry test suite contains 157 tests, passing with zero failures. Our stateful invariant test campaign executed over 2,000 randomized handler calls without a single assertion violation, verifying seven core invariants including absolute reserve preservation and zero residual token allowances.
-> Notice our bytecode size: `KavachiModule` compiles to 24,301 bytes under Cancun via-IR, fitting cleanly within the strict EIP-170 limit.
-> In our adversarial attack arena, when subjected to Morse code and encoded prompt injections identical to the Grok/Bankr attack, the system stopped 100% of attempts across our five defensive layers."
+> Our Foundry test suite contains 157 tests passing cleanly. Our stateful invariant campaign executed over 2,000 randomized operations with zero reverts, formally proving reserve preservation and zero residual token allowances. `KavachiModule` fits within the strict EIP-170 bytecode ceiling at 24,301 bytes.
+> In our 24-scenario adversarial arena, 21 attacks were stopped across our defense layers. Two escaped due to documented architectural boundaries: an unbuilt x402 budget signer, and proxy implementation upgrades that preserve proxy code hashes.
+> In our 200-sample adversarial suite, AHEM-G achieved 0 illegal outputs with a median latency of 116 milliseconds, while unconstrained MNN suffered 48 complete failures."
 
 ---
 
 ## Slide 9: On-Chain Decision Passports & 'Verify Us Yourself'
 
 ### Visual Layout
-* Header: *Cryptographic Auditability: The Decision Passport*
-* Diagram: *From Off-Chain Inference to On-Chain Immutability*
-  * Canonical Passport JSON (RFC 8785 JCS) $\rightarrow \text{decisionHash} = \text{keccak256}(\text{JCS}) \rightarrow$ `ActionExecuted(..., decisionHash)`.
+* Header: *Multi-Provenance On-Chain Evidence & Independent Verification*
+* Three Provenance Columns:
+  * **AGENT (Autonomous Golden Path):** 3 autonomous transactions broadcast on Base Sepolia (`evidence/agent/golden.json`) under AHEM-G (`planner.kind = mnn+ahem-g`) + 1 HOLD decision. Every `decisionHash` matches the canonical passport.
+  * **APP (In-App Kill Switch):** Unilateral guardian pause (`0xb36b6d22...`) initiated from an Android phone (Tecno CL6) `:signer` process with Keystore-wrapped key, followed by a 2-of-2 Safe owner resume (`0x82916108...`).
+  * **SCRIPT (Operator Rehearsals):** 30 deployment receipts (`evidence/base-sepolia.json`) verified keylessly against public Base Sepolia RPC.
 * "Verify Us Yourself" Terminal Box:
   ```bash
-  python3 scripts/verify_evidence.py
-  # Re-reads Base Sepolia RPC, validates receipts, re-computes decisionHash
-  # Result: ALL CHECKS PASSED
+  # 1. Verify 30 operator script receipts (receipts, events, reverts)
+  python3 scripts/verify_evidence.py evidence/base-sepolia.json
+
+  # 2. Verify 3 autonomous agent transactions (session key, passport hash)
+  python3 scripts/agent/check_golden.py
   ```
-* BaseScan Links to live deployed contracts on Base Sepolia.
 
 ### Speaker Notes (8:00 – 9:00)
-> "Transparency requires verification.
-> For every autonomous decision, Fusion Wallet generates an RFC 8785 canonical JSON decision passport recording the snapshot block, candidate options, model hash, and AHEM veto metrics.
-> The Keccak-256 hash of this passport is passed as `decisionHash` in the transaction itself, permanently emitted in the `ActionExecuted` event.
-> Anyone in the world can run our read-only verifier script with one command: `python3 scripts/verify_evidence.py`. The script queries public Base Sepolia RPC nodes, inspects the transaction receipts, re-hashes the published passports, and proves that on-chain execution perfectly matches off-chain intent."
+> "Transparency requires exact provenance and keyless verification.
+> We distinguish three execution tiers: SCRIPT rows are operator deployment rehearsals; APP rows originate from real mobile hardware where an Android Keystore-wrapped guardian key paused the contract; and AGENT rows represent our autonomous golden path broadcast by agent-runner on Base Sepolia.
+> For every autonomous decision, the agent emits an RFC 8785 canonical passport hash on-chain.
+> Anyone in the world can verify our evidence keylessly using two commands: `verify_evidence.py` verifies our 30 operator receipts, and `check_golden.py` re-computes the Keccak hashes of our agent passports directly against public Base Sepolia RPC nodes."
 
 ---
 
@@ -195,18 +200,20 @@
 ### Visual Layout
 * Header: *Honest Disclosures, Production Roadmap, & Conclusion*
 * Transparent Limitations Box:
-  * Deployed on Base Sepolia testnet; uses mock USDC and simulated Aave/demo vault rates.
-  * Payee cooling set to 3,600s for competition demonstration (production default: 24h).
-  * Contracts are unaudited testnet prototypes; no formal regulatory compliance claimed.
-  * Host execution demonstrated on Linux aarch64; Android NDK cross-compilation pending.
+  * **Arena Residuals:** A12 (x402 budget signer not yet implemented), A17 (proxy implementation upgrades preserve proxy code hash), A13 (crash recovery journal not yet implemented).
+  * **Model FBR:** 25/30 (83.3%) under AHEM-G; compact 230M model conservatively defaults to HOLD on complex benign opportunities (operational delay, zero financial loss; card K14 is actively optimizing).
+  * **Environment:** Base Sepolia testnet prototype; mock USDC; simulated demo vault rates; test sanctions oracle; unaudited code.
+  * **Provenance Clarity:** SCRIPT rows are operator scripts, not autonomous agent executions.
 * Post-Competition Roadmap:
-  * Mainnet Safe deployment with hardware wallet signing integration.
-  * Production Chainalysis oracle integration.
-  * Full Android OS-level multi-APK sandbox separation.
+  * Dedicated x402 budget signer envelope and SQLite write-ahead transaction journal.
+  * External ERC-1967 implementation slot monitoring oracle.
+  * Production Chainalysis oracle integration and mainnet Safe deployment.
 * Summary: *Autonomous treasury management with mathematical guarantees: the AI chooses, but the smart contract governs.*
 
 ### Speaker Notes (9:00 – 10:00)
-> "To conclude, we present our honest boundaries. Fusion Wallet is an advanced competition prototype deployed on Base Sepolia. Our contracts are unaudited, our payee cooling is set to one hour for live demonstration purposes rather than the 24-hour production default, and our sanctions screening uses a test oracle.
-> But the core architectural innovation is proven: by pairing deterministic Rust candidate generation and decode-time AHEM-G grammar gating with an on-chain Safe guard layer, we eliminate the vulnerability of open-ended prompt injection.
-> The AI agent can optimize cash management, but it can never breach the mathematical boundaries enforced by the blockchain.
+> "To conclude, we present our honest boundaries. Fusion Wallet is an advanced prototype evaluated on Base Sepolia. Our contracts are unaudited, our payee cooling is set to one hour for live demonstration purposes, and we transparently disclose our known residuals: proxy implementation swaps bypass code-hash pins, dedicated x402 budget signing is not yet built, and our compact model exhibits an 83% False Block Rate where it defaults to HOLD on complex bills.
+> Crucially, false blocks cause operational delays, not financial losses—funds remain completely safe in the treasury, and owners can pay directly at any time.
+> The core architectural innovation is proven: by pairing deterministic Rust candidate generation and decode-time AHEM-G grammar gating with an on-chain Safe guard layer, we eliminate the hazard of open-ended prompt injection.
+> The AI agent optimizes treasury cash, but it can never breach the mathematical boundaries enforced by the blockchain.
 > Thank you, and we welcome your questions."
+

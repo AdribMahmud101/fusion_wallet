@@ -39,8 +39,8 @@ Fusion Wallet splits execution into distinct security domains spanning the Andro
 | **`fusion-core`** | Rust Engine (`.so`) | Pure deterministic math: integer economics, EIP-712/Keccak hashing, Merkle tree operations, candidate enumeration, snapshot processing, and passport generation. | Deterministic, panic-guarded, pure functions with no long-lived key storage. |
 | **Safe Smart Account** | Base Sepolia (`0x029869910714D9e09b854a2688311AFd42fBb44E`) | Gnosis Safe v1.4.1 2-of-2 multi-signature account. Holds all treasury USDC and ERC-4626 vault share tokens. | Only executes external module calls initiated by the authorized `KavachiModule`. |
 | **Kavachi Guard Layer (`KavachiModule`)** | Base Sepolia (`0xA560ec10259657E9bADd297E68286d2838Cd5a8f`) | Master guard module enabled on Safe. Validates cryptographic mandates, reserve invariants, amount tiers, payee cooling periods, and Merkle bill proofs. | Never executes delegatecall; value is strictly 0; call targets are strictly allowlisted. |
-| **Vaults** | Base Sepolia ERC-4626 | Vault A: Aave V3 waUSDC wrapper; Vault B: `KavachiDemoVault` (`0x5e16B898eEc2DE5125E6B564F42A1690e80a5F34`). | Enforces share slippage bounds (50 bps) and exposure ceilings. |
-| **Sanctions Oracle** | Base Sepolia (`0x429E2E2088f117c093aC3c50058eE5f3Fcecb46a`) | Test sanctions list interface (`isSanctioned`) evaluated at payee registration, queueing, and execution. | Fails closed on oracle revert (`SanctionsCheckFailed`). |
+| **Vaults** | Base Sepolia ERC-4626 | Vault A: Aave V3 waUSDC wrapper (`0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a`); Vault B: `KavachiDemoVault` (`0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D`). | Enforces share slippage bounds (50 bps) and exposure ceilings. |
+| **Sanctions Oracle** | Base Sepolia (`0xd2716e08BCe6eb5B1f01329FF5E1a2dd0468B678`) | Test sanctions list interface (`isSanctioned`) evaluated at payee registration, queueing, and execution. | Fails closed on oracle revert (`SanctionsCheckFailed`). |
 
 ### 2.2 System Architecture Diagram
 
@@ -338,3 +338,32 @@ Fusion Wallet aligns with emerging smart account and autonomous agent standards 
 | **RFC 8785** | JSON Canonicalization (JCS) | Normalizes audit passports to ensure consistent cross-platform Keccak-256 digests. | "Uses RFC 8785 (JCS)" |
 | **EIP-712** | Structured Data Signing | Safe multi-signature approvals utilize standard EIP-712 typed signatures (`SafeTx`). | "Uses EIP-712" |
 | **EIP-1967** | Standard Proxy Storage Slots | Monitors implementation slots of third-party vault proxies to detect unauthorized logic upgrades. | "Uses EIP-1967" |
+
+---
+
+## 8. Empirical Validation & Verification Dossier
+
+Every technical claim in Fusion Wallet is backed by verifiable on-chain receipts, host logs, or reproducible test scripts. Full details are compiled in [`docs/submission/06_EVIDENCE.md`](06_EVIDENCE.md).
+
+### 8.1 Provenance Hierarchy
+- **`SCRIPT`:** 30 operational receipts recorded in `evidence/base-sepolia.json`. Executed deterministically by deployment scripts (`src/contracts/script/EvidenceActions.s.sol`). **Never called autonomous.**
+- **`AGENT`:** 3 autonomous agent transactions broadcast by `agent-runner` with the on-device LFM2.5 model under AHEM-G (`planner.kind = mnn+ahem-g`) in `evidence/agent/golden.json` (plus 1 HOLD decision). Each `decisionHash` equals `keccak256(canonical_passport)`.
+- **`APP`:** In-app kill switch recorded in `evidence/app/guardian_pause.json`. Guardian pause (`0xb36b6d22...`) initiated from an Android phone (Tecno CL6) `:signer` process with Keystore-wrapped key, followed by a 2-of-2 Safe owner resume (`0x82916108...`).
+- **`OWNER`:** 2-of-2 Safe multi-signature actions (policy, session, payee, and resume).
+
+### 8.2 Security & Performance Summary
+1. **Smart Contracts (`src/contracts/STATUS.md`):** 157 passing Foundry unit tests; stateful invariant campaign (I1–I7) with 2,048 handler operations and 0 reverts; `KavachiModule` runtime size: **24,301 bytes** (275 bytes below EIP-170 limit of 24,576).
+2. **Adversarial Arena (`evidence/results/latest.json`):** 24 attack scenarios evaluated; 21 stopped; 2 escaped (A12: x402 budget signer not built; A17: proxy implementation swap escapes code-hash pin); 1 not implemented (A13: crash journal).
+3. **Corpus Benchmarks (60 cases):** Off-chain Attack Success Rate (ASR) is **0/30 (0.0%)** under AHEM-G. False Block Rate (FBR) is **25/30 (83.3%)** under AHEM-G (actionable FBR: **25/28 (89.3%)**).
+4. **Host AI Evaluation (`evidence/planner/host_results.json`):** 200 adversarial prompts yielded **0 illegal outputs** under AHEM-G with 46 token vetoes and 1,000 forced skeleton tokens (vs 48 invalid / aborts in unconstrained plain MNN). Latency P50: **116.62 ms** (AHEM-G) vs 139.96 ms (Plain baseline).
+
+### 8.3 One-Command Verification
+Judges can verify all evidence keylessly:
+```bash
+# Verify 30 operator script receipts against Base Sepolia RPC
+python3 scripts/verify_evidence.py evidence/base-sepolia.json
+
+# Verify 3 autonomous agent golden path transactions and passport hashes
+python3 scripts/agent/check_golden.py
+```
+
