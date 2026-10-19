@@ -1,0 +1,75 @@
+{
+  "blockNumber": 48319620,
+  "blockHash": "0xf2e04855cb8f603bed90d057d9f4580ff9cb3f9f7967a249f8e9c3c7ef87955d",
+  "blockTimestamp": 1792407528,
+  "safeCash": "1150000000",
+  "vaultAShares": "3896254002",
+  "vaultAAssets": "4850001058",
+  "vaultBShares": "4000000000",
+  "vaultBAssets": "4000000000",
+  "moduleState": {
+    "configured": true,
+    "paused": false,
+    "policyEpoch": "3",
+    "policyHash": "0xd23e010f3c36f64c006aaa5ac48cdb1932749b94473578ae4ccc4ee85024e1f3",
+    "mandateHash": "0x9ea8f3b6df2a1a5066ff3ad46738b0c4112aff528d721818287134ff09bd5d21",
+    "obligationsRoot": "0x29e3f1325c87d0d9fb36ddca27bca79b5847e2781cd97654c4fa8d8b02c02165",
+    "reservedRaw": "583000000",
+    "obligationCount": "5",
+    "actionNonce": "1",
+    "dailyDayIndex": "20745",
+    "dailyUsedRaw": "1850000000",
+    "sessionId": "0x1d1e90f4772b1bf1c4203d45a06cdd15a14c53ffbb7249cf34cfe2ad81216798",
+    "sessionStartEpoch": "2",
+    "sessionKey": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+    "sessionExpiresAt": 1792486658,
+    "sessionLimitRaw": "8000000000",
+    "sessionUsedRaw": "1850000000"
+  },
+  "policy": {
+    "permissionTier": 2,
+    "operatingBufferRaw": "500000000",
+    "microMaxRaw": "10000000",
+    "delayedMaxRaw": "100000000",
+    "hardMaxRaw": "2500000000",
+    "dailyLimitRaw": "4000000000",
+    "delaySeconds": 180,
+    "maxShareSlippageBps": 50,
+    "guardian": "0x46b8e40eb9767bd46e03c5ecf398c10e1372251e",
+    "vaults": [
+      {
+        "vault": "0xf052c0ed8404adeaaea773a5f8ae4628134aff6d",
+        "maxExposureRaw": "6000000000"
+      },
+      {
+        "vault": "0xf430cb6e2b85f99222fbfa6dfea18ff60fa6b32a",
+        "maxExposureRaw": "6000000000"
+      }
+    ],
+    "payeeDelaySeconds": 3600,
+    "payEarlyWindowSeconds": 259200
+  },
+  "queue": {
+    "exists": false,
+    "actionDigest": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "sessionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "readyAt": 0,
+    "expiresAt": 0,
+    "action": {
+      "kind": 0,
+      "sourceVault": "0x0000000000000000000000000000000000000000",
+      "destinationVault": "0x0000000000000000000000000000000000000000",
+      "assets": "0",
+      "minSharesOut": "0",
+      "maxSharesBurn": "0",
+      "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "recipient": "0x0000000000000000000000000000000000000000",
+      "dueAt": 0,
+      "expectedNonce": "0",
+      "policyEpoch": "0",
+      "deadline": 0,
+      "decisionHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+}

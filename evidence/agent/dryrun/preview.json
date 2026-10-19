@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "actionDigest": "0xac7941df51d71f3bb373b59ba06565edca160d1a9e136a882ce1db2366c97a63",
+  "exactAction": {
+    "kind": 3,
+    "sourceVault": "0x0000000000000000000000000000000000000000",
+    "destinationVault": "0x0000000000000000000000000000000000000000",
+    "assets": "8000000",
+    "minSharesOut": "0",
+    "maxSharesBurn": "0",
+    "obligationIdHash": "0xf15f1bc88b262ba90a9d5614e0cd8eab62f75a6c76750f43cb259d382cb4bdc0",
+    "payeeIdHash": "0xd54c2d42f79c30ee01aaf0f6e6572e858b25df57151e9a4cd5f22198a7de104f",
+    "recipient": "0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79",
+    "dueAt": 1792576500,
+    "expectedNonce": "1",
+    "policyEpoch": "3",
+    "deadline": 1792407648,
+    "decisionHash": "0x810ba2ffc5746b08176a559c86e096811a2d24a8e59e3f14ad54d42305d01d5f"
+  },
+  "tier": "INSTANT",
+  "route": "INSTANT",
+  "beforeBuckets": {
+    "free": "567000000",
+    "reserved": "583000000",
+    "sweepable": "67000000",
+    "shortfall": "0",
+    "deployed": "8850001058",
+    "total": "10000001058"
+  },
+  "afterBuckets": {
+    "free": "567000000",
+    "reserved": "575000000",
+    "sweepable": "67000000",
+    "shortfall": "0",
+    "deployed": "8850001058",
+    "total": "9992001058"
+  },
+  "checks": [
+    {
+      "ruleId": "RULE_1_LIFECYCLE",
+      "name": "Module live and authorized",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "paused=true, tier=Autonomous, session_live=true"
+    },
+    {
+      "ruleId": "RULE_2_QUEUE_GATE",
+      "name": "Queue availability",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "No active queue blocking"
+    },
+    {
+      "ruleId": "RULE_3_METADATA",
+      "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true"
+    },
+    {
+      "ruleId": "RULE_4_SHAPE",
+      "name": "Action shape and hard max limit",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "assets=8000000, hard_max=2500000000"
+    },
+    {
+      "ruleId": "RULE_5_VELOCITY",
+      "name": "Daily and session usage caps",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "daily_used=1850000000/4000000000, session_used=1850000000/8000000000"
+    },
+    {
+      "ruleId": "RULE_6_TIER_ROUTE",
+      "name": "Tier and route conditions",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "tier=Instant, route=Instant"
+    },
+    {
+      "ruleId": "RULE_7_KIND_SPECIFIC",
+      "name": "Action kind invariant checks",
+      "status": "PASS",
+      "errorCode": null,
+      "message": "Bill Merkle proof verified against commitment root"
+    }
+  ]
+}

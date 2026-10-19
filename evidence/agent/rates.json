@@ -1,0 +1,12 @@
+[
+  {
+    "vault": "0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a",
+    "rateBps": 2500,
+    "isSimulated": true
+  },
+  {
+    "vault": "0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D",
+    "rateBps": 2000,
+    "isSimulated": true
+  }
+]
