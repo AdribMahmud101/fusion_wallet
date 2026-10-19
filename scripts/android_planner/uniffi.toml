@@ -1,0 +1,3 @@
+[crates.fusion_android_core.bindings.kotlin]
+package_name = "app.fusion.wallet.inference.core"
+cdylib_name = "fusion_android_core"
