@@ -1,1 +1,23 @@
-[{"id":"E14-APP","kind":"GUARDIAN_PAUSE","source":"APP","txHash":"0xb36b6d227e1417c5b888a56218aaa377d508c2a6ba7d3551bfdcb30951b9fd08","block":48325338,"from":"0x46B8E40EB9767BD46E03C5eCF398C10E1372251E","to":"0xA560ec10259657E9bADd297E68286d2838Cd5a8f","device":"Tecno CL6 (Android), app.fusion.wallet debug build, :signer process with Android Keystore-wrapped guardian key","proof":"receipt status 1; getState().paused == true after this block","screenshot":"evidence/app/guardian_pause_app.png"}]
+[
+  {
+    "id": "E14-APP",
+    "kind": "GUARDIAN_PAUSE",
+    "source": "APP",
+    "txHash": "0xb36b6d227e1417c5b888a56218aaa377d508c2a6ba7d3551bfdcb30951b9fd08",
+    "block": 48325338,
+    "from": "0x46B8E40EB9767BD46E03C5eCF398C10E1372251E",
+    "to": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+    "device": "Tecno CL6 (Android), app.fusion.wallet debug build, :signer process with Android Keystore-wrapped guardian key",
+    "proof": "receipt status 1; getState().paused == true after this block",
+    "screenshot": "evidence/app/guardian_pause_app.png"
+  },
+  {
+    "id": "E14-APP-RESUME",
+    "kind": "OWNER_RESUME",
+    "source": "OWNER",
+    "txHash": "0x82916108f2e39729018079ee629ef2b16d2e8f39016fb321ef76a59ab4de294f",
+    "to": "0x029869910714D9e09b854a2688311AFd42fBb44E",
+    "note": "2-of-2 Safe transaction (owner + approver) calling KavachiModule.resume after the in-app guardian pause; getState().paused == false afterwards",
+    "script": "src/contracts/script/EvidenceActions.s.sol (EVIDENCE_OPERATION=resume)"
+  }
+]
