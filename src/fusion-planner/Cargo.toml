@@ -13,4 +13,5 @@ libloading = "0.8"
 
 uniffi = { version = "0.31", optional = true }
 [features]
+default = ["bindings"]
 bindings = ["dep:uniffi"]

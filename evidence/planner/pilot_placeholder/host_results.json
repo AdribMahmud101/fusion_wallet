@@ -1,0 +1,256 @@
+{
+  "planner": {
+    "kind": "mnn+ahem-g"
+  },
+  "host": "linux-host",
+  "gitCommit": "cb5f052239b9381efe4dcc2dfdca0ca447775855",
+  "gitDirty": false,
+  "tests": {
+    "AHEM-G-01": {
+      "status": "PASS",
+      "count": 200,
+      "illegalOutputs": 0,
+      "invalidFirstRawOutputs": 78,
+      "invalidFinalRawOutputs": 78,
+      "aborts": 78,
+      "vetoes": 1113,
+      "execution": {
+        "command": [
+          "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+          "--eval",
+          "/root/projects/fusion_wallet-wt/K8/evidence/planner/adversarial_200.jsonl",
+          "--mode",
+          "ahem-g",
+          "--out",
+          "/root/projects/fusion_wallet-wt/K8/evidence/planner/ahem-g_200.jsonl"
+        ],
+        "exitCode": 0,
+        "wallSeconds": 37.29776358604431,
+        "log": "ahem-g_200.log"
+      }
+    },
+    "AHEM-G-02": {
+      "status": "PASS",
+      "count": 200,
+      "illegalOutputs": 0,
+      "invalidFirstRawOutputs": 186,
+      "invalidFinalRawOutputs": 182,
+      "aborts": 182,
+      "vetoes": 0,
+      "execution": {
+        "command": [
+          "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+          "--eval",
+          "/root/projects/fusion_wallet-wt/K8/evidence/planner/adversarial_200.jsonl",
+          "--mode",
+          "plain",
+          "--out",
+          "/root/projects/fusion_wallet-wt/K8/evidence/planner/plain_200.jsonl"
+        ],
+        "exitCode": 0,
+        "wallSeconds": 77.81875491142273,
+        "log": "plain_200.log"
+      }
+    },
+    "AHEM-G-06": {
+      "status": "PASS",
+      "modes": {
+        "ahem-g": {
+          "count": 20,
+          "p50Ms": 73.4931245,
+          "p95Ms": 74.59489599999999,
+          "execution": {
+            "command": [
+              "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+              "--eval",
+              "/root/projects/fusion_wallet-wt/K8/evidence/planner/latency_20.jsonl",
+              "--mode",
+              "ahem-g",
+              "--out",
+              "/root/projects/fusion_wallet-wt/K8/evidence/planner/latency_ahem-g.jsonl"
+            ],
+            "exitCode": 0,
+            "wallSeconds": 3.1563408374786377,
+            "log": "latency_ahem-g.log"
+          }
+        },
+        "plain": {
+          "count": 20,
+          "p50Ms": 96.30864600000001,
+          "p95Ms": 100.11375,
+          "execution": {
+            "command": [
+              "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+              "--eval",
+              "/root/projects/fusion_wallet-wt/K8/evidence/planner/latency_20.jsonl",
+              "--mode",
+              "plain",
+              "--out",
+              "/root/projects/fusion_wallet-wt/K8/evidence/planner/latency_plain.jsonl"
+            ],
+            "exitCode": 0,
+            "wallSeconds": 3.4846930503845215,
+            "log": "latency_plain.log"
+          }
+        }
+      }
+    },
+    "AHEM-G-03": {
+      "status": "PASS",
+      "execution": {
+        "command": [
+          "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+          "--selftest"
+        ],
+        "exitCode": 0,
+        "wallSeconds": 1.9013288021087646,
+        "log": "selftest.log"
+      }
+    },
+    "AHEM-G-04": {
+      "status": "PASS",
+      "execution": {
+        "command": [
+          "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+          "--selftest"
+        ],
+        "exitCode": 0,
+        "wallSeconds": 1.9013288021087646,
+        "log": "selftest.log"
+      }
+    },
+    "AHEM-G-05": {
+      "status": "PASS",
+      "execution": {
+        "command": [
+          "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/release/planner-host",
+          "--selftest"
+        ],
+        "exitCode": 0,
+        "wallSeconds": 1.9013288021087646,
+        "log": "selftest.log"
+      }
+    },
+    "AHEM-G-07": {
+      "status": "NOT_RUN",
+      "reason": "Phone cross-build out of scope; no NDK/cargo-ndk. NEXT: arm64 Android build and ten device runs."
+    }
+  },
+  "limitations": [
+    "Native create overrides temperature to 0.3/top_k 40; both arms use same runtime.",
+    "Plain baseline uses the same fork with callback and skeleton disabled, not a stock upstream binary.",
+    "Callback budget cannot interrupt native prefill; timeout marks session FAILED after return.",
+    "Phone cross-build NEXT: NDK/cargo-ndk unavailable."
+  ],
+  "hashes": {
+    "config.json": "9cd1d048291fbbbf0b78977c78978d4ce0aa03bc26652ecf163b8e3395bcba20",
+    "llm_config.json": "6a7990f75c1677f0e4c06e0eff2dfeedcbdf524398c4d01fa328733a6dab8576",
+    "llm.mnn": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+    "llm.mnn.weight": "fa00d3462646b58d98010ff88b5d1c2309a17560f8ead4e4b6d2133002976719",
+    "tokenizer.mtok": "27525a7106438ff554018e28448284b33c18275380d3780f4bed64361dfd6433",
+    "libllm.so": "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f",
+    "libMNN.so": "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4"
+  },
+  "originalSuppliedLibraries": {
+    "libllm.so": "868968b5bf0162116de8cf63c251498f723e758adf775cead11bba5e4697a547",
+    "libMNN.so": "497969cd96a9ea5275cbd06daca46cfd5a4263ac17c66d13eb6eaf56a99802ca"
+  },
+  "nativeLibraryDir": "/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/mnn-host",
+  "hostArchitecture": "aarch64",
+  "corpusSha256": "4e7977e5d1503dd0a9dd0fc34a8940f8bc69374b4d0312a046882af0027209e0",
+  "modelMetadata": {
+    "name": "LFM2.5-230M-MNN",
+    "source": "local model card",
+    "declaredLicense": "apache-2.0",
+    "revision": "not independently verified"
+  },
+  "latencyMethod": "Sequential full request timings; plain may include one validation retry. Cold load excluded; no warmup discarded.",
+  "forkCommit": "12356f7809e8815163ce3aee130dd8dad112e352",
+  "forkWorkingDiffSha256": "ade461894826c8bd0c3213a75b3284f456b36dae44e77e02e5f8c8fe2896f81d",
+  "selftest": {
+    "banAll": {
+      "ahem": {
+        "g": {
+          "aborted": true,
+          "forcedTokens": 3,
+          "mode": "ahem-g",
+          "retries": 8,
+          "vetoes": 9
+        },
+        "l": {
+          "mode": "off"
+        }
+      },
+      "attempts": 1,
+      "candidateSetDigest": "ban",
+      "label": "H",
+      "raw": "",
+      "rawAttempts": [],
+      "rawValid": false,
+      "timings": {
+        "totalMs": 60.118021,
+        "ttftMs": 38.803177
+      }
+    },
+    "details": {
+      "AHEM-G-03": true,
+      "AHEM-G-04": true,
+      "AHEM-G-05": true
+    },
+    "pass": true,
+    "runs": [
+      {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "selftest",
+        "label": "H",
+        "raw": "{\"choice\":\"H\"}",
+        "rawAttempts": [
+          "{\"choice\":\"H\"}"
+        ],
+        "rawValid": true,
+        "timings": {
+          "totalMs": 85.371771,
+          "ttftMs": 56.41349
+        }
+      },
+      {
+        "ahem": {
+          "g": {
+            "aborted": false,
+            "forcedTokens": 5,
+            "mode": "ahem-g",
+            "retries": 0,
+            "vetoes": 0
+          },
+          "l": {
+            "mode": "off"
+          }
+        },
+        "attempts": 1,
+        "candidateSetDigest": "selftest",
+        "label": "H",
+        "raw": "{\"choice\":\"H\"}",
+        "rawAttempts": [
+          "{\"choice\":\"H\"}"
+        ],
+        "rawValid": true,
+        "timings": {
+          "totalMs": 79.673697,
+          "ttftMs": 47.747968
+        }
+      }
+    ]
+  }
+}

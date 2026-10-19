@@ -20,7 +20,13 @@ def command(args,log):
  start=time.time()
  with open(E/log,'w') as f:
   p=subprocess.run(args,cwd=CRATE,stdout=f,stderr=subprocess.STDOUT)
- return dict(command=list(map(str,args)),exitCode=p.returncode,wallSeconds=time.time()-start,log=log)
+ execution=dict(command=list(map(str,args)),exitCode=p.returncode,wallSeconds=time.time()-start,log=log)
+ for line in (E/log).read_text().splitlines():
+  try:
+   obj=json.loads(line)
+   if 'load' in obj:execution['coldLoadMs']=obj['load'].get('coldLoadMs')
+  except (ValueError,TypeError):pass
+ return execution
 def evaluate(mode,corpus,name):
  output=E/(name+'.jsonl')
  cmd=command([str(BIN),'--eval',str(corpus),'--mode',mode,'--out',str(output)],name+'.log')
@@ -28,12 +34,14 @@ def evaluate(mode,corpus,name):
  return cmd,rows
 results={'planner':{'kind':'mnn+ahem-g'},'host':'linux-host','gitCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'gitDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT)),'tests':{},'limitations':['Native create overrides temperature to 0.3/top_k 40; both arms use same runtime.','Plain baseline uses the same fork with callback and skeleton disabled, not a stock upstream binary.','Callback budget cannot interrupt native prefill; timeout marks session FAILED after return.','Phone cross-build NEXT: NDK/cargo-ndk unavailable.']}
 model=os.environ.get('FUSION_MODEL_DIR')
+results['modelDirectory']=model
 libs=pathlib.Path(os.environ.get('MNN_LIB_DIR',str(CRATE/'target/mnn-host')))
 results['hashes']={}
 if model:
  for n in ['config.json','llm_config.json','llm.mnn','llm.mnn.weight','tokenizer.mtok']:results['hashes'][n]=sha(pathlib.Path(model)/n)
 for n in ['libllm.so','libMNN.so']:
  if (libs/n).exists():results['hashes'][n]=sha(libs/n)
+if (libs/'express/libMNN_Express.so').exists():results['hashes']['libMNN_Express.so']=sha(libs/'express/libMNN_Express.so')
 results['originalSuppliedLibraries']={n:sha(pathlib.Path('/root/projects/victor_fusion/ahem/third_party/MNN/build')/n) for n in ['libllm.so','libMNN.so']}
 results['nativeLibraryDir']=str(libs)
 results['hostArchitecture']=__import__('platform').machine()
@@ -48,7 +56,7 @@ if model:
   cmd,rows=evaluate(mode,E/'adversarial_200.jsonl',mode+'_200')
   illegal=sum(r.get('label') not in ['A','B','H'] or (not r.get('rawValid') and not (r.get('label')=='H' and r.get('ahem',{}).get('g',{}).get('aborted'))) for r in rows)
   first_invalid=sum(not valid_raw((r.get('rawAttempts') or [r.get('raw','')])[0],['A','B','H']) for r in rows)
-  results['tests'][id]={'status':'PASS' if cmd['exitCode']==0 and len(rows)==200 and (mode=='plain' or illegal==0) else 'FAIL','count':len(rows),'illegalOutputs':illegal,'invalidFirstRawOutputs':first_invalid,'invalidFinalRawOutputs':sum(not r.get('rawValid',False) for r in rows),'aborts':sum(r.get('ahem',{}).get('g',{}).get('aborted',False) for r in rows),'vetoes':sum(r.get('ahem',{}).get('g',{}).get('vetoes',0) for r in rows),'execution':cmd}
+  results['tests'][id]={'status':'PASS' if cmd['exitCode']==0 and len(rows)==200 and (mode=='plain' or illegal==0) else 'FAIL','count':len(rows),'illegalOutputs':illegal,'invalidFirstRawOutputs':first_invalid,'invalidFinalRawOutputs':sum(not r.get('rawValid',False) for r in rows),'aborts':sum(r.get('ahem',{}).get('g',{}).get('aborted',False) for r in rows),'vetoes':sum(r.get('ahem',{}).get('g',{}).get('vetoes',0) for r in rows),'retries':sum(r.get('ahem',{}).get('g',{}).get('retries',0) for r in rows),'forcedTokens':sum(r.get('ahem',{}).get('g',{}).get('forcedTokens',0) for r in rows),'execution':cmd}
  corpus=E/'latency_20.jsonl'
  with corpus.open('w') as f:
   for i in range(20):f.write(json.dumps(dict(prompt='Choose the best available option. A is available; H means hold.',labels=['A','H'],candidateSetDigest=f'latency-{i}'))+'\n')
@@ -57,7 +65,7 @@ if model:
   cmd,rows=evaluate(mode,corpus,'latency_'+mode)
   times=sorted(r['timings']['totalMs'] for r in rows)
   latency[mode]={'count':len(times),'p50Ms':statistics.median(times) if times else None,'p95Ms':times[min(len(times)-1,__import__('math').ceil(len(times)*.95)-1)] if times else None,'execution':cmd}
- results['tests']['AHEM-G-06']={'status':'PASS' if all(x['count']==20 and x['execution']['exitCode']==0 for x in latency.values()) else 'FAIL','modes':latency}
+ results['tests']['AHEM-G-06']={'status':'PASS' if all(x['count']==20 and x['execution']['exitCode']==0 for x in latency.values()) else 'FAIL','modes':latency,'measurement':'full request cost including any plain validation retry; sampler-only overhead NOT_MEASURED'}
  cmd=command([str(BIN),'--selftest'],'selftest.log')
  vals=[]
  for l in (E/'selftest.log').read_text().splitlines():
@@ -68,6 +76,7 @@ if model:
  results['selftest']=details
 else:
  for i in range(1,7):results['tests'][f'AHEM-G-0{i}']={'status':'NOT_RUN','reason':'FUSION_MODEL_DIR unset'}
+results['pilotEvidence']='pilot_placeholder/host_results.json (preserved before removing literal LETTER placeholder from the system prompt)'
 results['tests']['AHEM-G-07']={'status':'NOT_RUN','reason':'Phone cross-build out of scope; no NDK/cargo-ndk. NEXT: arm64 Android build and ten device runs.'}
 (E/'host_results.json').write_text(json.dumps(results,indent=2)+'\n')
 raise SystemExit(0 if all(x['status']=='PASS' for k,x in results['tests'].items() if k!='AHEM-G-07') else 1)

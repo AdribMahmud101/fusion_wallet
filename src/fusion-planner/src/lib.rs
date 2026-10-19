@@ -61,6 +61,10 @@ pub fn measured_hashes(config: &Path) -> Result<Value, String> {
     for name in ["libllm.so", "libMNN.so"] {
         m.insert(name.into(), json!(sha(&lib_dir().join(name))?));
     }
+    let express = lib_dir().join("express/libMNN_Express.so");
+    if express.exists() {
+        m.insert("libMNN_Express.so".into(), json!(sha(&express)?));
+    }
     Ok(Value::Object(m))
 }
 fn guard(f: impl FnOnce() -> Result<Value, String>) -> String {
@@ -184,5 +188,10 @@ mod tests {
             value,
             serde_json::json!({"ok":false,"error":{"code":"PANIC"}})
         );
+    }
+    #[test]
+    fn request_rejects_financial_payload_fields() {
+        let request = serde_json::json!({"prompt":"Choose A","labels":["A","H"],"candidateSetDigest":"test","mode":"ahem-g","amountRaw":"100","candidates":[]});
+        assert!(serde_json::from_value::<crate::run::Request>(request).is_err());
     }
 }

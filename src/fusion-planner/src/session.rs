@@ -12,10 +12,10 @@ macro_rules! api { ($($name:ident: $ty:ty),* $(,)?) => {
  } } }
 }; }
 api! {
+ register_ahem_gate_callback:unsafe extern "C" fn(Callback,Handle),
  ahem_llm_create:unsafe extern "C" fn(*const c_char)->Handle,
  ahem_llm_destroy:unsafe extern "C" fn(Handle),
  ahem_llm_response_buf:unsafe extern "C" fn(Handle,*const c_char,i32,*mut c_char,i32)->i32,
- register_ahem_gate_callback:unsafe extern "C" fn(Callback,Handle),
  clear_ahem_gate_callback:unsafe extern "C" fn(),
  ahem_is_gate_callback_registered:unsafe extern "C" fn()->i32,
  ahem_get_last_sampled_token:unsafe extern "C" fn()->i32,

@@ -128,7 +128,13 @@ pub fn choose(s: &mut Session, r: Request) -> Result<serde_json::Value, String> 
     if s.state != "READY" {
         return Err("NOT_READY".into());
     }
-    let prompt=CString::new(format!("<|im_start|>system\nChoose one of {}. Reply only with JSON {{\"choice\":\"LETTER\"}}.<|im_end|>\n<|im_start|>user\n{}<|im_end|>\n<|im_start|>assistant\n",r.labels.join(","),r.prompt)).map_err(|_|"INVALID_REQUEST")?;
+    let replies = r
+        .labels
+        .iter()
+        .map(|l| format!("{PREFIX}{l}{SUFFIX}"))
+        .collect::<Vec<_>>()
+        .join(" or ");
+    let prompt=CString::new(format!("<|im_start|>system\nChoose one of {}. H means hold. Reply only with one of these JSON objects: {}. Do not add other keys or text.<|im_end|>\n<|im_start|>user\n{}<|im_end|>\n<|im_start|>assistant\n",r.labels.join(","),replies,r.prompt)).map_err(|_|"INVALID_REQUEST")?;
     s.api.clear();
     let h = s.handle;
     let tokens = unsafe { planner_token_count(s.api.encode, h, prompt.as_ptr()) };

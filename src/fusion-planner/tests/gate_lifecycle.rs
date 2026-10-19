@@ -11,7 +11,15 @@ fn missing_symbol() {
     .map(std::path::Path::new)
     .find(|p| p.exists())
     .expect("host libc fixture");
-    assert!(unsafe { libloading::Library::new(path) }.is_ok());
+    let fixture = unsafe { libloading::Library::new(path) }.expect("loadable symbol fixture");
+    assert!(
+        unsafe {
+            fixture.get::<unsafe extern "C" fn(session::Callback, session::Handle)>(
+                b"register_ahem_gate_callback\0",
+            )
+        }
+        .is_err()
+    );
     assert_eq!(
         session::Api::open(path).err().as_deref(),
         Some("AHEM_UNAVAILABLE")
