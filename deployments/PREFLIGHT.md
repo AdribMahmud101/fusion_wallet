@@ -23,3 +23,11 @@ Deployer `0x77A9224AAc84d496a4ad0E865dcA9eA27B6a22Da` balance: 13000000000000000
 All four canonical Safe contracts exist; SL5 is unnecessary. Runtime code hashes and exact RPC results are in `preflight.json`.
 
 Base Sepolia payee delay is 3,600 seconds (demo setting; production default 24 hours). Sanctions oracle is a TEST LIST; demo vault yield is SIMULATED.
+
+## Confirmed deployment choice
+
+FULL profile is deployed. The official Aave faucet minted 10,000 test USDC directly to the 2-of-2 Safe.
+
+Mint transaction: [0x0d649bb543e444877a16c587c73ff8c80a83250ce0d289d3029781d5ea13999a](https://sepolia.basescan.org/tx/0x0d649bb543e444877a16c587c73ff8c80a83250ce0d289d3029781d5ea13999a).
+
+Payee cooling ends at 2026-10-19T10:58:18+00:00.

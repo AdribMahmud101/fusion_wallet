@@ -1,6 +1,6 @@
 {
   "chainId": 84532,
-  "status": "DEPLOYED",
+  "status": "SETUP_COMPLETE",
   "profile": "FULL",
   "amountDivisor": 1,
   "rpcUrl": "https://sepolia.base.org",
@@ -287,5 +287,39 @@
     "payeeRegistry": "0x3dd9cc0d5590d7ee16c59034997a488035406b10fa75e25d023b7928d430608f"
   },
   "deploymentBlock": 48317685,
-  "explorerBaseUrl": "https://sepolia.basescan.org"
+  "explorerBaseUrl": "https://sepolia.basescan.org",
+  "funding": [
+    {
+      "role": "OWNER",
+      "txHash": "0xb12209d52d86ee095467c2b9e3a5dbc65a0908e64722f7547062b29481db931f",
+      "amountWei": "10000000000000000"
+    },
+    {
+      "role": "APPROVER",
+      "txHash": "0x00032c18c0cbe7437b52b8981fd4a8bba4c4069e50ca2bb1c5a70ff581ae94aa",
+      "amountWei": "10000000000000000"
+    },
+    {
+      "role": "GUARDIAN",
+      "txHash": "0x1b53b7d24712aa4a411b2cfe8a98fcbec758b463a6b94d2f399170e0ec6cb1ad",
+      "amountWei": "10000000000000000"
+    },
+    {
+      "role": "SESSION",
+      "txHash": "0xcd780e297ade55020ea764d743d62872be6deb00f540cdcc1b29870f2fa5d48c",
+      "amountWei": "20000000000000000"
+    },
+    {
+      "role": "TREASURY_USDC",
+      "txHash": "0x0d649bb543e444877a16c587c73ff8c80a83250ce0d289d3029781d5ea13999a",
+      "amountRaw": "10000000000"
+    }
+  ],
+  "payeesActiveAt": 1792407498,
+  "setupTxHashes": [
+    "0xd8d145e6795471b8fcc68c98c3b1e3763e5e95cbb383140fbcc04c256065e299",
+    "0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa",
+    "0x8c2a208fed80010e4dfdeaf227f344d80d4411ee1669389abfaabd9d1a4e6ad0",
+    "0xabb5bd793393a221a72d773a8b65708d65ae7cc0be1a3064fe98ed088adf4f94"
+  ]
 }

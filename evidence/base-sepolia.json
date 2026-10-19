@@ -32,6 +32,200 @@
           "fallbackHandler": "0xfd0732dc9e303f09fcef3a7388ad10a83459ec99"
         }
       }
+    },
+    {
+      "id": "E2",
+      "txHash": "0xd8d145e6795471b8fcc68c98c3b1e3763e5e95cbb383140fbcc04c256065e299",
+      "block": 48317802,
+      "blockHash": "0x0a6144b342dcb0c4547795cd758e7b78a29de69cdc5580eed3bce540b31ea42c",
+      "kind": "MODULE_ENABLE",
+      "scenario": "D17 threshold-two owner setup",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "EnabledModule",
+        "signature": "EnabledModule(address)",
+        "topic0": "0xecdf3a3effea5783a3c4c2140e677577666428d44ed9d474a0b3a4c9943f8440",
+        "address": "0x029869910714D9e09b854a2688311AFd42fBb44E",
+        "logIndex": 134,
+        "fields": {
+          "module": "0xa560ec10259657e9badd297e68286d2838cd5a8f"
+        }
+      }
+    },
+    {
+      "id": "E3",
+      "txHash": "0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa",
+      "block": 48317803,
+      "blockHash": "0xa0b0b21fd12f2f0b0a108a8e69c99e44096b8ba62498da70a2caa4e8474b3afc",
+      "kind": "POLICY_CONFIGURED",
+      "scenario": "D17 threshold-two owner setup",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "PolicyConfigured",
+        "signature": "PolicyConfigured(uint256,bytes32,bytes32)",
+        "topic0": "0x3c456492c8c986820e943888e5b553848495eee3d5fbe862ed80863cc05f014c",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 223,
+        "fields": {
+          "policyEpoch": "1",
+          "policyHash": "0xd23e010f3c36f64c006aaa5ac48cdb1932749b94473578ae4ccc4ee85024e1f3",
+          "mandateHash": "0x9d0980da60e5f228436395e5d4416474936492eaf79397e6032416bc4a0a8920"
+        }
+      }
+    },
+    {
+      "id": "E5",
+      "txHash": "0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa",
+      "block": 48317803,
+      "blockHash": "0xa0b0b21fd12f2f0b0a108a8e69c99e44096b8ba62498da70a2caa4e8474b3afc",
+      "kind": "OBLIGATIONS_COMMITTED",
+      "scenario": "D17 threshold-two owner setup",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "ObligationsCommitted",
+        "signature": "ObligationsCommitted(uint256,bytes32,uint256,uint256,bytes32)",
+        "topic0": "0x988d78150e916977bdbfb462693f383a1159550e3ecac16cb66825e6d89e3faa",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 224,
+        "fields": {
+          "policyEpoch": "2",
+          "root": "0x29e3f1325c87d0d9fb36ddca27bca79b5847e2781cd97654c4fa8d8b02c02165",
+          "reservedRaw": "583000000",
+          "count": "5",
+          "mandateHash": "0xcf00db1bc0f9ab935525af0e6e1c7f4ffdbc66bf0deacbf759b158e850ee8cf4"
+        }
+      }
+    },
+    {
+      "id": "E6",
+      "txHash": "0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa",
+      "block": 48317803,
+      "blockHash": "0xa0b0b21fd12f2f0b0a108a8e69c99e44096b8ba62498da70a2caa4e8474b3afc",
+      "kind": "SESSION_STARTED",
+      "scenario": "D17 threshold-two owner setup",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "SessionStarted",
+        "signature": "SessionStarted(bytes32,address,uint256,uint64,uint256,bytes32)",
+        "topic0": "0x9e7bf6b62fe08261aa8011a06647f61e4ef18db5a61634453e968a2f186d2a9a",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 225,
+        "fields": {
+          "sessionId": "0x1d1e90f4772b1bf1c4203d45a06cdd15a14c53ffbb7249cf34cfe2ad81216798",
+          "key": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+          "policyEpoch": "2",
+          "expiresAt": "1792486658",
+          "limitRaw": "8000000000",
+          "mandateHash": "0x67fb9707bb45096f3c5e5a5fe1f68ce2b4924598de20a8402c4a0ab785b19901"
+        }
+      }
+    },
+    {
+      "id": "E6",
+      "txHash": "0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa",
+      "block": 48317803,
+      "blockHash": "0xa0b0b21fd12f2f0b0a108a8e69c99e44096b8ba62498da70a2caa4e8474b3afc",
+      "kind": "RESUMED",
+      "scenario": "D17 threshold-two owner setup",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "Resumed",
+        "signature": "Resumed(uint256,bytes32,bytes32)",
+        "topic0": "0x701e8c24798b81c80b4c2f858addf55ba311fb73c1a805eb07ff6547e7795ff8",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 226,
+        "fields": {
+          "policyEpoch": "3",
+          "sessionId": "0x1d1e90f4772b1bf1c4203d45a06cdd15a14c53ffbb7249cf34cfe2ad81216798",
+          "mandateHash": "0x9ea8f3b6df2a1a5066ff3ad46738b0c4112aff528d721818287134ff09bd5d21"
+        }
+      }
+    },
+    {
+      "id": "E4",
+      "txHash": "0x8c2a208fed80010e4dfdeaf227f344d80d4411ee1669389abfaabd9d1a4e6ad0",
+      "block": 48317804,
+      "blockHash": "0x91dc387c99b6fc1deb04509f4521ee3f627a5e163d199df5ff59f68f397359fd",
+      "kind": "PAYEE_ADDED",
+      "scenario": "Payee cooling started (3600-second demo setting)",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "PayeeAdded",
+        "signature": "PayeeAdded(bytes32,address,bytes32,uint64)",
+        "topic0": "0xe711ab354836ceffbda6c5b3c0d49f63c3f32ac451c0dac7cf57b7dbd57cce77",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 105,
+        "fields": {
+          "payeeIdHash": "0xd54c2d42f79c30ee01aaf0f6e6572e858b25df57151e9a4cd5f22198a7de104f",
+          "account": "0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79",
+          "labelHash": "0xe3915fcbf502e24b1636045b7577f572dcac7e289d5912aa57af678b8d09c20c",
+          "activeAt": "1792407496"
+        }
+      }
+    },
+    {
+      "id": "E4",
+      "txHash": "0xabb5bd793393a221a72d773a8b65708d65ae7cc0be1a3064fe98ed088adf4f94",
+      "block": 48317805,
+      "blockHash": "0xa30453b71a6ad3c2d80bf7694e7793c2bb3b33a6a36ff1542a99008a7fa188d0",
+      "kind": "PAYEE_ADDED",
+      "scenario": "Payee cooling started (3600-second demo setting)",
+      "status": 1,
+      "decisionHash": null,
+      "source": "SCRIPT",
+      "planner": "deterministic",
+      "host": "linux-host",
+      "to": "0x029869910714d9e09b854a2688311afd42fbb44e",
+      "selector": "0x6a761202",
+      "expectedEvent": {
+        "name": "PayeeAdded",
+        "signature": "PayeeAdded(bytes32,address,bytes32,uint64)",
+        "topic0": "0xe711ab354836ceffbda6c5b3c0d49f63c3f32ac451c0dac7cf57b7dbd57cce77",
+        "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+        "logIndex": 105,
+        "fields": {
+          "payeeIdHash": "0x445f4aa63bf907f8279287c2aab21d4b407ed9a801083a80ccc636f055e9e9dc",
+          "account": "0x208bfee9f222d611b4db71d5ee53b3dab1a2188a",
+          "labelHash": "0xc0540235b7662af0f63c3e50003871f3091198da0835f740d6c35045b447255f",
+          "activeAt": "1792407498"
+        }
+      }
     }
   ]
 }
