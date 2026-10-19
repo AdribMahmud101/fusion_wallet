@@ -27,10 +27,24 @@
   - Unit tests in `src/amount.rs` and `src/merkle.rs`.
 
 ## Priority 2: Manifest, Buckets, Candidates, Planner I/O, Passport
-- **Status**: IN PROGRESS
+- **Status**: COMPLETE
+- **Modules**:
+  - `src/manifest.rs`: `DeploymentManifest` parse & validation (§10.3), enforcing `chainId ∈ {31337, 84532}`, RPC url validation, and address non-zero assertions.
+  - `src/buckets.rs`: Integer reserve accounting (§7.9) computing `free`, `reserved`, `sweepable`, `shortfall`, `deployed`, and `total`.
+  - `src/candidates.rs`: Deterministic candidate enumerator (§10.4) and integer economics (30-day horizon, `minNet` threshold, letter labels A-G with H=HOLD per D14).
+  - `src/planner_io.rs`: Prompt facts builder (§10.6, no addresses, hashes, or raw units in model prompts, owner note capped at 200 chars) and strict JSON output validator (`{"choice":"<letter>"}`).
+  - `src/passport.rs`: Canonical RFC 8785 JCS JSON serializer and `DecisionHash` generator, reproducing reference passport vectors byte-for-byte.
+- **Tests**:
+  - `tests/candidates_prop.rs`:
+    - `test_enumeration_determinism`
+    - `test_bill_ordering_earliest_due_at`
+  - `tests/labels.rs`:
+    - `test_hold_is_always_label_h`
+    - `test_prompt_facts_contain_no_addresses_or_hashes`
+  - Unit tests in `src/manifest.rs`, `src/buckets.rs`, `src/planner_io.rs`, `src/passport.rs`.
 
 ## Priority 3: Preview, Calldata Encoding, UniFFI Surface
-- **Status**: PENDING
+- **Status**: IN PROGRESS
 
 ## Priority 4: Snapshot, Signing, Agent Runner CLI
 - **Status**: PENDING

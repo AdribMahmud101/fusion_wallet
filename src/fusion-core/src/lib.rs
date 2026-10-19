@@ -16,12 +16,17 @@
 //! never accepts a destination, a callee, calldata or a gas limit from the caller.
 
 pub mod amount;
+pub mod buckets;
+pub mod candidates;
 pub mod config;
 pub mod executor;
 pub mod guardrails;
 pub mod hashing;
+pub mod manifest;
 pub mod merkle;
 pub mod models;
+pub mod passport;
+pub mod planner_io;
 pub mod router;
 pub mod types;
 
