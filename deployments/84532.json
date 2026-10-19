@@ -69,9 +69,19 @@
       "source": "Aave test USDC (external)",
       "explorer": "https://sepolia.basescan.org/address/0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
       "verification": {
-        "status": "EXTERNAL",
-        "url": "https://sepolia.basescan.org/address/0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f#code",
-        "note": "Canonical external contract; runtime and implementation pins verified independently"
+        "status": "VERIFIED_EXTERNAL",
+        "url": "https://repo.sourcify.dev/contracts/partial_match/84532/0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f/",
+        "note": "Canonical external contract; runtime and implementation pins verified independently",
+        "verifier": "sourcify",
+        "result": {
+          "matchId": "6185768",
+          "creationMatch": "match",
+          "runtimeMatch": "match",
+          "verifiedAt": "2025-03-05T00:11:08Z",
+          "match": "match",
+          "chainId": "84532",
+          "address": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f"
+        }
       }
     },
     "vaultA": {
@@ -83,11 +93,36 @@
       "implementation": "0x208747c806b13022db31622c0c9bd3979532a8d6",
       "explorer": "https://sepolia.basescan.org/address/0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a",
       "verification": {
-        "status": "EXTERNAL",
-        "url": "https://sepolia.basescan.org/address/0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a#code",
-        "note": "Canonical external contract; runtime and implementation pins verified independently"
+        "status": "VERIFIED_EXTERNAL",
+        "url": "https://base-sepolia.blockscout.com/address/0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a#code",
+        "note": "Canonical external contract; runtime and implementation pins verified independently",
+        "verifier": "blockscout",
+        "sourceSummary": {
+          "name": "TransparentUpgradeableProxy",
+          "compiler_version": "v0.8.20+commit.a1b79de6",
+          "evm_version": "shanghai",
+          "optimization_enabled": true,
+          "optimization_runs": 200,
+          "is_fully_verified": false,
+          "verified_at": "2026-09-10T12:06:56.107907Z"
+        },
+        "apiUrl": "https://base-sepolia.blockscout.com/api/v2/smart-contracts/0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a"
       },
-      "implementationCodeHash": "0xfe5266bf44bbdbb9c36ff6685553f1f8836cdcaa34ceec6166590782c7ae6fc1"
+      "implementationCodeHash": "0xfe5266bf44bbdbb9c36ff6685553f1f8836cdcaa34ceec6166590782c7ae6fc1",
+      "implementationVerification": {
+        "status": "VERIFIED_EXTERNAL",
+        "verifier": "sourcify",
+        "result": {
+          "matchId": "10344006",
+          "creationMatch": "match",
+          "runtimeMatch": "match",
+          "verifiedAt": "2025-11-22T05:57:29Z",
+          "match": "match",
+          "chainId": "84532",
+          "address": "0x208747c806b13022db31622c0c9bD3979532A8D6"
+        },
+        "url": "https://repo.sourcify.dev/contracts/partial_match/84532/0x208747c806b13022db31622c0c9bd3979532a8d6/"
+      }
     },
     "vaultB": {
       "address": "0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D",
@@ -197,9 +232,19 @@
       "source": "Safe v1.4.1 SafeL2 (canonical external deployment)",
       "explorer": "https://sepolia.basescan.org/address/0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
       "verification": {
-        "status": "EXTERNAL",
-        "url": "https://sepolia.basescan.org/address/0x29fcB43b46531BcA003ddC8FCB67FFE91900C762#code",
-        "note": "Canonical external contract; runtime and implementation pins verified independently"
+        "status": "VERIFIED_EXTERNAL",
+        "url": "https://repo.sourcify.dev/contracts/full_match/84532/0x29fcB43b46531BcA003ddC8FCB67FFE91900C762/",
+        "note": "Canonical external contract; runtime and implementation pins verified independently",
+        "verifier": "sourcify",
+        "result": {
+          "matchId": "5344563",
+          "creationMatch": "exact_match",
+          "runtimeMatch": "exact_match",
+          "verifiedAt": "2024-09-12T08:33:44Z",
+          "match": "exact_match",
+          "chainId": "84532",
+          "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762"
+        }
       }
     },
     "safeProxyFactory": {
@@ -210,9 +255,19 @@
       "source": "lib/safe-smart-account/contracts/proxies/SafeProxyFactory.sol:SafeProxyFactory",
       "explorer": "https://sepolia.basescan.org/address/0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67",
       "verification": {
-        "status": "EXTERNAL",
-        "url": "https://sepolia.basescan.org/address/0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67#code",
-        "note": "Canonical external contract; runtime and implementation pins verified independently"
+        "status": "VERIFIED_EXTERNAL",
+        "url": "https://repo.sourcify.dev/contracts/full_match/84532/0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67/",
+        "note": "Canonical external contract; runtime and implementation pins verified independently",
+        "verifier": "sourcify",
+        "result": {
+          "matchId": "5344554",
+          "creationMatch": null,
+          "runtimeMatch": "exact_match",
+          "verifiedAt": "2024-09-12T08:33:32Z",
+          "match": "exact_match",
+          "chainId": "84532",
+          "address": "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67"
+        }
       }
     },
     "safeFallbackHandler": {
@@ -223,9 +278,19 @@
       "source": "lib/safe-smart-account/contracts/handler/CompatibilityFallbackHandler.sol:CompatibilityFallbackHandler",
       "explorer": "https://sepolia.basescan.org/address/0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
       "verification": {
-        "status": "EXTERNAL",
-        "url": "https://sepolia.basescan.org/address/0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99#code",
-        "note": "Canonical external contract; runtime and implementation pins verified independently"
+        "status": "VERIFIED_EXTERNAL",
+        "url": "https://repo.sourcify.dev/contracts/full_match/84532/0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99/",
+        "note": "Canonical external contract; runtime and implementation pins verified independently",
+        "verifier": "sourcify",
+        "result": {
+          "matchId": "5344556",
+          "creationMatch": null,
+          "runtimeMatch": "exact_match",
+          "verifiedAt": "2024-09-12T08:33:35Z",
+          "match": "exact_match",
+          "chainId": "84532",
+          "address": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99"
+        }
       }
     },
     "multiSendCallOnly": {
@@ -236,9 +301,19 @@
       "source": "lib/safe-smart-account/contracts/libraries/MultiSendCallOnly.sol:MultiSendCallOnly",
       "explorer": "https://sepolia.basescan.org/address/0x9641d764fc13c8B624c04430C7356C1C7C8102e2",
       "verification": {
-        "status": "EXTERNAL",
-        "url": "https://sepolia.basescan.org/address/0x9641d764fc13c8B624c04430C7356C1C7C8102e2#code",
-        "note": "Canonical external contract; runtime and implementation pins verified independently"
+        "status": "VERIFIED_EXTERNAL",
+        "url": "https://repo.sourcify.dev/contracts/full_match/84532/0x9641d764fc13c8B624c04430C7356C1C7C8102e2/",
+        "note": "Canonical external contract; runtime and implementation pins verified independently",
+        "verifier": "sourcify",
+        "result": {
+          "matchId": "5344559",
+          "creationMatch": null,
+          "runtimeMatch": "exact_match",
+          "verifiedAt": "2024-09-12T08:33:38Z",
+          "match": "exact_match",
+          "chainId": "84532",
+          "address": "0x9641d764fc13c8B624c04430C7356C1C7C8102e2"
+        }
       }
     },
     "policyLibrary": {

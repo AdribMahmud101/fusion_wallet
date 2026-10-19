@@ -81,5 +81,12 @@ Cancun, via IR, optimizer 200. The official canonical Safe proxy uses Solidity 0
 optimizer disabled. The manifest includes both the external canonical contracts and all project
 deployments, including the linked policy library and the constructor-created payee registry.
 
+Existing canonical Safe contracts and Aave USDC have Sourcify source matches. The external
+waUSDC proxy and StataTokenV2 implementation have partial source matches on Blockscout;
+their public API confirmations are linked in the manifest. Both the implementation address
+and implementation runtime hash are pinned. `aave-withdraw-simulation.txt` and
+`aave-unwind-simulation.txt` record read-only fork traces at explicit Base Sepolia blocks,
+including gas use; they are not scored transactions.
+
 Payee cooling: **3,600 seconds, demo setting; production default 24 hours**.
 The sanctions list is a **TEST LIST**. Demo vault yield is **SIMULATED**.

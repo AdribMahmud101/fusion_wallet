@@ -23,6 +23,22 @@ def sourcify_status(address):
         raise
 
 
+def external_verification(address):
+    result=sourcify_status(address)
+    if result and result.get('runtimeMatch') in ['exact_match','match']:
+        folder='full_match' if result['runtimeMatch']=='exact_match' else 'partial_match'
+        return {'status':'VERIFIED_EXTERNAL','verifier':'sourcify','result':result,
+                'url':f'https://repo.sourcify.dev/contracts/{folder}/84532/{address}/'}
+    api=f'https://base-sepolia.blockscout.com/api/v2/smart-contracts/{address}'
+    with urllib.request.urlopen(urllib.request.Request(api,headers={'User-Agent':'curl/8.0'}),timeout=30) as response:
+        data=json.load(response)
+    if not data.get('is_verified'):raise ValueError('External source verification not confirmed: '+address)
+    summary={key:data.get(key) for key in ['name','compiler_version','evm_version','optimization_enabled',
+                                         'optimization_runs','is_fully_verified','verified_at']}
+    return {'status':'VERIFIED_EXTERNAL','verifier':'blockscout','sourceSummary':summary,'apiUrl':api,
+            'url':f'https://base-sepolia.blockscout.com/address/{address}#code'}
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--manifest',default=str(ROOT/'deployments/84532.json'))
     a=p.parse_args();path=ROOT/a.manifest if not a.manifest.startswith('/') else __import__('pathlib').Path(a.manifest)
@@ -35,8 +51,12 @@ def main():
         verification=item.setdefault('verification',{})
         if not item.get('deploymentTxHash'):
             # External contracts retain their explorer link; do not submit a different compiler build.
-            verification.update(status='EXTERNAL',url=f'https://sepolia.basescan.org/address/{address}#code',
-                                note='Canonical external contract; runtime and implementation pins verified independently')
+            try:
+                verification.update(external_verification(address))
+                if item.get('implementation'):
+                    item['implementationVerification']=external_verification(item['implementation'])
+            except Exception as error:
+                failed.append(name);verification.update(status='EXTERNAL_SOURCE_UNCONFIRMED',error=str(error))
             write_json(path,manifest);continue
         args=['forge','verify-contract',address,source,'--chain','84532','--verifier','sourcify',
               '--compiler-version','0.8.24','--evm-version','cancun','--num-of-optimizations','200',
