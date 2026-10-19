@@ -4,7 +4,7 @@
 --simulate uses an ephemeral local Anvil fork and impersonated public accounts.
 Production owner keys are never read by this program.
 """
-import argparse,json,pathlib,subprocess,time,urllib.request,socket
+import argparse,json,pathlib,secrets,subprocess,time,urllib.request,socket
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 RPC='https://base-sepolia-rpc.publicnode.com'
 def rpc(url,method,params):
@@ -28,7 +28,14 @@ def prepare():
     expiry=int(st[14],16); remaining=int(st[15],16)-int(st[16],16); epoch=int(st[2],16)
     assert int(st[0],16)==1 and int(st[1],16)==0 and expiry>int(block['timestamp'],16)+600 and remaining>=8_000_000
     payee=cast('keccak','fusion.k2.payee.acme')
-    bill=cast('keccak','fusion.k17.app.bill.2026-10-19.v1'); due=int(block['timestamp'],16)+3600
+    payee_state=words(call(RPC,m['module'],calldata('getPayee(bytes32)',payee)))
+    assert '0x'+payee_state[0][-40:]==m['roles']['owner'].lower(),'Unexpected payee recipient'
+    assert int(payee_state[3],16)==0 and int(payee_state[2],16)<=int(block['timestamp'],16),'Payee must be ACTIVE'
+    policy=words(call(RPC,m['module'],calldata('getPolicy()')))
+    assert int(policy[1],16)==2 and int(policy[3],16)>=8_000_000,'Bill must be autonomous instant-tier'
+    cash=int(call(RPC,m['asset'],calldata('balanceOf(address)',m['safe'])),16)
+    assert cash>=8_000_000+int(policy[2],16),'Cash must cover bill and operating buffer'
+    bill=cast('keccak',f'fusion.k17.app.bill.{int(block["timestamp"],16)}.{secrets.token_hex(8)}'); due=int(block['timestamp'],16)+3600
     inner=cast('keccak',cast('abi-encode','f(bytes32,bytes32,uint256,uint64)',bill,payee,8_000_000,due))
     root=cast('keccak',inner)
     calls=[calldata('commitObligations(bytes32,uint256,uint256)',root,8_000_000,1),
@@ -40,6 +47,8 @@ def prepare():
                 'obligationsRoot':'0x'+st[5],'sessionKey':key,'sessionExpiresAt':expiry,'sessionRemainingRaw':str(remaining)},
       'bill':{'root':root,'bills':[{'obligationIdHash':bill,'payeeIdHash':payee,'assets':'8000000','dueAt':str(due),
                 'recipient':m['roles']['owner'],'leaf':root,'proof':[]}]},
+      'preflight':{'payeeStatus':'ACTIVE','cashRaw':str(cash),'microMaxRaw':str(int(policy[3],16)),
+                   'permissionTier':'AUTONOMOUS','uniqueObligation':True},
       'safe':m['safe'],'module':m['module'],'to':multisend,'operation':1,'value':'0',
       'data':calldata('multiSend(bytes)',batch),'innerCalls':calls,
       'expectedAfter':{'policyEpoch':epoch+2,'paused':False,'reservedRaw':'8000000','obligationCount':'1',

@@ -6,18 +6,22 @@ are OWNER-sourced, separate from APP agent evidence. Keep the canonical flock
 across optional app execution via its inherited open-file-description lock.
 """
 import argparse,fcntl,json,os,pathlib,re,subprocess
-from prepare_demo import calldata,cast,rpc,RPC
+from prepare_demo import calldata,cast,rpc,RPC,prepare,simulate
 from rpc_bridge import command
 ROOT=pathlib.Path(__file__).resolve().parents[2]
-AP=argparse.ArgumentParser(); AP.add_argument('--broadcast',action='store_true'); AP.add_argument('--run-app',action='store_true'); AP.add_argument('--local-host',action='store_true'); AP.add_argument('--serial',default='192.168.0.105:5555'); args=AP.parse_args()
-p=json.loads((ROOT/'evidence/app/agent/m3_setup_preview.json').read_text()); m=json.loads((ROOT/'deployments/84532.json').read_text())
-assert p.get('localForkSimulation',{}).get('status')=='PASS','A passing reviewable local-fork simulation is required'
-bill=p['bill']['bills']; assert len(bill)==1
-bill=bill[0]; assert bill['assets']=='8000000' and bill['payeeIdHash']==cast('keccak','fusion.k2.payee.acme') and bill['recipient'].lower()==m['roles']['owner'].lower()
-root=cast('keccak',cast('keccak',cast('abi-encode','f(bytes32,bytes32,uint256,uint64)',bill['obligationIdHash'],bill['payeeIdHash'],8000000,bill['dueAt'])))
-assert root==p['bill']['root'] and p['to'].lower()==m['contracts']['multiSendCallOnly']['address'].lower() and p['operation']==1
-assert p['innerCalls']==[calldata('commitObligations(bytes32,uint256,uint256)',root,8000000,1),calldata('startSession(address,uint64,uint256)',p['before']['sessionKey'],p['before']['sessionExpiresAt'],p['before']['sessionRemainingRaw']),calldata('resume(uint256)',p['before']['policyEpoch']+1)]
+AP=argparse.ArgumentParser(); AP.add_argument('--broadcast',action='store_true'); AP.add_argument('--refresh',action='store_true',help='Prepare and locally simulate fresh state while holding the session flock'); AP.add_argument('--run-app',action='store_true'); AP.add_argument('--local-host',action='store_true'); AP.add_argument('--serial',default='192.168.0.105:5555'); args=AP.parse_args()
+m=json.loads((ROOT/'deployments/84532.json').read_text())
+def reviewed_proposal():
+ p=json.loads((ROOT/'evidence/app/agent/m3_setup_preview.json').read_text())
+ assert p.get('localForkSimulation',{}).get('status')=='PASS','A passing reviewable local-fork simulation is required'
+ bill=p['bill']['bills']; assert len(bill)==1
+ bill=bill[0]; assert bill['assets']=='8000000' and bill['payeeIdHash']==cast('keccak','fusion.k2.payee.acme') and bill['recipient'].lower()==m['roles']['owner'].lower()
+ root=cast('keccak',cast('keccak',cast('abi-encode','f(bytes32,bytes32,uint256,uint64)',bill['obligationIdHash'],bill['payeeIdHash'],8000000,bill['dueAt'])))
+ assert root==p['bill']['root'] and p['to'].lower()==m['contracts']['multiSendCallOnly']['address'].lower() and p['operation']==1
+ assert p['innerCalls']==[calldata('commitObligations(bytes32,uint256,uint256)',root,8000000,1),calldata('startSession(address,uint64,uint256)',p['before']['sessionKey'],p['before']['sessionExpiresAt'],p['before']['sessionRemainingRaw']),calldata('resume(uint256)',p['before']['policyEpoch']+1)]
+ return p,root
 if not args.broadcast:
+ p,root=reviewed_proposal()
  print('Read-only: prepared 8 USDC owner setup passed local-fork simulation. Explicit owner approval is required before --broadcast.')
  raise SystemExit(0)
 def read_key(name):
@@ -28,6 +32,11 @@ def read_key(name):
 print('Waiting for shared session flock for reviewed OWNER setup ...',flush=True)
 with open('/root/projects/fusion_wallet/.session.lock','a+') as locked:
  fcntl.flock(locked,fcntl.LOCK_EX)
+ print('Session flock acquired; held through OWNER setup and verified APP receipt.',flush=True)
+ if args.refresh:
+  manifest,proposal=prepare(); simulate(manifest,proposal)
+  (ROOT/'evidence/app/agent/m3_setup_preview.json').write_text(json.dumps(proposal,indent=2)+'\n')
+ p,root=reviewed_proposal()
  assert rpc(RPC,'eth_chainId',[])=='0x14a34'
  block=rpc(RPC,'eth_getBlockByNumber',['latest',False]); tip=1000000; fee=2*int(block['baseFeePerGas'],16)+tip
  assert fee<=10_000_000_000,'Owner fee cap exceeded'

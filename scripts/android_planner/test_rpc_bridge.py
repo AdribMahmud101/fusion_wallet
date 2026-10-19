@@ -53,6 +53,9 @@ class BridgeTests(unittest.TestCase):
     self.assertTrue(self.request(s,'lease')['result']['held'])
     with open(path,'a+') as competitor:
      with self.assertRaises(BlockingIOError): fcntl.flock(competitor,fcntl.LOCK_EX|fcntl.LOCK_NB)
+     s.shutdown(); s.server_close()
+     # Closing the child relay must leave the enclosing owner sequence locked.
+     with self.assertRaises(BlockingIOError): fcntl.flock(competitor,fcntl.LOCK_EX|fcntl.LOCK_NB)
  def test_receipt_watch_retries_network_failure_and_requires_canonical_block(self):
   class Fake:
    calls=0
