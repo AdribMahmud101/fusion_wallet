@@ -64,11 +64,63 @@
 
 ## 3. On-Chain Deployment & Execution Receipts (Base Sepolia, Chain ID 84532)
 
-### [PENDING: Base Sepolia Deployment in Progress on Branch `card/K2`]
+### Deployed Contracts Manifest (`deployments/84532.json`)
 
-The deployment manifest `deployments/84532.json` and on-chain transaction receipts `evidence/base-sepolia.json` have not yet landed on this branch.
-The K2 track is deploying the full Aave profile to Base Sepolia, conducting initial payee cooling, and recording golden-path execution receipts.
-Once card K2 merges or files land, re-running `python3 docs/submission/gen_evidence.py` will automatically populate this section with live BaseScan transaction links.
+- **Deployment Status:** `SETUP_COMPLETE`
+- **Deployment Profile:** `FULL`
+- **Gnosis Safe Threshold:** 2-of-2
+- **Safe Owners:** `0x61dd06cE2f07d3E4F97d097741b0D7FD50F97F79, 0x208Bfee9F222d611b4Db71d5ee53b3dAB1A2188A`
+- **Payee Cooling Delay:** 3600 s (demo setting; production default 24 h)
+
+| Contract Name | Deployed Address | Deployment Block | Deployment Tx Hash | Explorer Link |
+|---|---|---|---|---|
+| **safe** | [`0x02986991...`](https://sepolia.basescan.org/address/0x029869910714D9e09b854a2688311AFd42fBb44E) | 48317703 | [`0x957ef32e...`](https://sepolia.basescan.org/tx/0x957ef32ef5e4244b6c76ec20c6aa857b2ca57d2402ed1176eecf4bafcccb9e7b) | [BaseScan](https://sepolia.basescan.org/address/0x029869910714D9e09b854a2688311AFd42fBb44E) |
+| **asset** | [`0xba50Cd2A...`](https://sepolia.basescan.org/address/0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f) | N/A | N/A | [BaseScan](https://sepolia.basescan.org/address/0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f) |
+| **vaultA** | [`0xf430cb6E...`](https://sepolia.basescan.org/address/0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a) | N/A | N/A | [BaseScan](https://sepolia.basescan.org/address/0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a) |
+| **vaultB** | [`0xf052C0ED...`](https://sepolia.basescan.org/address/0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D) | 48317704 | [`0xe706e189...`](https://sepolia.basescan.org/tx/0xe706e18973fb4aeee32416e1430f149ebbcc2154e6fddd3fb82338588bbedc8d) | [BaseScan](https://sepolia.basescan.org/address/0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D) |
+| **sanctionsList** | [`0xd2716e08...`](https://sepolia.basescan.org/address/0xd2716e08BCe6eb5B1f01329FF5E1a2dd0468B678) | 48317705 | [`0x2b28ba96...`](https://sepolia.basescan.org/tx/0x2b28ba967cca84f05d803b2528c097e8af5ff8ea88dd50472008eff3c455de98) | [BaseScan](https://sepolia.basescan.org/address/0xd2716e08BCe6eb5B1f01329FF5E1a2dd0468B678) |
+| **module** | [`0xA560ec10...`](https://sepolia.basescan.org/address/0xA560ec10259657E9bADd297E68286d2838Cd5a8f) | 48317706 | [`0x58f90dc5...`](https://sepolia.basescan.org/tx/0x58f90dc5df9e8734ee195bfd672d6adda0a4e8bcb656813e53f534c94501e4aa) | [BaseScan](https://sepolia.basescan.org/address/0xA560ec10259657E9bADd297E68286d2838Cd5a8f) |
+| **safeSingleton** | [`0x29fcB43b...`](https://sepolia.basescan.org/address/0x29fcB43b46531BcA003ddC8FCB67FFE91900C762) | N/A | N/A | [BaseScan](https://sepolia.basescan.org/address/0x29fcB43b46531BcA003ddC8FCB67FFE91900C762) |
+| **safeProxyFactory** | [`0x4e1DCf7A...`](https://sepolia.basescan.org/address/0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67) | N/A | N/A | [BaseScan](https://sepolia.basescan.org/address/0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67) |
+| **safeFallbackHandler** | [`0xfd0732Dc...`](https://sepolia.basescan.org/address/0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99) | N/A | N/A | [BaseScan](https://sepolia.basescan.org/address/0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99) |
+| **multiSendCallOnly** | [`0x9641d764...`](https://sepolia.basescan.org/address/0x9641d764fc13c8B624c04430C7356C1C7C8102e2) | N/A | N/A | [BaseScan](https://sepolia.basescan.org/address/0x9641d764fc13c8B624c04430C7356C1C7C8102e2) |
+| **policyLibrary** | [`0x7ee72192...`](https://sepolia.basescan.org/address/0x7ee721922dffe2bee9ec8e4ef51646110e6cbc1f) | 48317685 | [`0x53b60136...`](https://sepolia.basescan.org/tx/0x53b601369fe5105096d821448d7ae20415c9dca9baf811dbb5088ca427008c8b) | [BaseScan](https://sepolia.basescan.org/address/0x7ee721922dffe2bee9ec8e4ef51646110e6cbc1f) |
+| **payeeRegistry** | [`0xD798F4DF...`](https://sepolia.basescan.org/address/0xD798F4DF0dEf13971870AEfEE7fce4691F739B5b) | 48317706 | [`0x58f90dc5...`](https://sepolia.basescan.org/tx/0x58f90dc5df9e8734ee195bfd672d6adda0a4e8bcb656813e53f534c94501e4aa) | [BaseScan](https://sepolia.basescan.org/address/0xD798F4DF0dEf13971870AEfEE7fce4691F739B5b) |
+
+### Golden-Path Execution Transactions (`evidence/base-sepolia.json`)
+
+| ID | Scenario / What It Proves | Kind | Transaction Hash | Block | Status | Source | Decision Hash |
+|---|---|---|---|---|---|---|---|
+| **E1** | Official Safe v1.4.1, two owners, threshold 2 | `SAFE_CREATION` | [`0x957ef32e...`](https://sepolia.basescan.org/tx/0x957ef32ef5e4244b6c76ec20c6aa857b2ca57d2402ed1176eecf4bafcccb9e7b) | 48317703 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E2** | D17 threshold-two owner setup | `MODULE_ENABLE` | [`0xd8d145e6...`](https://sepolia.basescan.org/tx/0xd8d145e6795471b8fcc68c98c3b1e3763e5e95cbb383140fbcc04c256065e299) | 48317802 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E3** | D17 threshold-two owner setup | `POLICY_CONFIGURED` | [`0xb8927af2...`](https://sepolia.basescan.org/tx/0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa) | 48317803 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E5** | D17 threshold-two owner setup | `OBLIGATIONS_COMMITTED` | [`0xb8927af2...`](https://sepolia.basescan.org/tx/0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa) | 48317803 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E6** | D17 threshold-two owner setup | `SESSION_STARTED` | [`0xb8927af2...`](https://sepolia.basescan.org/tx/0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa) | 48317803 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E6** | D17 threshold-two owner setup | `RESUMED` | [`0xb8927af2...`](https://sepolia.basescan.org/tx/0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa) | 48317803 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E4** | Payee cooling started (3600-second demo setting) | `PAYEE_ADDED` | [`0x8c2a208f...`](https://sepolia.basescan.org/tx/0x8c2a208fed80010e4dfdeaf227f344d80d4411ee1669389abfaabd9d1a4e6ad0) | 48317804 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E4** | Payee cooling started (3600-second demo setting) | `PAYEE_ADDED` | [`0xabb5bd79...`](https://sepolia.basescan.org/tx/0xabb5bd793393a221a72d773a8b65708d65ae7cc0be1a3064fe98ed088adf4f94) | 48317805 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E9** | K2 operational script; deterministic, Linux host | `ACTION_APPROVED` | [`0x4fe8a794...`](https://sepolia.basescan.org/tx/0x4fe8a794c15a91bf70e841549b2bf1907290100ee46f6a1abfa98cdc1221b603) | 48317855 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E10** | K2 operational script; deterministic, Linux host | `DEPOSIT` | [`0x35ff759c...`](https://sepolia.basescan.org/tx/0x35ff759c17bc48442a1d25b02a75fb66aac2307502cd0402e36b40916d65d726) | 48317876 | SUCCESS (1) | SCRIPT (deterministic) | `0x5eb5af80...` |
+| **E16** | Cooling payee rejected | `INTENTIONAL_REVERT` | [`0x8f9dde94...`](https://sepolia.basescan.org/tx/0x8f9dde942e571fad7b19c7e1f7a75564a80d18a893731539438a817100d30a70) | 48317882 | REVERT (0) | SCRIPT (deterministic) | `0x400877f5...` |
+| **E16** | Delayed action cannot bypass queue | `INTENTIONAL_REVERT` | [`0xe1d5dba1...`](https://sepolia.basescan.org/tx/0xe1d5dba152fb9a183192794e37bd17c98fe5530e1fcb937970ef2739904baa17) | 48317887 | REVERT (0) | SCRIPT (deterministic) | `0xb80fcb67...` |
+| **FUNDING** | Explicit threshold-two owner allocation; not agent execution | `OWNER_ALLOCATION` | [`0xfd7cd40d...`](https://sepolia.basescan.org/tx/0xfd7cd40d688fddbaa2dbf68d9dabbbfd65c163934d23ac2a88cbcdf6d293dbba) | 48318006 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **FUNDING** | Explicit threshold-two owner allocation; not agent execution | `OWNER_ALLOCATION` | [`0xfd7cd40d...`](https://sepolia.basescan.org/tx/0xfd7cd40d688fddbaa2dbf68d9dabbbfd65c163934d23ac2a88cbcdf6d293dbba) | 48318006 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E16** | Reserve raid rejected before queue creation | `INTENTIONAL_REVERT` | [`0x55d44a2b...`](https://sepolia.basescan.org/tx/0x55d44a2b3f7dedab3d898528a14cdd66aefaa49cf1eaa658b84dd3b777505d27) | 48318011 | REVERT (0) | SCRIPT (deterministic) | `0x3ab47bb5...` |
+| **E7** | K2 operational script; deterministic, Linux host | `PAY_INSTANT` | [`0x3d5682af...`](https://sepolia.basescan.org/tx/0x3d5682afb067993bf04ae88a344eff6d642138062f56e8539d79ed975cffe6c7) | 48319621 | SUCCESS (1) | SCRIPT (deterministic) | `0xf3d8ba5c...` |
+| **E8** | K2 operational script; deterministic, Linux host | `ACTION_QUEUED` | [`0x01316eae...`](https://sepolia.basescan.org/tx/0x01316eaeebf051827e46b0fa61645376ea531342cb6d526e4252acc6b0db202a) | 48319637 | SUCCESS (1) | SCRIPT (deterministic) | `0x808bab5a...` |
+| **E8** | K2 operational script; deterministic, Linux host | `PAY_DELAYED` | [`0xc63f9d98...`](https://sepolia.basescan.org/tx/0xc63f9d98e7a2d28ebe88eea2ffcec9288a39c4be0aa218da1acb584670b1fe7f) | 48319745 | SUCCESS (1) | SCRIPT (deterministic) | `0x808bab5a...` |
+| **E8** | K2 operational script; deterministic, Linux host | `ACTION_QUEUED` | [`0xdac59209...`](https://sepolia.basescan.org/tx/0xdac5920996832c73375b584905d34cf430f35ad548ee1368a7695c927736548c) | 48319764 | SUCCESS (1) | SCRIPT (deterministic) | `0xa1f706ae...` |
+| **E12** | K2 operational script; deterministic, Linux host | `QUEUE_CANCELLED` | [`0x7e069c86...`](https://sepolia.basescan.org/tx/0x7e069c86c94e06fda563190567876b467f0b2facf9189ebb1a0939253182c4b5) | 48319776 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E16** | Duplicate committed bill payment rejected | `INTENTIONAL_REVERT` | [`0x5af192e0...`](https://sepolia.basescan.org/tx/0x5af192e04e2ac730bd3eebc0a4f7f76d9ee76525896d40b0c9084f84d98e96b4) | 48319779 | REVERT (0) | SCRIPT (deterministic) | `0x7770f965...` |
+| **E9** | K2 operational script; deterministic, Linux host | `ACTION_APPROVED` | [`0xddbc47e9...`](https://sepolia.basescan.org/tx/0xddbc47e9037a49a0db323136d79360a9bd89f7e8220fb32f1ed987e4ef2601e0) | 48319789 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E9** | K2 operational script; deterministic, Linux host | `PAY_OWNER_TIER` | [`0x97e5cd9c...`](https://sepolia.basescan.org/tx/0x97e5cd9c1c5bc351b32d2819e6735ef161fda91d3ab6285ccd4a06aec3ba232d) | 48319807 | SUCCESS (1) | SCRIPT (deterministic) | `0x2500ca47...` |
+| **E13** | K2 operational script; deterministic, Linux host | `OWNER_PAY` | [`0x46470601...`](https://sepolia.basescan.org/tx/0x46470601cddedd6214792c494472affad03e5457e246bb7b68e35f38cf422826) | 48319821 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E4** | K2 operational script; deterministic, Linux host | `PAYEE_NEW_BANK` | [`0x8c7216a9...`](https://sepolia.basescan.org/tx/0x8c7216a9f5b69f9e7cdde1bc7085051510fda7a05f47c90574acaa82751597b3) | 48319832 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E16** | Changed bank details require fresh cooling | `INTENTIONAL_REVERT` | [`0xc04b77c2...`](https://sepolia.basescan.org/tx/0xc04b77c2ffe8d0d945c1cc13aa70d3e34827a85b8af3629b2a2575e30f775d02) | 48319835 | REVERT (0) | SCRIPT (deterministic) | `0x1b732b11...` |
+| **E11** | K2 operational script; deterministic, Linux host | `WITHDRAW` | [`0x06530794...`](https://sepolia.basescan.org/tx/0x06530794bc195da12a84ee3ae4538ed1cca3b91f727f2ba4eaeb87f76da67950) | 48319856 | SUCCESS (1) | SCRIPT (deterministic) | `0x5ebedc47...` |
+| **E14** | K2 operational script; deterministic, Linux host | `GUARDIAN_PAUSE` | [`0xe33f6e10...`](https://sepolia.basescan.org/tx/0xe33f6e100a88d1008bcb226302ec2e90c147929b1ae71167c6ba134059d7c61c) | 48319867 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E6** | K2 operational script; deterministic, Linux host | `OWNER_RESUME` | [`0x4e097ab5...`](https://sepolia.basescan.org/tx/0x4e097ab5cf673de69cd1e99283424b4935a9cc7ac536e4746b2889057bf43cf7) | 48319881 | SUCCESS (1) | SCRIPT (deterministic) | - |
+| **E15** | K2 operational script; deterministic, Linux host | `EMERGENCY_UNWIND` | [`0xbcbc2d8a...`](https://sepolia.basescan.org/tx/0xbcbc2d8a0e6e460d2a19319f59a9a05ca4685ac5b284c105e75ef15e58518759) | 48319899 | SUCCESS (1) | SCRIPT (deterministic) | - |
 
 ---
 
