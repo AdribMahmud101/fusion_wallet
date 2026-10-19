@@ -1,0 +1,16 @@
+[package]
+name = "fusion-planner"
+version = "1.0.0"
+edition = "2024"
+[lib]
+crate-type = ["rlib", "cdylib"]
+[dependencies]
+ahem = { path = "../ahem", features = ["tensorlogic"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+libloading = "0.8"
+
+uniffi = { version = "0.31", optional = true }
+[features]
+bindings = ["dep:uniffi"]
