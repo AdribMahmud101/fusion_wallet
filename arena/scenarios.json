@@ -115,7 +115,7 @@
     "id": "A17",
     "description": "Upgrade demo vault proxy implementation",
     "attacker_goal": "Continue after implementation swap without latch",
-    "expected_stopping_layer": "reflex_latch_then_contract",
+    "expected_stopping_layer": "off-chain impl pin",
     "forge_test": "test_A17_proxyImplementationSwapEscapesCodeHashCheck()"
   },
   {

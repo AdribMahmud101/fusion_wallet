@@ -1,0 +1,16 @@
+{
+  "profile": "FULL",
+  "chainId": 31337,
+  "rpcUrl": "http://127.0.0.1:48101",
+  "safe": "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
+  "module": "0x0dcd1bf9a1b36ce34237eeafef220932846bcd82",
+  "asset": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+  "vaultA": "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0",
+  "vaultB": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+  "sanctionsList": "0x0165878a594ca255338adfa4d48449f69242eb8f",
+  "deploymentBlock": 0,
+  "explorerBaseUrl": "http://127.0.0.1",
+  "vaultImplementations": {
+    "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"
+  }
+}
