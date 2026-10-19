@@ -1,0 +1,9 @@
+{
+  "sessionSecretInApk": false,
+  "sessionSecretInOwnedArtifacts": false,
+  "modelInApk": false,
+  "apkSha256": "cc2ed9fb6adeaf596f46ed469d21b5d40a640ba59999b4827cd01d0df332d8fd",
+  "keyImport": "Raw local socket from edge shell/root into secure debug Activity in :signer; no key in args/Intents/plaintext files/logs.",
+  "envelopeBytes": 61,
+  "envelopePath": "app-private no_backup/agent/session.enc; Android Keystore AES-GCM; separate guardian alias/file"
+}

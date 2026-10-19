@@ -1,0 +1,32 @@
+{
+  "milestone": "M2",
+  "source": "APP",
+  "device": "OnePlus CPH2447",
+  "android": "16",
+  "snapshotBlock": 48328937,
+  "choice": "H",
+  "decisionHash": "0x0c75c7559ad65337c73606d0f2c49c6f263f2a7d5b411eae476dde5b657a6fdc",
+  "planner": {
+    "kind": "mnn+ahem-g@android",
+    "host": "device",
+    "modelId": "LFM2.5-230M-MNN",
+    "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907",
+    "libllmSha256": "380dcf54a08487eba7e3c98beab30f7180227ff1280bfadf7608bf04f2d49eb7",
+    "libMnnSha256": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+    "ahem": {
+      "g": {
+        "mode": "ENFORCED",
+        "vetoes": 0,
+        "retries": 0,
+        "forcedTokens": 5
+      },
+      "l": {
+        "mode": "OFF"
+      }
+    }
+  },
+  "rpcTransport": "live HTTPS via edge loopback relay",
+  "coldLoadMs": 853.769114,
+  "decodeMs": 502.28843700000004,
+  "transactionBroadcast": false
+}
