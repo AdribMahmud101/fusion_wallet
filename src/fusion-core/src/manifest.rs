@@ -56,17 +56,96 @@ pub struct DeploymentManifest {
     pub sanctions_list: Address,
     #[serde(default)]
     pub code_hashes: BTreeMap<String, B256>,
+    #[serde(default, deserialize_with = "deserialize_vault_implementations")]
+    pub vault_implementations: BTreeMap<Address, Address>,
     pub deployment_block: u64,
     pub explorer_base_url: String,
+}
+
+fn deserialize_vault_implementations<'de, D>(
+    deserializer: D,
+) -> Result<BTreeMap<Address, Address>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    let opt: Option<BTreeMap<String, String>> = Option::deserialize(deserializer)?;
+    let mut map = BTreeMap::new();
+    if let Some(raw_map) = opt {
+        for (k, v) in raw_map {
+            if let (Ok(k_addr), Ok(v_addr)) = (k.parse::<Address>(), v.parse::<Address>()) {
+                map.insert(k_addr, v_addr);
+            }
+        }
+    }
+    Ok(map)
 }
 
 impl DeploymentManifest {
     /// Parses a manifest from a JSON string and validates it.
     pub fn parse_and_validate(json_str: &str) -> Result<Self, ManifestError> {
-        let manifest: Self =
+        let mut manifest: Self =
             serde_json::from_str(json_str).map_err(|e| ManifestError::JsonError(e.to_string()))?;
+
+        // Also check if json has contracts.vaultA.implementation or contracts.vaultB.implementation
+        // or vaultImplementations with "vaultA" / "vaultB" keys
+        if let Ok(val) = serde_json::from_str::<serde_json::Value>(json_str) {
+            if let Some(contracts) = val.get("contracts") {
+                if let Some(va_impl) = contracts
+                    .get("vaultA")
+                    .and_then(|v| v.get("implementation"))
+                    .and_then(|i| i.as_str())
+                {
+                    if let Ok(addr) = va_impl.parse::<Address>() {
+                        manifest
+                            .vault_implementations
+                            .insert(manifest.vault_a, addr);
+                    }
+                }
+                if let Some(vb_impl) = contracts
+                    .get("vaultB")
+                    .and_then(|v| v.get("implementation"))
+                    .and_then(|i| i.as_str())
+                {
+                    if let Ok(addr) = vb_impl.parse::<Address>() {
+                        manifest
+                            .vault_implementations
+                            .insert(manifest.vault_b, addr);
+                    }
+                }
+            }
+            if let Some(v_impls) = val
+                .get("vaultImplementations")
+                .or_else(|| val.get("vault_implementations"))
+            {
+                if let Some(obj) = v_impls.as_object() {
+                    for (k, v) in obj {
+                        if let Some(v_str) = v.as_str() {
+                            if let Ok(impl_addr) = v_str.parse::<Address>() {
+                                if k.eq_ignore_ascii_case("vaultA") || k == "vault_a" {
+                                    manifest
+                                        .vault_implementations
+                                        .insert(manifest.vault_a, impl_addr);
+                                } else if k.eq_ignore_ascii_case("vaultB") || k == "vault_b" {
+                                    manifest
+                                        .vault_implementations
+                                        .insert(manifest.vault_b, impl_addr);
+                                } else if let Ok(vault_addr) = k.parse::<Address>() {
+                                    manifest.vault_implementations.insert(vault_addr, impl_addr);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         manifest.validate()?;
         Ok(manifest)
+    }
+
+    /// Returns the expected EIP-1967 implementation address for a vault if pinned.
+    pub fn get_vault_implementation(&self, vault: &Address) -> Option<Address> {
+        self.vault_implementations.get(vault).copied()
     }
 
     /// Validates configuration invariants per §10.3.
@@ -156,5 +235,35 @@ mod tests {
             DeploymentManifest::parse_and_validate(json),
             Err(ManifestError::UnsupportedChainId(1))
         ));
+    }
+
+    #[test]
+    fn parses_vault_implementations_from_contracts_and_field() {
+        let json = r#"{
+            "profile": "FULL",
+            "chainId": 84532,
+            "rpcUrl": "https://sepolia.base.org",
+            "safe": "0x000000000000000000000000000000000000dEaD",
+            "module": "0x00000000000000000000000000000000000000B0",
+            "asset": "0x0000000000000000000000000000000000000001",
+            "vaultA": "0x00000000000000000000000000000000000000A1",
+            "vaultB": "0x00000000000000000000000000000000000000b2",
+            "sanctionsList": "0x0000000000000000000000000000000000000002",
+            "contracts": {
+                "vaultA": {
+                    "address": "0x00000000000000000000000000000000000000A1",
+                    "implementation": "0x00000000000000000000000000000000000001A1"
+                }
+            },
+            "codeHashes": {},
+            "deploymentBlock": 12345,
+            "explorerBaseUrl": "https://sepolia.basescan.org"
+        }"#;
+
+        let m = DeploymentManifest::parse_and_validate(json).unwrap();
+        let expected_impl: Address = "0x00000000000000000000000000000000000001A1"
+            .parse()
+            .unwrap();
+        assert_eq!(m.get_vault_implementation(&m.vault_a), Some(expected_impl));
     }
 }

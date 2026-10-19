@@ -134,6 +134,11 @@ pub const MULTICALL3_ADDRESS: Address = Address::new([
     0x39, 0x76, 0xca, 0x11,
 ]);
 
+/// Canonical EIP-1967 implementation storage slot (§7.2):
+/// `bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)`
+pub const EIP1967_IMPLEMENTATION_SLOT: B256 =
+    alloy::primitives::b256!("360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc");
+
 #[derive(thiserror::Error, Debug)]
 pub enum SnapshotError {
     #[error("Invalid URL: {0}")]
@@ -146,6 +151,15 @@ pub enum SnapshotError {
     DecodeError(String),
     #[error("Multicall3 failed subcall: {0}")]
     CallFailed(String),
+    #[error("Vault implementation changed: {vault} expected {expected}, got {actual}")]
+    VaultImplChanged {
+        vault: Address,
+        expected: Address,
+        actual: Address,
+        block_number: u64,
+        block_hash: B256,
+        block_timestamp: u64,
+    },
 }
 
 fn convert_policy(sol_policy: SolPolicy) -> Result<Policy, SnapshotError> {
@@ -272,6 +286,21 @@ pub async fn read_snapshot_at_block<P: Provider>(
     let block_hash = block.header.hash;
     let block_timestamp = block.header.timestamp;
     let block_id = BlockId::number(block_number);
+
+    // 1.5 Verify EIP-1967 implementation pin for proxied vaults (§7.2)
+    for (&vault, &expected_impl) in &manifest.vault_implementations {
+        let actual_impl = read_vault_implementation(provider, vault, block_id).await?;
+        if actual_impl != expected_impl {
+            return Err(SnapshotError::VaultImplChanged {
+                vault,
+                expected: expected_impl,
+                actual: actual_impl,
+                block_number,
+                block_hash,
+                block_timestamp,
+            });
+        }
+    }
 
     // 2. Build calls
     let cash_call = IERC20Snapshot::balanceOfCall {
@@ -534,6 +563,22 @@ pub async fn read_snapshot_at_block<P: Provider>(
         policy,
         queue,
     })
+}
+
+/// Reads the EIP-1967 implementation address at the given block (§7.2).
+pub async fn read_vault_implementation<P: Provider>(
+    provider: &P,
+    vault: Address,
+    block_id: BlockId,
+) -> Result<Address, SnapshotError> {
+    let slot_u256 = U256::from_be_bytes(EIP1967_IMPLEMENTATION_SLOT.0);
+    let storage_val = provider
+        .get_storage_at(vault, slot_u256)
+        .block_id(block_id)
+        .await
+        .map_err(|e| SnapshotError::RpcError(e.to_string()))?;
+    let storage_b256 = B256::from(storage_val);
+    Ok(Address::from_word(storage_b256))
 }
 
 /// Reads snapshot using manifest RPC URL (§10.5).

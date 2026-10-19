@@ -1,6 +1,6 @@
 {
   "attack": {
-    "txHash": "0x54898507ea05a2ea39a0af1b5c179ecf6ae6aeb4e0a76ccf5b9c3501f9a68979",
+    "txHash": "0xd1fbb3527404c238e33ba28be2fdd43a6a1ae77a9f1a1440853a3a421b4634f4",
     "status": 0,
     "blockNumber": 20,
     "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
@@ -12,7 +12,7 @@
   "revert_selector": "0xe5c91771",
   "naive": {
     "receipt": {
-      "txHash": "0x96c462e967f54f8ffe26d8348bc4474c222042823f4cc554fec00addce84a7d6",
+      "txHash": "0xa2a12a94f4aee4f56f3070e6b818f6cc84e65befce982e1369500b2d98ddfef7",
       "status": 1,
       "blockNumber": 21,
       "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
@@ -25,7 +25,7 @@
   },
   "transactions": [
     {
-      "txHash": "0x54898507ea05a2ea39a0af1b5c179ecf6ae6aeb4e0a76ccf5b9c3501f9a68979",
+      "txHash": "0xd1fbb3527404c238e33ba28be2fdd43a6a1ae77a9f1a1440853a3a421b4634f4",
       "status": 0,
       "blockNumber": 20,
       "to": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
@@ -33,7 +33,7 @@
       "gasUsed": 81272
     },
     {
-      "txHash": "0x96c462e967f54f8ffe26d8348bc4474c222042823f4cc554fec00addce84a7d6",
+      "txHash": "0xa2a12a94f4aee4f56f3070e6b818f6cc84e65befce982e1369500b2d98ddfef7",
       "status": 1,
       "blockNumber": 21,
       "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",

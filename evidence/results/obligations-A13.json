@@ -1,0 +1,12 @@
+{
+  "bills": [
+    {
+      "obligationIdHash": "0x237cef09c18de58503d79d9dd966c73c9736a8a9b8def484ba08f4d97bd2d3aa",
+      "payeeIdHash": "0x559d29576718e7413779edc05f63260eecf7f5e184046a03c89b3edd147cb820",
+      "assets": "10000000",
+      "dueAt": 1792390002,
+      "recipient": "0x90f79bf6eb2c4f870365e785982e1f101e93b906",
+      "proof": []
+    }
+  ]
+}

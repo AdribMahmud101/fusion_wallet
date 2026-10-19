@@ -13,6 +13,7 @@ pub mod encode;
 pub mod executor;
 pub mod guardrails;
 pub mod hashing;
+pub mod journal;
 pub mod manifest;
 pub mod merkle;
 pub mod models;

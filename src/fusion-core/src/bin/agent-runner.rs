@@ -13,8 +13,8 @@ use fusion_core::candidates::{enumerate_candidates, CandidateSet, Route, VaultRa
 use fusion_core::encode::{encode_approve_action, encode_execute, encode_queue_action};
 use fusion_core::manifest::{DeploymentManifest, ManifestProfile};
 use fusion_core::passport::{
-    to_canonical_json, AhemGReport, AhemLReport, AhemMetadata, DecisionPassport,
-    PassportCandidate, PassportSnapshot, PlannerMetadata,
+    to_canonical_json, AhemGReport, AhemLReport, AhemMetadata, DecisionPassport, PassportCandidate,
+    PassportSnapshot, PlannerMetadata,
 };
 use fusion_core::planner_io::build_planner_prompt;
 use fusion_core::preview::{preview_candidate, RuleStatus};
@@ -55,6 +55,9 @@ struct RunnerArgs {
     dry_run: bool,
     continuous: bool,
     interval_secs: u64,
+    journal_path: Option<String>,
+    guardian_key: Option<String>,
+    crash_after_broadcast: bool,
 }
 
 impl RunnerArgs {
@@ -79,11 +82,29 @@ impl RunnerArgs {
         let mut dry_run = false;
         let mut continuous = false;
         let mut interval_secs = 10;
+        let mut journal_path = None;
+        let mut guardian_key = None;
+        let mut crash_after_broadcast = false;
 
         let args: Vec<String> = env::args().collect();
         let mut i = 1;
         while i < args.len() {
             match args[i].as_str() {
+                "--crash-after-broadcast" => {
+                    crash_after_broadcast = true;
+                }
+                "--journal" => {
+                    i += 1;
+                    if i < args.len() {
+                        journal_path = Some(args[i].clone());
+                    }
+                }
+                "--guardian-key" => {
+                    i += 1;
+                    if i < args.len() {
+                        guardian_key = Some(args[i].clone());
+                    }
+                }
                 "--manifest" => {
                     i += 1;
                     if i < args.len() {
@@ -253,6 +274,9 @@ impl RunnerArgs {
             dry_run,
             continuous,
             interval_secs,
+            journal_path,
+            guardian_key,
+            crash_after_broadcast,
         })
     }
 }
@@ -290,10 +314,8 @@ fn parse_u256_val(v: &Value) -> Option<U256> {
         } else {
             U256::from_str(trimmed).ok()
         }
-    } else if let Some(n) = v.as_u64() {
-        Some(U256::from(n))
     } else {
-        None
+        v.as_u64().map(U256::from)
     }
 }
 
@@ -305,9 +327,11 @@ fn parse_u64_val(v: &Value) -> Option<u64> {
     }
 }
 
+type ParsedObligations = (Vec<Obligation>, BTreeMap<B256, Vec<B256>>, Vec<Payee>);
+
 fn parse_obligations_content(
     content: &str,
-) -> Result<(Vec<Obligation>, BTreeMap<B256, Vec<B256>>, Vec<Payee>), Box<dyn std::error::Error>> {
+) -> Result<ParsedObligations, Box<dyn std::error::Error>> {
     let parsed: Value = serde_json::from_str(content)?;
     let mut obligations = Vec::new();
     let mut bill_proofs = BTreeMap::new();
@@ -320,12 +344,19 @@ fn parse_obligations_content(
         }
     } else if let Some(bills) = parsed.get("bills").and_then(|b| b.as_array()) {
         for (idx, b) in bills.iter().enumerate() {
-            let id_hash_str = b.get("obligationIdHash").and_then(|v| v.as_str()).unwrap_or("");
+            let id_hash_str = b
+                .get("obligationIdHash")
+                .and_then(|v| v.as_str())
+                .unwrap_or("");
             let payee_hash_str = b.get("payeeIdHash").and_then(|v| v.as_str()).unwrap_or("");
             let obligation_id_hash = B256::from_str(id_hash_str)?;
             let payee_id_hash = B256::from_str(payee_hash_str)?;
 
-            let amount_raw = b.get("assets").or_else(|| b.get("amountRaw")).and_then(parse_u256_val).unwrap_or(U256::ZERO);
+            let amount_raw = b
+                .get("assets")
+                .or_else(|| b.get("amountRaw"))
+                .and_then(parse_u256_val)
+                .unwrap_or(U256::ZERO);
             let due_at = b.get("dueAt").and_then(parse_u64_val).unwrap_or(0);
 
             let ob = Obligation {
@@ -436,20 +467,40 @@ fn invoke_host_planner(
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
         let _ = fs::remove_file(&out_file);
-        return Err(format!("planner-host failed with status {}: {stderr}", output.status).into());
+        return Err(format!(
+            "planner-host failed with status {}: {stderr}",
+            output.status
+        )
+        .into());
     }
 
     let out_content = fs::read_to_string(&out_file)?;
     let _ = fs::remove_file(&out_file);
 
-    let first_line = out_content.lines().next().ok_or("planner-host produced empty output")?;
+    let first_line = out_content
+        .lines()
+        .next()
+        .ok_or("planner-host produced empty output")?;
     let resp: Value = serde_json::from_str(first_line)?;
 
-    let label = resp.get("label").and_then(|v| v.as_str()).unwrap_or("H").to_string();
+    let label = resp
+        .get("label")
+        .and_then(|v| v.as_str())
+        .unwrap_or("H")
+        .to_string();
 
-    let vetoes = resp.pointer("/ahem/g/vetoes").and_then(|v| v.as_u64()).unwrap_or(0);
-    let retries = resp.pointer("/ahem/g/retries").and_then(|v| v.as_u64()).unwrap_or(0);
-    let forced_tokens = resp.pointer("/ahem/g/forcedTokens").and_then(|v| v.as_u64()).unwrap_or(5);
+    let vetoes = resp
+        .pointer("/ahem/g/vetoes")
+        .and_then(|v| v.as_u64())
+        .unwrap_or(0);
+    let retries = resp
+        .pointer("/ahem/g/retries")
+        .and_then(|v| v.as_u64())
+        .unwrap_or(0);
+    let forced_tokens = resp
+        .pointer("/ahem/g/forcedTokens")
+        .and_then(|v| v.as_u64())
+        .unwrap_or(5);
 
     let meta = PlannerMetadata {
         ahem: AhemMetadata {
@@ -465,10 +516,13 @@ fn invoke_host_planner(
         },
         host: "linux-host".to_string(),
         kind: "mnn+ahem-g".to_string(),
-        lib_mnn_sha256: "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4".to_string(),
-        libllm_sha256: "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f".to_string(),
+        lib_mnn_sha256: "27fdb46a95fbfb859dc7046cefddfa1ab816837d48517bdf9e2b36e96581a0c4"
+            .to_string(),
+        libllm_sha256: "f7dc4af30ef29c8a7f550893820700e42682c43688d571ee6e1b2362a182867f"
+            .to_string(),
         model_id: "LFM2.5-230M-MNN".to_string(),
-        model_sha256: "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907".to_string(),
+        model_sha256: "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+            .to_string(),
     };
 
     Ok((label, meta))
@@ -500,8 +554,175 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
             };
             match res {
                 Ok(s) => break s,
+                Err(fusion_core::snapshot::SnapshotError::VaultImplChanged {
+                    vault,
+                    expected,
+                    actual,
+                    block_number,
+                    block_hash,
+                    block_timestamp,
+                }) => {
+                    eprintln!(
+                        "CRITICAL LATCH: VAULT_IMPL_CHANGED detected for vault {vault}: expected {expected}, got {actual} at block #{block_number}. Halting agent runner."
+                    );
+                    let (chain_id, safe, module) = if let Some(ref m) = manifest {
+                        (m.chain_id, m.safe, m.module)
+                    } else {
+                        (84532, Address::ZERO, Address::ZERO)
+                    };
+                    let user_goal_hash = alloy::primitives::keccak256(args.user_goal.as_bytes());
+                    let passport = DecisionPassport {
+                        candidate_set: vec![PassportCandidate {
+                            assets: "0".to_string(),
+                            id: format!("{:#x}", B256::ZERO),
+                            kind: "HOLD".to_string(),
+                            label: "H".to_string(),
+                            reason: "VAULT_IMPL_CHANGED".to_string(),
+                        }],
+                        candidate_set_digest: format!("{:#x}", B256::ZERO),
+                        chain_id,
+                        choice_id: format!("{:#x}", B256::ZERO),
+                        choice_label: "H".to_string(),
+                        created_at_chain: block_timestamp,
+                        mandate_hash: format!("{:#x}", B256::ZERO),
+                        module: module.to_checksum(None),
+                        planner: PlannerMetadata {
+                            ahem: AhemMetadata {
+                                g: AhemGReport {
+                                    forced_tokens: 0,
+                                    mode: "OFF".to_string(),
+                                    retries: 0,
+                                    vetoes: 0,
+                                },
+                                l: AhemLReport {
+                                    mode: "OFF".to_string(),
+                                },
+                            },
+                            host: "linux-host".to_string(),
+                            kind: "critical_latch".to_string(),
+                            lib_mnn_sha256: format!("{:#x}", B256::ZERO),
+                            libllm_sha256: format!("{:#x}", B256::ZERO),
+                            model_id: "none".to_string(),
+                            model_sha256: format!("{:#x}", B256::ZERO),
+                        },
+                        reason_code: "VAULT_IMPL_CHANGED".to_string(),
+                        route: "HOLD".to_string(),
+                        safe: safe.to_checksum(None),
+                        snapshot: PassportSnapshot {
+                            block: block_number,
+                            hash: format!("{:#x}", block_hash),
+                        },
+                        user_goal_sha256: format!("{user_goal_hash:#x}"),
+                        version: "4.1".to_string(),
+                    };
+                    let passport_json = to_canonical_json(&passport)?;
+                    let decision_hash = alloy::primitives::keccak256(passport_json.as_bytes());
+
+                    let passport_file_rel = if let Some(ref dir) = args.passport_dir {
+                        fs::create_dir_all(dir)?;
+                        let file_name = format!("{decision_hash:#x}.json");
+                        let target_path = Path::new(dir).join(&file_name);
+                        fs::write(&target_path, &passport_json)?;
+                        let hold_path = Path::new(dir).join("hold.json");
+                        fs::write(&hold_path, &passport_json)?;
+                        println!(
+                            "VAULT_IMPL_CHANGED HOLD passport written to {}",
+                            target_path.display()
+                        );
+                        Some(file_name)
+                    } else {
+                        None
+                    };
+
+                    if let Some(ref out_file) = args.evidence_out {
+                        let row = EvidenceRow {
+                            id: args.evidence_id.clone(),
+                            source: args.source.clone(),
+                            planner: "critical_latch".to_string(),
+                            host: "linux-host".to_string(),
+                            tx_hash: None,
+                            decision_hash: format!("{decision_hash:#x}"),
+                            action_digest: format!("{:#x}", B256::ZERO),
+                            candidate_id: format!("{:#x}", B256::ZERO),
+                            choice_label: "H".to_string(),
+                            kind: "HOLD".to_string(),
+                            route: "HOLD".to_string(),
+                            status: 1,
+                            block_number,
+                            gas_used: 0,
+                            passport: Some(format!(
+                                "evidence/agent/passports/{decision_hash:#x}.json"
+                            )),
+                            passport_file: passport_file_rel,
+                        };
+                        let mut rows: Vec<EvidenceRow> = if Path::new(out_file).exists() {
+                            let data = fs::read_to_string(out_file)?;
+                            serde_json::from_str(&data).unwrap_or_default()
+                        } else {
+                            vec![]
+                        };
+                        rows.push(row.clone());
+                        let json_data = serde_json::to_string_pretty(&rows)?;
+                        fs::write(out_file, json_data)?;
+                        println!("Appended latch evidence row {} to {}", row.id, out_file);
+                    }
+
+                    // Propose guardian pause when guardian key is configured (§7.2)
+                    let guardian_key_opt = args
+                        .guardian_key
+                        .clone()
+                        .or_else(|| env::var("GUARDIAN_PRIVATE_KEY").ok())
+                        .or_else(|| env::var("FUSION_GUARDIAN_KEY").ok());
+                    if let Some(ref gk) = guardian_key_opt {
+                        let trimmed = gk.trim().strip_prefix("0x").unwrap_or(gk.trim());
+                        let mut key_bytes = [0u8; 32];
+                        if hex::decode_to_slice(trimmed, &mut key_bytes).is_ok() {
+                            let zkey = Zeroizing::new(key_bytes);
+                            let gsigner = PrivateKeySigner::from_bytes(&B256::from(key_bytes))?;
+                            let gaddr = gsigner.address();
+                            let gnonce = provider.get_transaction_count(gaddr).await?;
+                            let reason_code = alloy::primitives::keccak256(b"VAULT_IMPL_CHANGED");
+                            let pause_call = fusion_core::encode::encode_pause(module, reason_code);
+                            let ptx = PreparedTransaction {
+                                chain_id,
+                                nonce: gnonce,
+                                to: pause_call.to,
+                                value: U256::ZERO,
+                                data: pause_call.data,
+                                gas_limit: 300_000,
+                                max_fee_per_gas: 2_000_000_000,
+                                max_priority_fee_per_gas: 1_000_000_000,
+                            };
+                            let stx = sign_eip1559_transaction(&ptx, &zkey)?;
+                            let raw_hex = stx.raw_tx.strip_prefix("0x").unwrap_or(&stx.raw_tx);
+                            let raw_bytes = Bytes::from(hex::decode(raw_hex)?);
+                            match provider.send_raw_transaction(&raw_bytes).await {
+                                Ok(p) => {
+                                    let h = *p.tx_hash();
+                                    println!("Guardian pause submitted: {h:#x}");
+                                    if let Ok(rcpt) = p.get_receipt().await {
+                                        println!(
+                                            "Guardian pause mined in block #{:?}: status={}",
+                                            rcpt.block_number(),
+                                            rcpt.status()
+                                        );
+                                    }
+                                }
+                                Err(e) => eprintln!("Guardian pause submission error: {e}"),
+                            }
+                        }
+                    } else {
+                        println!(
+                            "Guardian pause proposed (reason: VAULT_IMPL_CHANGED); no guardian key configured to broadcast."
+                        );
+                    }
+
+                    return Ok(());
+                }
                 Err(e) if attempts < 5 => {
-                    eprintln!("Warning: read_snapshot attempt {attempts} failed ({e}); retrying in 3s...");
+                    eprintln!(
+                        "Warning: read_snapshot attempt {attempts} failed ({e}); retrying in 3s..."
+                    );
                     tokio::time::sleep(Duration::from_secs(3)).await;
                 }
                 Err(e) => return Err(e.into()),
@@ -511,9 +732,72 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         return Err("No snapshot available".into());
     };
 
+    // Journal initialization and startup reconciliation (§13)
+    let journal = args
+        .journal_path
+        .as_ref()
+        .map(fusion_core::journal::DurableJournal::new)
+        .or_else(|| {
+            env::var("FUSION_JOURNAL_PATH")
+                .ok()
+                .map(fusion_core::journal::DurableJournal::new)
+        });
+
+    if let (Some(ref j), Some(ref m)) = (&journal, &manifest) {
+        if let Ok(url) = Url::from_str(&m.rpc_url) {
+            let provider = ProviderBuilder::new().connect_http(url);
+            let signer_addr = if let Some(ref k) = args.private_key {
+                let trimmed = k.trim().strip_prefix("0x").unwrap_or(k.trim());
+                let mut b = [0u8; 32];
+                if hex::decode_to_slice(trimmed, &mut b).is_ok() {
+                    PrivateKeySigner::from_bytes(&B256::from(b))
+                        .map(|s| s.address())
+                        .unwrap_or(Address::ZERO)
+                } else {
+                    Address::ZERO
+                }
+            } else if let Ok(k) = env::var("SESSION_PRIVATE_KEY")
+                .or_else(|_| env::var("FUSION_SESSION_KEY"))
+                .or_else(|_| env::var("FUSION_PRIVATE_KEY"))
+            {
+                let trimmed = k.trim().strip_prefix("0x").unwrap_or(k.trim());
+                let mut b = [0u8; 32];
+                if hex::decode_to_slice(trimmed, &mut b).is_ok() {
+                    PrivateKeySigner::from_bytes(&B256::from(b))
+                        .map(|s| s.address())
+                        .unwrap_or(Address::ZERO)
+                } else {
+                    Address::ZERO
+                }
+            } else {
+                snapshot.module_state.session_key
+            };
+
+            let summary = fusion_core::journal::reconcile_unknown_entries(
+                j,
+                &provider,
+                signer_addr,
+                snapshot.block_timestamp,
+            )
+            .await?;
+            if summary.reconciled_mined > 0
+                || summary.reconciled_reverted > 0
+                || summary.still_in_flight > 0
+            {
+                println!(
+                    "Startup reconciliation: {} mined, {} reverted, {} still in flight",
+                    summary.reconciled_mined, summary.reconciled_reverted, summary.still_in_flight
+                );
+            }
+        }
+    }
+
     println!(
         "Snapshot read at block #{} ({:#x}): safe_cash={} USDC raw (paused={})",
-        snapshot.block_number, snapshot.block_hash, snapshot.safe_cash, snapshot.module_state.paused
+        snapshot.block_number,
+        snapshot.block_hash,
+        snapshot.safe_cash,
+        snapshot.module_state.paused
     );
 
     // 3. Obligations & Rates
@@ -537,7 +821,9 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                         m.module,
                         ob.obligation_id_hash,
                         snapshot.block_number,
-                    ).await {
+                    )
+                    .await
+                    {
                         Ok(p) => break p,
                         Err(e) if attempts < 5 => {
                             eprintln!("Warning: is_obligation_paid attempt {attempts} failed ({e}); retrying in 2s...");
@@ -547,7 +833,10 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                     }
                 };
                 if is_paid {
-                    println!("Obligation {} ({:#x}) is marked PAID on-chain; excluding.", ob.obligation_id, ob.obligation_id_hash);
+                    println!(
+                        "Obligation {} ({:#x}) is marked PAID on-chain; excluding.",
+                        ob.obligation_id, ob.obligation_id_hash
+                    );
                 } else {
                     unpaid.push(ob);
                 }
@@ -595,21 +884,38 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         candidate_set.candidate_set_digest
     );
     for c in &candidate_set.candidates {
-        println!("  - [{}] kind={:?} assets={} route={:?} reason={}", c.label, c.kind, c.action.assets, c.route, c.reason);
+        println!(
+            "  - [{}] kind={:?} assets={} route={:?} reason={}",
+            c.label, c.kind, c.action.assets, c.route, c.reason
+        );
     }
 
     // 5. Planner Selection (§10.6, §19.5)
     let (choice_label, planner_meta) = if let Some(ref forced) = args.choice {
         println!("Using explicit candidate choice label: {forced}");
         let meta = if args.planner == "mnn+ahem-g" || args.planner == "host" {
-            match invoke_host_planner(&candidate_set, &args.user_goal, args.planner_bin.as_deref(), args.model_dir.as_deref()) {
+            match invoke_host_planner(
+                &candidate_set,
+                &args.user_goal,
+                args.planner_bin.as_deref(),
+                args.model_dir.as_deref(),
+            ) {
                 Ok((_, m)) => m,
                 Err(e) => {
-                    eprintln!("Warning: host planner unavailable ({e}); using deterministic metadata");
+                    eprintln!(
+                        "Warning: host planner unavailable ({e}); using deterministic metadata"
+                    );
                     PlannerMetadata {
                         ahem: AhemMetadata {
-                            g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
-                            l: AhemLReport { mode: "OFF".to_string() },
+                            g: AhemGReport {
+                                forced_tokens: 0,
+                                mode: "OFF".to_string(),
+                                retries: 0,
+                                vetoes: 0,
+                            },
+                            l: AhemLReport {
+                                mode: "OFF".to_string(),
+                            },
                         },
                         host: "linux-host".to_string(),
                         kind: "deterministic".to_string(),
@@ -623,8 +929,15 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         } else {
             PlannerMetadata {
                 ahem: AhemMetadata {
-                    g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
-                    l: AhemLReport { mode: "OFF".to_string() },
+                    g: AhemGReport {
+                        forced_tokens: 0,
+                        mode: "OFF".to_string(),
+                        retries: 0,
+                        vetoes: 0,
+                    },
+                    l: AhemLReport {
+                        mode: "OFF".to_string(),
+                    },
                 },
                 host: "linux-host".to_string(),
                 kind: args.planner.clone(),
@@ -638,17 +951,32 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     } else {
         match args.planner.as_str() {
             "mnn+ahem-g" | "host" => {
-                match invoke_host_planner(&candidate_set, &args.user_goal, args.planner_bin.as_deref(), args.model_dir.as_deref()) {
+                match invoke_host_planner(
+                    &candidate_set,
+                    &args.user_goal,
+                    args.planner_bin.as_deref(),
+                    args.model_dir.as_deref(),
+                ) {
                     Ok((lbl, meta)) => {
-                        println!("AHEM-G Planner selected: {} (vetoes={}, forcedTokens={})", lbl, meta.ahem.g.vetoes, meta.ahem.g.forced_tokens);
+                        println!(
+                            "AHEM-G Planner selected: {} (vetoes={}, forcedTokens={})",
+                            lbl, meta.ahem.g.vetoes, meta.ahem.g.forced_tokens
+                        );
                         (lbl, meta)
                     }
                     Err(e) => {
                         eprintln!("Warning: host planner unavailable ({e}); falling back to deterministic");
                         let meta = PlannerMetadata {
                             ahem: AhemMetadata {
-                                g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
-                                l: AhemLReport { mode: "OFF".to_string() },
+                                g: AhemGReport {
+                                    forced_tokens: 0,
+                                    mode: "OFF".to_string(),
+                                    retries: 0,
+                                    vetoes: 0,
+                                },
+                                l: AhemLReport {
+                                    mode: "OFF".to_string(),
+                                },
                             },
                             host: "linux-host".to_string(),
                             kind: "deterministic".to_string(),
@@ -657,7 +985,11 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                             model_id: "none".to_string(),
                             model_sha256: format!("{:#x}", B256::ZERO),
                         };
-                        let lbl = candidate_set.candidates.first().map(|c| c.label.clone()).unwrap_or_else(|| "H".to_string());
+                        let lbl = candidate_set
+                            .candidates
+                            .first()
+                            .map(|c| c.label.clone())
+                            .unwrap_or_else(|| "H".to_string());
                         (lbl, meta)
                     }
                 }
@@ -665,8 +997,15 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
             "hold" => {
                 let meta = PlannerMetadata {
                     ahem: AhemMetadata {
-                        g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
-                        l: AhemLReport { mode: "OFF".to_string() },
+                        g: AhemGReport {
+                            forced_tokens: 0,
+                            mode: "OFF".to_string(),
+                            retries: 0,
+                            vetoes: 0,
+                        },
+                        l: AhemLReport {
+                            mode: "OFF".to_string(),
+                        },
                     },
                     host: "linux-host".to_string(),
                     kind: "deterministic".to_string(),
@@ -681,8 +1020,15 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                 // deterministic
                 let meta = PlannerMetadata {
                     ahem: AhemMetadata {
-                        g: AhemGReport { forced_tokens: 0, mode: "OFF".to_string(), retries: 0, vetoes: 0 },
-                        l: AhemLReport { mode: "OFF".to_string() },
+                        g: AhemGReport {
+                            forced_tokens: 0,
+                            mode: "OFF".to_string(),
+                            retries: 0,
+                            vetoes: 0,
+                        },
+                        l: AhemLReport {
+                            mode: "OFF".to_string(),
+                        },
                     },
                     host: "linux-host".to_string(),
                     kind: "deterministic".to_string(),
@@ -691,7 +1037,11 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                     model_id: "none".to_string(),
                     model_sha256: format!("{:#x}", B256::ZERO),
                 };
-                let lbl = candidate_set.candidates.first().map(|c| c.label.clone()).unwrap_or_else(|| "H".to_string());
+                let lbl = candidate_set
+                    .candidates
+                    .first()
+                    .map(|c| c.label.clone())
+                    .unwrap_or_else(|| "H".to_string());
                 (lbl, meta)
             }
         }
@@ -700,14 +1050,20 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     let mut choice = if choice_label == "H" {
         candidate_set.hold.clone()
     } else {
-        candidate_set.candidates.iter().find(|c| c.label == choice_label).cloned().unwrap_or_else(|| candidate_set.hold.clone())
+        candidate_set
+            .candidates
+            .iter()
+            .find(|c| c.label == choice_label)
+            .cloned()
+            .unwrap_or_else(|| candidate_set.hold.clone())
     };
 
     // Workaround for library bug in candidates.rs (§10.4): candidates.rs hardcodes deadline = now + 120,
     // which violates KavachiPolicyLib requirement (deadline >= now + delaySeconds + 30) for queued actions.
     if choice.route == Route::Queue {
         if !snapshot.queue.exists {
-            let queue_deadline = snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600;
+            let queue_deadline =
+                snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600;
             choice.action.deadline = queue_deadline;
             choice.id = fusion_core::hashing::compute_candidate_id_from_action(
                 U256::from(chain_id),
@@ -724,7 +1080,9 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                     c.id = choice.id;
                 }
             }
-        } else if snapshot.queue.exists && snapshot.queue.action.obligation_id_hash == choice.action.obligation_id_hash {
+        } else if snapshot.queue.exists
+            && snapshot.queue.action.obligation_id_hash == choice.action.obligation_id_hash
+        {
             let mut q_act = snapshot.queue.action.clone();
             if q_act.kind == ActionKind::Rebalance {
                 q_act.kind = ActionKind::PayObligation;
@@ -752,6 +1110,37 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         "Final Choice: label={} kind={:?} reason={} assets={}",
         choice.label, choice.kind, choice.reason, choice.action.assets
     );
+
+    // Check if chosen action is already in flight or reconciled in journal (§13)
+    if choice.label != "H" {
+        let initial_preview = preview_candidate(
+            &choice,
+            &snapshot,
+            B256::ZERO,
+            U256::from(chain_id),
+            safe,
+            module,
+        );
+        if let Some(ref j) = journal {
+            let in_flight = j.in_flight_digests().unwrap_or_default();
+            let completed = j.completed_digests().unwrap_or_default();
+            if in_flight.contains(&initial_preview.action_digest) {
+                println!(
+                    "Action digest {:#x} is STILL IN FLIGHT in journal; refusing to re-sign or double-send. Forcing HOLD.",
+                    initial_preview.action_digest
+                );
+                choice = candidate_set.hold.clone();
+                choice.reason = "ACTION_IN_FLIGHT".to_string();
+            } else if completed.contains(&initial_preview.action_digest) {
+                println!(
+                    "Action digest {:#x} was already executed/reconciled in journal; refusing to re-sign or double-send. Forcing HOLD.",
+                    initial_preview.action_digest
+                );
+                choice = candidate_set.hold.clone();
+                choice.reason = "ACTION_ALREADY_RECONCILED".to_string();
+            }
+        }
+    }
 
     // 6. Passport Construction (§10.8)
     let user_goal_hash = alloy::primitives::keccak256(args.user_goal.as_bytes());
@@ -791,7 +1180,10 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     let (passport_json, decision_hash) = if choice.route == Route::Queue && snapshot.queue.exists {
         let q_dh = choice.action.decision_hash;
         println!("Using locked queued decisionHash: {q_dh:#x}");
-        let p_path = args.passport_dir.as_ref().map(|d| Path::new(d).join(format!("{q_dh:#x}.json")));
+        let p_path = args
+            .passport_dir
+            .as_ref()
+            .map(|d| Path::new(d).join(format!("{q_dh:#x}.json")));
         let json = if let Some(ref p) = p_path {
             if p.exists() {
                 fs::read_to_string(p).unwrap_or_else(|_| to_canonical_json(&passport).unwrap())
@@ -822,7 +1214,10 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     let is_queue_creation = choice.route == Route::Queue && !snapshot.queue.exists;
     let preview_passed = if is_queue_creation {
         // In queue creation phase, Check 6 (delay gate) is deferred until readyAt
-        preview.checks.iter().all(|c| c.rule_id == "RULE_6_TIER_ROUTE" || c.status == RuleStatus::Pass)
+        preview
+            .checks
+            .iter()
+            .all(|c| c.rule_id == "RULE_6_TIER_ROUTE" || c.status == RuleStatus::Pass)
     } else {
         preview.passed
     };
@@ -1027,6 +1422,22 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         let raw_bytes = Bytes::from(hex::decode(raw_hex)?);
 
         println!("Broadcasting raw transaction...");
+
+        // Record broadcast in durable journal BEFORE sending raw tx to network (§13)
+        if let Some(ref j) = journal {
+            j.record_broadcast_requested(
+                preview.action_digest,
+                nonce,
+                signed_tx.tx_hash,
+                Some(decision_hash),
+                snapshot.block_timestamp,
+            )?;
+            println!(
+                "Recorded BROADCAST_REQUESTED in durable journal for tx {:#x} (digest {:#x})",
+                signed_tx.tx_hash, preview.action_digest
+            );
+        }
+
         let mut attempts = 0;
         let pending = loop {
             attempts += 1;
@@ -1041,11 +1452,48 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         };
         let hash = *pending.tx_hash();
         println!("Tx submitted: {hash:#x}. Awaiting receipt...");
+
+        // Crash simulation hook (§13): crash after broadcast before receipt
+        if args.crash_after_broadcast
+            || env::var("FUSION_CRASH_AFTER_BROADCAST")
+                .map(|v| v == "1" || v == "true")
+                .unwrap_or(false)
+        {
+            eprintln!(
+                "CRASH SIMULATION: process terminated immediately after broadcast before receipt (§13)"
+            );
+            std::process::exit(137);
+        }
+
         let receipt = pending.get_receipt().await?;
         let st = if receipt.status() { 1 } else { 0 };
         let bn = receipt.block_number().unwrap_or(0);
         let gu = receipt.gas_used();
         println!("Tx confirmed in block #{bn}: status={st} gasUsed={gu}");
+
+        // Record confirmation or revert in durable journal (§13)
+        if let Some(ref j) = journal {
+            if st == 1 {
+                j.record_confirmed(
+                    preview.action_digest,
+                    nonce,
+                    hash,
+                    bn,
+                    gu,
+                    snapshot.block_timestamp,
+                )?;
+            } else {
+                j.record_reverted(
+                    preview.action_digest,
+                    nonce,
+                    hash,
+                    bn,
+                    snapshot.block_timestamp,
+                    Some("Transaction reverted on-chain".to_string()),
+                )?;
+            }
+        }
+
         (hash, bn, gu, st)
     } else {
         (signed_tx.tx_hash, snapshot.block_number, 0, 1)
@@ -1055,7 +1503,10 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     if let Some(ref dir) = args.passport_dir {
         let tx_passport_path = Path::new(dir).join(format!("{tx_hash:#x}.json"));
         fs::write(&tx_passport_path, &passport_json)?;
-        println!("Tx-named passport written to {}", tx_passport_path.display());
+        println!(
+            "Tx-named passport written to {}",
+            tx_passport_path.display()
+        );
     }
 
     // Save run log if runs_dir is set
@@ -1126,6 +1577,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     loop {
         if let Err(e) = run_step(&args).await {
             eprintln!("Agent step encountered error: {e}");
+            if !args.continuous {
+                return Err(e);
+            }
         }
 
         if !args.continuous {
