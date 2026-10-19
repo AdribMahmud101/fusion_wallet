@@ -3,6 +3,7 @@
 import argparse
 import json
 import sys
+import urllib.error
 from pathlib import Path
 from chain import ROOT, IMPLEMENTATION_SLOT, Rpc, decode_event, event_abi, keccak, signature
 
@@ -45,7 +46,7 @@ def verify_row(row, rpc):
         try:
             trace = rpc.call('debug_traceTransaction', [row['txHash'], {'tracer':'callTracer'}])
             error_data = trace.get('output')
-        except RuntimeError:
+        except (RuntimeError, urllib.error.URLError, TimeoutError):
             pass
         if not error_data:
             call = {k:tx[k] for k in ['from','to','value'] if tx.get(k) is not None}
@@ -69,6 +70,10 @@ def verify_row(row, rpc):
         raw = passport_path.read_bytes()
         passport = json.loads(raw)
         check(keccak('0x'+raw.hex()) == decision.lower(), 'passport bytes hash mismatch')
+        if passport.get('snapshot'):
+            snapshot=passport['snapshot']
+            block=rpc.call('eth_getBlockByNumber',[hex(int(snapshot['block'])),False])
+            check(block is not None and block['hash'].lower()==snapshot['hash'].lower(),'passport snapshot block hash mismatch')
         if decoded: check(decoded.get('decisionHash','').lower() == decision.lower(), 'event decisionHash mismatch')
         digest = decoded.get('actionDigest', decoded.get('digest'))
         if digest: check(row.get('actionDigest','').lower() == digest.lower(), 'event actionDigest mismatch')
@@ -79,9 +84,19 @@ def verify_row(row, rpc):
             # Reconstruct it from the published pre-decision action and domain instead.
             from evidence_actions import action_digest
             action = dict(passport['action'], decisionHash=decision)
+            if passport.get('actionDigestWithoutDecision'):
+                without_decision=dict(action,decisionHash='0x'+'00'*32)
+                unsigned=action_digest(passport['chainId'],passport['safe'],passport['module'],
+                                       passport['mandateHash'],passport['sessionId'],without_decision)
+                check(unsigned==passport['actionDigestWithoutDecision'].lower(),'pre-decision action digest mismatch')
             reconstructed = action_digest(passport['chainId'], passport['safe'], passport['module'],
                                           passport['mandateHash'], passport['sessionId'], action)
             check(reconstructed.lower() == row['actionDigest'].lower(), 'passport action/domain digest mismatch')
+            from evidence_actions import ACTION_TYPE, encode_action
+            direct_selectors={keccak(name+'('+ACTION_TYPE+',bytes32[])')[:10] for name in ['execute','queueAction']}
+            check(tx['to'].lower()==passport['module'].lower(),'agent transaction targets another module')
+            check(tx['input'][:10].lower() in direct_selectors,'agent selector must be execute or queueAction')
+            check(tx['input'][10:10+14*64].lower()==encode_action(action)[2:].lower(),'signed action input differs from passport')
         else:
             raise ValueError('passport must bind an actionDigest or a complete reconstructable action')
     return receipt
@@ -102,6 +117,10 @@ def main():
         check(chain_id == doc['chainId'] == manifest['chainId'], 'chain mismatch')
         check(manifest.get('status') in ['DEPLOYED','SETUP_COMPLETE'], 'manifest does not describe an actual deployment')
         check(bool(doc['rows']), 'no receipt evidence exists')
+        for name in ['safe','module','asset','vaultA','vaultB','sanctionsList']:
+            check(manifest[name].lower()==manifest['contracts'][name]['address'].lower(),'application address alias mismatch: '+name)
+        for name,item in manifest['contracts'].items():
+            check(manifest['codeHashes'][name].lower()==item['runtimeCodeHash'].lower(),'application code hash alias mismatch: '+name)
         safe=manifest['contracts']['safe']['address']
         threshold=rpc.call('eth_call',[{'to':safe,'data':keccak('getThreshold()')[:10]},'latest'])
         check(int(threshold,16)==manifest['threshold']==2,'Safe must retain threshold two')
@@ -109,6 +128,8 @@ def main():
         owner_count=int(owners[64:128],16)
         actual_owners={'0x'+owners[128+i*64:192+i*64][-40:] for i in range(owner_count)}
         check(actual_owners=={a.lower() for a in manifest['owners']},'Safe owners differ from manifest')
+        singleton=rpc.call('eth_call',[{'to':safe,'data':keccak('masterCopy()')[:10]},'latest'])
+        check(('0x'+singleton[-40:]).lower()==manifest['contracts']['safeSingleton']['address'].lower(),'Safe singleton changed')
         enabled_data=keccak('isModuleEnabled(address)')[:10]+manifest['contracts']['module']['address'][2:].zfill(64)
         enabled=rpc.call('eth_call',[{'to':safe,'data':enabled_data},'latest'])
         check(int(enabled,16)==1,'Kavachi module is no longer enabled')
@@ -119,6 +140,9 @@ def main():
             if contract.get('implementation'):
                 slot = rpc.call('eth_getStorageAt', [contract['address'], IMPLEMENTATION_SLOT, 'latest'])
                 check(('0x'+slot[-40:]).lower() == contract['implementation'].lower(), 'implementation changed: ' + name)
+                if contract.get('implementationCodeHash'):
+                    logic=rpc.call('eth_getCode',[contract['implementation'],'latest'])
+                    check(keccak(logic)==contract['implementationCodeHash'].lower(),'implementation code hash changed: '+name)
             print('PASS code', name, contract['address'])
     except Exception as error:
         print('FAIL', str(error)); return 1

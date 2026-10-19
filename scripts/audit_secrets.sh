@@ -15,6 +15,7 @@ if env_file.exists():
             if re.fullmatch('[0-9a-f]{64}', value): secrets.add(value)
 if not secrets:
     sys.exit('FAIL: no known keys available to audit against (load the secret environment)')
+secrets |= {str(int(value,16)) for value in list(secrets)}
 paths = subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z']).split(b'\0')
 literal = re.compile(rb'PRIVATE_KEY\s*=\s*["\']?(?:0x)?[0-9a-fA-F]{64}', re.I)
 failed = []
@@ -29,6 +30,9 @@ for raw in paths:
     if not raw: continue
     p = root / os.fsdecode(raw)
     if p.is_file(): scan(os.fsdecode(raw), p.read_bytes())
+for directory in ['src/contracts/cache','src/contracts/broadcast']:
+    for p in (root/directory).rglob('*'):
+        if p.is_file(): scan(str(p.relative_to(root)),p.read_bytes())
 # Check every blob reachable from this branch, including previous versions and deleted files.
 objects = subprocess.check_output(['git','rev-list','--objects','HEAD']).splitlines()
 for entry in objects:

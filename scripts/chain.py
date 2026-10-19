@@ -50,14 +50,23 @@ class Rpc:
                 if 'error' in body:
                     raise RuntimeError(json.dumps(body['error']))
                 return body['result']
+            except urllib.error.HTTPError as error:
+                if error.code in [400,401,403,404,405] or attempt==3:raise
+                time.sleep(1+attempt)
             except (urllib.error.URLError, TimeoutError):
                 if attempt == 3: raise
                 time.sleep(1 + attempt)
 
     def receipt(self, tx):
-        result = self.call('eth_getTransactionReceipt', [tx])
-        if result is None: raise ValueError('Receipt not found: ' + tx)
-        return result
+        # Base can expose a Flashblocks preconfirmation with blockHash == 0 before inclusion.
+        # Never persist that placeholder as an on-chain block hash.
+        for attempt in range(30):
+            result = self.call('eth_getTransactionReceipt', [tx])
+            if result is not None and int(result.get('blockHash') or '0x0',16):
+                block=self.call('eth_getBlockByNumber',[result['blockNumber'],False])
+                if block and block['hash'].lower()==result['blockHash'].lower():return result
+            if attempt < 29:time.sleep(1)
+        raise ValueError('Receipt not yet included in a canonical block: ' + tx)
 
 
 def write_json(path, value):
