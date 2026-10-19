@@ -15,11 +15,15 @@
 //! private key and returns a JSON string; it never panics across the boundary, and it
 //! never accepts a destination, a callee, calldata or a gas limit from the caller.
 
+pub mod amount;
 pub mod config;
 pub mod executor;
 pub mod guardrails;
+pub mod hashing;
+pub mod merkle;
 pub mod models;
 pub mod router;
+pub mod types;
 
 use zeroize::Zeroizing;
 
