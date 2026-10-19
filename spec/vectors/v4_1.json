@@ -1,0 +1,284 @@
+{
+  "version": "4.1",
+  "description": "Kavachi V4.1 reference hashing and interface test vectors",
+  "constants": {
+    "TAG_POLICY": "0xf260190c2a965028ff458ec4ffd9891199dfb657e0250e76bf3f68be71243998",
+    "TAG_SESSION": "0xdd4af3d8f3e50bfb9b3c45617fa4ba78937866e38fef3d7c6b304b2ee1800972",
+    "TAG_MANDATE": "0xd720e98dfe2b80ec41201d4f7d9e0ddfbf35b36460f289c78a31c2fa5128aa6f",
+    "TAG_ACTION": "0xb8178ae129065af1ead4d0d018f19dbc8667a4b7a334449fe4bee8f5a42d8c5e",
+    "TAG_CANDIDATE": "0xb8c00e565ec7fb3feb1955188facef397ec149cc393fc749df462a6f0c4ae9bb",
+    "EMPTY_OBLIGATIONS_ROOT": "0x23741c6f1f8567b5bb9370afa7a28d473bc35c8ccc38118af5346e6d25f8fee0"
+  },
+  "policy_hash": {
+    "input": {
+      "permissionTier": "2",
+      "permissionTierName": "AUTONOMOUS",
+      "operatingBufferRaw": "500000000",
+      "microMaxRaw": "10000000",
+      "delayedMaxRaw": "100000000",
+      "hardMaxRaw": "2500000000",
+      "dailyLimitRaw": "4000000000",
+      "delaySeconds": "180",
+      "maxShareSlippageBps": "50",
+      "guardian": "0x0000000000000000000000000000000000000007",
+      "vaults": [
+        {"vault": "0x00000000000000000000000000000000000000A1", "maxExposureRaw": "6000000000"},
+        {"vault": "0x00000000000000000000000000000000000000b2", "maxExposureRaw": "6000000000"}
+      ],
+      "payeeDelaySeconds": "3600",
+      "payEarlyWindowSeconds": "259200"
+    },
+    "expected": {
+      "vaultLimitsHash": "0xbf9a77745da1c1937f4e58d1cb0c2abca6376c634ab098f87278697237dbb8d7",
+      "policyHash": "0xa73a83c579f5e3fe59fb45b11568be0135841d2a4e611a8748794d2b534070b2"
+    }
+  },
+  "session_id": {
+    "with_session": {
+      "input": {
+        "chainId": "84532",
+        "safe": "0x000000000000000000000000000000000000dEaD",
+        "module": "0x00000000000000000000000000000000000000B0",
+        "sessionStartEpoch": "1",
+        "sessionKey": "0x000000000000000000000000000000000000005E",
+        "sessionExpiresAt": "1792325775",
+        "sessionLimitRaw": "8000000000"
+      },
+      "expected": {
+        "sessionId": "0xc4ead571d97992f01d4ae281870d57ccaeea1f44a67218a47c19a87f588b3acc"
+      }
+    },
+    "without_session": {
+      "input": {
+        "chainId": "84532",
+        "safe": "0x000000000000000000000000000000000000dEaD",
+        "module": "0x00000000000000000000000000000000000000B0",
+        "sessionStartEpoch": "0",
+        "sessionKey": "0x0000000000000000000000000000000000000000",
+        "sessionExpiresAt": "0",
+        "sessionLimitRaw": "0"
+      },
+      "expected": {
+        "sessionId": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    }
+  },
+  "mandate_hash": {
+    "input": {
+      "chainId": "84532",
+      "safe": "0x000000000000000000000000000000000000dEaD",
+      "module": "0x00000000000000000000000000000000000000B0",
+      "policyEpoch": "1",
+      "policyHash": "0xa73a83c579f5e3fe59fb45b11568be0135841d2a4e611a8748794d2b534070b2",
+      "obligationsRoot": "0x882de848dfba12e0013f7bfd22d3f4dad58dface1f003f1e4fb15b152918f308",
+      "reservedRaw": "1500000000",
+      "sessionId": "0xc4ead571d97992f01d4ae281870d57ccaeea1f44a67218a47c19a87f588b3acc",
+      "sessionKey": "0x000000000000000000000000000000000000005E",
+      "sessionExpiresAt": "1792325775",
+      "sessionLimitRaw": "8000000000",
+      "paused": false
+    },
+    "expected": {
+      "mandateHash": "0x26b2a7808f18eb6cdc90339891179216d292c268dd77ef0d05d5da1005a80924"
+    }
+  },
+  "actions": {
+    "deposit": {
+      "input": {
+        "chainId": "84532",
+        "safe": "0x000000000000000000000000000000000000dEaD",
+        "module": "0x00000000000000000000000000000000000000B0",
+        "mandateHash": "0x26b2a7808f18eb6cdc90339891179216d292c268dd77ef0d05d5da1005a80924",
+        "sessionId": "0xc4ead571d97992f01d4ae281870d57ccaeea1f44a67218a47c19a87f588b3acc",
+        "action": {
+          "kind": "0",
+          "sourceVault": "0x0000000000000000000000000000000000000000",
+          "destinationVault": "0x00000000000000000000000000000000000000A1",
+          "assets": "10000000",
+          "minSharesOut": "9950000",
+          "maxSharesBurn": "0",
+          "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "recipient": "0x0000000000000000000000000000000000000000",
+          "dueAt": "0",
+          "expectedNonce": "0",
+          "policyEpoch": "1",
+          "deadline": "1792240275",
+          "decisionHash": "0x18e288bbc5a529329060e0ca5e84f8b0cc655516cb4e4596c23d84a5707d3605"
+        }
+      },
+      "expected": {
+        "actionDigest": "0xcdaaee1689bef6e0fd0742145314a808cb1fbf76455836c61c10ba469e4f6ba2"
+      }
+    },
+    "withdraw": {
+      "input": {
+        "chainId": "84532",
+        "safe": "0x000000000000000000000000000000000000dEaD",
+        "module": "0x00000000000000000000000000000000000000B0",
+        "mandateHash": "0x26b2a7808f18eb6cdc90339891179216d292c268dd77ef0d05d5da1005a80924",
+        "sessionId": "0xc4ead571d97992f01d4ae281870d57ccaeea1f44a67218a47c19a87f588b3acc",
+        "action": {
+          "kind": "1",
+          "sourceVault": "0x00000000000000000000000000000000000000A1",
+          "destinationVault": "0x0000000000000000000000000000000000000000",
+          "assets": "5000000",
+          "minSharesOut": "0",
+          "maxSharesBurn": "5050000",
+          "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "recipient": "0x0000000000000000000000000000000000000000",
+          "dueAt": "0",
+          "expectedNonce": "1",
+          "policyEpoch": "1",
+          "deadline": "1792240275",
+          "decisionHash": "0xb26a8e92c1d73238ac1524a020fbe29195a469bc46399b4e0eb624d8b02af936"
+        }
+      },
+      "expected": {
+        "actionDigest": "0xb3c531957dc934b2eeaf5e6d8609b0c53920c51c3da6a1185d4f59731758d3a2"
+      }
+    },
+    "rebalance": {
+      "input": {
+        "chainId": "84532",
+        "safe": "0x000000000000000000000000000000000000dEaD",
+        "module": "0x00000000000000000000000000000000000000B0",
+        "mandateHash": "0x26b2a7808f18eb6cdc90339891179216d292c268dd77ef0d05d5da1005a80924",
+        "sessionId": "0xc4ead571d97992f01d4ae281870d57ccaeea1f44a67218a47c19a87f588b3acc",
+        "action": {
+          "kind": "2",
+          "sourceVault": "0x00000000000000000000000000000000000000A1",
+          "destinationVault": "0x00000000000000000000000000000000000000b2",
+          "assets": "8000000",
+          "minSharesOut": "7960000",
+          "maxSharesBurn": "8040000",
+          "obligationIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "payeeIdHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "recipient": "0x0000000000000000000000000000000000000000",
+          "dueAt": "0",
+          "expectedNonce": "2",
+          "policyEpoch": "1",
+          "deadline": "1792240275",
+          "decisionHash": "0xf62a87f60820f8fba35dab3950978d9db1377f9724d6b94ceb01c88b21f3332b"
+        }
+      },
+      "expected": {
+        "actionDigest": "0x56a93e9a5c1a520e39fa19a391c66a6a57c1b8ae082082a1688ceddb43f6e211"
+      }
+    },
+    "pay_obligation": {
+      "input": {
+        "chainId": "84532",
+        "safe": "0x000000000000000000000000000000000000dEaD",
+        "module": "0x00000000000000000000000000000000000000B0",
+        "mandateHash": "0x26b2a7808f18eb6cdc90339891179216d292c268dd77ef0d05d5da1005a80924",
+        "sessionId": "0xc4ead571d97992f01d4ae281870d57ccaeea1f44a67218a47c19a87f588b3acc",
+        "action": {
+          "kind": "3",
+          "sourceVault": "0x0000000000000000000000000000000000000000",
+          "destinationVault": "0x0000000000000000000000000000000000000000",
+          "assets": "75000000",
+          "minSharesOut": "0",
+          "maxSharesBurn": "0",
+          "obligationIdHash": "0xcebb9cec7d8ca1db2482f35ec973f89a9af870e6211a3cc3d38e47c94ad1d1ba",
+          "payeeIdHash": "0x66706114b88c3807bbf34547a18e469f4815927013faf597450c8945e715b5cb",
+          "recipient": "0x00000000000000000000000000000000000000f1",
+          "dueAt": "1792241000",
+          "expectedNonce": "3",
+          "policyEpoch": "1",
+          "deadline": "1792240275",
+          "decisionHash": "0xdbdf3928ea0aa7f5a4a0bc4a01b4e21482d0aa1ef0545a0579d7bb18fe7cfcd3"
+        }
+      },
+      "expected": {
+        "actionDigest": "0x5485d9680b6c2817d166409dcffcbdb61691658f29d0d96863816ca46dc49c92"
+      }
+    }
+  },
+  "candidate_id": {
+    "input": {
+      "snapshotBlockHash": "0x3333333333333333333333333333333333333333333333333333333333333333",
+      "actionDigestWithoutDecision": "0x7d7067532c952b40d0f63378cedb2c1fd372c7ca19c1170741835640d7986db6"
+    },
+    "expected": {
+      "candidateId": "0xdb0ab54f13aa5c34a912f243219dfe6581bb7b1b1d72c52f02883a4d32f8a7aa"
+    }
+  },
+  "commitments": {
+    "empty_commitment": {
+      "input": {
+        "leaves": [],
+        "reservedRaw": "0",
+        "count": "0"
+      },
+      "expected": {
+        "root": "0x23741c6f1f8567b5bb9370afa7a28d473bc35c8ccc38118af5346e6d25f8fee0"
+      }
+    },
+    "single_leaf": {
+      "input": {
+        "obligationId": "bill_single",
+        "obligationIdHash": "0x1ed7019c27a793cf4077ba031a9dc4a5453e7adb22cc2d1da0ca7e76d60442e5",
+        "payeeIdHash": "0x37b2206e9b422499d34bbd69598db55cd47b4c952811a1e14d58603f095eb6d4",
+        "amountRaw": "100000000",
+        "dueAt": "1792241000"
+      },
+      "expected": {
+        "leaf": "0xac3bcbd99a232d1e2f2ebbefca6c95fa6e8afdc5585b6a402b45a31a454c8078",
+        "root": "0xac3bcbd99a232d1e2f2ebbefca6c95fa6e8afdc5585b6a402b45a31a454c8078",
+        "proof": [],
+        "verified": true
+      }
+    },
+    "three_leaves": {
+      "input": {
+        "obligations": [
+          {
+            "obligationId": "bill_001",
+            "obligationIdHash": "0xcebb9cec7d8ca1db2482f35ec973f89a9af870e6211a3cc3d38e47c94ad1d1ba",
+            "payeeIdHash": "0x66706114b88c3807bbf34547a18e469f4815927013faf597450c8945e715b5cb",
+            "amountRaw": "75000000",
+            "dueAt": "1792241000"
+          },
+          {
+            "obligationId": "bill_002",
+            "obligationIdHash": "0x3181fecefd7eb578528b007828f9389f2ed42592ad228b497a92b50f298e191b",
+            "payeeIdHash": "0x47ec4507e1519b024df9e518a4d12b80507cb9540455e4dc56e3dc58213fcc30",
+            "amountRaw": "150000000",
+            "dueAt": "1792242000"
+          },
+          {
+            "obligationId": "bill_003",
+            "obligationIdHash": "0x43451fd57a3b79e6e42e8184d3fcf5d6b7887a0d4e517a00171b96c5801ef43c",
+            "payeeIdHash": "0xa4a16f5d34315cbad310516f639626db532328ca774ccc1995f8761a24b59c28",
+            "amountRaw": "300000000",
+            "dueAt": "1792243000"
+          }
+        ]
+      },
+      "expected": {
+        "sortedLeaves": [
+          "0x5b1cb6f2996ec29950a173ee728ed203bbaa46b1399274ab92031b51ca9335d5",
+          "0xb5cdf0d71c9c889409acd6cb9a60a08c6dff6dd92b914713a7450f1273f3a3fe",
+          "0xf53f25395c75265de0e6bd72938fe711bc780096f33974633387111b70b012cc"
+        ],
+        "root": "0x882de848dfba12e0013f7bfd22d3f4dad58dface1f003f1e4fb15b152918f308",
+        "proofs": [
+          ["0xb5cdf0d71c9c889409acd6cb9a60a08c6dff6dd92b914713a7450f1273f3a3fe", "0xf53f25395c75265de0e6bd72938fe711bc780096f33974633387111b70b012cc"],
+          ["0x5b1cb6f2996ec29950a173ee728ed203bbaa46b1399274ab92031b51ca9335d5", "0xf53f25395c75265de0e6bd72938fe711bc780096f33974633387111b70b012cc"],
+          ["0xab9d4fc0cdd7d39977a2f4b37c89e09f3a83dbc4c21c98d060cf9763ff24cdc9"]
+        ],
+        "verified": [true, true, true]
+      }
+    }
+  },
+  "decision_hash": {
+    "input": {
+      "canonicalPassportJson": "{\"candidateSet\":[{\"assets\":\"10000000\",\"id\":\"0x6666666666666666666666666666666666666666666666666666666666666666\",\"kind\":\"DEPOSIT\",\"label\":\"A\",\"reason\":\"SURPLUS_ABOVE_THRESHOLD\"}],\"candidateSetDigest\":\"0x5555555555555555555555555555555555555555555555555555555555555555\",\"chainId\":84532,\"choiceId\":\"0x6666666666666666666666666666666666666666666666666666666666666666\",\"choiceLabel\":\"A\",\"createdAtChain\":1792239375,\"mandateHash\":\"0x4444444444444444444444444444444444444444444444444444444444444444\",\"module\":\"0x00000000000000000000000000000000000000B0\",\"planner\":{\"ahem\":{\"g\":{\"forcedTokens\":0,\"mode\":\"OFF\",\"retries\":0,\"vetoes\":0},\"l\":{\"mode\":\"OFF\"}},\"host\":\"linux-host\",\"kind\":\"deterministic\",\"libMnnSha256\":\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"libllmSha256\":\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"modelId\":\"none\",\"modelSha256\":\"0x0000000000000000000000000000000000000000000000000000000000000000\"},\"reasonCode\":\"SURPLUS_ABOVE_THRESHOLD\",\"route\":\"INSTANT\",\"safe\":\"0x000000000000000000000000000000000000dEaD\",\"snapshot\":{\"block\":48238481,\"hash\":\"0x3333333333333333333333333333333333333333333333333333333333333333\"},\"userGoalSha256\":\"0x7777777777777777777777777777777777777777777777777777777777777777\",\"version\":\"4.1\"}"
+    },
+    "expected": {
+      "decisionHash": "0x18e288bbc5a529329060e0ca5e84f8b0cc655516cb4e4596c23d84a5707d3605"
+    }
+  }
+}
