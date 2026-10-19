@@ -49,8 +49,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1350.505,
-          "ttftMs": 1261.4359900000002
+          "totalMs": 887.055104,
+          "ttftMs": 851.186145
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -62,11 +62,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1065.4259370000002,
-        "actionTtftMs": 1023.71052,
-        "reviewMs": 1350.505,
-        "totalMs": 2437.162499,
-        "ttftMs": 1261.4359900000002
+        "actionMs": 1024.0842699999998,
+        "actionTtftMs": 906.256979,
+        "reviewMs": 887.055104,
+        "totalMs": 1921.243541,
+        "ttftMs": 851.186145
       }
     },
     "preview": {
@@ -216,8 +216,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 483.526927,
-          "ttftMs": 453.737291
+          "totalMs": 1349.589114,
+          "ttftMs": 1224.763437
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -229,11 +229,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 542.713386,
-        "actionTtftMs": 512.3405730000001,
-        "reviewMs": 483.526927,
-        "totalMs": 1032.145885,
-        "ttftMs": 453.737291
+        "actionMs": 1482.721458,
+        "actionTtftMs": 1392.279323,
+        "reviewMs": 1349.589114,
+        "totalMs": 2844.480415,
+        "ttftMs": 1224.763437
       }
     },
     "preview": {
@@ -383,8 +383,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1248.68526,
-          "ttftMs": 1148.884583
+          "totalMs": 1124.102031,
+          "ttftMs": 1076.29651
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -396,11 +396,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1211.393281,
-        "actionTtftMs": 1174.709947,
-        "reviewMs": 1248.68526,
-        "totalMs": 2467.2304679999997,
-        "ttftMs": 1148.884583
+        "actionMs": 934.420833,
+        "actionTtftMs": 900.5324999999999,
+        "reviewMs": 1124.102031,
+        "totalMs": 2066.8660929999996,
+        "ttftMs": 1076.29651
       }
     },
     "preview": {
@@ -550,8 +550,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 785.630781,
-          "ttftMs": 756.579739
+          "totalMs": 1376.966718,
+          "ttftMs": 1177.420156
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -563,11 +563,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 609.25927,
-        "actionTtftMs": 518.195781,
-        "reviewMs": 785.630781,
-        "totalMs": 1402.12552,
-        "ttftMs": 756.579739
+        "actionMs": 1527.723853,
+        "actionTtftMs": 1429.9140619999998,
+        "reviewMs": 1376.966718,
+        "totalMs": 2911.8865619999997,
+        "ttftMs": 1177.420156
       }
     },
     "preview": {
@@ -717,8 +717,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1374.438593,
-          "ttftMs": 1231.03078
+          "totalMs": 1028.9738530000002,
+          "ttftMs": 997.028124
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -730,11 +730,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1308.295833,
-        "actionTtftMs": 1274.346875,
-        "reviewMs": 1374.438593,
-        "totalMs": 2692.71177,
-        "ttftMs": 1231.03078
+        "actionMs": 551.676771,
+        "actionTtftMs": 522.129688,
+        "reviewMs": 1028.9738530000002,
+        "totalMs": 1587.831771,
+        "ttftMs": 997.028124
       }
     },
     "preview": {
@@ -884,8 +884,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 828.746042,
-          "ttftMs": 776.10099
+          "totalMs": 505.182135,
+          "ttftMs": 464.458645
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -897,11 +897,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1357.557552,
-        "actionTtftMs": 1173.6926560000002,
-        "reviewMs": 828.746042,
-        "totalMs": 2193.539634,
-        "ttftMs": 776.10099
+        "actionMs": 539.778906,
+        "actionTtftMs": 511.812604,
+        "reviewMs": 505.182135,
+        "totalMs": 1051.067447,
+        "ttftMs": 464.458645
       }
     },
     "preview": {
@@ -1051,8 +1051,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1019.568124,
-          "ttftMs": 989.487968
+          "totalMs": 514.136406,
+          "ttftMs": 463.204531
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -1064,11 +1064,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 609.218176,
-        "actionTtftMs": 545.7136449999999,
-        "reviewMs": 1019.568124,
-        "totalMs": 1634.878698,
-        "ttftMs": 989.487968
+        "actionMs": 570.832188,
+        "actionTtftMs": 540.928229,
+        "reviewMs": 514.136406,
+        "totalMs": 1091.026197,
+        "ttftMs": 463.204531
       }
     },
     "preview": {
@@ -1218,8 +1218,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 489.98349,
-          "ttftMs": 461.6150520000001
+          "totalMs": 481.988229,
+          "ttftMs": 449.647969
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -1231,11 +1231,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 588.568489,
-        "actionTtftMs": 548.30401,
-        "reviewMs": 489.98349,
-        "totalMs": 1084.457135,
-        "ttftMs": 461.6150520000001
+        "actionMs": 598.628958,
+        "actionTtftMs": 568.015573,
+        "reviewMs": 481.988229,
+        "totalMs": 1086.852655,
+        "ttftMs": 449.647969
       }
     },
     "preview": {
@@ -1385,8 +1385,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 474.9353640000001,
-          "ttftMs": 443.856197
+          "totalMs": 488.911823,
+          "ttftMs": 460.433125
         }
       },
       "raw": "{\"choice\":\"B\"}",
@@ -1398,11 +1398,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 602.521094,
-        "actionTtftMs": 571.168177,
-        "reviewMs": 474.9353640000001,
-        "totalMs": 1083.737916,
-        "ttftMs": 443.856197
+        "actionMs": 610.699219,
+        "actionTtftMs": 581.357865,
+        "reviewMs": 488.911823,
+        "totalMs": 1105.780832,
+        "ttftMs": 460.433125
       }
     },
     "preview": {
@@ -1552,8 +1552,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 482.626198,
-          "ttftMs": 453.063802
+          "totalMs": 485.976874,
+          "ttftMs": 456.715156
         }
       },
       "raw": "{\"choice\":\"B\"}",
@@ -1565,11 +1565,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 682.5467179999999,
-        "actionTtftMs": 651.663541,
-        "reviewMs": 482.626198,
-        "totalMs": 1171.589374,
-        "ttftMs": 453.063802
+        "actionMs": 743.2843740000001,
+        "actionTtftMs": 647.6727599999999,
+        "reviewMs": 485.976874,
+        "totalMs": 1235.678124,
+        "ttftMs": 456.715156
       }
     },
     "preview": {
@@ -1719,8 +1719,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 493.293802,
-          "ttftMs": 463.50974
+          "totalMs": 475.016146,
+          "ttftMs": 444.762864
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -1732,11 +1732,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 840.831666,
-        "actionTtftMs": 807.40927,
-        "reviewMs": 493.293802,
-        "totalMs": 1341.286197,
-        "ttftMs": 463.50974
+        "actionMs": 849.331145,
+        "actionTtftMs": 817.324687,
+        "reviewMs": 475.016146,
+        "totalMs": 1331.361302,
+        "ttftMs": 444.762864
       }
     },
     "preview": {
@@ -1886,8 +1886,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 468.995573,
-          "ttftMs": 440.2410420000001
+          "totalMs": 495.671198,
+          "ttftMs": 465.261823
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -1899,11 +1899,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1016.455208,
-        "actionTtftMs": 984.070468,
-        "reviewMs": 468.995573,
-        "totalMs": 1493.109948,
-        "ttftMs": 440.2410420000001
+        "actionMs": 1133.925521,
+        "actionTtftMs": 1101.424844,
+        "reviewMs": 495.671198,
+        "totalMs": 1637.484114,
+        "ttftMs": 465.261823
       }
     },
     "preview": {
@@ -2053,8 +2053,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 492.984271,
-          "ttftMs": 464.722031
+          "totalMs": 488.3103650000001,
+          "ttftMs": 458.860573
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -2066,8 +2066,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 496.069948,
-        "ttftMs": 464.722031
+        "totalMs": 491.419948,
+        "ttftMs": 458.860573
       }
     },
     "preview": null,
@@ -2129,8 +2129,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 488.927344,
-          "ttftMs": 459.429114
+          "totalMs": 482.951354,
+          "ttftMs": 453.743854
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -2142,8 +2142,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 491.828906,
-        "ttftMs": 459.429114
+        "totalMs": 485.79974,
+        "ttftMs": 453.743854
       }
     },
     "preview": null,
@@ -2205,8 +2205,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 481.513177,
-          "ttftMs": 453.987812
+          "totalMs": 488.449791,
+          "ttftMs": 455.158698
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -2218,8 +2218,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 484.464323,
-        "ttftMs": 453.987812
+        "totalMs": 491.370677,
+        "ttftMs": 455.158698
       }
     },
     "preview": null,
@@ -2281,8 +2281,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 489.182031,
-          "ttftMs": 459.773593
+          "totalMs": 500.848906,
+          "ttftMs": 461.172292
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -2294,8 +2294,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 492.082291,
-        "ttftMs": 459.773593
+        "totalMs": 503.739115,
+        "ttftMs": 461.172292
       }
     },
     "preview": null,
@@ -2357,8 +2357,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 479.468073,
-          "ttftMs": 449.813125
+          "totalMs": 766.076146,
+          "ttftMs": 737.421875
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -2370,8 +2370,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 482.335833,
-        "ttftMs": 449.813125
+        "totalMs": 768.936771,
+        "ttftMs": 737.421875
       }
     },
     "preview": null,
@@ -2433,8 +2433,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 489.150989,
-          "ttftMs": 457.89125
+          "totalMs": 501.8876570000001,
+          "ttftMs": 473.666459
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2446,11 +2446,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 528.636927,
-        "actionTtftMs": 499.265208,
-        "reviewMs": 489.150989,
-        "totalMs": 1023.709636,
-        "ttftMs": 457.89125
+        "actionMs": 550.011614,
+        "actionTtftMs": 518.504635,
+        "reviewMs": 501.8876570000001,
+        "totalMs": 1057.831301,
+        "ttftMs": 473.666459
       }
     },
     "preview": {
@@ -2600,8 +2600,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 491.008906,
-          "ttftMs": 461.265468
+          "totalMs": 490.909322,
+          "ttftMs": 461.852656
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2613,11 +2613,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 539.9469270000001,
-        "actionTtftMs": 511.082291,
-        "reviewMs": 491.008906,
-        "totalMs": 1036.767552,
-        "ttftMs": 461.265468
+        "actionMs": 546.005729,
+        "actionTtftMs": 516.774323,
+        "reviewMs": 490.909322,
+        "totalMs": 1042.695156,
+        "ttftMs": 461.852656
       }
     },
     "preview": {
@@ -2767,8 +2767,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 480.565573,
-          "ttftMs": 452.321771
+          "totalMs": 491.358437,
+          "ttftMs": 460.75776
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2780,11 +2780,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 545.395573,
-        "actionTtftMs": 516.917187,
-        "reviewMs": 480.565573,
-        "totalMs": 1031.765989,
-        "ttftMs": 452.321771
+        "actionMs": 546.396406,
+        "actionTtftMs": 517.851041,
+        "reviewMs": 491.358437,
+        "totalMs": 1043.55578,
+        "ttftMs": 460.75776
       }
     },
     "preview": {
@@ -2934,8 +2934,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 489.224635,
-          "ttftMs": 461.230364
+          "totalMs": 490.446354,
+          "ttftMs": 460.64901
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2947,11 +2947,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 554.8528120000001,
-        "actionTtftMs": 525.5481239999999,
-        "reviewMs": 489.224635,
-        "totalMs": 1049.949427,
-        "ttftMs": 461.230364
+        "actionMs": 549.2630200000001,
+        "actionTtftMs": 520.3458330000001,
+        "reviewMs": 490.446354,
+        "totalMs": 1045.533073,
+        "ttftMs": 460.64901
       }
     },
     "preview": {
@@ -3101,8 +3101,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 490.338802,
-          "ttftMs": 459.025677
+          "totalMs": 480.630573,
+          "ttftMs": 448.486666
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -3114,8 +3114,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 493.212604,
-        "ttftMs": 459.025677
+        "totalMs": 483.502916,
+        "ttftMs": 448.486666
       }
     },
     "preview": null,
@@ -3177,8 +3177,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 489.184687,
-          "ttftMs": 458.529479
+          "totalMs": 504.10437500000006,
+          "ttftMs": 463.732239
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3190,11 +3190,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 550.218437,
-        "actionTtftMs": 521.918229,
-        "reviewMs": 489.184687,
-        "totalMs": 1045.2775,
-        "ttftMs": 458.529479
+        "actionMs": 535.926094,
+        "actionTtftMs": 506.793438,
+        "reviewMs": 504.10437500000006,
+        "totalMs": 1045.8871350000002,
+        "ttftMs": 463.732239
       }
     },
     "preview": {
@@ -3344,8 +3344,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 490.305573,
-          "ttftMs": 460.783542
+          "totalMs": 474.866979,
+          "ttftMs": 444.567917
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3357,11 +3357,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 553.292656,
-        "actionTtftMs": 523.569739,
-        "reviewMs": 490.305573,
-        "totalMs": 1049.4495829999998,
-        "ttftMs": 460.783542
+        "actionMs": 589.683437,
+        "actionTtftMs": 508.137395,
+        "reviewMs": 474.866979,
+        "totalMs": 1070.364063,
+        "ttftMs": 444.567917
       }
     },
     "preview": {
@@ -3511,8 +3511,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 494.197552,
-          "ttftMs": 461.96651
+          "totalMs": 1315.699375,
+          "ttftMs": 1229.127969
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3524,11 +3524,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 664.026667,
-        "actionTtftMs": 633.313385,
-        "reviewMs": 494.197552,
-        "totalMs": 1164.151562,
-        "ttftMs": 461.96651
+        "actionMs": 1463.898594,
+        "actionTtftMs": 1365.633281,
+        "reviewMs": 1315.699375,
+        "totalMs": 2786.803697,
+        "ttftMs": 1229.127969
       }
     },
     "preview": {
@@ -3660,8 +3660,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 488.057657,
-        "ttftMs": 459.383854
+        "totalMs": 1061.655208,
+        "ttftMs": 1031.86526
       }
     },
     "preview": null,
@@ -3705,8 +3705,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 470.275156,
-        "ttftMs": 439.59151
+        "totalMs": 459.19849,
+        "ttftMs": 424.820625
       }
     },
     "preview": null,
@@ -3768,8 +3768,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 486.078229,
-          "ttftMs": 457.06875
+          "totalMs": 500.876198,
+          "ttftMs": 473.49375
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3781,11 +3781,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 557.238177,
-        "actionTtftMs": 528.112969,
-        "reviewMs": 486.078229,
-        "totalMs": 1049.35177,
-        "ttftMs": 457.06875
+        "actionMs": 539.165885,
+        "actionTtftMs": 508.5529680000001,
+        "reviewMs": 500.876198,
+        "totalMs": 1046.025781,
+        "ttftMs": 473.49375
       }
     },
     "preview": {
@@ -3935,8 +3935,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 477.957188,
-          "ttftMs": 448.340625
+          "totalMs": 935.241406,
+          "ttftMs": 842.571094
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3948,11 +3948,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 555.772603,
-        "actionTtftMs": 526.763801,
-        "reviewMs": 477.957188,
-        "totalMs": 1039.763958,
-        "ttftMs": 448.340625
+        "actionMs": 1593.732656,
+        "actionTtftMs": 1526.199218,
+        "reviewMs": 935.241406,
+        "totalMs": 2536.086718,
+        "ttftMs": 842.571094
       }
     },
     "preview": {
@@ -4102,8 +4102,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 490.28651,
-          "ttftMs": 462.720885
+          "totalMs": 1365.117395,
+          "ttftMs": 1265.373124
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -4115,11 +4115,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 551.83651,
-        "actionTtftMs": 523.483437,
-        "reviewMs": 490.28651,
-        "totalMs": 1048.136562,
-        "ttftMs": 462.720885
+        "actionMs": 603.991198,
+        "actionTtftMs": 574.9191139999999,
+        "reviewMs": 1365.117395,
+        "totalMs": 1977.321666,
+        "ttftMs": 1265.373124
       }
     },
     "preview": {
@@ -4269,8 +4269,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 548.282969,
-          "ttftMs": 519.223177
+          "totalMs": 596.669895,
+          "ttftMs": 508.283802
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4282,8 +4282,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 551.33974,
-        "ttftMs": 519.223177
+        "totalMs": 599.714062,
+        "ttftMs": 508.283802
       }
     },
     "preview": null,
@@ -4345,8 +4345,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 510.784323,
-          "ttftMs": 467.85474
+          "totalMs": 572.820938,
+          "ttftMs": 495.070729
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4358,8 +4358,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 513.806302,
-        "ttftMs": 467.85474
+        "totalMs": 575.81974,
+        "ttftMs": 495.070729
       }
     },
     "preview": null,
@@ -4421,8 +4421,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 546.042135,
-          "ttftMs": 470.643958
+          "totalMs": 1600.5674989999998,
+          "ttftMs": 1484.21677
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -4434,11 +4434,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 539.7159369999999,
-        "actionTtftMs": 509.554583,
-        "reviewMs": 546.042135,
-        "totalMs": 1091.783176,
-        "ttftMs": 470.643958
+        "actionMs": 1392.672291,
+        "actionTtftMs": 1311.219374,
+        "reviewMs": 1600.5674989999998,
+        "totalMs": 3002.7482280000004,
+        "ttftMs": 1484.21677
       }
     },
     "preview": {
@@ -4588,8 +4588,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 477.892031,
-          "ttftMs": 448.2894270000001
+          "totalMs": 1146.958176,
+          "ttftMs": 1119.73177
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4601,8 +4601,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 480.860468,
-        "ttftMs": 448.2894270000001
+        "totalMs": 1149.942813,
+        "ttftMs": 1119.73177
       }
     },
     "preview": null,
@@ -4664,8 +4664,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 482.14401,
-          "ttftMs": 452.454531
+          "totalMs": 480.904011,
+          "ttftMs": 451.382031
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -4677,11 +4677,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 557.376875,
-        "actionTtftMs": 528.469375,
-        "reviewMs": 482.14401,
-        "totalMs": 1045.509895,
-        "ttftMs": 452.454531
+        "actionMs": 518.512031,
+        "actionTtftMs": 489.303437,
+        "reviewMs": 480.904011,
+        "totalMs": 1005.508646,
+        "ttftMs": 451.382031
       }
     },
     "preview": {
@@ -4813,8 +4813,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 494.2260419999999,
-        "ttftMs": 465.287084
+        "totalMs": 457.365833,
+        "ttftMs": 426.768229
       }
     },
     "preview": null,
@@ -4858,8 +4858,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 494.296666,
-        "ttftMs": 466.209323
+        "totalMs": 748.4845829999999,
+        "ttftMs": 644.80151
       }
     },
     "preview": null,
@@ -4903,8 +4903,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 491.021979,
-        "ttftMs": 462.499687
+        "totalMs": 1412.893125,
+        "ttftMs": 1312.538906
       }
     },
     "preview": null,
@@ -4966,8 +4966,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 491.769218,
-          "ttftMs": 462.66026
+          "totalMs": 674.803177,
+          "ttftMs": 645.212396
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4979,8 +4979,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 494.672135,
-        "ttftMs": 462.66026
+        "totalMs": 678.8050519999999,
+        "ttftMs": 645.212396
       }
     },
     "preview": null,
@@ -5042,8 +5042,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 484.064427,
-          "ttftMs": 455.155833
+          "totalMs": 451.430885,
+          "ttftMs": 423.592812
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5055,8 +5055,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 486.919479,
-        "ttftMs": 455.155833
+        "totalMs": 454.323594,
+        "ttftMs": 423.592812
       }
     },
     "preview": null,
@@ -5100,8 +5100,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 496.887344,
-        "ttftMs": 465.339114
+        "totalMs": 455.863385,
+        "ttftMs": 426.876458
       }
     },
     "preview": null,
@@ -5163,8 +5163,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 489.859895,
-          "ttftMs": 459.720468
+          "totalMs": 476.391249,
+          "ttftMs": 446.304843
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5176,8 +5176,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 492.808959,
-        "ttftMs": 459.720468
+        "totalMs": 479.287239,
+        "ttftMs": 446.304843
       }
     },
     "preview": null,
@@ -5239,8 +5239,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 497.573333,
-          "ttftMs": 460.83651
+          "totalMs": 1088.809374,
+          "ttftMs": 974.72427
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5252,8 +5252,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 500.420781,
-        "ttftMs": 460.83651
+        "totalMs": 1091.651562,
+        "ttftMs": 974.72427
       }
     },
     "preview": null,
@@ -5315,8 +5315,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 490.034479,
-          "ttftMs": 460.726145
+          "totalMs": 1355.425156,
+          "ttftMs": 1277.0301040000002
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5328,8 +5328,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 492.925,
-        "ttftMs": 460.726145
+        "totalMs": 1359.3852069999998,
+        "ttftMs": 1277.0301040000002
       }
     },
     "preview": null,
@@ -5391,8 +5391,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 481.26802,
-          "ttftMs": 450.640364
+          "totalMs": 1246.307187,
+          "ttftMs": 1154.096562
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5404,8 +5404,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 484.1714060000001,
-        "ttftMs": 450.640364
+        "totalMs": 1250.324478,
+        "ttftMs": 1154.096562
       }
     },
     "preview": null,
@@ -5467,8 +5467,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 451.359218,
-          "ttftMs": 421.964531
+          "totalMs": 847.088073,
+          "ttftMs": 813.627552
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -5480,11 +5480,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 527.51526,
-        "actionTtftMs": 497.608177,
-        "reviewMs": 451.359218,
-        "totalMs": 984.730781,
-        "ttftMs": 421.964531
+        "actionMs": 834.360208,
+        "actionTtftMs": 799.89276,
+        "reviewMs": 847.088073,
+        "totalMs": 1689.611406,
+        "ttftMs": 813.627552
       }
     },
     "preview": {
@@ -5634,8 +5634,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 830.172656,
-          "ttftMs": 790.33974
+          "totalMs": 1226.641614,
+          "ttftMs": 1127.198594
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5647,8 +5647,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 833.162135,
-        "ttftMs": 790.33974
+        "totalMs": 1230.6963019999998,
+        "ttftMs": 1127.198594
       }
     },
     "preview": null,
@@ -5710,8 +5710,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1189.106093,
-          "ttftMs": 1130.8026550000002
+          "totalMs": 1327.565781,
+          "ttftMs": 1267.007552
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -5723,11 +5723,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 787.285416,
-        "actionTtftMs": 701.101041,
-        "reviewMs": 1189.106093,
-        "totalMs": 1982.163958,
-        "ttftMs": 1130.8026550000002
+        "actionMs": 557.13802,
+        "actionTtftMs": 505.266145,
+        "reviewMs": 1327.565781,
+        "totalMs": 1893.905104,
+        "ttftMs": 1267.007552
       }
     },
     "preview": {
@@ -5877,8 +5877,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 487.10770799999995,
-          "ttftMs": 458.92651
+          "totalMs": 857.48427,
+          "ttftMs": 784.062448
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5890,8 +5890,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 491.082708,
-        "ttftMs": 458.92651
+        "totalMs": 860.348333,
+        "ttftMs": 784.062448
       }
     },
     "preview": null,
@@ -5953,8 +5953,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 472.496614,
-          "ttftMs": 444.324948
+          "totalMs": 1169.529166,
+          "ttftMs": 1081.228958
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5966,8 +5966,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 475.443021,
-        "ttftMs": 444.324948
+        "totalMs": 1172.4549470000002,
+        "ttftMs": 1081.228958
       }
     },
     "preview": null,
@@ -6029,8 +6029,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 473.155104,
-          "ttftMs": 442.742969
+          "totalMs": 1322.5071349999998,
+          "ttftMs": 1221.901615
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6042,8 +6042,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 476.064843,
-        "ttftMs": 442.742969
+        "totalMs": 1327.110364,
+        "ttftMs": 1221.901615
       }
     },
     "preview": null,
@@ -6105,8 +6105,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 471.833437,
-          "ttftMs": 443.340885
+          "totalMs": 489.129687,
+          "ttftMs": 457.204896
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6118,8 +6118,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 474.684271,
-        "ttftMs": 443.340885
+        "totalMs": 493.080833,
+        "ttftMs": 457.204896
       }
     },
     "preview": null,
@@ -6181,8 +6181,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 647.517812,
-          "ttftMs": 550.878125
+          "totalMs": 471.137448,
+          "ttftMs": 442.039167
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6194,8 +6194,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 650.4228119999999,
-        "ttftMs": 550.878125
+        "totalMs": 474.064948,
+        "ttftMs": 442.039167
       }
     },
     "preview": null,
@@ -6257,8 +6257,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1245.233437,
-          "ttftMs": 1150.034531
+          "totalMs": 454.76375,
+          "ttftMs": 425.989531
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6270,8 +6270,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1248.223177,
-        "ttftMs": 1150.034531
+        "totalMs": 457.703437,
+        "ttftMs": 425.989531
       }
     },
     "preview": null,
@@ -6333,8 +6333,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1175.674635,
-          "ttftMs": 1091.184323
+          "totalMs": 475.479896,
+          "ttftMs": 444.421354
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -6346,11 +6346,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1164.480676,
-        "actionTtftMs": 1136.189999,
-        "reviewMs": 1175.674635,
-        "totalMs": 2354.7029159999997,
-        "ttftMs": 1091.184323
+        "actionMs": 1384.3718219999998,
+        "actionTtftMs": 1276.9110930000002,
+        "reviewMs": 475.479896,
+        "totalMs": 1865.705572,
+        "ttftMs": 444.421354
       }
     },
     "preview": {
@@ -6500,8 +6500,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 471.738281,
-          "ttftMs": 442.101718
+          "totalMs": 1191.945729,
+          "ttftMs": 1161.9075
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -6513,11 +6513,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 803.695676,
-        "actionTtftMs": 706.493645,
-        "reviewMs": 471.738281,
-        "totalMs": 1281.229582,
-        "ttftMs": 442.101718
+        "actionMs": 510.11817699999995,
+        "actionTtftMs": 480.409688,
+        "reviewMs": 1191.945729,
+        "totalMs": 1709.06875,
+        "ttftMs": 1161.9075
       }
     },
     "preview": {
@@ -6667,8 +6667,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1599.918802,
-          "ttftMs": 1451.380573
+          "totalMs": 477.652865,
+          "ttftMs": 448.085052
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6680,8 +6680,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1602.890156,
-        "ttftMs": 1451.380573
+        "totalMs": 480.538489,
+        "ttftMs": 448.085052
       }
     },
     "preview": null,
@@ -6743,8 +6743,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1179.0543229999998,
-          "ttftMs": 1121.212344
+          "totalMs": 492.46651,
+          "ttftMs": 461.630573
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6756,8 +6756,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1183.3930719999998,
-        "ttftMs": 1121.212344
+        "totalMs": 495.360052,
+        "ttftMs": 461.630573
       }
     },
     "preview": null,
@@ -6819,8 +6819,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 795.667708,
-          "ttftMs": 722.6571349999999
+          "totalMs": 487.3775,
+          "ttftMs": 458.902709
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6832,8 +6832,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 798.730156,
-        "ttftMs": 722.6571349999999
+        "totalMs": 490.315052,
+        "ttftMs": 458.902709
       }
     },
     "preview": null,
@@ -6895,8 +6895,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 793.305312,
-          "ttftMs": 674.139583
+          "totalMs": 474.126666,
+          "ttftMs": 444.183229
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6908,8 +6908,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 796.229739,
-        "ttftMs": 674.139583
+        "totalMs": 477.070364,
+        "ttftMs": 444.183229
       }
     },
     "preview": null,
