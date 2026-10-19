@@ -3,7 +3,7 @@
 //! This module owns the process-wide [`GuardrailEngine`] and the async runtime, and it
 //! is the only place that sequences parsing → policy → execution. Both halves of it are
 //! parameterised so the pipeline can be tested without touching the environment or the
-//! FFI boundary, and both are reachable from [`crate::execute_intent`].
+//! FFI boundary, and both are reachable from `execute_intent`.
 
 use std::collections::HashMap;
 use std::panic::AssertUnwindSafe;

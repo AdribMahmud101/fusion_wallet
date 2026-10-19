@@ -14,6 +14,10 @@ crate-type = ["lib", "cdylib"]
 name = "uniffi-bindgen"
 path = "src/bin/uniffi-bindgen.rs"
 
+[[bin]]
+name = "agent-runner"
+path = "src/bin/agent-runner.rs"
+
 [dependencies]
 alloy = { version = "2.5", default-features = false, features = [
     "std",

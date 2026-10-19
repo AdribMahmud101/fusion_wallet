@@ -59,4 +59,20 @@
   - Unit tests in `src/preview.rs` and `src/encode.rs`.
 
 ## Priority 4: Snapshot, Signing, Agent Runner CLI
-- **Status**: PENDING
+- **Status**: COMPLETE
+- **Modules**:
+  - `src/snapshot.rs`: One-block state snapshot reads via alloy and Multicall3 (§10.5), pinned to block number/hash/timestamp, decoding Safe cash, vault shares/assets, and module policy/state/queue.
+  - `src/sign.rs`: EIP-1559 transaction construction and signing with zeroized secp256k1 keys (`Zeroizing<[u8; 32]>`) (§10.2, §11.3). Private keys never cross FFI or leak into logs.
+  - `src/bin/agent-runner.rs`: Autonomous CLI agent runner per §10.2 and §19.5 (snapshot → candidates → planner → passport → preview → sign → broadcast → reconcile; produces evidence rows).
+- **Tests**:
+  - `src/sign.rs` tests:
+    - `test_sign_eip1559_deterministic`
+    - `test_sign_prepared_json`
+  - `src/snapshot.rs` tests:
+    - `test_convert_policy_mapping`
+    - `test_convert_policy_invalid_tier`
+    - `test_convert_module_state_mapping`
+  - `src/bin/agent-runner.rs`:
+    - CLI `--help` invocation
+    - End-to-end `--dry-run` simulation over snapshot fixtures producing signed EIP-1559 transaction, JCS decision passport, and evidence row
+

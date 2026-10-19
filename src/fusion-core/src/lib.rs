@@ -20,10 +20,11 @@ pub mod passport;
 pub mod planner_io;
 pub mod preview;
 pub mod router;
+pub mod sign;
+pub mod snapshot;
 pub mod types;
 
 use alloy::primitives::{Address, B256};
-use zeroize::Zeroizing;
 
 // Emits UniFFI scaffolding
 uniffi::setup_scaffolding!("fusion_core");
@@ -368,34 +369,56 @@ pub fn encode_call(kind: String, args_json: String) -> String {
     })
 }
 
-/// Reads snapshot at single block (Priority 4 placeholder; Appendix B).
+/// Reads snapshot at single block (§10.5, Appendix B).
 #[uniffi::export]
 pub fn read_snapshot(manifest_json: String) -> String {
-    panic_guard(
-        || match manifest::DeploymentManifest::parse_and_validate(&manifest_json) {
-            Ok(manifest) => serde_json::json!({
+    panic_guard(|| {
+        let manifest = match manifest::DeploymentManifest::parse_and_validate(&manifest_json) {
+            Ok(m) => m,
+            Err(e) => {
+                return serde_json::json!({ "ok": false, "error": { "message": e.to_string() } })
+                    .to_string()
+            }
+        };
+
+        let res = match tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+        {
+            Ok(rt) => rt.block_on(snapshot::read_snapshot(&manifest)),
+            Err(e) => {
+                return serde_json::json!({ "ok": false, "error": { "message": e.to_string() } })
+                    .to_string()
+            }
+        };
+
+        match res {
+            Ok(snap) => serde_json::json!({
                 "ok": true,
-                "chainId": manifest.chain_id,
-                "safe": manifest.safe,
-                "module": manifest.module
+                "snapshot": snap
             })
             .to_string(),
             Err(e) => serde_json::json!({ "ok": false, "error": { "message": e.to_string() } })
                 .to_string(),
-        },
-    )
+        }
+    })
 }
 
 /// Signs prepared EIP-1559 transaction in :signer: process (§10.2, Appendix B).
 #[uniffi::export]
 pub fn sign_prepared(tx_json: String, key_hex: String) -> String {
-    panic_guard(|| {
-        let _key = Zeroizing::new(key_hex);
-        serde_json::json!({
+    panic_guard(|| match sign::sign_prepared_json(&tx_json, &key_hex) {
+        Ok(out) => serde_json::json!({
             "ok": true,
-            "tx": tx_json
+            "rawTx": out.raw_tx,
+            "txHash": out.tx_hash
         })
-        .to_string()
+        .to_string(),
+        Err(e) => serde_json::json!({
+            "ok": false,
+            "error": { "message": e.to_string() }
+        })
+        .to_string(),
     })
 }
 

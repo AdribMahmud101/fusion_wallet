@@ -107,6 +107,18 @@ pub fn encode_queue_action(module: Address, action: &Action, proof: &[B256]) -> 
     }
 }
 
+/// Encodes `IKavachiModule.approveAction(action, validUntil)`.
+pub fn encode_approve_action(module: Address, action: &Action, valid_until: u64) -> EncodedCall {
+    let call = IKavachiModuleCalls::approveActionCall {
+        action: to_sol_action_calldata(action),
+        validUntil: valid_until,
+    };
+    EncodedCall {
+        to: module,
+        data: format!("{:#x}", Bytes::from(call.abi_encode())),
+    }
+}
+
 /// Encodes `IKavachiModule.cancelQueuedAction(digest)`.
 pub fn encode_cancel_queued_action(module: Address, digest: B256) -> EncodedCall {
     let call = IKavachiModuleCalls::cancelQueuedActionCall { digest };
