@@ -26,3 +26,8 @@ exits 0, regenerating `latest.json` from scratch.
 ## Acceptance
 - Honest results: if an attack gets through a layer, record it as such (and which later layer caught it, if any). No test weakened. No secrets. Anvil only for new attack txs (do not broadcast to Base Sepolia — live agent cards are running).
 - Commit on `card/K13`. Do not merge, do not push.
+
+## REVISION 2 (supervisor)
+Your previous run could not execute commands (permission mode) — that is fixed; you can now run cargo/forge/anvil/python3. Your uncommitted files in `arena/`, `evidence/results/`, `src/contracts/test/arena/`, `src/fusion-core/tests/arena_pipeline.rs` are still in the worktree — continue from them.
+The supervisor ran `bash arena/run_arena.sh`; it failed:
+`arena/onchain.py` line 22 `debug_traceTransaction` → `{'code': -32001, 'message': 'transaction not found'}` during `deploy('MockUSDC')`. Wait for the receipt (`eth_getTransactionReceipt` polling) before tracing, or start anvil with automine and `--steps-tracing`; fall back to receipt status + revert reason via `eth_call` replay if tracing is unavailable. Then run the DoD yourself until it is green, and commit.
