@@ -18,6 +18,8 @@ def redact(text):
     for k, v in os.environ.items():
         if k.endswith('PRIVATE_KEY') and v:
             text = text.replace(v, '[REDACTED]').replace(v.removeprefix('0x'), '[REDACTED]')
+            try: text = text.replace(str(int(v,16)), '[REDACTED]')
+            except ValueError: pass
     return text
 
 
@@ -83,11 +85,8 @@ def artifact(name):
 
 
 def event_abi(name):
-    # Official Safe events and Kavachi events come directly from compiled source ABIs.
-    for contract in ['IKavachiModule', 'Safe', 'SafeProxyFactory', 'KavachiDemoVault', 'KavachiTestSanctionsList']:
-        for entry in artifact(contract)['abi']:
-            if entry.get('type') == 'event' and entry['name'] == name: return entry
-    raise ValueError('Unknown event: ' + name)
+    # Source ABI snapshot ships with the verifier; no compiler/build is needed by judges.
+    return json.loads((ROOT / 'scripts/event_abi.json').read_text())[name]
 
 
 def decode_event(log, abi):
@@ -102,7 +101,11 @@ def decode_event(log, abi):
             value = '0x' + data[offset:offset + 64]
             offset += 64
         kind = item['type']
-        if kind.startswith('uint') or kind.startswith('int'): value = str(int(value, 16))
+        if kind == 'address[]' and not item['indexed']:
+            start = int(value, 16) * 2
+            count = int(data[start:start + 64], 16)
+            value = ['0x' + data[start + 64 + i*64:start + 128 + i*64][-40:] for i in range(count)]
+        elif kind.startswith('uint') or kind.startswith('int'): value = str(int(value, 16))
         elif kind == 'bool': value = bool(int(value, 16))
         elif kind == 'address': value = '0x' + value[-40:]
         fields[item['name']] = value

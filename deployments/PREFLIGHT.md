@@ -1,6 +1,6 @@
 # Base Sepolia preflight
 
-Checked 2026-10-19T09:38:44.112468+00:00, block 48317217 (84532).
+Checked 2026-10-19T09:48:08.849056+00:00, block 48317500 (84532).
 
 | Contract | Address | Code bytes |
 |---|---|---|
@@ -18,7 +18,7 @@ Official faucet address source: https://github.com/bgd-labs/aave-address-book/bl
 
 waUSDC asset: `0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f`; EIP-1967 implementation: `0x208747c806b13022db31622c0c9bd3979532a8d6`.
 
-Deployer `0x77A9224AAc84d496a4ad0E865dcA9eA27B6a22Da` balance: 0 wei. Simulation is not a mint transaction.
+Deployer `0x77A9224AAc84d496a4ad0E865dcA9eA27B6a22Da` balance: 130000000000000000 wei. Simulation is not a mint transaction.
 
 All four canonical Safe contracts exist; SL5 is unnecessary. Runtime code hashes and exact RPC results are in `preflight.json`.
 

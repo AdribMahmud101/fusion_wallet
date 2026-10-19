@@ -1,7 +1,7 @@
 {
   "chainId": 84532,
-  "blockNumber": 48317217,
-  "checkedAt": "2026-10-19T09:38:44.112468+00:00",
+  "blockNumber": 48317500,
+  "checkedAt": "2026-10-19T09:48:08.849056+00:00",
   "contracts": {
     "SafeL2": {
       "address": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
@@ -40,7 +40,7 @@
     }
   },
   "deployer": "0x77A9224AAc84d496a4ad0E865dcA9eA27B6a22Da",
-  "deployerBalanceWei": "0",
+  "deployerBalanceWei": "130000000000000000",
   "waUSDCAsset": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
   "waUSDCImplementation": "0x208747c806b13022db31622c0c9bd3979532a8d6",
   "faucetSource": "https://github.com/bgd-labs/aave-address-book/blob/main/src/MiscBaseSepolia.sol",

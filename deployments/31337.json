@@ -1,0 +1,181 @@
+{
+  "chainId": 31337,
+  "status": "SETUP_COMPLETE",
+  "profile": "FULL",
+  "amountDivisor": 1,
+  "rpcUrl": "http://127.0.0.1:18545",
+  "compiler": {
+    "version": "0.8.24+commit.e11b9ed9",
+    "evmVersion": "cancun",
+    "viaIR": true,
+    "optimizer": true,
+    "optimizerRuns": 200,
+    "officialSafeViaIR": false
+  },
+  "owners": [
+    "0x61dd06cE2f07d3E4F97d097741b0D7FD50F97F79",
+    "0x208Bfee9F222d611b4Db71d5ee53b3dAB1A2188A"
+  ],
+  "threshold": 2,
+  "roles": {
+    "deployer": "0x77A9224AAc84d496a4ad0E865dcA9eA27B6a22Da",
+    "owner": "0x61dd06cE2f07d3E4F97d097741b0D7FD50F97F79",
+    "approver": "0x208Bfee9F222d611b4Db71d5ee53b3dAB1A2188A",
+    "guardian": "0x46B8E40EB9767BD46E03C5eCF398C10E1372251E",
+    "session": "0xB52Cb48eC1cc5Ad1171C83F162228e31752F87fA",
+    "ops": "0xC78Be9Da2204CC3020B055520102479FA3175066"
+  },
+  "payeeDelaySeconds": 3600,
+  "payeeDelayLabel": "demo setting; production default 24 h",
+  "obligationsDueAt": 1792576197,
+  "contracts": {
+    "safe": {
+      "address": "0xB51348c1651F9C36dEE22034C60514a66F8CF4Ca",
+      "runtimeCodeHash": "0x4833fa308fed03b2c415aa7fd73a4bd1741b460e27720aaac65b2de9d604cf22",
+      "runtimeCodeBytes": 122,
+      "observedAtBlock": 11,
+      "source": "lib/safe-smart-account/contracts/proxies/SafeProxy.sol:SafeProxy",
+      "deploymentTxHash": "0xe633ce797c063c970660435929d3c615a1e6c6d0664f569d11ad0db953ebdd85",
+      "deploymentBlock": 7
+    },
+    "asset": {
+      "address": "0xA560ec10259657E9bADd297E68286d2838Cd5a8f",
+      "runtimeCodeHash": "0x0bb08bad43c1c8e81e9bb46742cf3774387587f54b63804d973e87ec7f5a36c0",
+      "runtimeCodeBytes": 4840,
+      "observedAtBlock": 11,
+      "source": "src/MockUSDC.sol:MockUSDC",
+      "deploymentTxHash": "0x38c2133979cbc965f8a3d9aa2f52562ff7b6aa49c3dcdac495be46982054ed7f",
+      "deploymentBlock": 6
+    },
+    "vaultA": {
+      "address": "0xed2f5c653fa68EE120F00a07665273a6C8a66fDc",
+      "runtimeCodeHash": "0x783c86f2d664cbb24717daaa8d7e870d48f92d8c6f7264fba67cb624a0ddbf14",
+      "runtimeCodeBytes": 4538,
+      "observedAtBlock": 11,
+      "source": "src/KavachiDemoVault.sol:KavachiDemoVault",
+      "deploymentTxHash": "0x26deed94d4d8df3bbde765042966f118b93066aef2e6ac0a227f130af1d4bf54",
+      "deploymentBlock": 8
+    },
+    "vaultB": {
+      "address": "0x4beEd29cF74Ca447B1BeF851C82E512D87AaDEc9",
+      "runtimeCodeHash": "0x783c86f2d664cbb24717daaa8d7e870d48f92d8c6f7264fba67cb624a0ddbf14",
+      "runtimeCodeBytes": 4538,
+      "observedAtBlock": 11,
+      "source": "src/KavachiDemoVault.sol:KavachiDemoVault",
+      "deploymentTxHash": "0xfd39e505011ebe3a3ef3840906fc66adf4fd6514de6ce5324471def8fb6c3093",
+      "deploymentBlock": 9
+    },
+    "sanctionsList": {
+      "address": "0x3E7d0cA147ddD8075575509F7D529FcCe68204Aa",
+      "runtimeCodeHash": "0xdf12e63d3de14c6eb04901e8522690508a833409719ef2ced37ce7407b022856",
+      "runtimeCodeBytes": 652,
+      "observedAtBlock": 11,
+      "source": "src/KavachiTestSanctionsList.sol:KavachiTestSanctionsList",
+      "deploymentTxHash": "0x7539421c442b8864c8620ae09662a6a6a719798028e18a1a1cedd2e23bba9757",
+      "deploymentBlock": 10
+    },
+    "module": {
+      "address": "0xc2F72F63b134EAF479E9fa4fDc47d6e8C6F966B6",
+      "runtimeCodeHash": "0xc7c6fe5ee4f1386292716a98e803177ac9f18a59d9e9fe61c7ccc379489b2758",
+      "runtimeCodeBytes": 24301,
+      "observedAtBlock": 11,
+      "source": "src/KavachiModule.sol:KavachiModule",
+      "deploymentTxHash": "0x4e3ef650a69b7ead20d6d6461f1abf47dd9c12fdd298810085795a9577c55cf4",
+      "deploymentBlock": 11
+    },
+    "safeSingleton": {
+      "address": "0x7ee721922DFFe2beE9Ec8E4eF51646110E6CBC1f",
+      "runtimeCodeHash": "0xaf7f9c0d19e65cc3af8519244192e5099a64d445926491dae647d4cdd7a7f4a9",
+      "runtimeCodeBytes": 12226,
+      "observedAtBlock": 11,
+      "source": "lib/safe-smart-account/contracts/Safe.sol:Safe",
+      "deploymentTxHash": "0x351c7bd7dafae3c1276efb75d66167e35c6fe85d48eb91a17788fa316b698395",
+      "deploymentBlock": 2
+    },
+    "safeProxyFactory": {
+      "address": "0xF455c4ac227a562F678E761ac25371e03665D111",
+      "runtimeCodeHash": "0x366ea5225869e87b16d2f5d1861f3f39ceb21b38da5ebc22311098ee4e1db9d3",
+      "runtimeCodeBytes": 1936,
+      "observedAtBlock": 11,
+      "source": "lib/safe-smart-account/contracts/proxies/SafeProxyFactory.sol:SafeProxyFactory",
+      "deploymentTxHash": "0x0db6f8c010a3b7747ae58d07cf2a42baa7115b5d6e6dccafdfba2170aa5acd81",
+      "deploymentBlock": 3
+    },
+    "safeFallbackHandler": {
+      "address": "0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D",
+      "runtimeCodeHash": "0x0d61c1ac4de3ff623f071b6011b32ac3fdd8dc95a16a1a1c35c92648b5a21e2c",
+      "runtimeCodeBytes": 3472,
+      "observedAtBlock": 11,
+      "source": "lib/safe-smart-account/contracts/handler/CompatibilityFallbackHandler.sol:CompatibilityFallbackHandler",
+      "deploymentTxHash": "0x485d84609342f914aadb634765e514673d3a16460ddaf261bf622ab30f3329e5",
+      "deploymentBlock": 4
+    },
+    "multiSendCallOnly": {
+      "address": "0xd2716e08BCe6eb5B1f01329FF5E1a2dd0468B678",
+      "runtimeCodeHash": "0x7e97f8b5dea9e0eb021a9fd1a276e141fdfefb0c54253e2f701ff37a340df9dd",
+      "runtimeCodeBytes": 416,
+      "observedAtBlock": 11,
+      "source": "lib/safe-smart-account/contracts/libraries/MultiSendCallOnly.sol:MultiSendCallOnly",
+      "deploymentTxHash": "0xc94d98372dc63bc7485f00bd80b3f40a301d9170e1c5527919b80fb24439b8ed",
+      "deploymentBlock": 5
+    },
+    "policyLibrary": {
+      "address": "0x9f54d98e051a86e947424b7910124849794c271e",
+      "runtimeCodeHash": "0x0c0079f55ee516a788ef6fe46b59d00a88f0ea29189618157ab65a5bac28ef02",
+      "runtimeCodeBytes": 5854,
+      "observedAtBlock": 11,
+      "source": "src/KavachiPolicyLib.sol:KavachiPolicyLib",
+      "deploymentTxHash": "0xad252e208bc913195a3ab5fa3d6e17d2cff313e9562801523c04d8250b15176c",
+      "deploymentBlock": 1
+    },
+    "payeeRegistry": {
+      "address": "0x08Dd766b13907B772c8824E07d05fDEDBa9F4FfA",
+      "runtimeCodeHash": "0x73e5191af8c24f297d880088c9a3c8e146df35b38348358b6297e030ebfda9c9",
+      "runtimeCodeBytes": 2254,
+      "observedAtBlock": 11,
+      "source": "src/KavachiPayeeRegistry.sol:KavachiPayeeRegistry",
+      "deploymentTxHash": "0x4e3ef650a69b7ead20d6d6461f1abf47dd9c12fdd298810085795a9577c55cf4",
+      "deploymentBlock": 11
+    }
+  },
+  "labels": {
+    "sanctions": "TEST LIST",
+    "demoVaultYield": "SIMULATED",
+    "agentSource": "SCRIPT",
+    "planner": "deterministic"
+  },
+  "funding": [
+    {
+      "role": "OWNER",
+      "txHash": "0xfe2a28b8553cc38cc90a8e660c4ebf3561b0474fce5ade7d7e8d90e657100a20",
+      "amountWei": "10000000000000000"
+    },
+    {
+      "role": "APPROVER",
+      "txHash": "0xf1d2296c61ae52a6c2cb6b1819c7df3c9ef718b4216dfb3c547684e1f60c74f3",
+      "amountWei": "10000000000000000"
+    },
+    {
+      "role": "GUARDIAN",
+      "txHash": "0x0db2cc6d92c61fe02fdd497aa8ed731e7b3b323993970ddd2e39b005bf3a9a4f",
+      "amountWei": "10000000000000000"
+    },
+    {
+      "role": "SESSION",
+      "txHash": "0xaa179052610096035600d92817fc08130760fd48163c3a1563e483b8d8bb4f18",
+      "amountWei": "20000000000000000"
+    },
+    {
+      "role": "TREASURY_USDC",
+      "txHash": "0x2db4aa936cabc96a85ec0eb8eed5c57acc54797727f28fc86614a98b98a79b06",
+      "amountRaw": "3000000000"
+    }
+  ],
+  "payeesActiveAt": 1792407034,
+  "setupTxHashes": [
+    "0xa1d6f718e7be2f6a2d09a5ad6670238d51370eebad946b6df4c0eed60e7d0191",
+    "0x48328583e7fb2f1c9d19f7802bae464a96e1eba1a8d19902cad2bd2a928d7f24",
+    "0x372b02119625dd0ac55ab6fb2218516e8fb2e79cc4ecaa718b6abfb8a1a40f75",
+    "0x452fb6ba368293188dbb101ce7f8e877f17048ceeed6cf8b4194d2935d4569d0"
+  ]
+}
