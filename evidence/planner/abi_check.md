@@ -43,3 +43,22 @@ Despite the task description, `file` and `readelf -h` identify both supplied hos
 The pinned dependency also fails to compile with default features because os_bridge imports TensorLogic unconditionally. The crate enables the existing tensorlogic feature only; native mnn-ffi linkage remains disabled so missing symbols can be reported dynamically. The adapter additionally resolves tokenizer_encode(std::string const&) via its exact Itanium ABI symbol and uses a C++ bridge to count native input tokens (limit 2048); std::vector never crosses the Rust FFI.
 
 The native split build also needs express/libMNN_Express.so (verified with readelf DT_NEEDED/RUNPATH). Its SHA-256 is included in measured/expected hashes and execution evidence in addition to the two requested libraries.
+
+
+## K14 greedy construction adapter
+
+The existing native library and its hashes are unchanged. The owned
+`src/fusion-planner/src/tokenizer_bridge.cpp` now also calls these dynamically
+checked Itanium exports before model load constructs its sampler:
+
+- `MNN::Transformer::Llm::createLLM(const std::string&)`
+- `MNN::Transformer::Llm::set_config(const std::string&)`
+- `MNN::Transformer::Llm::load()`
+
+C++ string construction/destruction stay inside the C++ bridge. Handle teardown
+uses the existing `ahem_llm_destroy` C ABI on every failure and normal unload.
+Required-symbol failures remain `AHEM_UNAVAILABLE`. The bridge sets sampler_type
+`greedy` before load and preserves sync/no-cache settings. A native tokenizer
+probe uses this exact bridge, checks `dump_config()` for the effective greedy
+sampler, and checks all A–H token continuations after the fixed JSON prefix.
+This is Linux-host evidence for the pinned fork, not an Android ABI validation.

@@ -2,13 +2,16 @@ use std::ffi::{CString, c_char, c_void};
 pub type Handle = *mut c_void;
 pub type Callback = extern "C" fn(*const f32, i32, i32, Handle) -> i32;
 macro_rules! api { ($($name:ident: $ty:ty),* $(,)?) => {
- pub struct Api { _lib:libloading::Library, pub reset:unsafe extern "C" fn(Handle), pub encode:*mut c_void, $(pub $name:$ty),* }
+ pub struct Api { _lib:libloading::Library, pub reset:unsafe extern "C" fn(Handle), pub encode:*mut c_void, pub create_llm:*mut c_void, pub configure:*mut c_void, pub load_model:*mut c_void, $(pub $name:$ty),* }
  impl Api { pub fn open(path:&std::path::Path)->Result<Self,String> { unsafe {
  let lib=libloading::Library::new(path).map_err(|_|"AHEM_UNAVAILABLE")?;
  $(let $name= *lib.get::<$ty>(concat!(stringify!($name),"\0").as_bytes()).map_err(|_|"AHEM_UNAVAILABLE")?;)*
  let reset=*lib.get::<unsafe extern "C" fn(Handle)>(b"_ZN3MNN11Transformer3Llm5resetEv\0").map_err(|_|"AHEM_UNAVAILABLE")?;
  let encode=*lib.get::<*mut c_void>(b"_ZN3MNN11Transformer3Llm16tokenizer_encodeERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE\0").map_err(|_|"AHEM_UNAVAILABLE")?;
- Ok(Self{_lib:lib,reset,encode,$($name),*})
+ let create_llm=*lib.get::<*mut c_void>(b"_ZN3MNN11Transformer3Llm9createLLMERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE\0").map_err(|_|"AHEM_UNAVAILABLE")?;
+ let configure=*lib.get::<*mut c_void>(b"_ZN3MNN11Transformer3Llm10set_configERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE\0").map_err(|_|"AHEM_UNAVAILABLE")?;
+ let load_model=*lib.get::<*mut c_void>(b"_ZN3MNN11Transformer3Llm4loadEv\0").map_err(|_|"AHEM_UNAVAILABLE")?;
+ Ok(Self{_lib:lib,reset,encode,create_llm,configure,load_model,$($name),*})
  } } }
 }; }
 api! {
@@ -50,7 +53,15 @@ pub struct Session {
 impl Session {
     pub fn create(&self) -> Result<Handle, String> {
         let c = CString::new(self.config.as_str()).map_err(|_| "LOAD_FAILED")?;
-        let h = unsafe { (self.api.ahem_llm_create)(c.as_ptr()) };
+        let h = unsafe {
+            planner_create_greedy(
+                self.api.create_llm,
+                self.api.configure,
+                self.api.load_model,
+                self.api.ahem_llm_destroy,
+                c.as_ptr(),
+            )
+        };
         if h.is_null() {
             Err("LOAD_FAILED".into())
         } else {
@@ -71,5 +82,12 @@ impl Drop for Session {
 }
 
 unsafe extern "C" {
+    pub fn planner_create_greedy(
+        create: *mut c_void,
+        configure: *mut c_void,
+        load: *mut c_void,
+        destroy: unsafe extern "C" fn(Handle),
+        path: *const c_char,
+    ) -> Handle;
     pub fn planner_token_count(encode: *mut c_void, handle: Handle, text: *const c_char) -> i32;
 }

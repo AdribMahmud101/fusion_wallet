@@ -110,7 +110,7 @@ pub fn planner_load(config_path: String, expected_hashes_json: String) -> String
         s.handle = h;
         *slot = Some(s);
         Ok(
-            json!({"state":"READY","coldLoadMs":start.elapsed().as_secs_f64()*1000.,"hashes":actual}),
+            json!({"state":"READY","sampling":{"type":"greedy"},"coldLoadMs":start.elapsed().as_secs_f64()*1000.,"hashes":actual}),
         )
     })
 }
