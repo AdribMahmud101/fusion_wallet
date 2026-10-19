@@ -1,0 +1,17 @@
+No files changed, compilation skipped
+Script ran successfully.
+Gas used: 2430997
+
+== Logs ==
+  deposit
+  0xcdaaee1689bef6e0fd0742145314a808cb1fbf76455836c61c10ba469e4f6ba2
+  withdraw
+  0xb3c531957dc934b2eeaf5e6d8609b0c53920c51c3da6a1185d4f59731758d3a2
+  rebalance
+  0x56a93e9a5c1a520e39fa19a391c66a6a57c1b8ae082082a1688ceddb43f6e211
+  pay_obligation
+  0x5485d9680b6c2817d166409dcffcbdb61691658f29d0d96863816ca46dc49c92
+  empty commitment
+  0x23741c6f1f8567b5bb9370afa7a28d473bc35c8ccc38118af5346e6d25f8fee0
+  decision
+  0x18e288bbc5a529329060e0ca5e84f8b0cc655516cb4e4596c23d84a5707d3605
