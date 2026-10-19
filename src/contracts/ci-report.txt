@@ -1,0 +1,224 @@
+No files changed, compilation skipped
+
+Ran 18 tests for test/Adversarial.t.sol:AdversarialTest
+[PASS] test_accountingMismatchDeposit() (gas: 383975)
+[PASS] test_accountingMismatchPay() (gas: 247925)
+[PASS] test_accountingMismatchWithdraw() (gas: 502818)
+[PASS] test_depositObservedShareBound() (gas: 382232)
+[PASS] test_failedUnwindOneLegStillRecoversOther() (gas: 669348)
+[PASS] test_falseApproveRejected() (gas: 262007)
+[PASS] test_falseTransferWithBalanceChangeRejectedAtomically() (gas: 333314)
+[PASS] test_feeOnTransferRejected() (gas: 273645)
+[PASS] test_malformedTokenReturnsRejected() (gas: 504681)
+[PASS] test_noReturnTokenSupported() (gas: 697396)
+[PASS] test_reentrancyCannotExecuteAgain() (gas: 783389)
+[PASS] test_residualAllowanceRejected() (gas: 387775)
+[PASS] test_safeCallFailedDeposit() (gas: 307436)
+[PASS] test_safeCallFailedPay() (gas: 246997)
+[PASS] test_safeCallFailedWithdraw() (gas: 470171)
+[PASS] test_unwindChecksObservedBalancesAndReturn() (gas: 434080)
+[PASS] test_unwindGasConsumingLegCannotBlockOther() (gas: 990816)
+[PASS] test_withdrawObservedShareBound() (gas: 500951)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 35.56ms (11.63ms CPU time)
+
+Ran 29 tests for test/QueueLifecycle.t.sol:QueueLifecycleTest
+[PASS] test_cancelPayeeInvalidatesQueue() (gas: 994853)
+[PASS] test_commitInvalidatesQueueAndSession() (gas: 695593)
+[PASS] test_configureInvalidatesQueueAndSessionButKeepsDailyUsage() (gas: 1114786)
+[PASS] test_dailyRolloverAndSessionRestartCannotResetDay() (gas: 1112611)
+[PASS] test_delayedRequiresQueueEvenWithApproval() (gas: 234121)
+[PASS] test_emergencyUnwindBothVaultsUnderMillionGas() (gas: 1231839)
+[PASS] test_emergencyUnwindFailedLegContinues() (gas: 601565)
+[PASS] test_invalidCommitmentAndEmptyCommitment() (gas: 229213)
+[PASS] test_invalidPolicy() (gas: 238783)
+[PASS] test_noQueue() (gas: 116328)
+[PASS] test_ownerApprovedDelayedNeedsApprovalAndQueue() (gas: 1405124)
+[PASS] test_ownerPaymentInvalidatesQueue() (gas: 710106)
+[PASS] test_ownerSessionKeyGuardianSeparation() (gas: 325752)
+[PASS] test_pauseIdempotentAndSafeOnlyResume() (gas: 987393)
+[PASS] test_pausedQueueForbidden() (gas: 192051)
+[PASS] test_queueAlreadyExists() (gas: 490603)
+[PASS] test_queueBusyBeforeNonceAndPolicy() (gas: 560963)
+[PASS] test_queueCancelAndReplay() (gas: 656739)
+[PASS] test_queueDeadlineLowerAndUpper() (gas: 239188)
+[PASS] test_queueDecisionHashEvent() (gas: 428289)
+[PASS] test_queueExpireTooEarly() (gas: 471647)
+[PASS] test_queueExpiresAndConsumesNonce() (gas: 782965)
+[PASS] test_queueExpiryBoundary() (gas: 761370)
+[PASS] test_queueMismatchCancel() (gas: 486813)
+[PASS] test_queueOnlyDelayed() (gas: 165192)
+[PASS] test_queuePaySanctionsAtQueueAndExecution() (gas: 1237594)
+[PASS] test_queueReadyExecutionNoChargeUntilExecute() (gas: 1174353)
+[PASS] test_queueRerunsReserve() (gas: 643977)
+[PASS] test_revokeSessionInvalidatesQueue() (gas: 685374)
+Suite result: ok. 29 passed; 0 failed; 0 skipped; finished in 35.55ms (31.08ms CPU time)
+
+Ran 12 tests for test/Boundaries.t.sol:BoundariesTest
+[PASS] test_agentCannotStopOrCallArbitrarily() (gas: 183776)
+[PASS] test_anvilOnlyComparatorsCannotDeployOnBase() (gas: 4101)
+[PASS] test_approvalValidAtExpiryAndConsumed() (gas: 562533)
+[PASS] test_constructorRejectsInvalidDependencies() (gas: 13443)
+[PASS] test_demoVaultDripIsDeployerOnlySimulatedYield() (gas: 720450)
+[PASS] test_liveOwnerRemovalRemovesStopAuthority() (gas: 207446)
+[PASS] test_onlySafeAdministration() (gas: 361075)
+[PASS] test_payPreservesFreeCashAndMandateCommitsRemainingReserve() (gas: 455229)
+[PASS] test_payWindowExactBoundary() (gas: 826584)
+[PASS] test_policyHashSessionIdAndMandateFollowProductionHashing() (gas: 85036)
+[PASS] test_testListOwnedBySafe() (gas: 46836)
+[PASS] test_tierEdgesMicroDelayedAndOwner() (gas: 2745469)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 67.68ms (27.91ms CPU time)
+
+Ran 20 tests for test/SharedChecks.t.sol:SharedChecksTest
+[PASS] test_commonApprovalExpiredAllKinds() (gas: 1096835)
+[PASS] test_commonApprovalRequiredAllKinds() (gas: 881115)
+[PASS] test_commonBadNonceAllKinds() (gas: 409502)
+[PASS] test_commonDailyLimitAllKinds() (gas: 1229763)
+[PASS] test_commonDeadlineExpiredAllKinds() (gas: 416531)
+[PASS] test_commonDeadlineTooFarAllKinds() (gas: 424591)
+[PASS] test_commonDelayedNotReadyAllKinds() (gas: 2495944)
+[PASS] test_commonDelayedRequiredAllKinds() (gas: 466500)
+[PASS] test_commonDisabledAllKinds() (gas: 388902)
+[PASS] test_commonHardLimitAllKinds() (gas: 433041)
+[PASS] test_commonMissingDecisionAllKinds() (gas: 423547)
+[PASS] test_commonPausedAllKinds() (gas: 424491)
+[PASS] test_commonQueueBusyAllKinds() (gas: 826191)
+[PASS] test_commonReadOnlyAllKinds() (gas: 777862)
+[PASS] test_commonSessionExpiredAllKinds() (gas: 404223)
+[PASS] test_commonSessionLimitAllKinds() (gas: 787148)
+[PASS] test_commonStalePolicyAllKinds() (gas: 416341)
+[PASS] test_commonUnauthorizedAllKinds() (gas: 361405)
+[PASS] test_commonWrongChainAllKinds() (gas: 320157)
+[PASS] test_commonZeroAmountAllKinds() (gas: 426840)
+Suite result: ok. 20 passed; 0 failed; 0 skipped; finished in 33.13ms (28.76ms CPU time)
+
+Ran 6 tests for test/MockUSDC.t.sol:MockUSDCTest
+[PASS] test_authorizationBoundToExactValue() (gas: 62277)
+[PASS] test_authorizationDomainBoundToChain() (gas: 62877)
+[PASS] test_authorizationTimeBoundaries() (gas: 80485)
+[PASS] test_cancelAuthorization() (gas: 137943)
+[PASS] test_receiveAuthorizationOnlyPayee() (gas: 145825)
+[PASS] test_transferAuthorizationAndReplay() (gas: 172722)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 2.68ms (1.78ms CPU time)
+
+Ran 12 tests for test/HashVectors.t.sol:HashVectorsTest
+[PASS] testFuzz_hashPair_commutativity(bytes32,bytes32) (runs: 10000, μ: 4462, ~: 4463)
+[PASS] test_commitments_empty() (gas: 957154)
+[PASS] test_commitments_single_leaf() (gas: 1520475)
+[PASS] test_commitments_three_leaves() (gas: 2874232)
+[PASS] test_double_hash_leaf_safety() (gas: 4427)
+[PASS] test_tag_strings() (gas: 8169)
+[PASS] test_vector_actions() (gas: 14673410)
+[PASS] test_vector_candidate_id() (gas: 1178178)
+[PASS] test_vector_decision_hash() (gas: 1071278)
+[PASS] test_vector_mandate_hash() (gas: 2330251)
+[PASS] test_vector_policy_hash() (gas: 2824267)
+[PASS] test_vector_session_id() (gas: 1863862)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 2.03s (2.14s CPU time)
+
+Ran 58 tests for test/Core.t.sol:CoreTest
+[PASS] testFuzz_depositPreservesReserve(uint256) (runs: 10000, μ: 450270, ~: 450379)
+[PASS] test_actionExpired() (gas: 146106)
+[PASS] test_approvalExpired() (gas: 238183)
+[PASS] test_approvalRequired() (gas: 164509)
+[PASS] test_approvedDeadlineBound() (gas: 221230)
+[PASS] test_badDepositShape() (gas: 152353)
+[PASS] test_badNonce() (gas: 143447)
+[PASS] test_badPayShape() (gas: 138747)
+[PASS] test_badProof() (gas: 161428)
+[PASS] test_badWithdrawShape() (gas: 152046)
+[PASS] test_dailyLimit() (gas: 935330)
+[PASS] test_deadlineAfterSession() (gas: 185431)
+[PASS] test_decisionHashEventAndBinding() (gas: 419478)
+[PASS] test_depositLooseSlippage() (gas: 202483)
+[PASS] test_depositMinShares() (gas: 202557)
+[PASS] test_depositReserve() (gas: 236300)
+[PASS] test_depositUnderfunded() (gas: 234936)
+[PASS] test_duplicatePayAgentAndOwner() (gas: 1061233)
+[PASS] test_exposureExceeded() (gas: 404719)
+[PASS] test_forbiddenVault() (gas: 175126)
+[PASS] test_hardLimit() (gas: 151045)
+[PASS] test_hashActionUsesProductionDomainAndState() (gas: 108107)
+[PASS] test_invalidImmediateDeadline() (gas: 149445)
+[PASS] test_missingDecisionHash() (gas: 147633)
+[PASS] test_moduleDisabled() (gas: 163578)
+[PASS] test_ownerApprovedInstant() (gas: 983380)
+[PASS] test_ownerPayBypassesWindowTierSessionWhilePaused() (gas: 287677)
+[PASS] test_ownerThenAgentDuplicate() (gas: 313780)
+[PASS] test_paused() (gas: 194450)
+[PASS] test_payAllowedUnderfunded() (gas: 706033)
+[PASS] test_payExceedsReserve() (gas: 526492)
+[PASS] test_payInsufficientCash() (gas: 245504)
+[PASS] test_payWindow() (gas: 510489)
+[PASS] test_payeeCancelled() (gas: 238530)
+[PASS] test_payeeCooling() (gas: 897342)
+[PASS] test_payeeImmutable() (gas: 118897)
+[PASS] test_readOnly() (gas: 540236)
+[PASS] test_realSafe_payDepositWithdraw() (gas: 1012312)
+[PASS] test_realSafe_signedPolicyAndOwnerPayment() (gas: 506745)
+[PASS] test_rebalanceUnsupported() (gas: 135643)
+[PASS] test_recipientMismatch() (gas: 177086)
+[PASS] test_revokeApproval() (gas: 295232)
+[PASS] test_sanctionedAtAdd() (gas: 127603)
+[PASS] test_sanctionedAtPay() (gas: 240840)
+[PASS] test_sanctionsFailClosed() (gas: 183812)
+[PASS] test_sanctionsMalformedClosed() (gas: 184244)
+[PASS] test_sessionExpired() (gas: 169478)
+[PASS] test_sessionLimit() (gas: 875175)
+[PASS] test_stalePolicy() (gas: 145786)
+[PASS] test_vaultCodeChanged() (gas: 187343)
+[PASS] test_vaultNotInPolicy() (gas: 594525)
+[PASS] test_withdrawAllowedUnderfunded() (gas: 583737)
+[PASS] test_withdrawLiquidity() (gas: 189105)
+[PASS] test_withdrawLooseSlippage() (gas: 407180)
+[PASS] test_withdrawShareBound() (gas: 407673)
+[PASS] test_wrongCaller() (gas: 125103)
+[PASS] test_wrongChain() (gas: 113037)
+[PASS] test_zeroAmount() (gas: 148677)
+Suite result: ok. 58 passed; 0 failed; 0 skipped; finished in 2.03s (2.04s CPU time)
+
+Ran 2 tests for test/Invariants.t.sol:InvariantTest
+[PASS]
+InvariantTest invariants:
+[PASS] invariant_I1_reservePreservedOnInvestment
+[PASS] invariant_I2_onlyTrustedDestinations
+[PASS] invariant_I3_grossDailyAndSessionLimits
+[PASS] invariant_I4_paidAtMostOnce
+[PASS] invariant_I5_noResidualAllowances
+[PASS] invariant_I6_pauseStopsAgentAndOnlySafeResumes
+[PASS] invariant_I7_nonceConsumptionAndDigestUniqueness
+ InvariantTest invariants (runs: 256, calls: 16384, reverts: 0)
+
+╭-----------------+----------------+-------+---------+----------╮
+| Contract        | Selector       | Calls | Reverts | Discards |
++===============================================================+
+| TreasuryHandler | advance        | 1200  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | deposit        | 1268  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | donateCash     | 1294  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | finishQueue    | 1272  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | newBill        | 1225  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | ownerMoveCash  | 1253  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | pauseOrRestart | 1247  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | probePaused    | 1299  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | queueDeposit   | 1261  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | retryBill      | 1287  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | setSanction    | 1210  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | unwind         | 1253  | 0       | 0        |
+|-----------------+----------------+-------+---------+----------|
+| TreasuryHandler | withdraw       | 1315  | 0       | 0        |
+╰-----------------+----------------+-------+---------+----------╯
+
+[PASS] test_handlerExerciseAllRoutes() (gas: 4633534)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 18.02s (18.01s CPU time)
+
+Ran 8 test suites in 18.04s (22.26s CPU time): 157 tests passed, 0 failed, 0 skipped (157 total tests)
