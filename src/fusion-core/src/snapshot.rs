@@ -551,6 +551,7 @@ pub async fn read_snapshot_at_block<P: Provider>(
     };
 
     Ok(Snapshot {
+        quant: None,
         block_number,
         block_hash,
         block_timestamp,

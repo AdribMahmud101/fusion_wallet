@@ -54,6 +54,7 @@ fn make_sample_snapshot() -> Snapshot {
     };
 
     Snapshot {
+        quant: None,
         block_number: 100,
         block_hash: B256::repeat_byte(0x33),
         block_timestamp: 1_700_000_000,
@@ -198,4 +199,89 @@ fn test_bill_ordering_earliest_due_at() {
     assert_eq!(res.candidates[0].action.assets, U256::from(10_000_000));
     assert_eq!(res.candidates[1].label, "B");
     assert_eq!(res.candidates[1].action.assets, U256::from(20_000_000));
+}
+
+#[test]
+fn measured_economics_filter_precedes_planner_and_reports_rejections() {
+    let mut snapshot = make_sample_snapshot();
+    let vault = snapshot.policy.vaults[0].vault;
+    let enumerate = |s: &Snapshot| {
+        enumerate_candidates(
+            s,
+            &[],
+            &[],
+            &BTreeMap::new(),
+            &[],
+            U256::from(84532),
+            Address::ZERO,
+            Address::ZERO,
+            B256::ZERO,
+            B256::ZERO,
+            true,
+        )
+    };
+    assert!(
+        enumerate(&snapshot).candidates.is_empty(),
+        "Missing measurements must not offer a deposit"
+    );
+    snapshot.quant = Some(serde_json::from_value(serde_json::json!({"blockNumber":100,"vault":vault,
+        "medianGasWei":"1000000000000","quotedSizeRaw":"10000000","depositSlippageRaw":"1",
+        "oracle":{"feed":fusion_core::quant::ETH_USD_FEED,"decimals":8,"answer":"200000000000","roundId":"1","answeredInRound":"1","updatedAt":1700000000},
+        "reserve":{"availableRaw":"1000000000","variableDebtRaw":"100000000","stableDebtRaw":"0","liquidityRateRay":"2000000000000000000000000","liquidityIndex":"1000000000000000000000000000"}})).unwrap());
+    let set = enumerate(&snapshot);
+    assert!(set.candidates.is_empty());
+    assert_eq!(set.quant.candidates[0].status, "UNPROFITABLE_AFTER_GAS");
+    snapshot.quant.as_mut().unwrap().median_gas_wei = Some("1".into());
+    let set = enumerate(&snapshot);
+    assert_eq!(set.candidates.len(), 1);
+    assert_eq!(
+        set.candidates[0].action.assets,
+        snapshot.policy.micro_max_raw
+    );
+    assert_eq!(set.quant.candidates[0].status, "ACTIONABLE");
+    snapshot
+        .quant
+        .as_mut()
+        .unwrap()
+        .reserve
+        .as_mut()
+        .unwrap()
+        .variable_debt_raw = "9000000000".into();
+    let set = enumerate(&snapshot);
+    assert!(set.candidates.is_empty());
+    assert_eq!(
+        set.quant.candidates[0].status,
+        "UTILIZATION_ABOVE_85_PERCENT"
+    );
+}
+
+#[test]
+fn safety_withdraw_is_capped_at_available_underlying_not_total_deposits() {
+    let mut snapshot = make_sample_snapshot();
+    snapshot.safe_cash = U256::ZERO;
+    snapshot.vault_a_assets = U256::from(1_000_000_000);
+    let vault = snapshot.policy.vaults[0].vault;
+    snapshot.quant=Some(serde_json::from_value(serde_json::json!({"blockNumber":100,"vault":vault,
+        "reserve":{"availableRaw":"17","variableDebtRaw":"9000000000","stableDebtRaw":"0","liquidityRateRay":"0","liquidityIndex":"1000000000000000000000000000"}})).unwrap());
+    let rates = [VaultRateInfo {
+        vault,
+        rate_bps: 0,
+        is_simulated: false,
+    }];
+    let set = enumerate_candidates(
+        &snapshot,
+        &[],
+        &[],
+        &BTreeMap::new(),
+        &rates,
+        U256::from(84532),
+        Address::ZERO,
+        Address::ZERO,
+        B256::ZERO,
+        B256::ZERO,
+        true,
+    );
+    assert_eq!(set.candidates.len(), 1);
+    assert_eq!(set.candidates[0].kind, ActionKind::Withdraw);
+    assert_eq!(set.candidates[0].action.assets, U256::from(17));
 }

@@ -1,5 +1,6 @@
 //! Candidate label mapping and prompt facts tests (D14, §10.4, §10.6).
 
+mod common;
 use alloy::primitives::{Address, B256, U256};
 use fusion_core::candidates::{enumerate_candidates, VaultRateInfo};
 use fusion_core::planner_io::{build_planner_prompt, validate_planner_output};
@@ -24,6 +25,7 @@ fn test_hold_is_always_label_h() {
     };
 
     let snapshot = Snapshot {
+        quant: None,
         block_number: 1,
         block_hash: B256::ZERO,
         block_timestamp: 1000,
@@ -116,6 +118,12 @@ fn test_prompt_facts_contain_no_addresses_or_hashes() {
     };
 
     let snapshot = Snapshot {
+        quant: Some(common::measured(
+            100,
+            1_700_000_000,
+            vault_a,
+            U256::from(10_000_000),
+        )),
         block_number: 100,
         block_hash: B256::repeat_byte(0x33),
         block_timestamp: 1_700_000_000,

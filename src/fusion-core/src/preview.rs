@@ -318,6 +318,58 @@ pub fn preview_candidate(
         message: check_7_msg,
     });
 
+    if candidate.reason != "HOLD"
+        && matches!(
+            candidate.kind,
+            ActionKind::Deposit | ActionKind::Rebalance | ActionKind::Withdraw
+        )
+    {
+        let quant = crate::quant::QuantReport::read(snapshot);
+        let status = if candidate.kind == ActionKind::Withdraw {
+            snapshot
+                .quant
+                .as_ref()
+                .is_some_and(|q| q.vault == candidate.action.source_vault)
+                && quant
+                    .withdrawable_now_raw
+                    .as_deref()
+                    .and_then(|s| s.parse::<U256>().ok())
+                    .is_some_and(|a| candidate.action.assets <= a)
+        } else {
+            let current = if candidate.kind == ActionKind::Rebalance {
+                u64::MAX
+            } else {
+                0
+            };
+            // Rebalances remain unsupported; a current-source yield measurement is
+            // required before that route can ever be enabled.
+            quant
+                .evaluate(
+                    candidate.action.destination_vault,
+                    candidate.action.assets,
+                    current,
+                    snapshot.quant.as_ref(),
+                )
+                .status
+                == "ACTIONABLE"
+        };
+        checks.push(RuleOutcome {
+            rule_id: "RULE_QUANT".into(),
+            name: "Measured pool liquidity and economics".into(),
+            status: if status {
+                RuleStatus::Pass
+            } else {
+                RuleStatus::Fail
+            },
+            error_code: (!status).then(|| "QuantGuard".into()),
+            message: if status {
+                "Measured quant guard passed"
+            } else {
+                "Yield move unmeasured, unprofitable after gas, or pool liquidity unavailable"
+            }
+            .into(),
+        });
+    }
     let all_passed = checks.iter().all(|c| c.status != RuleStatus::Fail);
 
     PreviewResult {

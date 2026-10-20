@@ -320,6 +320,7 @@ mod tests {
         };
 
         CandidateSet {
+            quant: Default::default(),
             candidate_set_digest: B256::repeat_byte(0x22),
             candidates: vec![candidate],
             hold,

@@ -1,4 +1,5 @@
 //! K13 executable bridge: exercises production candidate generation, validator and preview.
+mod common;
 use alloy::primitives::{Address, B256, U256};
 use fusion_core::candidates::{
     self, Candidate, CandidateSet, FeeAssumptions, Route, Tier, VaultRateInfo,
@@ -47,6 +48,7 @@ fn sample_setup() -> (Snapshot, Candidate) {
     };
 
     let snapshot = Snapshot {
+        quant: None,
         block_number: 100,
         block_hash: B256::repeat_byte(0x99),
         block_timestamp: 1_700_000_000,
@@ -172,6 +174,12 @@ fn prepare(v: &Value) -> Value {
             is_simulated: true,
         });
     }
+    s.quant = Some(common::measured(
+        s.block_number,
+        s.block_timestamp,
+        s.policy.vaults[0].vault,
+        amount.min(s.policy.micro_max_raw),
+    ));
     match mutation {
         "cooling" => payees[0].active_at = s.block_timestamp + 3600,
         "cancelled" => payees[0].cancelled = true,

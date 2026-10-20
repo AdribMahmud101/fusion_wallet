@@ -1,0 +1,103 @@
+{
+  "rpc": "https://sepolia.base.org",
+  "blockHash": "0x9a603ef00d78ffab1e1f2264d504c2ec53a0f1db74da1f9da3b3fc18e4735cb6",
+  "timestamp": 1792484812,
+  "inputs": {
+    "blockNumber": 48358262,
+    "vault": "0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a",
+    "reserve": {
+      "availableRaw": "26834319796431",
+      "variableDebtRaw": "6998205706560",
+      "stableDebtRaw": "0",
+      "liquidityRateRay": "2053741645620634762056264",
+      "liquidityIndex": "1244791938236642203357898155",
+      "pastIndex": "1244784901921542051937345936",
+      "pastTimestamp": 1792398412,
+      "pastBlock": 48315062
+    },
+    "oracle": {
+      "feed": "0x4aDC67696bA383F43DD60A9e78F2C97Fbbfc7cb1",
+      "decimals": 8,
+      "answer": "238778000000",
+      "roundId": "18446744073709838830",
+      "answeredInRound": "18446744073709838830",
+      "updatedAt": 1792484790
+    },
+    "medianGasWei": "1342800000259",
+    "quotedSizeRaw": "41000000",
+    "depositSlippageRaw": "1"
+  },
+  "historySource": "https://sepolia.base.org",
+  "historyErrors": [],
+  "feeSamples": [
+    {
+      "txHash": "0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89",
+      "costWei": "1203948000387"
+    },
+    {
+      "txHash": "0xa48f91bfc63cc7c8c8040f2372cfdf08284ded7cc786eff0b9779925b2000f10",
+      "costWei": "201673350000211"
+    },
+    {
+      "txHash": "0xf1e0afcb65cda6355cf8743b26f159afe76f0a634629a96e519eab98e9525f33",
+      "costWei": "224173290000235"
+    },
+    {
+      "txHash": "0x5b7cd0573e6f0be53f6869b8908d886fcc27d7fcabd1192ea2a49a66f6743a95",
+      "costWei": "417155400000235"
+    },
+    {
+      "txHash": "0x8bab484456d4f6c842281b1dfdf1ffcbd25ad3c0d0221353242c8c9530ebb3a6",
+      "costWei": "207419940000246"
+    },
+    {
+      "txHash": "0x06530794bc195da12a84ee3ae4538ed1cca3b91f727f2ba4eaeb87f76da67950",
+      "costWei": "2014476000148"
+    },
+    {
+      "txHash": "0xc04b77c2ffe8d0d945c1cc13aa70d3e34827a85b8af3629b2a2575e30f775d02",
+      "costWei": "780030000257"
+    },
+    {
+      "txHash": "0x97e5cd9c1c5bc351b32d2819e6735ef161fda91d3ab6285ccd4a06aec3ba232d",
+      "costWei": "1234044000259"
+    },
+    {
+      "txHash": "0x5af192e04e2ac730bd3eebc0a4f7f76d9ee76525896d40b0c9084f84d98e96b4",
+      "costWei": "685332000281"
+    },
+    {
+      "txHash": "0xdac5920996832c73375b584905d34cf430f35ad548ee1368a7695c927736548c",
+      "costWei": "2394954000135"
+    },
+    {
+      "txHash": "0xc63f9d98e7a2d28ebe88eea2ffcec9288a39c4be0aa218da1acb584670b1fe7f",
+      "costWei": "1342800000259"
+    },
+    {
+      "txHash": "0x01316eaeebf051827e46b0fa61645376ea531342cb6d526e4252acc6b0db202a",
+      "costWei": "2496042000259"
+    },
+    {
+      "txHash": "0x3d5682afb067993bf04ae88a344eff6d642138062f56e8539d79ed975cffe6c7",
+      "costWei": "1249458000282"
+    },
+    {
+      "txHash": "0x55d44a2b3f7dedab3d898528a14cdd66aefaa49cf1eaa658b84dd3b777505d27",
+      "costWei": "688092000133"
+    },
+    {
+      "txHash": "0xe1d5dba152fb9a183192794e37bd17c98fe5530e1fcb937970ef2739904baa17",
+      "costWei": "596796000136"
+    },
+    {
+      "txHash": "0x8f9dde942e571fad7b19c7e1f7a75564a80d18a893731539438a817100d30a70",
+      "costWei": "757668000281"
+    },
+    {
+      "txHash": "0x35ff759c17bc48442a1d25b02a75fb66aac2307502cd0402e36b40916d65d726",
+      "costWei": "2755980000135"
+    }
+  ],
+  "feedSource": "https://reference-data-directory.vercel.app/feeds-ethereum-testnet-sepolia-base-1.json"
+}

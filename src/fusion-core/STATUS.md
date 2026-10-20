@@ -31,7 +31,7 @@
 - **Modules**:
   - `src/manifest.rs`: `DeploymentManifest` parse & validation (§10.3), enforcing `chainId ∈ {31337, 84532}`, RPC url validation, and address non-zero assertions.
   - `src/buckets.rs`: Integer reserve accounting (§7.9) computing `free`, `reserved`, `sweepable`, `shortfall`, `deployed`, and `total`.
-  - `src/candidates.rs`: Deterministic candidate enumerator (§10.4) and integer economics (30-day horizon, `minNet` threshold, letter labels A-G with H=HOLD per D14).
+  - `src/candidates.rs`: Deterministic candidate enumerator (§10.4) and integer measured economics (K44: <=85% utilization, <=14-day gas-adjusted break-even, conservative APY; letter labels A-G with H=HOLD per D14).
   - `src/planner_io.rs`: Prompt facts builder (§10.6, no addresses, hashes, or raw units in model prompts, owner note capped at 200 chars) and strict JSON output validator (`{"choice":"<letter>"}`).
   - `src/passport.rs`: Canonical RFC 8785 JCS JSON serializer and `DecisionHash` generator, reproducing reference passport vectors byte-for-byte.
 - **Tests**:

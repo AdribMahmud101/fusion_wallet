@@ -533,6 +533,8 @@ pub struct Obligation {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Snapshot {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub quant: Option<crate::quant::QuantInputs>,
     #[serde(deserialize_with = "deserialize_u64")]
     pub block_number: u64,
     pub block_hash: B256,

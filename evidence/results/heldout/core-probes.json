@@ -1,0 +1,257 @@
+[
+  {
+    "id": "A2",
+    "input": "{\"choice\":\"A\",\"recipient\":\"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"}",
+    "layer": "output_validator",
+    "note": "Unknown JSON keys are accepted; action still comes from current candidate set.",
+    "result": {
+      "choiceId": "0xab63bc1ec1f320e061bff39ed70fdb541441e1ecba77ab1e34ba7cc5cc33679a",
+      "choiceLabel": "A",
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "retryable": false
+    },
+    "stopped": false
+  },
+  {
+    "id": "A16",
+    "input": "{\"choice\":\"A\",\"amount\":750}",
+    "layer": "output_validator",
+    "note": "Unknown JSON keys are accepted; action still comes from current candidate set.",
+    "result": {
+      "choiceId": "0xab63bc1ec1f320e061bff39ed70fdb541441e1ecba77ab1e34ba7cc5cc33679a",
+      "choiceLabel": "A",
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "retryable": false
+    },
+    "stopped": false
+  },
+  {
+    "id": "A18",
+    "input": "{\"choice\":\"A\",\"candidateSetDigest\":\"stale\"}",
+    "layer": "output_validator",
+    "note": "Unknown JSON keys are accepted; action still comes from current candidate set.",
+    "result": {
+      "choiceId": "0xab63bc1ec1f320e061bff39ed70fdb541441e1ecba77ab1e34ba7cc5cc33679a",
+      "choiceLabel": "A",
+      "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
+      "retryable": false
+    },
+    "stopped": false
+  },
+  {
+    "id": "A4",
+    "layer": "rust_policy_preview",
+    "note": "No lookalike detector or registry recipient check in core preview; contract tested separately.",
+    "result": {
+      "actionDigest": "0x190f3ebf057a62056f78e8ec5c9db38653dbc0b4231c4afe50fd54d671574f6d",
+      "afterBuckets": {
+        "deployed": "0",
+        "free": "0",
+        "reserved": "0",
+        "shortfall": "0",
+        "sweepable": "0",
+        "total": "0"
+      },
+      "beforeBuckets": {
+        "deployed": "0",
+        "free": "0",
+        "reserved": "0",
+        "shortfall": "0",
+        "sweepable": "0",
+        "total": "0"
+      },
+      "checks": [
+        {
+          "errorCode": null,
+          "message": "paused=true, tier=Autonomous, session_live=true",
+          "name": "Module live and authorized",
+          "ruleId": "RULE_1_LIFECYCLE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "No active queue blocking",
+          "name": "Queue availability",
+          "ruleId": "RULE_2_QUEUE_GATE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+          "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+          "ruleId": "RULE_3_METADATA",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "assets=10000000, hard_max=2500000000",
+          "name": "Action shape and hard max limit",
+          "ruleId": "RULE_4_SHAPE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "daily_used=0/4000000000, session_used=0/8000000000",
+          "name": "Daily and session usage caps",
+          "ruleId": "RULE_5_VELOCITY",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "tier=Instant, route=Instant",
+          "name": "Tier and route conditions",
+          "ruleId": "RULE_6_TIER_ROUTE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "",
+          "name": "Action kind invariant checks",
+          "ruleId": "RULE_7_KIND_SPECIFIC",
+          "status": "PASS"
+        }
+      ],
+      "exactAction": {
+        "assets": "10000000",
+        "deadline": 1700000120,
+        "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "dueAt": 0,
+        "expectedNonce": "0",
+        "kind": 3,
+        "maxSharesBurn": "0",
+        "minSharesOut": "9950000",
+        "obligationIdHash": "0x6060606060606060606060606060606060606060606060606060606060606060",
+        "payeeIdHash": "0x5555555555555555555555555555555555555555555555555555555555555555",
+        "policyEpoch": "1",
+        "recipient": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "sourceVault": "0x0000000000000000000000000000000000000000"
+      },
+      "passed": true,
+      "route": "INSTANT",
+      "tier": "INSTANT"
+    },
+    "stopped": false
+  },
+  {
+    "id": "A7",
+    "layer": "rust_policy_preview",
+    "result": {
+      "actionDigest": "0xa1c7588ad0d07f6115b2e1b3652dcd5a61fe94d9d8da9d2d6cfb1eb395c93438",
+      "afterBuckets": {
+        "deployed": "0",
+        "free": "0",
+        "reserved": "0",
+        "shortfall": "0",
+        "sweepable": "0",
+        "total": "0"
+      },
+      "beforeBuckets": {
+        "deployed": "0",
+        "free": "0",
+        "reserved": "0",
+        "shortfall": "0",
+        "sweepable": "0",
+        "total": "0"
+      },
+      "checks": [
+        {
+          "errorCode": null,
+          "message": "paused=true, tier=Autonomous, session_live=true",
+          "name": "Module live and authorized",
+          "ruleId": "RULE_1_LIFECYCLE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "No active queue blocking",
+          "name": "Queue availability",
+          "ruleId": "RULE_2_QUEUE_GATE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "nonce_ok=true, epoch_ok=true, deadline_ok=true, decision_hash_ok=true",
+          "name": "Nonce, Epoch, Deadline, and DecisionHash validity",
+          "ruleId": "RULE_3_METADATA",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "assets=10000000, hard_max=2500000000",
+          "name": "Action shape and hard max limit",
+          "ruleId": "RULE_4_SHAPE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "daily_used=0/4000000000, session_used=0/8000000000",
+          "name": "Daily and session usage caps",
+          "ruleId": "RULE_5_VELOCITY",
+          "status": "PASS"
+        },
+        {
+          "errorCode": null,
+          "message": "tier=Instant, route=Instant",
+          "name": "Tier and route conditions",
+          "ruleId": "RULE_6_TIER_ROUTE",
+          "status": "PASS"
+        },
+        {
+          "errorCode": "ReserveViolation",
+          "message": "Cash after deposit would drop below R + B",
+          "name": "Action kind invariant checks",
+          "ruleId": "RULE_7_KIND_SPECIFIC",
+          "status": "FAIL"
+        },
+        {
+          "errorCode": "QuantGuard",
+          "message": "Yield move unmeasured, unprofitable after gas, or pool liquidity unavailable",
+          "name": "Measured pool liquidity and economics",
+          "ruleId": "RULE_QUANT",
+          "status": "FAIL"
+        }
+      ],
+      "exactAction": {
+        "assets": "10000000",
+        "deadline": 1700000120,
+        "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "destinationVault": "0xa1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "dueAt": 0,
+        "expectedNonce": "0",
+        "kind": 0,
+        "maxSharesBurn": "0",
+        "minSharesOut": "9950000",
+        "obligationIdHash": "0x6060606060606060606060606060606060606060606060606060606060606060",
+        "payeeIdHash": "0x5555555555555555555555555555555555555555555555555555555555555555",
+        "policyEpoch": "1",
+        "recipient": "0x0000000000000000000000000000000000000000",
+        "sourceVault": "0x0000000000000000000000000000000000000000"
+      },
+      "passed": false,
+      "route": "INSTANT",
+      "tier": "INSTANT"
+    },
+    "stopped": true
+  },
+  {
+    "attempted_charge_raw": 99000000,
+    "id": "A12",
+    "layer": "signer",
+    "note": "Generic arbitrary-calldata signing is refused by the module-call allowlist. Dedicated x402 payment/budget flow is not implemented; no broadcast.",
+    "prepared_transaction": {
+      "chainId": 31337,
+      "data": "0xa9059cbb000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000000000005e69ec0",
+      "gasLimit": 100000,
+      "maxFeePerGas": 1000000000,
+      "maxPriorityFeePerGas": 1000000,
+      "nonce": 0,
+      "to": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "value": "0x0"
+    },
+    "quoted_charge_raw": 10000,
+    "refusal_reason": "SignerRefused::NotModuleCall",
+    "signed_hash": null,
+    "stopped": true
+  }
+]

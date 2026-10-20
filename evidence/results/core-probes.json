@@ -5,7 +5,7 @@
     "layer": "output_validator",
     "note": "Unknown JSON keys are accepted; action still comes from current candidate set.",
     "result": {
-      "choiceId": "0xbcb2c8262b825cf8683aeb207b9421f6ffe219fca32ac8fefda201e2e134c6f1",
+      "choiceId": "0xab63bc1ec1f320e061bff39ed70fdb541441e1ecba77ab1e34ba7cc5cc33679a",
       "choiceLabel": "A",
       "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
       "retryable": false
@@ -18,7 +18,7 @@
     "layer": "output_validator",
     "note": "Unknown JSON keys are accepted; action still comes from current candidate set.",
     "result": {
-      "choiceId": "0xbcb2c8262b825cf8683aeb207b9421f6ffe219fca32ac8fefda201e2e134c6f1",
+      "choiceId": "0xab63bc1ec1f320e061bff39ed70fdb541441e1ecba77ab1e34ba7cc5cc33679a",
       "choiceLabel": "A",
       "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
       "retryable": false
@@ -31,7 +31,7 @@
     "layer": "output_validator",
     "note": "Unknown JSON keys are accepted; action still comes from current candidate set.",
     "result": {
-      "choiceId": "0xbcb2c8262b825cf8683aeb207b9421f6ffe219fca32ac8fefda201e2e134c6f1",
+      "choiceId": "0xab63bc1ec1f320e061bff39ed70fdb541441e1ecba77ab1e34ba7cc5cc33679a",
       "choiceLabel": "A",
       "reasonCode": "SURPLUS_ABOVE_THRESHOLD",
       "retryable": false
@@ -202,6 +202,13 @@
           "message": "Cash after deposit would drop below R + B",
           "name": "Action kind invariant checks",
           "ruleId": "RULE_7_KIND_SPECIFIC",
+          "status": "FAIL"
+        },
+        {
+          "errorCode": "QuantGuard",
+          "message": "Yield move unmeasured, unprofitable after gas, or pool liquidity unavailable",
+          "name": "Measured pool liquidity and economics",
+          "ruleId": "RULE_QUANT",
           "status": "FAIL"
         }
       ],

@@ -20,6 +20,7 @@ pub mod models;
 pub mod passport;
 pub mod planner_io;
 pub mod preview;
+pub mod quant;
 pub mod router;
 pub mod sign;
 pub mod snapshot;
