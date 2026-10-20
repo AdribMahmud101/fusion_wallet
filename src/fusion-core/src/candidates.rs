@@ -64,6 +64,18 @@ pub fn determine_route(tier: Tier, permission_tier: PermissionTier) -> Route {
     }
 }
 
+// Queue proposals must survive the timelock and satisfy the contract's
+// [now + delay + 30, now + delay + 900] deadline window before IDs are hashed.
+fn proposal_deadline(snapshot: &Snapshot, assets: U256) -> u64 {
+    if determine_tier(assets, &snapshot.policy) == Tier::Delayed {
+        snapshot
+            .block_timestamp
+            .saturating_add(snapshot.policy.delay_seconds as u64 + 600)
+    } else {
+        snapshot.block_timestamp.saturating_add(120)
+    }
+}
+
 /// Fee and yield scenario assumptions (§10.4).
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -245,7 +257,7 @@ pub fn enumerate_candidates(
             due_at: bill.due_at,
             expected_nonce: snapshot.module_state.action_nonce,
             policy_epoch: snapshot.module_state.policy_epoch,
-            deadline: now + 120,
+            deadline: proposal_deadline(snapshot, bill.amount_raw),
             decision_hash: B256::ZERO,
         };
 
@@ -348,7 +360,7 @@ pub fn enumerate_candidates(
                         due_at: 0,
                         expected_nonce: snapshot.module_state.action_nonce,
                         policy_epoch: snapshot.module_state.policy_epoch,
-                        deadline: now + 120,
+                        deadline: proposal_deadline(snapshot, withdraw_amount),
                         decision_hash: B256::ZERO,
                     };
 
@@ -459,7 +471,7 @@ pub fn enumerate_candidates(
                         due_at: 0,
                         expected_nonce: snapshot.module_state.action_nonce,
                         policy_epoch: snapshot.module_state.policy_epoch,
-                        deadline: now + 120,
+                        deadline: proposal_deadline(snapshot, deposit_amount),
                         decision_hash: B256::ZERO,
                     };
 

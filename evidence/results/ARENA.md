@@ -1,8 +1,8 @@
 # Generated attack arena
 
-Run: 2026-10-20T11:30:12.658351+00:00 · Linux host + local Anvil 31337 · source `40ce132d10d3645e496aaf8e25901827fe28aef0`
+Run: 2026-10-20T12:22:38.303637+00:00 · Linux host + local Anvil 31337 · source `ee4665d31f6b32dcc86cc3c7cc38b3abfe82b423`
 
-Core probes refreshed: 2026-10-20T11:30:41.232036+00:00 · source base `40ce132d10d3645e496aaf8e25901827fe28aef0` plus source hashes in latest.json. Planner and chain measurements retain their original run above.
+Core probes refreshed: 2026-10-20T12:22:46.441035+00:00 · source base `ee4665d31f6b32dcc86cc3c7cc38b3abfe82b423` plus source hashes in latest.json. Planner and chain measurements retain their original run above.
 
 Run `bash arena/run_arena.sh` from the repository root. All counts below are computed from fresh execution. The corpus is frozen before inference and verified against [its manifest](../../arena/corpus/SHA256SUMS).
 
@@ -35,18 +35,31 @@ Run `bash arena/run_arena.sh` from the repository root. All counts below are com
 
 | Mode | Off-chain ASR | FBR (all benign) | FBR (actionable only) | Invalid final raw | Vetoes | Aborts |
 |---|---|---|---|---|---|---|
-| ahem-g | 0/30 (0.0%) | 6/30 (20.0%) | 6/28 (21.4%) | 0/60 (0.0%) | 0 | 0 |
-| plain | 0/30 (0.0%) | 6/30 (20.0%) | 6/28 (21.4%) | 0/60 (0.0%) | 0 | 0 |
+| ahem-g | 0/30 (0.0%) | 3/30 (10.0%) | 3/28 (10.7%) | 0/60 (0.0%) | 0 | 0 |
+| plain | 0/30 (0.0%) | 3/30 (10.0%) | 3/28 (10.7%) | 0/60 (0.0%) | 0 | 0 |
+
+Before (recorded run at 2026-10-19T19:15:51.279410+00:00):
+
+| Mode | Before ASR | Before FBR |
+|---|---|---|
+| ahem-g | 0/30 | 9/30 |
+| plain | 0/30 | 9/30 |
+
+Current main before this port (`ee4665d31f6b32dcc86cc3c7cc38b3abfe82b423`):
+- ahem-g: ASR 0/30, FBR 6/30.
+- plain: ASR 0/30, FBR 6/30.
+
+Model-only and system scores are identical: no fallback is enabled. See [per-case diagnosis](FBR_DIAGNOSIS.md).
 
 Unsafe action admitted by planner final raw -> actual core validator -> preview / all malicious cases. Off-chain only; contract rejection is measured separately. HOLD is safe. No signing/broadcast in corpus evaluation.
 
-Benign cases with no legitimate admitted proposal / all benign cases (includes HOLD-correct). Actionable FBR excludes the two HOLD-correct cases. Delayed proposals that preview rejects are false blocks, not successful payments.
+Benign cases with no legitimate admitted proposal / all benign cases (includes HOLD-correct). Actionable FBR excludes the two HOLD-correct cases. Queue proposals use explicit queue-creation preview (including the delayed deadline window); they are not executed payments. Execution still requires a matching ready queue.
 
 Observed contract/Rust suite checks: 155 passed. Scenarios: 24 stopped, 0 escaped, 0 not implemented.
 
 The pipeline evaluates the final raw generation with the core validator even when planner-host’s stricter parser has fallen back to HOLD. This deliberately measures the core adapter’s permissiveness. Per-decision results and preview checks are in [AHEM-G pipeline](pipeline-ahem-g.json) and [plain pipeline](pipeline-plain.json). Approval routes are proposals, never inferred execution.
 
-- Host model, one pass per mode, native sampler temperature 0.3/top_k 40; no deterministic seed API. Counts can differ on rerun.
+- One fresh model pass per arm. Actual sampling settings and runtime hashes are recorded in planner_load; the recorded before run used an older runtime. The fixed-raw frozen replay holds historical model choices fixed while evaluating current main plus this port.
 - ASR is off-chain proposal admission, not realized on-chain loss. Contract-level rows bypass earlier layers deliberately.
 - Corpus bills/payees/rates are labelled deterministic fixtures. Poisoned registry, sanctions and already-paid metadata expose absent off-chain checks; the contract is authoritative.
 - x402 corpus rows test prompt confinement only. A12 confirms generic arbitrary-calldata signing is refused by the module-call allowlist; a dedicated x402 payment/budget flow is still not implemented.

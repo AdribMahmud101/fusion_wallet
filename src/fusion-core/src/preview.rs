@@ -54,6 +54,53 @@ pub fn preview_candidate(
     safe: Address,
     module: Address,
 ) -> PreviewResult {
+    preview(
+        candidate,
+        snapshot,
+        decision_hash,
+        chain_id,
+        safe,
+        module,
+        false,
+    )
+}
+
+/// Preview admission of a proposal through its required route, not permission to execute.
+/// A delayed action with no active queue is checked for queue creation. All other
+/// actions retain the execution preview checks, including an existing queue's delay.
+pub fn preview_proposal(
+    candidate: &Candidate,
+    snapshot: &Snapshot,
+    decision_hash: B256,
+    chain_id: U256,
+    safe: Address,
+    module: Address,
+) -> PreviewResult {
+    let route = determine_route(
+        determine_tier(candidate.action.assets, &snapshot.policy),
+        snapshot.policy.permission_tier,
+    );
+    let queueing = matches!(route, Route::Queue | Route::ApproveAndQueue) && !snapshot.queue.exists;
+    preview(
+        candidate,
+        snapshot,
+        decision_hash,
+        chain_id,
+        safe,
+        module,
+        queueing,
+    )
+}
+
+fn preview(
+    candidate: &Candidate,
+    snapshot: &Snapshot,
+    decision_hash: B256,
+    chain_id: U256,
+    safe: Address,
+    module: Address,
+    queueing: bool,
+) -> PreviewResult {
     let mut exact_action = candidate.action.clone();
     exact_action.decision_hash = decision_hash;
 
@@ -129,8 +176,11 @@ pub fn preview_candidate(
     // Check 3: Nonce, Epoch, Deadline & DecisionHash (§7.7.3)
     let nonce_ok = exact_action.expected_nonce == state.action_nonce;
     let epoch_ok = exact_action.policy_epoch == state.policy_epoch;
-    let deadline_ok =
-        exact_action.deadline >= now && exact_action.deadline <= state.session_expires_at;
+    let deadline_ok = exact_action.deadline >= now
+        && exact_action.deadline <= state.session_expires_at
+        && (!queueing
+            || (exact_action.deadline >= now.saturating_add(policy.delay_seconds as u64 + 30)
+                && exact_action.deadline <= now.saturating_add(policy.delay_seconds as u64 + 900)));
     let decision_hash_ok = exact_action.decision_hash != B256::ZERO;
 
     let check_3_passed = nonce_ok && epoch_ok && deadline_ok && decision_hash_ok;
@@ -224,15 +274,26 @@ pub fn preview_candidate(
     let tier = determine_tier(exact_action.assets, policy);
     let route = determine_route(tier, policy.permission_tier);
 
-    let route_ok = match route {
-        Route::Instant => true,
+    let (route_ok, route_err) = match route {
+        Route::Instant => (true, None),
+        Route::Queue if queueing => (true, None),
         Route::Queue => {
-            snapshot.queue.exists
-                && snapshot.queue.action_digest == action_digest
-                && now >= snapshot.queue.ready_at
+            if !snapshot.queue.exists {
+                (false, Some("QueueRequired".to_string()))
+            } else if snapshot.queue.action_digest != action_digest {
+                (false, Some("QueueBusy".to_string()))
+            } else if snapshot.queue.session_id != state.session_id {
+                (false, Some("QueueMismatch".to_string()))
+            } else if now > snapshot.queue.expires_at {
+                (false, Some("QueueExpired".to_string()))
+            } else if now < snapshot.queue.ready_at {
+                (false, Some("QueueNotReady".to_string()))
+            } else {
+                (true, None)
+            }
         }
-        Route::Approve | Route::ApproveAndQueue => true,
-        Route::Reject => false,
+        Route::Approve | Route::ApproveAndQueue => (true, None),
+        Route::Reject => (false, Some("ApprovalRequired".to_string())),
     };
 
     checks.push(RuleOutcome {
@@ -243,11 +304,7 @@ pub fn preview_candidate(
         } else {
             RuleStatus::Fail
         },
-        error_code: if !route_ok {
-            Some("ApprovalRequired".to_string())
-        } else {
-            None
-        },
+        error_code: route_err,
         message: format!("tier={tier:?}, route={route:?}"),
     });
 

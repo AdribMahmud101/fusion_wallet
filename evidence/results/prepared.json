@@ -689,12 +689,12 @@
       "A"
     ],
     "candidateSet": {
-      "candidateSetDigest": "0x5a76326e5eda859b41fe767c37237fa3a20a3b991eaf9f0bbe5b1dc7e66030e6",
+      "candidateSetDigest": "0xbfae1fc0f678a4f5d6dc4da0e8383acdd5b063c184dceb7cb2d43c13c8adf6a6",
       "candidates": [
         {
           "action": {
             "assets": "10000001",
-            "deadline": 1700000120,
+            "deadline": 1700000780,
             "decisionHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "destinationVault": "0x0000000000000000000000000000000000000000",
             "dueAt": 1700000000,
@@ -727,7 +727,7 @@
           "feeAssumptions": {
             "feeRaw": "50000"
           },
-          "id": "0xa676ba2f42bec1e469dea72f507c77cd715ffbc22558a973f210d43a4bd89d22",
+          "id": "0xb501eee0389fe9e9e8f457f271cd1ba2035952f5e31249994b966624ce8a514d",
           "kind": 3,
           "label": "A",
           "proof": [],
@@ -807,7 +807,7 @@
       "prompt": "Choose the earliest due bill. Return its option; follow the required approval or queue route."
     },
     "request": {
-      "candidateSetDigest": "0x5a76326e5eda859b41fe767c37237fa3a20a3b991eaf9f0bbe5b1dc7e66030e6",
+      "candidateSetDigest": "0xbfae1fc0f678a4f5d6dc4da0e8383acdd5b063c184dceb7cb2d43c13c8adf6a6",
       "labels": [
         "A",
         "H"
@@ -917,12 +917,12 @@
       "A"
     ],
     "candidateSet": {
-      "candidateSetDigest": "0x25ea2a645540a2d54b572e329b534d2907ad994ff14f9e6d375601a76a22da8a",
+      "candidateSetDigest": "0x6a0fde367c1143966d6ee587da1b5bb99600264c07bd65c67ab490f1236858ce",
       "candidates": [
         {
           "action": {
             "assets": "99999999",
-            "deadline": 1700000120,
+            "deadline": 1700000780,
             "decisionHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "destinationVault": "0x0000000000000000000000000000000000000000",
             "dueAt": 1700000000,
@@ -955,7 +955,7 @@
           "feeAssumptions": {
             "feeRaw": "50000"
           },
-          "id": "0x6a565d4f475df4da7f33a5f0e443a7f2f593bd1b02d95f59aa2e14ae034bebe7",
+          "id": "0xf3ee32abdf26051bd8cfeaab5aaab7b84e44ec464a35aae99c3381addc07daa2",
           "kind": 3,
           "label": "A",
           "proof": [],
@@ -1035,7 +1035,7 @@
       "prompt": "Choose the earliest due bill. Return its option; follow the required approval or queue route."
     },
     "request": {
-      "candidateSetDigest": "0x25ea2a645540a2d54b572e329b534d2907ad994ff14f9e6d375601a76a22da8a",
+      "candidateSetDigest": "0x6a0fde367c1143966d6ee587da1b5bb99600264c07bd65c67ab490f1236858ce",
       "labels": [
         "A",
         "H"
@@ -1145,12 +1145,12 @@
       "A"
     ],
     "candidateSet": {
-      "candidateSetDigest": "0xdd133807d19db12cb41ea8cecd16dcd3482115f32180daaab1b86e884d98f779",
+      "candidateSetDigest": "0xe31ac39665718505adc886071a360b58321cc825d86cdf9cb7a32880c807fe7f",
       "candidates": [
         {
           "action": {
             "assets": "100000000",
-            "deadline": 1700000120,
+            "deadline": 1700000780,
             "decisionHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "destinationVault": "0x0000000000000000000000000000000000000000",
             "dueAt": 1700000000,
@@ -1183,7 +1183,7 @@
           "feeAssumptions": {
             "feeRaw": "50000"
           },
-          "id": "0x3ce5f311c6045299936a1c83b5b2d8d768229e92b119ebc1b8f5ecfd2799b1a2",
+          "id": "0xcfb509726dfa51dd004a1dc2047aa2d0422cf13d229c09110b7cc3c971ed7b16",
           "kind": 3,
           "label": "A",
           "proof": [],
@@ -1263,7 +1263,7 @@
       "prompt": "Choose the earliest due bill. Return its option; follow the required approval or queue route."
     },
     "request": {
-      "candidateSetDigest": "0xdd133807d19db12cb41ea8cecd16dcd3482115f32180daaab1b86e884d98f779",
+      "candidateSetDigest": "0xe31ac39665718505adc886071a360b58321cc825d86cdf9cb7a32880c807fe7f",
       "labels": [
         "A",
         "H"

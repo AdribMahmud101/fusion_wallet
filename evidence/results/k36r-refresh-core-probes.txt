@@ -1,0 +1,37 @@
+{
+  "core_probe_refresh": {
+    "generated_at": "2026-10-20T12:22:46.441035+00:00",
+    "source_base": "ee4665d31f6b32dcc86cc3c7cc38b3abfe82b423",
+    "source_sha256": {
+      "src/fusion-core/src/sign.rs": "21e8ebcad247366853ce3db1a69c7ce7325fb9cf532105065ae836888e1af8eb",
+      "src/fusion-core/tests/arena_pipeline.rs": "193985201b55c13f55ed2d000ecfc5e870c1dd156e5eb12976f3cd14ec8eb204",
+      "src/contracts/src/IKavachiModule.sol": "ee5ba90f7ec74c5a8ed944e07721ff88cf11feead839dd2c2fad8f6e3fbabf88"
+    }
+  },
+  "A12": {
+    "attempted_charge_raw": 99000000,
+    "id": "A12",
+    "layer": "signer",
+    "note": "Generic arbitrary-calldata signing is refused by the module-call allowlist. Dedicated x402 payment/budget flow is not implemented; no broadcast.",
+    "prepared_transaction": {
+      "chainId": 31337,
+      "data": "0xa9059cbb000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000000000005e69ec0",
+      "gasLimit": 100000,
+      "maxFeePerGas": 1000000000,
+      "maxPriorityFeePerGas": 1000000,
+      "nonce": 0,
+      "to": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "value": "0x0"
+    },
+    "quoted_charge_raw": 10000,
+    "refusal_reason": "SignerRefused::NotModuleCall",
+    "signed_hash": null,
+    "stopped": true
+  },
+  "summary": {
+    "scenario_count": 24,
+    "stopped": 24,
+    "escaped": 0,
+    "not_implemented": 0
+  }
+}

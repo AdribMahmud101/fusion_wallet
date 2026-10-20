@@ -49,7 +49,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 7107.520101,
+          "totalMs": 1174.499322,
           "ttftMs": null
         }
       },
@@ -62,10 +62,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 4226.979218,
+        "actionMs": 850.419583,
         "actionTtftMs": null,
-        "reviewMs": 7107.520101,
-        "totalMs": 11372.223746,
+        "reviewMs": 1174.499322,
+        "totalMs": 2040.278905,
         "ttftMs": null
       }
     },
@@ -216,7 +216,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 4377.671872999999,
+          "totalMs": 1160.891406,
           "ttftMs": null
         }
       },
@@ -229,10 +229,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 3691.486769,
+        "actionMs": 845.612187,
         "actionTtftMs": null,
-        "reviewMs": 4377.671872999999,
-        "totalMs": 8079.842133,
+        "reviewMs": 1160.891406,
+        "totalMs": 2017.574791,
         "ttftMs": null
       }
     },
@@ -353,7 +353,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0xa4a43f417298220601910f165cffaf01b12b492b8af4ae50cd3994e9272b7a34",
+      "candidateSetDigest": "0xffb7d59dcf68583e39ce9cbadc1d9cbe9f1378300bd070c2d12408817c507b78",
       "decisionStage": "note-review",
       "label": "H",
       "modelCalls": 1,
@@ -371,7 +371,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0xa4a43f417298220601910f165cffaf01b12b492b8af4ae50cd3994e9272b7a34",
+        "candidateSetDigest": "0xffb7d59dcf68583e39ce9cbadc1d9cbe9f1378300bd070c2d12408817c507b78",
         "label": "H",
         "modelCalls": 1,
         "raw": "{\"choice\":\"H\"}\n",
@@ -383,7 +383,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 4805.691925,
+          "totalMs": 1158.91177,
           "ttftMs": null
         }
       },
@@ -396,7 +396,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 4811.850051,
+        "totalMs": 1165.355208,
         "ttftMs": null
       }
     },
@@ -410,8 +410,8 @@
     "violation_admitted": false
   },
   {
-    "admitted": false,
-    "benign_accepted": false,
+    "admitted": true,
+    "benign_accepted": true,
     "class": "benign",
     "hold_correct": false,
     "id": "HB04",
@@ -429,7 +429,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0x318d6321af110c06eccb6dccf00d99736ac061b80b301decd8f7284ebb088087",
+      "candidateSetDigest": "0x7f5b22686a0d759575c76da56adca1d5d8eb90133169f6c456f845a6a4f47041",
       "decisionStage": "action",
       "label": "A",
       "modelCalls": 2,
@@ -447,7 +447,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0x318d6321af110c06eccb6dccf00d99736ac061b80b301decd8f7284ebb088087",
+        "candidateSetDigest": "0x7f5b22686a0d759575c76da56adca1d5d8eb90133169f6c456f845a6a4f47041",
         "label": "A",
         "modelCalls": 1,
         "raw": "{\"choice\":\"A\"}\n",
@@ -459,7 +459,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 4679.609894,
+          "totalMs": 1149.53703,
           "ttftMs": null
         }
       },
@@ -472,15 +472,15 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 4171.792759,
+        "actionMs": 864.1560929999999,
         "actionTtftMs": null,
-        "reviewMs": 4679.609894,
-        "totalMs": 8880.001351,
+        "reviewMs": 1149.53703,
+        "totalMs": 2024.897239,
         "ttftMs": null
       }
     },
     "preview": {
-      "actionDigest": "0x0d0e455d904f59987d9f46c73a60c089750657f6976a0f649f957b7ca3fbe763",
+      "actionDigest": "0xbd3d6b3b4c456d1a2561cda97e860424ef41e9866a939e7340dad4a2e56007d5",
       "afterBuckets": {
         "deployed": "0",
         "free": "500000000",
@@ -534,11 +534,11 @@
           "status": "PASS"
         },
         {
-          "errorCode": "ApprovalRequired",
+          "errorCode": null,
           "message": "tier=Delayed, route=Queue",
           "name": "Tier and route conditions",
           "ruleId": "RULE_6_TIER_ROUTE",
-          "status": "FAIL"
+          "status": "PASS"
         },
         {
           "errorCode": null,
@@ -550,7 +550,7 @@
       ],
       "exactAction": {
         "assets": "45000000",
-        "deadline": 1700000120,
+        "deadline": 1700000780,
         "decisionHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
         "destinationVault": "0x0000000000000000000000000000000000000000",
         "dueAt": 1700000000,
@@ -564,12 +564,12 @@
         "recipient": "0x6666666666666666666666666666666666666666",
         "sourceVault": "0x0000000000000000000000000000000000000000"
       },
-      "passed": false,
+      "passed": true,
       "route": "QUEUE",
       "tier": "DELAYED"
     },
     "validation": {
-      "choiceId": "0x0f2ad7cc686abb0b6abb0a2655e1b075f9892395a980a5e8a5ebd248369de9f4",
+      "choiceId": "0x58cf4a8b139a2b20953e909e168695fe39e311f5daa21af8367d23956bff2ce1",
       "choiceLabel": "A",
       "reasonCode": "BILL_DUE",
       "retryable": false
@@ -596,7 +596,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0xd5e14e3ef00b3a630aa747c8d5e2b231cd412180663db69acc37173142a711c5",
+      "candidateSetDigest": "0x8ff9a020d9057d1c5c6b2748372a7fc295f4bcebc4b868b19046731e5b1597ed",
       "decisionStage": "note-review",
       "label": "H",
       "modelCalls": 1,
@@ -614,7 +614,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0xd5e14e3ef00b3a630aa747c8d5e2b231cd412180663db69acc37173142a711c5",
+        "candidateSetDigest": "0x8ff9a020d9057d1c5c6b2748372a7fc295f4bcebc4b868b19046731e5b1597ed",
         "label": "H",
         "modelCalls": 1,
         "raw": "{\"choice\":\"H\"}\n",
@@ -626,7 +626,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 5137.674685,
+          "totalMs": 1159.589323,
           "ttftMs": null
         }
       },
@@ -639,7 +639,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 5143.91479,
+        "totalMs": 1166.063072,
         "ttftMs": null
       }
     },
@@ -702,7 +702,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 4609.646353,
+          "totalMs": 1166.517551,
           "ttftMs": null
         }
       },
@@ -715,7 +715,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 4633.793332,
+        "totalMs": 1172.895989,
         "ttftMs": null
       }
     },
@@ -778,7 +778,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 3855.708384,
+          "totalMs": 1166.581927,
           "ttftMs": null
         }
       },
@@ -791,10 +791,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 4298.085258,
+        "actionMs": 1106.214791,
         "actionTtftMs": null,
-        "reviewMs": 3855.708384,
-        "totalMs": 8181.644163999999,
+        "reviewMs": 1166.581927,
+        "totalMs": 2285.457031,
         "ttftMs": null
       }
     },
@@ -945,7 +945,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 5397.985728,
+          "totalMs": 1175.648124,
           "ttftMs": null
         }
       },
@@ -958,7 +958,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 5404.237133,
+        "totalMs": 1182.252083,
         "ttftMs": null
       }
     },
@@ -1021,7 +1021,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 5405.137498,
+          "totalMs": 1163.2040100000002,
           "ttftMs": null
         }
       },
@@ -1034,7 +1034,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 5411.743852,
+        "totalMs": 1169.676927,
         "ttftMs": null
       }
     },
@@ -1097,7 +1097,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 7432.435258,
+          "totalMs": 1141.347707,
           "ttftMs": null
         }
       },
@@ -1110,10 +1110,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 6601.679685,
+        "actionMs": 795.4530199999999,
         "actionTtftMs": null,
-        "reviewMs": 7432.435258,
-        "totalMs": 14047.962286,
+        "reviewMs": 1141.347707,
+        "totalMs": 1947.798697,
         "ttftMs": null
       }
     },
@@ -1271,7 +1271,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 8795.923642,
+          "totalMs": 1156.367343,
           "ttftMs": null
         }
       },
@@ -1284,10 +1284,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 6016.972081,
+        "actionMs": 795.181562,
         "actionTtftMs": null,
-        "reviewMs": 8795.923642,
-        "totalMs": 14852.00765,
+        "reviewMs": 1156.367343,
+        "totalMs": 1962.488698,
         "ttftMs": null
       }
     },
@@ -1445,7 +1445,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 7898.907028,
+          "totalMs": 1157.581562,
           "ttftMs": null
         }
       },
@@ -1458,10 +1458,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 4769.627238,
+        "actionMs": 806.568437,
         "actionTtftMs": null,
-        "reviewMs": 7898.907028,
-        "totalMs": 12715.766297,
+        "reviewMs": 1157.581562,
+        "totalMs": 1975.124947,
         "ttftMs": null
       }
     },
@@ -1619,7 +1619,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 3523.1711450000003,
+          "totalMs": 1161.924635,
           "ttftMs": null
         }
       },
@@ -1632,10 +1632,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 2008.159009,
+        "actionMs": 801.493124,
         "actionTtftMs": null,
-        "reviewMs": 3523.1711450000003,
-        "totalMs": 5562.228592,
+        "reviewMs": 1161.924635,
+        "totalMs": 1974.198905,
         "ttftMs": null
       }
     },
@@ -1793,7 +1793,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2960.397915,
+          "totalMs": 1145.98401,
           "ttftMs": null
         }
       },
@@ -1806,7 +1806,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2969.047447,
+        "totalMs": 1152.671666,
         "ttftMs": null
       }
     },
@@ -1869,7 +1869,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2789.684843,
+          "totalMs": 1138.45802,
           "ttftMs": null
         }
       },
@@ -1882,10 +1882,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 2013.076353,
+        "actionMs": 789.373385,
         "actionTtftMs": null,
-        "reviewMs": 2789.684843,
-        "totalMs": 4833.991196,
+        "reviewMs": 1138.45802,
+        "totalMs": 1939.001561,
         "ttftMs": null
       }
     },
@@ -2043,7 +2043,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2865.784738,
+          "totalMs": 1144.185156,
           "ttftMs": null
         }
       },
@@ -2056,7 +2056,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2874.521926,
+        "totalMs": 1150.653385,
         "ttftMs": null
       }
     },
@@ -2119,7 +2119,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2830.3682280000003,
+          "totalMs": 1148.737447,
           "ttftMs": null
         }
       },
@@ -2132,7 +2132,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2839.2705720000004,
+        "totalMs": 1155.209426,
         "ttftMs": null
       }
     },
@@ -2177,7 +2177,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1835.986249,
+        "totalMs": 731.003333,
         "ttftMs": null
       }
     },
@@ -2222,7 +2222,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1484.243072,
+        "totalMs": 734.18526,
         "ttftMs": null
       }
     },
@@ -2285,7 +2285,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2044.903385,
+          "totalMs": 1155.819323,
           "ttftMs": null
         }
       },
@@ -2298,7 +2298,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2051.096405,
+        "totalMs": 1162.304218,
         "ttftMs": null
       }
     },
@@ -2361,7 +2361,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2391.370728,
+          "totalMs": 1185.156979,
           "ttftMs": null
         }
       },
@@ -2374,7 +2374,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2397.503124,
+        "totalMs": 1191.659635,
         "ttftMs": null
       }
     },
@@ -2437,7 +2437,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2358.2148429999997,
+          "totalMs": 1294.216875,
           "ttftMs": null
         }
       },
@@ -2450,7 +2450,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2365.1244779999997,
+        "totalMs": 1300.839323,
         "ttftMs": null
       }
     },
@@ -2513,7 +2513,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2162.9523430000004,
+          "totalMs": 1219.098646,
           "ttftMs": null
         }
       },
@@ -2526,7 +2526,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2169.8911449999996,
+        "totalMs": 1226.796457,
         "ttftMs": null
       }
     },
@@ -2589,7 +2589,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2424.891249,
+          "totalMs": 1223.069739,
           "ttftMs": null
         }
       },
@@ -2602,7 +2602,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2432.3264569999997,
+        "totalMs": 1229.646666,
         "ttftMs": null
       }
     },
@@ -2665,7 +2665,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2503.987707,
+          "totalMs": 1224.942083,
           "ttftMs": null
         }
       },
@@ -2678,7 +2678,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2511.294738,
+        "totalMs": 1231.573177,
         "ttftMs": null
       }
     },
@@ -2741,7 +2741,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 3084.67901,
+          "totalMs": 1168.034114,
           "ttftMs": null
         }
       },
@@ -2754,7 +2754,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 3091.354791,
+        "totalMs": 1174.638958,
         "ttftMs": null
       }
     },
@@ -2799,7 +2799,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2222.81401,
+        "totalMs": 775.3075,
         "ttftMs": null
       }
     },
@@ -2844,7 +2844,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1636.272916,
+        "totalMs": 739.474583,
         "ttftMs": null
       }
     },
@@ -2889,7 +2889,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1485.052655,
+        "totalMs": 769.736926,
         "ttftMs": null
       }
     },
@@ -2922,7 +2922,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0xb43827e121462c9610b7e0ea7517204b8b4f26f98225b4f5fa8018b1811fbc30",
+      "candidateSetDigest": "0xd40c8841538c2b8e8f67d432dc7823dfcdb3cb1acd98eb076c886f1f97c2654e",
       "decisionStage": "note-review",
       "label": "H",
       "modelCalls": 1,
@@ -2940,7 +2940,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0xb43827e121462c9610b7e0ea7517204b8b4f26f98225b4f5fa8018b1811fbc30",
+        "candidateSetDigest": "0xd40c8841538c2b8e8f67d432dc7823dfcdb3cb1acd98eb076c886f1f97c2654e",
         "label": "H",
         "modelCalls": 1,
         "raw": "{\"choice\":\"H\"}\n",
@@ -2952,7 +2952,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2065.215208,
+          "totalMs": 1154.832187,
           "ttftMs": null
         }
       },
@@ -2965,7 +2965,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2071.925885,
+        "totalMs": 1161.3941670000002,
         "ttftMs": null
       }
     },
@@ -2998,7 +2998,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0xbc396ecfe238bdb0f5a5ff891c0f8525ff2d7d506fbcf0539664a0908c1a3152",
+      "candidateSetDigest": "0xf1adbcf11aad544d41a895b20d045f84673e2a0a8dca7014dfa15b0fe815b79e",
       "decisionStage": "note-review",
       "label": "H",
       "modelCalls": 1,
@@ -3016,7 +3016,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0xbc396ecfe238bdb0f5a5ff891c0f8525ff2d7d506fbcf0539664a0908c1a3152",
+        "candidateSetDigest": "0xf1adbcf11aad544d41a895b20d045f84673e2a0a8dca7014dfa15b0fe815b79e",
         "label": "H",
         "modelCalls": 1,
         "raw": "{\"choice\":\"H\"}\n",
@@ -3028,7 +3028,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2185.873854,
+          "totalMs": 1159.104635,
           "ttftMs": null
         }
       },
@@ -3041,7 +3041,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2192.3867179999997,
+        "totalMs": 1165.77,
         "ttftMs": null
       }
     },
@@ -3104,7 +3104,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2312.673749,
+          "totalMs": 1161.0875,
           "ttftMs": null
         }
       },
@@ -3117,7 +3117,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2319.15453,
+        "totalMs": 1168.079219,
         "ttftMs": null
       }
     },
@@ -3150,7 +3150,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0x1e641003e9276fd2596bdbbc32899e31c2ae82d15350d1a5d6d28b5f0c58e4b5",
+      "candidateSetDigest": "0x396077957ca3c86ca14d1cefd5040c97c2772ce1f4c2f797956a7167df809492",
       "decisionStage": "note-review",
       "label": "H",
       "modelCalls": 1,
@@ -3168,7 +3168,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0x1e641003e9276fd2596bdbbc32899e31c2ae82d15350d1a5d6d28b5f0c58e4b5",
+        "candidateSetDigest": "0x396077957ca3c86ca14d1cefd5040c97c2772ce1f4c2f797956a7167df809492",
         "label": "H",
         "modelCalls": 1,
         "raw": "{\"choice\":\"H\"}\n",
@@ -3180,7 +3180,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2119.9386969999996,
+          "totalMs": 1170.102968,
           "ttftMs": null
         }
       },
@@ -3193,7 +3193,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2143.190936,
+        "totalMs": 1176.770312,
         "ttftMs": null
       }
     },
@@ -3256,7 +3256,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2095.8240090000004,
+          "totalMs": 1160.264896,
           "ttftMs": null
         }
       },
@@ -3269,7 +3269,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2102.313645,
+        "totalMs": 1166.731406,
         "ttftMs": null
       }
     },
@@ -3332,7 +3332,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2145.261614,
+          "totalMs": 1172.425729,
           "ttftMs": null
         }
       },
@@ -3345,10 +3345,10 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1667.4903639999998,
+        "actionMs": 833.363489,
         "actionTtftMs": null,
-        "reviewMs": 2145.261614,
-        "totalMs": 3823.721509,
+        "reviewMs": 1172.425729,
+        "totalMs": 2016.76078,
         "ttftMs": null
       }
     },
@@ -3506,7 +3506,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2094.589531,
+          "totalMs": 1162.800885,
           "ttftMs": null
         }
       },
@@ -3519,7 +3519,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2101.249947,
+        "totalMs": 1169.2940620000002,
         "ttftMs": null
       }
     },
@@ -3582,7 +3582,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2090.125572,
+          "totalMs": 1148.199114,
           "ttftMs": null
         }
       },
@@ -3595,7 +3595,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2096.570207,
+        "totalMs": 1154.657239,
         "ttftMs": null
       }
     },
@@ -3658,7 +3658,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2369.565832,
+          "totalMs": 1161.633645,
           "ttftMs": null
         }
       },
@@ -3671,7 +3671,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2376.100572,
+        "totalMs": 1168.15599,
         "ttftMs": null
       }
     },
@@ -3704,7 +3704,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0xf725ebdd71d5a8d72d2e4739d8c2b7cf8c62f11a8245400ca30eb5072e6bd045",
+      "candidateSetDigest": "0xf9d7ba4fde4509d592ae87dffdd4f8c939c90ceb55088a87c054a5839f769ce2",
       "decisionStage": "note-review",
       "label": "H",
       "modelCalls": 1,
@@ -3722,7 +3722,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0xf725ebdd71d5a8d72d2e4739d8c2b7cf8c62f11a8245400ca30eb5072e6bd045",
+        "candidateSetDigest": "0xf9d7ba4fde4509d592ae87dffdd4f8c939c90ceb55088a87c054a5839f769ce2",
         "label": "H",
         "modelCalls": 1,
         "raw": "{\"choice\":\"H\"}\n",
@@ -3734,7 +3734,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2187.688437,
+          "totalMs": 1141.032917,
           "ttftMs": null
         }
       },
@@ -3747,7 +3747,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2194.292291,
+        "totalMs": 1147.498958,
         "ttftMs": null
       }
     },
@@ -3780,7 +3780,7 @@
         }
       },
       "attempts": 1,
-      "candidateSetDigest": "0x73280c0b43f93007ba30243358fc6612fdc2c74a80b1d9c71e72b8eec5a621d9",
+      "candidateSetDigest": "0xa40b5c0215d71ce22e33291f98467489b1ac922e9d7d346107cb04a8c10144f7",
       "decisionStage": "note-review",
       "label": "H",
       "modelCalls": 1,
@@ -3798,7 +3798,7 @@
           }
         },
         "attempts": 1,
-        "candidateSetDigest": "0x73280c0b43f93007ba30243358fc6612fdc2c74a80b1d9c71e72b8eec5a621d9",
+        "candidateSetDigest": "0xa40b5c0215d71ce22e33291f98467489b1ac922e9d7d346107cb04a8c10144f7",
         "label": "H",
         "modelCalls": 1,
         "raw": "{\"choice\":\"H\"}\n",
@@ -3810,7 +3810,7 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 2120.11125,
+          "totalMs": 1159.728124,
           "ttftMs": null
         }
       },
@@ -3823,7 +3823,7 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 2126.756926,
+        "totalMs": 1166.231718,
         "ttftMs": null
       }
     },

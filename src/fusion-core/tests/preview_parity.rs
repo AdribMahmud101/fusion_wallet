@@ -277,3 +277,189 @@ fn daily_usage_resets_at_snapshot_utc_midnight_but_session_usage_does_not() {
     snapshot.module_state.session_used_raw = snapshot.module_state.session_limit_raw;
     assert_eq!(check(&snapshot).status, RuleStatus::Fail);
 }
+
+#[test]
+fn test_preview_delayed_queue_proposal_passes_when_queue_empty() {
+    let (mut snapshot, mut candidate) = sample_setup();
+    // 50 USDC: delayed tier (> micro_max 10 USDC, <= delayed_max 100 USDC)
+    candidate.action.assets = U256::from(50_000_000);
+    snapshot.quant = Some(common::measured(
+        snapshot.block_number,
+        snapshot.block_timestamp,
+        candidate.action.destination_vault,
+        candidate.action.assets,
+    ));
+    candidate.tier = fusion_core::candidates::Tier::Delayed;
+    candidate.route = fusion_core::candidates::Route::Queue;
+    // ensure cash covers R + B + 50 USDC
+    // safe_cash = 3000 USDC in sample_setup, R=583, B=500 -> 1083. 3000 - 50 = 2950 > 1083.
+    candidate.action.deadline =
+        snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600;
+    let decision_hash = B256::repeat_byte(0xdd);
+    let chain_id = U256::from(84532);
+    let safe = Address::from_slice(&[0x11; 20]);
+    let module = Address::from_slice(&[0x22; 20]);
+
+    let res = fusion_core::preview::preview_proposal(
+        &candidate,
+        &snapshot,
+        decision_hash,
+        chain_id,
+        safe,
+        module,
+    );
+    assert!(
+        res.passed,
+        "Delayed action queue proposal must pass when queue is empty: {:?}",
+        res.checks
+            .iter()
+            .filter(|c| c.status == RuleStatus::Fail)
+            .collect::<Vec<_>>()
+    );
+}
+
+#[test]
+fn test_preview_delayed_queue_fails_when_queue_not_ready() {
+    let (mut snapshot, mut candidate) = sample_setup();
+    candidate.action.assets = U256::from(50_000_000);
+    snapshot.quant = Some(common::measured(
+        snapshot.block_number,
+        snapshot.block_timestamp,
+        candidate.action.destination_vault,
+        candidate.action.assets,
+    ));
+    candidate.tier = fusion_core::candidates::Tier::Delayed;
+    candidate.route = fusion_core::candidates::Route::Queue;
+
+    let decision_hash = B256::repeat_byte(0xdd);
+    let chain_id = U256::from(84532);
+    let safe = Address::from_slice(&[0x11; 20]);
+    let module = Address::from_slice(&[0x22; 20]);
+
+    let mut exact_action = candidate.action.clone();
+    exact_action.decision_hash = decision_hash;
+    let digest = fusion_core::hashing::compute_action_digest(
+        chain_id,
+        safe,
+        module,
+        snapshot.module_state.mandate_hash,
+        snapshot.module_state.session_id,
+        &exact_action,
+    );
+
+    // Queue exists with matching action, but ready_at is in future
+    snapshot.queue.exists = true;
+    snapshot.queue.action_digest = digest;
+    snapshot.queue.session_id = snapshot.module_state.session_id;
+    snapshot.queue.expires_at = candidate.action.deadline;
+    snapshot.queue.ready_at = snapshot.block_timestamp + 180;
+
+    let res = preview_candidate(&candidate, &snapshot, decision_hash, chain_id, safe, module);
+    assert!(!res.passed);
+    let fail = res
+        .checks
+        .iter()
+        .find(|c| c.rule_id == "RULE_6_TIER_ROUTE")
+        .unwrap();
+    assert_eq!(fail.status, RuleStatus::Fail);
+    assert_eq!(fail.error_code.as_deref(), Some("QueueNotReady"));
+}
+
+#[test]
+fn delayed_proposal_does_not_authorize_execution_or_bypass_safety() {
+    use fusion_core::preview::preview_proposal;
+    let (mut snapshot, mut candidate) = sample_setup();
+    // Exercise a delayed deposit directly: K44 caps generated autonomous
+    // deposits at micro_max, but preview must still guard externally supplied ones.
+    candidate.action.assets = U256::from(20_000_000);
+    candidate.action.deadline =
+        snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600;
+    candidate.tier = Tier::Delayed;
+    candidate.route = Route::Queue;
+    snapshot.safe_cash = snapshot.module_state.reserved_raw
+        + snapshot.policy.operating_buffer_raw
+        + candidate.action.assets;
+    snapshot.quant = Some(common::measured(
+        snapshot.block_number,
+        snapshot.block_timestamp,
+        snapshot.policy.vaults[0].vault,
+        candidate.action.assets,
+    ));
+    let candidate = &candidate;
+    let proposal = |s: &Snapshot, c: &Candidate| {
+        preview_proposal(
+            c,
+            s,
+            B256::repeat_byte(0xdd),
+            U256::from(31337),
+            Address::ZERO,
+            Address::ZERO,
+        )
+    };
+    let execution = |s: &Snapshot| {
+        preview_candidate(
+            candidate,
+            s,
+            B256::repeat_byte(0xdd),
+            U256::from(31337),
+            Address::ZERO,
+            Address::ZERO,
+        )
+    };
+    let has_error = |r: &fusion_core::preview::PreviewResult, code: &str| {
+        r.checks
+            .iter()
+            .any(|c| c.status == RuleStatus::Fail && c.error_code.as_deref() == Some(code))
+    };
+    let admitted = proposal(&snapshot, candidate);
+    assert!(admitted.passed);
+    assert!(has_error(&execution(&snapshot), "QueueRequired"));
+
+    let mut short = candidate.clone();
+    short.action.deadline = snapshot.block_timestamp + 120;
+    assert!(
+        !proposal(&snapshot, &short).passed,
+        "Queue must not outlive its action"
+    );
+    for (mutation, code) in [
+        (0, "ModulePaused"),
+        (1, "DailyLimitExceeded"),
+        (2, "SessionLimitExceeded"),
+        (3, "ReserveViolation"),
+        (4, "BadNonce"),
+        (5, "QuantGuard"),
+    ] {
+        let mut s = snapshot.clone();
+        match mutation {
+            0 => s.module_state.paused = true,
+            1 => {
+                s.module_state.daily_day_index = U256::from(s.block_timestamp / 86_400);
+                s.module_state.daily_used_raw = s.policy.daily_limit_raw;
+            }
+            2 => s.module_state.session_used_raw = s.module_state.session_limit_raw,
+            3 => s.safe_cash -= candidate.action.assets,
+            4 => s.module_state.action_nonce += U256::from(1),
+            _ => s.quant = None,
+        }
+        assert!(has_error(&proposal(&s, candidate), code), "{code}");
+    }
+
+    snapshot.queue.exists = true;
+    snapshot.queue.action_digest = admitted.action_digest;
+    snapshot.queue.session_id = snapshot.module_state.session_id;
+    snapshot.queue.ready_at = snapshot.block_timestamp + snapshot.policy.delay_seconds as u64;
+    snapshot.queue.expires_at = candidate.action.deadline;
+    assert!(has_error(&proposal(&snapshot, candidate), "QueueNotReady"));
+    assert!(has_error(&execution(&snapshot), "QueueNotReady"));
+    snapshot.block_timestamp = snapshot.queue.ready_at;
+    assert!(execution(&snapshot).passed);
+    assert!(proposal(&snapshot, candidate).passed);
+    snapshot.queue.action_digest = B256::ZERO;
+    assert!(has_error(&proposal(&snapshot, candidate), "QueueBusy"));
+    snapshot.queue.action_digest = admitted.action_digest;
+    snapshot.queue.session_id = B256::ZERO;
+    assert!(has_error(&execution(&snapshot), "QueueMismatch"));
+    snapshot.queue.session_id = snapshot.module_state.session_id;
+    snapshot.block_timestamp = snapshot.queue.expires_at + 1;
+    assert!(has_error(&execution(&snapshot), "QueueExpired"));
+}

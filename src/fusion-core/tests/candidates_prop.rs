@@ -199,6 +199,28 @@ fn test_bill_ordering_earliest_due_at() {
     assert_eq!(res.candidates[0].action.assets, U256::from(10_000_000));
     assert_eq!(res.candidates[1].label, "B");
     assert_eq!(res.candidates[1].action.assets, U256::from(20_000_000));
+    assert_eq!(
+        res.candidates[0].action.deadline,
+        snapshot.block_timestamp + 120
+    );
+    let delayed = &res.candidates[1];
+    assert_eq!(delayed.route, fusion_core::candidates::Route::Queue);
+    assert_eq!(
+        delayed.action.deadline,
+        snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600
+    );
+    assert_eq!(
+        delayed.id,
+        fusion_core::hashing::compute_candidate_id_from_action(
+            U256::from(84532),
+            Address::ZERO,
+            Address::ZERO,
+            B256::ZERO,
+            B256::ZERO,
+            snapshot.block_hash,
+            &delayed.action,
+        )
+    );
 }
 
 #[test]
