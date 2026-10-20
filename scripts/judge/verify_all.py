@@ -371,6 +371,96 @@ def run_step5_check_sourcify(manifest: dict) -> tuple[int, int, list[str]]:
             
     return passed, len(sourcify_links) - passed, errors
 
+def run_k47b_checks(manifest: dict) -> tuple[int, int, list[str]]:
+    """Check the K47B owner policy change and truthful live APP HOLD evidence."""
+    checks = 9
+    errors = []
+    try:
+        evidence_dir = ROOT / "evidence/app/agent"
+        policy_doc = json.loads((evidence_dir / "K47B_policy_before_after.json").read_text())
+        backup = json.loads((evidence_dir / "K47B_policy_backup.json").read_text())
+        owner = json.loads((evidence_dir / "K47B_owner_policy_receipt.json").read_text())
+        hold = json.loads((evidence_dir / "K47B_autopilot_hold.json").read_text())
+        quote = json.loads((evidence_dir / "K47B_75_live_inputs.json").read_text())
+        quant = json.loads((evidence_dir / "K47B_75_quant_report.json").read_text())
+
+        tx_hash = owner["txHash"].lower()
+        index = {row["txHash"].lower(): row for row in json.loads((ROOT / "evidence/tx_index.json").read_text())}
+        indexed_owner = index.get(tx_hash)
+        if not indexed_owner or indexed_owner.get("source") != "OWNER" or indexed_owner.get("kind") != "POLICY_CHANGE_AND_SESSION_RESUME":
+            raise ValueError("K47B owner transaction is missing its honest OWNER index label")
+        if not indexed_owner.get("notes", "").startswith("Owner policy change (2-of-2): microMaxRaw 10 to 75 USDC"):
+            raise ValueError("K47B owner transaction has no descriptive 2-of-2 policy label")
+        receipt = rpc_call("eth_getTransactionReceipt", [tx_hash])
+        tx = rpc_call("eth_getTransactionByHash", [tx_hash])
+        if not receipt or not tx or int(receipt.get("status", "0x0"), 16) != 1:
+            raise ValueError("K47B owner Safe transaction is missing or unsuccessful")
+        if tx.get("chainId", "0x0") != "0x14a34":
+            raise ValueError("K47B owner transaction is not on Base Sepolia")
+        if tx.get("from", "").lower() != manifest["roles"]["owner"].lower() or tx.get("to", "").lower() != manifest["safe"].lower():
+            raise ValueError("K47B owner transaction sender or Safe destination mismatch")
+        if receipt.get("blockHash") != rpc_call("eth_getBlockByNumber", [receipt["blockNumber"], False]).get("hash"):
+            raise ValueError("K47B owner receipt block hash mismatch")
+        if owner.get("source") != "OWNER" or owner.get("receipt", {}).get("transactionHash", "").lower() != tx_hash:
+            raise ValueError("K47B owner provenance record mismatch")
+        safe = manifest["safe"]
+        threshold = int(rpc_call("eth_call", [{"to": safe, "data": "0xe75235b8"}, receipt["blockNumber"]]), 16)
+        if threshold != 2 or owner.get("safeThresholdAtReceiptBlock") != 2:
+            raise ValueError("K47B policy transaction was not executed under Safe threshold 2")
+        owners_raw = rpc_call("eth_call", [{"to": safe, "data": "0xa0e67e2b"}, receipt["blockNumber"]])
+        owner_words = [owners_raw[i:i + 64] for i in range(2, len(owners_raw), 64)]
+        offset = int(owner_words[0], 16) // 32
+        owners = {"0x" + word[-40:] for word in owner_words[offset + 1:offset + 1 + int(owner_words[offset], 16)]}
+        if {address.lower() for address in owners} != {address.lower() for address in manifest["owners"]}:
+            raise ValueError("K47B Safe owner set differs from the configured 2-of-2 owners")
+
+        before = policy_doc["before"]["policy"]
+        after = policy_doc["after"]["policy"]
+        if backup["policy"] != before:
+            raise ValueError("K47B policy before image differs from its backup")
+        changed = [key for key in before if before[key] != after.get(key)]
+        if changed != ["microMaxRaw"] or before["microMaxRaw"] != "10000000" or after["microMaxRaw"] != "75000000":
+            raise ValueError(f"K47B policy diff is not the approved cap-only change: {changed}")
+        if not policy_doc.get("verified", {}).get("ownerSafeTransactionStatus") == 1:
+            raise ValueError("K47B policy before/after lacks successful owner receipt proof")
+
+        quote_timestamp = int(quote["timestamp"])
+        oracle_timestamp = int(quote["inputs"]["oracle"]["updatedAt"])
+        tx_timestamp = int(rpc_call("eth_getBlockByNumber", [receipt["blockNumber"], False])["timestamp"], 16)
+        economics = quant["candidates"][0]
+        if quote["inputs"].get("quotedSizeRaw") != "75000000" or economics.get("sizeRaw") != "75000000":
+            raise ValueError("K47B K44 quote is not for 75 USDC")
+        if economics.get("status") != "ACTIONABLE" or int(economics.get("breakEvenDaysHundredths", "0")) > 1400:
+            raise ValueError("K47B K44 quote is not actionable within 14 days")
+        if not (0 <= quote_timestamp - oracle_timestamp <= 1200 and 0 <= tx_timestamp - quote_timestamp <= 1200):
+            raise ValueError("K47B K44 quote or oracle was stale at policy submission")
+
+        state = policy_doc["after"]["state"]
+        if state.get("paused") or not state.get("sessionId", "").strip("0x") or state.get("sessionKey", "").lower() != manifest["roles"]["session"].lower():
+            raise ValueError("K47B module is paused or its session is not live")
+        if int(state.get("sessionExpiresAt", 0)) <= int(time.time()):
+            raise ValueError("K47B session has expired")
+
+        if hold.get("source") != "APP" or hold.get("dryRun") is not False:
+            raise ValueError("K47B planner report is not a live APP tick")
+        if hold.get("planner", {}).get("kind") != "mnn+ahem-g@android" or hold.get("planner", {}).get("host") != "device":
+            raise ValueError("K47B report is missing on-device planner provenance")
+        if "allocationMandate" in hold or "execution" in hold or hold.get("txHash"):
+            raise ValueError("K47B HOLD report contains a mandate or execution claim")
+        chosen = hold.get("chosenCandidate", {})
+        if chosen.get("label") != "H" or chosen.get("reason") != "HOLD" or hold.get("candidateSet", {}).get("candidates"):
+            raise ValueError("K47B report does not prove an unforced planner HOLD")
+        snapshot = hold.get("snapshot", {})
+        if snapshot.get("moduleState", {}).get("paused") or snapshot.get("policy", {}).get("microMaxRaw") != "75000000":
+            raise ValueError("K47B APP tick did not observe the live updated policy")
+        if not (evidence_dir / "K47B_live_app.png").is_file():
+            raise ValueError("K47B live app screenshot is missing")
+
+    except Exception as error:
+        errors.append(f"K47B verification failed: {error}")
+        return 0, checks, errors
+    return checks, 0, []
+
 def main():
     print("=" * 76)
     print(" FUSION WALLET — COMPREHENSIVE JUDGE VERIFICATION SUITE")
@@ -417,6 +507,10 @@ def main():
     s5_pass, s5_fail, s5_errs = run_step5_check_sourcify(manifest)
     s5_total = s5_pass + s5_fail
     results.append(("Sourcify Source Links (84532.json)", s5_total, s5_pass, s5_fail, s5_errs))
+
+    print("[K47B] Verifying owner policy diff and autonomous app HOLD evidence...")
+    k47_pass, k47_fail, k47_errs = run_k47b_checks(manifest)
+    results.append(("K47B Policy and APP Decision", k47_pass + k47_fail, k47_pass, k47_fail, k47_errs))
 
     # One-screen PASS/FAIL Summary Table
     print("\n" + "=" * 76)

@@ -1,0 +1,131 @@
+{
+  "network": "Base Sepolia",
+  "chainId": 84532,
+  "source": "live eth_call, policy before pinned to pre-change backup block and after pinned to owner receipt block",
+  "ownerTxHash": "0xea19c153ec09f774f612576801d3eac13bbe8c14599808332127b9e68b4939f3",
+  "ownerTxLabel": "Owner 2-of-2 policy change; microMaxRaw 10 to 75 USDC; fresh session started and module resumed",
+  "before": {
+    "blockNumber": 48366090,
+    "blockHash": "0xebed8374d6929d3234de20580f930f7e14042c6c02e644227163e72c42001c97",
+    "timestamp": 1792500468,
+    "policy": {
+      "permissionTier": 2,
+      "operatingBufferRaw": "500000000",
+      "microMaxRaw": "10000000",
+      "delayedMaxRaw": "100000000",
+      "hardMaxRaw": "2500000000",
+      "dailyLimitRaw": "4000000000",
+      "delaySeconds": 180,
+      "maxShareSlippageBps": 50,
+      "guardian": "0x46b8e40eb9767bd46e03c5ecf398c10e1372251e",
+      "vaults": [
+        {
+          "vault": "0xf052c0ed8404adeaaea773a5f8ae4628134aff6d",
+          "maxExposureRaw": "6000000000"
+        },
+        {
+          "vault": "0xf430cb6e2b85f99222fbfa6dfea18ff60fa6b32a",
+          "maxExposureRaw": "6000000000"
+        }
+      ],
+      "payeeDelaySeconds": 3600,
+      "payEarlyWindowSeconds": 259200
+    },
+    "state": {
+      "configured": true,
+      "paused": false,
+      "policyEpoch": "16",
+      "policyHash": "0xd23e010f3c36f64c006aaa5ac48cdb1932749b94473578ae4ccc4ee85024e1f3",
+      "mandateHash": "0x32eef342d4aa0e5c3f0f5009bdb6ae40d8d95d575285bd4e6a05ff8453ac06cb",
+      "obligationsRoot": "0x99ec9d21b90e905700aaf94f55da42dd9dec8f07f213dd4ba4992ea13c93ad07",
+      "reservedRaw": "0",
+      "obligationCount": "1",
+      "actionNonce": "13",
+      "dailyDayIndex": "20746",
+      "dailyUsedRaw": "19999999",
+      "sessionId": "0x62a6304fcd0c46a810dda2b1a4f748647305e252f95557c83346ea2b3d88889a",
+      "sessionStartEpoch": "15",
+      "sessionKey": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+      "sessionExpiresAt": 1792512792,
+      "sessionLimitRaw": "7998000000",
+      "sessionUsedRaw": "27999999"
+    }
+  },
+  "after": {
+    "blockNumber": 48366250,
+    "blockHash": "0x6d5d4f90148069163c09df73994b3630df3dad6fc09b03cd60d628b0f3c0fe44",
+    "timestamp": 1792500788,
+    "policy": {
+      "permissionTier": 2,
+      "operatingBufferRaw": "500000000",
+      "microMaxRaw": "75000000",
+      "delayedMaxRaw": "100000000",
+      "hardMaxRaw": "2500000000",
+      "dailyLimitRaw": "4000000000",
+      "delaySeconds": 180,
+      "maxShareSlippageBps": 50,
+      "guardian": "0x46b8e40eb9767bd46e03c5ecf398c10e1372251e",
+      "vaults": [
+        {
+          "vault": "0xf052c0ed8404adeaaea773a5f8ae4628134aff6d",
+          "maxExposureRaw": "6000000000"
+        },
+        {
+          "vault": "0xf430cb6e2b85f99222fbfa6dfea18ff60fa6b32a",
+          "maxExposureRaw": "6000000000"
+        }
+      ],
+      "payeeDelaySeconds": 3600,
+      "payEarlyWindowSeconds": 259200
+    },
+    "state": {
+      "configured": true,
+      "paused": false,
+      "policyEpoch": "18",
+      "policyHash": "0xa487351f48b5c1ec78152a6cfa924071db09316d3d6ad858154612bc22bce623",
+      "mandateHash": "0xad79f797f92ac85c2e95f088a46116d34182dc1e37f09b80be30dceff60dca80",
+      "obligationsRoot": "0x99ec9d21b90e905700aaf94f55da42dd9dec8f07f213dd4ba4992ea13c93ad07",
+      "reservedRaw": "0",
+      "obligationCount": "1",
+      "actionNonce": "13",
+      "dailyDayIndex": "20746",
+      "dailyUsedRaw": "19999999",
+      "sessionId": "0x40b0c7755ee835c571e374c66a050336941c77bb43fba6ca9efd36a87a67e52e",
+      "sessionStartEpoch": "17",
+      "sessionKey": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+      "sessionExpiresAt": 1792512792,
+      "sessionLimitRaw": "7970000001",
+      "sessionUsedRaw": "0"
+    },
+    "queueExists": false
+  },
+  "diff": {
+    "microMaxRaw": {
+      "fromRaw": "10000000",
+      "toRaw": "75000000",
+      "fromUSDC": "10",
+      "toUSDC": "75"
+    },
+    "allOtherPolicyFieldsIdentical": true,
+    "changedFields": [
+      "microMaxRaw"
+    ]
+  },
+  "verified": {
+    "ownerSafeTransactionStatus": 1,
+    "safeAddress": "0x029869910714D9e09b854a2688311AFd42fBb44E",
+    "ownerSender": "0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79",
+    "safeThreshold": 2,
+    "modulePaused": false,
+    "sessionLive": true,
+    "sessionKeyUnchanged": true,
+    "sessionStartEpoch": "17",
+    "policyEpoch": "18",
+    "queueExists": false,
+    "safeThresholdAtReceiptBlock": 2,
+    "safeOwnersAtReceiptBlock": [
+      "0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79",
+      "0x208bfee9f222d611b4db71d5ee53b3dab1a2188a"
+    ]
+  }
+}

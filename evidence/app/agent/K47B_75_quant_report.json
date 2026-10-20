@@ -1,0 +1,23 @@
+{
+  "blockNumber": 48366111,
+  "utilizationBps": 2032,
+  "depositAllowed": true,
+  "withdrawableNowRaw": "27456724397184",
+  "spotApyPpb": 1982391,
+  "realizedApyPpb": 2054268,
+  "conservativeApyPpb": 1982391,
+  "apyLabel": "min(spot, realized ~24h)",
+  "gasUsdRaw": "4759",
+  "gasStatus": "K33 median actual fee + Chainlink ETH/USD",
+  "candidates": [
+    {
+      "vault": "0xf430cb6e2b85f99222fbfa6dfea18ff60fa6b32a",
+      "sizeRaw": "75000000",
+      "status": "ACTIONABLE",
+      "gasUsdRaw": "4759",
+      "slippageUsdRaw": "1",
+      "breakEvenDaysHundredths": "1169",
+      "actionableSizeRaw": "62601173"
+    }
+  ]
+}
