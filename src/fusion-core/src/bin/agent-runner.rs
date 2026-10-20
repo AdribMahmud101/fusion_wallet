@@ -18,7 +18,10 @@ use fusion_core::passport::{
 };
 use fusion_core::planner_io::build_planner_prompt;
 use fusion_core::preview::{preview_candidate, RuleStatus};
-use fusion_core::sign::{sign_eip1559_transaction, PreparedTransaction};
+use fusion_core::sign::{
+    sign_eip1559_transaction, sign_guardian_pause_transaction, PreparedTransaction,
+    SessionSigningPolicy,
+};
 use fusion_core::snapshot::{read_snapshot, read_snapshot_at_block};
 use fusion_core::types::{ActionKind, Obligation, Payee, Snapshot};
 use serde::{Deserialize, Serialize};
@@ -693,7 +696,11 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
                                 max_fee_per_gas: 2_000_000_000,
                                 max_priority_fee_per_gas: 1_000_000_000,
                             };
-                            let stx = sign_eip1559_transaction(&ptx, &zkey)?;
+                            let stx = sign_guardian_pause_transaction(
+                                &ptx,
+                                &zkey,
+                                &SessionSigningPolicy { module, chain_id },
+                            )?;
                             let raw_hex = stx.raw_tx.strip_prefix("0x").unwrap_or(&stx.raw_tx);
                             let raw_bytes = Bytes::from(hex::decode(raw_hex)?);
                             match provider.send_raw_transaction(&raw_bytes).await {
@@ -1400,7 +1407,11 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
         max_priority_fee_per_gas: 1_000_000_000,
     };
 
-    let signed_tx = sign_eip1559_transaction(&prepared_tx, &zeroized_key)?;
+    let signed_tx = sign_eip1559_transaction(
+        &prepared_tx,
+        &zeroized_key,
+        &SessionSigningPolicy { module, chain_id },
+    )?;
     println!(
         "Signed transaction: txHash={:#x} nonce={}",
         signed_tx.tx_hash, nonce

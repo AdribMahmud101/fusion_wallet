@@ -407,20 +407,22 @@ pub fn read_snapshot(manifest_json: String) -> String {
 
 /// Signs prepared EIP-1559 transaction in :signer: process (§10.2, Appendix B).
 #[uniffi::export]
-pub fn sign_prepared(tx_json: String, key_hex: String) -> String {
-    panic_guard(|| match sign::sign_prepared_json(&tx_json, &key_hex) {
-        Ok(out) => serde_json::json!({
-            "ok": true,
-            "rawTx": out.raw_tx,
-            "txHash": out.tx_hash
-        })
-        .to_string(),
-        Err(e) => serde_json::json!({
-            "ok": false,
-            "error": { "message": e.to_string() }
-        })
-        .to_string(),
-    })
+pub fn sign_prepared(tx_json: String, key_hex: String, policy_json: String) -> String {
+    panic_guard(
+        || match sign::sign_prepared_json(&tx_json, &key_hex, &policy_json) {
+            Ok(out) => serde_json::json!({
+                "ok": true,
+                "rawTx": out.raw_tx,
+                "txHash": out.tx_hash
+            })
+            .to_string(),
+            Err(e) => serde_json::json!({
+                "ok": false,
+                "error": { "message": e.to_string() }
+            })
+            .to_string(),
+        },
+    )
 }
 
 #[cfg(test)]
