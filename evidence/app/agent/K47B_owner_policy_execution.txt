@@ -1,0 +1,5 @@
+K47B owner 2-of-2 policy flow: completed on Base Sepolia.
+Safe transaction: 0xea19c153ec09f774f612576801d3eac13bbe8c14599808332127b9e68b4939f3
+Receipt: status 1, block 48366250, sender owner 0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79, destination Safe 0x029869910714D9e09b854a2688311AFd42fBb44E.
+The transaction applied configurePolicy, started a session with the existing session key and unchanged expiry using the prior remaining allowance, and resumed the module in one Safe MultiSendCallOnly.
+Read-back verified the module unpaused, session live, and only microMaxRaw changed from 10 to 75 USDC.

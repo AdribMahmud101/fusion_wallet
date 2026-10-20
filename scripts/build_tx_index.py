@@ -21,6 +21,7 @@ INPUTS = (
     "evidence/app/guardian_pause.json",
     "evidence/app/agent/owner_setup_receipt.json",
     "evidence/app/agent/K38_owner_allocation_receipt.json",
+    "evidence/app/agent/K47B_owner_policy_receipt.json",
 )
 HASH = re.compile(r"0x[0-9a-fA-F]{64}\Z")
 ADDRESS = re.compile(r"0x[0-9a-fA-F]{40}\Z")
@@ -118,7 +119,8 @@ def main():
             # A single owner-setup receipt (2-of-2 Safe tx committing bills).
             receipt = data["receipt"]
             data = [{"txHash": receipt.get("transactionHash") or receipt.get("txHash"),
-                     "source": data.get("source"), "kind": data.get("kind", "OBLIGATIONS_COMMITTED")}]
+                     "source": data.get("source"), "kind": data.get("kind", "OBLIGATIONS_COMMITTED"),
+                     "notes": data.get("notes")}]
         for row in data.get("rows", []) if isinstance(data, dict) else data:
             tx = row.get("txHash")
             if not tx:  # Hold decisions have no transaction.

@@ -292,6 +292,13 @@
     "amountRaw": "9999999"
   },
   {
+    "txHash": "0xea19c153ec09f774f612576801d3eac13bbe8c14599808332127b9e68b4939f3",
+    "source": "OWNER",
+    "kind": "POLICY_CHANGE_AND_SESSION_RESUME",
+    "evidenceFile": "evidence/app/agent/K47B_owner_policy_receipt.json",
+    "notes": "Owner policy change (2-of-2): microMaxRaw 10 to 75 USDC; fresh session restarted; module resumed"
+  },
+  {
     "txHash": "0xf1e0afcb65cda6355cf8743b26f159afe76f0a634629a96e519eab98e9525f33",
     "source": "AGENT",
     "kind": "PAY_DELAYED",
