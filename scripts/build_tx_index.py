@@ -19,6 +19,7 @@ INPUTS = (
     "evidence/demo/runs.json",
     "evidence/app/agent/golden_app.json",
     "evidence/app/guardian_pause.json",
+    "evidence/app/agent/owner_setup_receipt.json",
 )
 HASH = re.compile(r"0x[0-9a-fA-F]{64}\Z")
 ADDRESS = re.compile(r"0x[0-9a-fA-F]{40}\Z")
@@ -87,6 +88,11 @@ def main():
     grouped = defaultdict(list)
     for path in INPUTS:
         data = read(path)
+        if isinstance(data, dict) and "receipt" in data and "rows" not in data:
+            # A single owner-setup receipt (2-of-2 Safe tx committing bills).
+            receipt = data["receipt"]
+            data = [{"txHash": receipt.get("transactionHash") or receipt.get("txHash"),
+                     "source": data.get("source"), "kind": "OBLIGATIONS_COMMITTED"}]
         for row in data.get("rows", []) if isinstance(data, dict) else data:
             tx = row.get("txHash")
             if not tx:  # Hold decisions have no transaction.

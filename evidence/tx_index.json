@@ -74,6 +74,12 @@
     "planner": "deterministic"
   },
   {
+    "txHash": "0x5a474952470af72f95e123bacdeba0d071365faf6a3458cc3bce561f25527125",
+    "source": "OWNER",
+    "kind": "OBLIGATIONS_COMMITTED",
+    "evidenceFile": "evidence/app/agent/owner_setup_receipt.json"
+  },
+  {
     "txHash": "0x5af192e04e2ac730bd3eebc0a4f7f76d9ee76525896d40b0c9084f84d98e96b4",
     "source": "SCRIPT",
     "kind": "INTENTIONAL_REVERT",
