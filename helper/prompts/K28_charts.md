@@ -35,3 +35,13 @@ exits 0, plus `ui/charts/K28_CHARTS.md`: each chart → data source → fallback
 
 ## Acceptance
 No fabricated or decorative data; no Float/Double for money (Float only for drawing geometry); text labels on every segment/bar; touch targets ≥ 48 dp; no test weakened. Commit inside the submodule on `card/K28`. Do not merge, do not push.
+
+## REVISION 2 (supervisor, after on-device review on the Tecno 1080×2436)
+Charts work and the data is right. Now match the reference's visual restraint:
+1. **Tiles hold one number + one status line.** Move every methodology sentence ("601.00 USDC out over 0.7 days…", "Arc scale: 90 days", "USDC · local Monday weeks…", "History begins…", "Pool supply rate · block …", "Reserved includes…", "Reconstructed from…") behind a small ⓘ icon button (48 dp target) that opens a bottom sheet with the full explanation. Nothing about honesty is removed — it moves one tap away.
+2. **Spending by week:** x labels "3w · 2w · 1w · Now" (single short line, no values under bars); values only in the legend, one line per vendor ("● Payroll Co.   500"), compact number format (500, 6.3K). Bars rounded, consistent width, empty weeks as flat stubs.
+3. **Interest per year:** label + value on one row ("Aave lending   0.21 %") over a thin bar scaled to the largest rate shown (not 100 %); the demo vault row reads "Demo vault   simulated" in body text with a dashed/empty bar — no large monospace text.
+4. **Total, last 30 days:** no per-point markers — only the glowing end dot; monotone smooth line; header "9,399.00 USDC" + "▼ 6.0 % in 30 days". The initial pre-funding cliff stays (it is real) but the y-axis must not start at 0 if that flattens the series; use a padded min–max range.
+5. **Where it sits / Cash runway:** keep the reference layout exactly: title top-left, chart centered, center label (value + unit), legend rows "● Cash  95 %" (single line, ellipsize long labels), runway status line colored + text ("Keep an eye on it").
+6. Tile titles one line where possible (reduce to the reference's small muted title style: "Where it sits", "Cash runway", "Spending by week", "Interest per year").
+Re-run the DoD; commit on card/K28.
