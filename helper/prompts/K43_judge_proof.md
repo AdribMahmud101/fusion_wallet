@@ -1,3 +1,15 @@
+# CONTINUATION (read first)
+This worktree already holds your previous partial K43 edits (uncommitted, in the submodule): ProofScreen.kt rewritten,
+new ProofModels.kt, FusionWalletApp.kt, TopHealthAppBar.kt, TreasuryScreen.kt. They do not compile yet. Finish them:
+- Add every missing string resource used (`prf_title`, `prf_subtitle`, `prf_contracts`, `prf_contracts_hint`, `prf_receipt_note`,
+  `prf_ai_count`, `prf_index_count`, `prf_attacks_stopped`, `prf_arena_link`, `prf_attacks_unavailable`, `prf_arena_refreshing`,
+  `prf_index_unavailable`, `prf_index_hint`, `prf_op_asset`, `prf_op_transactions`, `prf_op_risk`, `prf_op_owner`,
+  `prf_time_unavailable`, and any others) to `app/src/main/res/values/strings.xml`.
+- FusionWalletApp.kt:180 passes `onOpenProof` to a composable that has no such parameter: add the parameter to that composable.
+- ProofModels.kt:26 calls `remove` on a type without it: fix the expression.
+- Then run the build below until it passes, run the tests, and COMMIT inside the submodule, then commit the pointer here.
+  Do not stop before the commit. If you change your mind about the design, still leave a compiling, committed state.
+
 # K43 — Judge proof screen and watch-only mode
 
 Read `docs/WIN_PLAN.md`, `JUDGES.md`, `docs/ux/DASHBOARD_LAYOUT.md`. Android: submodule (commit there, then the pointer).
