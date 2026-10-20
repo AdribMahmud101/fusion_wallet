@@ -22,3 +22,13 @@ Topic F lists risk control. Today the only on-chain guardian pause was a human t
 5. Tests + `flock /root/.gradle/fusion-build.lock ./gradlew testDebugUnitTest assembleDebug` (`ANDROID_HOME=/opt/android-sdk
    GRADLE_USER_HOME=/root/.gradle`), `cargo test`, `python3 scripts/judge/verify_all.py`.
 Never print or commit keys. Base Sepolia only. Leave the module resumed (live) at the end and prove it.
+
+## Addendum (from docs/Perception & Ingestion.md): reflex interrupt path, zero LLM
+- Reflex signals must be deterministic code only (no model in the loop), evaluated on the block-pinned snapshot:
+  (a) USDC depeg: Chainlink USDC/USD on Base Sepolia (find and pin the real feed address; check staleness) below 0.985 → critical.
+      This closes the ARENA A10 "automatic depeg reflex NOT implemented" gap if it works end to end; update the A10 row honestly.
+  (b) Aave reserve paused/frozen flags from the reserve configuration bitmap → critical.
+  (c) Vault implementation slot changed vs pin (A17) → critical.
+  (d) Supply drop > 30% between consecutive snapshots of the vault/reserve → critical.
+- Fail-closed: if the risk monitor cannot read its inputs, autonomous execution stops (HOLD with reason), it does not proceed.
+- Put the router decision in `agent/risk/ReflexRouter.kt` with a typed outcome (REFLEX_HALT / NONE) so K45 can unify it.
