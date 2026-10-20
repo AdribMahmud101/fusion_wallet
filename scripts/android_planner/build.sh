@@ -13,7 +13,10 @@ DEST="$APP/src/main/jniLibs/arm64-v8a"
 mkdir -p "$DEST"
 cargo build --manifest-path "$ROOT/src/fusion-planner/android/Cargo.toml" --target aarch64-linux-android --release --locked
 cp "$ROOT/src/fusion-planner/android/target/aarch64-linux-android/release/libfusion_planner_android.so" "$DEST/"
-if [[ -d "$FORK" ]]; then
+# Default: the published, hash-verified fork libraries. Rebuilding libllm from the
+# fork source is not byte-reproducible (every rebuild changes its hash), so source
+# builds are opt-in: FORCE_FORK_BUILD=1 with a local fork tree, then re-pin.
+if [[ "${FORCE_FORK_BUILD:-0}" == 1 && -d "$FORK" ]]; then
   # Local fork build tree: package from source (patched libllm rebuilt).
   cp "$FORK/OFF/arm64-v8a/libMNN.so" "$DEST/"
   python3 "$ROOT/scripts/android_planner/rebuild_llm.py"
@@ -27,7 +30,7 @@ else
   bash "$ROOT/scripts/android_planner/fetch_prebuilt.sh" "$DEST"
   llvm-strip --strip-unneeded "$DEST/libfusion_planner_android.so"
 fi
-if [[ -d "$MODEL" ]]; then
+if [[ "${FORCE_FORK_BUILD:-0}" == 1 && -d "$MODEL" ]]; then
 python3 - "$MODEL" "$DEST" "$APP/src/main/java/app/fusion/wallet/inference/ProvisionedHashes.kt" <<'PY'
 import hashlib,json,pathlib,sys
 model,libs,out=map(pathlib.Path,sys.argv[1:])
