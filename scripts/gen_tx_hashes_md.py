@@ -183,7 +183,7 @@ def build():
     w("Network: Base Sepolia testnet (chain 84532). Test money only.")
     w(f"Every row is a transaction in `evidence/tx_index.json` ({len(rows)} rows, {len(seen)} unique hashes), "
       "grouped by the Topic F operation it performed. Click a hash to open it on BaseScan.")
-    w("To check them yourself with no keys: `bash scripts/judge/verify_all.sh` (see `JUDGES.md`).")
+    w("To check them yourself with no keys: `python3 scripts/judge/verify_all.py` (59 checks; see `JUDGES.md`).")
     w("")
     w("## Source badges")
     w("")
@@ -208,9 +208,9 @@ def build():
     w("")
     n_agent = sources.get("AGENT", 0)
     n_app_ai = sum(1 for r in ai_exec if r["source"] == "APP")
-    w(f"- **Sent by the on-device AI's session key: {len(ai_exec)}.** That is {n_agent} `AGENT` and {n_app_ai} `APP` "
-      f"(an agent payment signed on the phone). {len(ai_pay)} are bill payments and {len(ai_exec) - len(ai_pay)} "
-      "is a queue step. The model chose each from the candidate set.")
+    w(f"- **Sent by the on-device AI's session key: {len(ai_exec)}** ({n_agent} `AGENT`, {n_app_ai} `APP`): "
+      f"{len(ai_pay)} bill payments and {len(ai_exec) - len(ai_pay)} other module actions (queue step, owner-mandated vault rehearsal). "
+      "The model chose each from the candidate set; the contract checked each one.")
     w(f"- The proof screen in the app counts `AGENT` rows only ({n_agent}).")
     w("- `SCRIPT` rows are operator scripts. They show the contract working. They are not claimed as autonomous.")
     w("")
@@ -237,21 +237,12 @@ def build():
             w(f"| {r['source']} | {describe(r, f)} | {amount} | {block} | [{h}]({EXPLORER}{h}) |")
         w("")
 
-    w("## Not in the index yet")
+    w("## Not claimed")
     w("")
-    pending = []
-    if not have_ai_asset:
-        pending.append("- `[PENDING: K38M]` On-chain deposit and withdraw by the on-device AI's session key. "
-                       "They were an owner-mandated rehearsal under a Safe 2-of-2 mandate, not a decision to invest. "
-                       "They are not in `evidence/tx_index.json` yet, so they are not listed above.")
-        pending.append("- `[PENDING: K47]` A deposit the AI chose on its own because it pays, with no owner mandate.")
-    elif not any(r.get("source") == "APP" and r.get("kind") == "DEPOSIT" and
-                 str(r.get("notes", "")).startswith("AI-initiated · break-even ") for r in rows):
-        pending.append("- `[PENDING: K47]` A deposit the AI chooses on its own because it pays, with no owner mandate. "
-                       "The fresh 50 USDC quote is currently UNPROFITABLE_AFTER_GAS; see `K44_economics.md`.")
-    pending.append("- `[PENDING: K41]` An automatic guardian pause triggered by the risk reflex (today's pause rows are manual).")
-    for line in pending:
-        w(line)
+    w("- **A deposit the AI chose on its own because it pays.** The owners raised the per-move cap to 75 USDC (the OWNER row above); "
+      "75 USDC breaks even in about 11.7 days. In the latest live run on the agent phone the on-device AI still chose HOLD "
+      "(\"Nothing eligible to move within the current policy\"); see `evidence/app/agent/K47C_hold_diagnosis.md`.")
+    w("- **An automatic guardian pause from a risk detector.** Today's pause rows were triggered by a person; the app's reflex path exists but no live detector feeds it.")
     w("")
     w("## Regenerate")
     w("")
