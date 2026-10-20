@@ -6,7 +6,7 @@ Deadline: **Oct 20 15:59 UTC = 21:59 your time**. Everything below is merged on 
 | Area | Proof |
 |---|---|
 | Contracts on Base Sepolia, source-verified | `deployments/84532.json` (Sourcify links) |
-| 30 operational txs + 3 agent txs + live demo tx | `scripts/judge/verify_all.sh` → 47/47 PASS with no keys |
+| 30 operational txs + 3 agent txs + live demo tx | `scripts/judge/verify_all.sh` → 48/48 PASS with no keys |
 | **AI agent decides inside the Android app** and pays on-chain | tx `0x4d09be10…` (source APP, planner `mnn+ahem-g@android`, OnePlus 11, session key in Android Keystore, decisionHash in calldata) — `evidence/app/agent/` |
 | In-app Stop → guardian pause, then 2-of-2 owner resume | `evidence/app/guardian_pause.json` + screenshot |
 | Arena | **23/24 attacks stopped** (only A12 x402 — not built — escapes); `evidence/results/ARENA.md` |
