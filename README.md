@@ -166,14 +166,17 @@ git submodule update --init src/Fintech_Wallet_Agent
 # 2. Source Android build environment variables (Java 17, Android SDK 36, NDK 27)
 source scripts/edge_android_env.sh
 
-# 3. Run unit tests (96+ unit tests covering monitor, signer, and data models)
-cd src/Fintech_Wallet_Agent/fusion-core-android
-./gradlew test
+# 3. Build the native libraries the APK loads (gitignored, built from source):
+#    the on-device planner (AHEM-G MNN fork + LFM2.5 wrapper) and the Rust core.
+#    Without this step the app builds but the on-device model self-test fails.
+bash scripts/android_planner/build.sh
+bash scripts/android_planner/build_core.sh
 
-# 4. Compile native Rust cdylib and build Android debug APK on edge/aarch64
-cd /root/projects/fusion_wallet-wt/K15
-bash scripts/edge_android_build.sh
-# Output APK: src/Fintech_Wallet_Agent/fusion-core-android/app/build/outputs/apk/debug/app-debug.apk (~22 MB)
+# 4. Run the unit tests and build the debug APK
+cd src/Fintech_Wallet_Agent/fusion-core-android
+./gradlew testDebugUnitTest assembleDebug
+# Output APK: app/build/outputs/apk/debug/app-debug.apk (~31 MB, model files not included:
+# the app downloads and SHA-256-verifies them in onboarding step 4)
 # Detailed build guide: docs/EDGE_ANDROID_BUILD.md
 ```
 
