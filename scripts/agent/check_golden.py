@@ -19,17 +19,11 @@ ACTION_EXECUTED_TOPIC0 = "0xec3c5fb2a9f98228404a340d65a7da26d4bb846738b0d1f39b0d
 ACTION_QUEUED_TOPIC0 = "0x97c854f499aef695661e30437a03bb608a96556ee775d57648e7217d96c449cd"
 
 def keccak256(data: bytes) -> str:
-    import subprocess
-    proc = subprocess.Popen(
-        ["cast", "keccak", "--"],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-    stdout, stderr = proc.communicate(input=data)
-    if proc.returncode != 0:
-        raise RuntimeError(f"cast keccak failed: {stderr.decode()}")
-    return stdout.decode().strip()
+    # Pure Python (scripts/keccak256.py): verification needs only python3.
+    import pathlib
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+    from keccak256 import keccak256_hex
+    return keccak256_hex(data)
 
 def rpc_call(method: str, params: list):
     payload = json.dumps({"jsonrpc": "2.0", "id": 1, "method": method, "params": params}).encode()

@@ -32,7 +32,12 @@ def run(args, cwd=CONTRACTS):
 
 @functools.lru_cache(maxsize=2048)
 def keccak(data):
-    return run(['cast', 'keccak', data]).lower()
+    # Same input rules as `cast keccak`: 0x-hex is hashed as bytes, anything
+    # else as UTF-8 text. Pure Python so verification needs no Foundry.
+    from keccak256 import keccak256_hex
+    if isinstance(data, str) and data.startswith('0x'):
+        return keccak256_hex(bytes.fromhex(data[2:]))
+    return keccak256_hex(data.encode() if isinstance(data, str) else data)
 
 
 class Rpc:

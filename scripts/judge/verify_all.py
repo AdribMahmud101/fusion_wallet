@@ -46,17 +46,12 @@ def rpc_call(method: str, params: list, retries: int = 4) -> dict:
                 raise RuntimeError(f"RPC call failed after {retries} attempts: {e}")
             time.sleep(1 + attempt)
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from keccak256 import keccak256_hex  # noqa: E402  (pure Python: no Foundry needed)
+
+
 def keccak256_bytes(data: bytes) -> str:
-    try:
-        proc = subprocess.run(
-            ["cast", "keccak", "--"],
-            input=data,
-            capture_output=True,
-            check=True
-        )
-        return proc.stdout.decode().strip().lower()
-    except Exception as e:
-        raise RuntimeError(f"Failed to compute keccak256 via cast: {e}")
+    return keccak256_hex(data)
 
 def check_http_url(url: str, retries: int = 3) -> bool:
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
