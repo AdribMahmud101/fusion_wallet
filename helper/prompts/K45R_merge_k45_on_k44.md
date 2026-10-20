@@ -1,3 +1,7 @@
+# CONTINUATION
+A previous worker started this merge in this worktree and stopped (quota). Inspect `git status` in the submodule:
+finish resolving any conflicts (keep both K44 and K45 behaviour), then do steps 2-5. Do not stop before committing.
+
 # K45R — Merge K45 onto main (which now has K44) and wire the seams
 
 Android submodule `src/Fintech_Wallet_Agent` (branch `fusion-v3-integration`). This worktree is from main, which includes K44
