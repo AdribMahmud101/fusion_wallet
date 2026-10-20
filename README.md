@@ -10,6 +10,8 @@
 
 **Fusion Wallet** is an autonomous AI treasury agent designed for small cross-border enterprises holding stablecoins (USDC). It solves a fundamental problem in autonomous Web3 finance: enabling an AI model to actively manage operational liquidity—paying verified bills, reserving funds for liabilities, and sweeping surplus cash into yield vaults—without granting the model unbounded authority to transfer funds or leak assets.
 
+For a one-page feature list, trust boundaries, deployed addresses, and verification evidence, see [`docs/SYSTEM_OVERVIEW.md`](docs/SYSTEM_OVERVIEW.md).
+
 ### The Problem
 * **Business Email Compromise (BEC) & Invoice Fraud:** FBI IC3 recorded ~24,768 BEC complaints and ~$3.05B in losses in 2025. Attackers manipulate invoice accounts or inject malicious payee data.
 * **Address Poisoning & Vanity Confusion:** High-profile losses of ~$50M (Dec 2025) and ~$12.25M (Jan 2026) highlight the risks of manual address handling.
