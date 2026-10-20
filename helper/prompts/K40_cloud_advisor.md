@@ -1,3 +1,19 @@
+# CONTINUATION (read first; the feature is already written)
+A cloud session already implemented K40. In THIS worktree: root branch merged origin/cloud/K40, and the submodule
+(src/Fintech_Wallet_Agent, branch k40) has commit 6f107ac "K40 cloud advisor ..." applied on top of current fusion-v3-integration.
+It has NEVER been compiled. Your job: make it compile, pass tests, and commit. Do not redesign.
+
+1. Setup (once): M=/root/projects/fusion_wallet/src/Fintech_Wallet_Agent/fusion-core-android
+   cp -n $M/local.properties src/Fintech_Wallet_Agent/fusion-core-android/
+   for d in $(cd $M && find . -name '*.so' -not -path './app/build/*' | xargs -n1 dirname | sort -u); do mkdir -p src/Fintech_Wallet_Agent/fusion-core-android/$d; cp -n $M/$d/*.so src/Fintech_Wallet_Agent/fusion-core-android/$d/; done
+2. In src/Fintech_Wallet_Agent/fusion-core-android run:
+   ANDROID_HOME=/opt/android-sdk GRADLE_USER_HOME=/root/.gradle flock /root/.gradle/fusion-build.lock ./gradlew testDebugUnitTest assembleDebug
+   Fix every compile error and failing test with the smallest change. Repeat until it passes.
+3. Keep the security rules: no API key compiled into any build (local.properties must not feed a key into BuildConfig);
+   the advisor never touches signer/session/planner; replies are strict JSON validated on device.
+4. Commit inside the submodule (branch k40), then `git add src/Fintech_Wallet_Agent` and commit in the root worktree.
+   Do not stop before both commits.
+
 # K40 (Card C) — Cloud advisor: the second brain that explains and proposes, never executes
 
 Read `docs/WIN_PLAN.md` first. Android app: submodule `src/Fintech_Wallet_Agent/fusion-core-android` (branch
