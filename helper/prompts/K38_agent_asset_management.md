@@ -1,3 +1,6 @@
+# CONTINUATION
+You (codex) already did most of this card in this worktree before a usage limit stopped you: about 59 uncommitted files, evidence/app/agent/K38_*.json, K38_hold_diagnosis.md. A different worker may have touched it since. Review `git status`/`git diff` (root and submodule), keep what is right, finish the remaining steps, run the tests, and COMMIT (submodule first, then pointer). Note: K44 (break-even guard) is now on main: a 10 USDC deposit is UNPROFITABLE_AFTER_GAS (56.96 days); do not fight that guard. If execution needs a larger per-move cap, stop after committing and say so; the supervisor will do the owner policy change.
+
 # K38 (Card A) — The AI manages assets on-chain, for real
 
 Read `docs/WIN_PLAN.md` first. Repo: this worktree. Android app in submodule `src/Fintech_Wallet_Agent/fusion-core-android`
