@@ -186,7 +186,10 @@ fn prepare(v: &Value) -> Value {
         "unknown_payee" => payees.clear(),
         "poisoned" => payees[0].account = Address::repeat_byte(0xee),
         "tampered_bill" => s.module_state.obligations_root = B256::repeat_byte(0x77),
-        "daily_cap" => s.module_state.daily_used_raw = s.policy.daily_limit_raw,
+        "daily_cap" => {
+            s.module_state.daily_day_index = U256::from(s.block_timestamp / 86_400);
+            s.module_state.daily_used_raw = s.policy.daily_limit_raw;
+        }
         "session_cap" => s.module_state.session_used_raw = s.module_state.session_limit_raw,
         "paused" | "depeg" => s.module_state.paused = true,
         "read_only" => s.policy.permission_tier = PermissionTier::ReadOnly,

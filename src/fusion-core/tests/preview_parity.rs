@@ -245,3 +245,35 @@ fn test_preview_catches_missing_decision_hash() {
         .unwrap();
     assert_eq!(fail.error_code.as_deref(), Some("MissingDecisionHash"));
 }
+
+#[test]
+fn daily_usage_resets_at_snapshot_utc_midnight_but_session_usage_does_not() {
+    let (mut snapshot, candidate) = sample_setup();
+    snapshot.module_state.daily_used_raw = snapshot.policy.daily_limit_raw;
+    snapshot.module_state.daily_day_index = U256::from(snapshot.block_timestamp / 86_400);
+    let check = |s: &Snapshot| {
+        preview_candidate(
+            &candidate,
+            s,
+            B256::repeat_byte(0xdd),
+            U256::from(84532),
+            Address::repeat_byte(0x11),
+            Address::repeat_byte(0x22),
+        )
+        .checks
+        .into_iter()
+        .find(|c| c.rule_id == "RULE_5_VELOCITY")
+        .unwrap()
+    };
+    assert_eq!(check(&snapshot).status, RuleStatus::Fail);
+    snapshot.module_state.daily_day_index -= U256::from(1);
+    let reset = check(&snapshot);
+    assert_eq!(reset.status, RuleStatus::Pass);
+    assert!(reset.message.starts_with("daily_used=0/"));
+    assert_eq!(
+        snapshot.module_state.daily_used_raw,
+        snapshot.policy.daily_limit_raw
+    );
+    snapshot.module_state.session_used_raw = snapshot.module_state.session_limit_raw;
+    assert_eq!(check(&snapshot).status, RuleStatus::Fail);
+}

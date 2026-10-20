@@ -103,11 +103,18 @@ flowchart LR
   VM --> Repo["ChainWalletRepository"]
   Repo --> Cache["Snapshot cache"]
   Repo --> RPC["Base Sepolia read RPC"]
-  VM --> Runtime["AgentRuntime"]
+  VM --> Router["Event router: complete Home refresh"]
+  Heartbeat["K39 foreground interval"] --> Router
+  Router -->|"Trigger: due bill / >5% drift / actionable spare cash"| Runtime["AgentRuntime"]
+  Router -->|"Heartbeat / Run now"| Runtime
+  Risk["Validated ReflexSignal; K41 detector not in this revision"] --> Router
+  Router -->|"Auto-protect: interrupt; zero LLM"| Guardian["Guardian pause signer"]
+  Guardian --> Module
   Runtime --> Core["fusion-core"]
   Runtime --> Inf[":inference MNN + AHEM-G"]
   Inf --> Model["LFM2.5-230M-MNN"]
-  Runtime --> Signer[":signer Keystore"]
+  Runtime --> Gas["Fresh base fee: non-urgent >1 gwei = HOLD, retry next tick"]
+  Gas -->|"Due-now bill or normal gas"| Signer[":signer Keystore; recheck gas"]
   Signer --> Module["KavachiModule"]
   Module --> Safe["Safe 2-of-2"]
   Safe --> USDC["Test USDC"]
@@ -139,7 +146,8 @@ sequenceDiagram
   participant S as :signer
   participant N as Base Sepolia
 
-  U->>A: Preview or Run agent
+  U->>A: Run now / Preview
+  Note over A: Heartbeat or Home-refresh trigger wakes runtime<br/>Auto-protect reflex interrupts to guardian; zero LLM
   A->>R: refresh snapshot
   R->>N: pinned read-only RPC
   N-->>R: cash, buckets, module, queue
@@ -150,15 +158,26 @@ sequenceDiagram
   P-->>A: one legal letter
   A->>C: validate choice and build preview
   C-->>A: checks + passport + decision hash
+  A->>N: Read latest baseFeePerGas
+  alt unreadable gas or spike for non-urgent move
+    A-->>U: HOLD with reason; heartbeat retries
+  else eligible for decision preview
   alt dry run
     A-->>U: decision sheet, no broadcast
   else live with edge lease
     A->>S: signed tick
-    S->>N: session-key transaction
+    S->>N: Recheck current gas; sign session-key transaction
     N-->>S: receipt + event
     S-->>A: tx hash
   end
+  end
 ```
+
+Each timeline row records its wake path and real explanation. The AI Agent tab has one compact Autopilot control card, four summary tiles and the latest five rows; row details and full tick history open in sheets. Home and Safety collapse secondary content.
+
+K45 uses the on-chain reserve plus buffer as its bucket target. K44's block-pinned quant report supplies the profitable-cash trigger: it requires a positive `ACTIONABLE` candidate at the same snapshot block with deposits allowed. When quant excludes the yield move for gas-adjusted break-even, the decision explanation is carried to the timeline and Home tile. K41's detector is not merged at this Android revision; reflex delivery accepts only a validated enum at `AutopilotController.onReflex`, and no automatic depeg detector is claimed here.
+
+Daily caps use UTC days (`timestamp / 86400`), not session/policy epochs. Contract storage resets lazily on execution; both the Android reader and core preview normalize prior-day usage to zero without changing the raw snapshot. The shared display labels distinguish the instant tier from the hard maximum and suppress obsolete historical daily usage after rollover.
 
 The Home Earn and Preview paths are dry runs. A live tick requires the edge session lease; the UI is not the only authority boundary.
 
