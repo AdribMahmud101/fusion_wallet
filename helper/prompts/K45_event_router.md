@@ -19,3 +19,20 @@ Unify when the agent thinks:
 8. Timeline rows must say WHY: a HOLD row currently reads "H · Hold / Hold · no transaction requested". Show the real reason from
    the decision report (e.g. "Nothing worth moving: deposit breaks even in 70 days" from K44, "Bill not due until 24 Oct",
    "Gas spike, deferred"). Same for the Home agent tile "Last decision".
+
+## Addendum: AI Agent screen cleanup (found on device)
+9. Duplicates: the screen has the K39 Autopilot card (Run now, Last decision, timeline) AND the older "Agent controls" card
+   (Dry run toggle, "Run agent now") plus a separate "Latest decision" card. Merge into ONE flow: Autopilot card on top is the
+   only place to run the agent (Run now, with the dry-run/live mode shown and switchable only when live is possible); the decision
+   detail (planner, timings, candidates, policy checks, passport hash, tx) opens from a timeline row as a detail sheet. Remove the
+   old controls and the standalone Latest decision card. Keep "How it decides", Daily limit, Decision mix, Queued actions.
+10. Human-readable everything: format timings ("Load 1.45 s · Inference 2.88 s"; omit fields that were not recorded instead of
+   "not recorded ms"); translate check messages to plain language with real units, e.g. "nonce_ok=true, epoch_ok=true…" → "Nonce,
+   epoch, deadline and decision hash all valid"; "assets=0, hard_max=2500000000" → "Amount 0 USDC · max per action 2,500 USDC";
+   "daily_used=2161000000/4000000000, session_used=8000000/7998000000" → "Used today 2,161 / 4,000 USDC · this session 8 / 7,998 USDC".
+   Do this in the display layer (core output and evidence stay unchanged).
+11. Allowance consistency bug: that check reports daily_used 2,161 / 4,000 USDC and hard_max 2,500 USDC per action, while the
+   "Daily limit" tile shows 0% and Home shows "4,000 of 4,000 left · up to 10.00 per move". Read `src/contracts` (daily window /
+   epoch reset, hard max, any per-move cap) and the policy reader; find which number is wrong or stale, fix it at the source, and make
+   every screen (Home, AI Agent, Safety) show the same numbers from one formatter. Reuse K37's allowance labels if merged. If the
+   daily counter has reset since `daily_used` was recorded, say "resets at <time>" instead of showing a stale number.
