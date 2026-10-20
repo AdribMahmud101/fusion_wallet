@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Keyless K44 capture. No signing or on-chain policy writes. Native math is run separately."""
-import json, urllib.request, os
+import argparse, json, urllib.request, os
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RPC = os.environ.get('BASE_SEPOLIA_RPC', 'https://sepolia.base.org')
@@ -18,7 +18,7 @@ def words(to,data,tag,url=RPC):
     return [int(raw[i:i+64],16) for i in range(2,len(raw),64)]
 def addr(n): return '0x'+format(n,'040x')
 def word(a): return a[2:].lower().zfill(64)
-def capture():
+def capture(size):
     assert int(rpc('eth_chainId',[]),16)==84532
     head=rpc('eth_getBlockByNumber',['latest',False]); tag=head['number']; height=int(tag,16); now=int(head['timestamp'],16)
     manifest=json.loads((ROOT/'deployments/84532.json').read_text())
@@ -56,12 +56,16 @@ def capture():
         if cost>0:costs.append(cost);samples.append(dict(txHash=r['transactionHash'],costWei=str(cost)))
     costs.sort()
     if costs: inputs['medianGasWei']=str(costs[len(costs)//2] if len(costs)%2 else (costs[len(costs)//2-1]+costs[len(costs)//2]+1)//2)
-    size=10_000_000
     shares=words(vault,'0xef8b30f7'+format(size,'064x'),tag)[0]
     assets=words(vault,'0x07a2d13a'+format(shares,'064x'),tag)[0]
     inputs.update(quotedSizeRaw=str(size),depositSlippageRaw=str(max(size-assets,0)))
     assert rpc('eth_getBlockByNumber',[tag,False])['hash']==head['hash']
     out=dict(rpc=RPC,blockHash=head['hash'],timestamp=now,inputs=inputs,historySource=history_source,historyErrors=history_errors,feeSamples=samples,
         feedSource='https://reference-data-directory.vercel.app/feeds-ethereum-testnet-sepolia-base-1.json')
-    path=ROOT/'evidence/app/agent/K44_live_inputs.json'; path.write_text(json.dumps(out,indent=2)+'\n');print(path); print(json.dumps(inputs,indent=2))
-if __name__=='__main__':capture()
+    path=ROOT/'evidence/app/agent/K44_live_inputs.json'
+    return out
+if __name__=='__main__':
+    ap=argparse.ArgumentParser(); ap.add_argument('--size-usdc',type=int,default=10); ap.add_argument('--output')
+    args=ap.parse_args(); out=capture(args.size_usdc*1_000_000)
+    path=Path(args.output) if args.output else ROOT/'evidence/app/agent/K44_live_inputs.json'
+    path.write_text(json.dumps(out,indent=2)+'\n'); print(path); print(json.dumps(out['inputs'],indent=2))

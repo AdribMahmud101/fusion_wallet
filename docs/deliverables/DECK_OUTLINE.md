@@ -168,8 +168,8 @@ a goal. It produces an exact transaction. Look at the red label: only the two ow
 - 37 transactions indexed, each with an honest source: AGENT, APP, OWNER or SCRIPT
 - **Sent by the on-device AI's session key: 5** (4 AGENT, 1 APP): bill payments and a queue step
 - **Risk control:** guardian pause from a phone (APP), 2-of-2 resume (OWNER)
-- **Asset management:** deposit and withdraw exist as operator scripts. `[PENDING: K38M]` an owner-mandated rehearsal run by the AI's key.
-  `[PENDING: K47]` a deposit the AI chooses because it pays
+- **Asset management:** K38 deposit and withdrawal are recorded as an owner-mandated rehearsal under a Safe 2-of-2 mandate.
+  A profitable, self-initiated deposit remains pending; the fresh 50 USDC quote is not actionable.
 
 **Show:** The Proof screen in the app (transactions grouped by operation, "N AI-executed txs", tap a row for the live receipt check),
 next to `docs/deliverables/TX_HASHES.md`. Open one AGENT tx on BaseScan: `0x8bab4844…b3a6`.
@@ -177,7 +177,7 @@ next to `docs/deliverables/TX_HASHES.md`. Open one AGENT tx on BaseScan: `0x8bab
 **Source:** `evidence/tx_index.json`, `docs/deliverables/TX_HASHES.md` (generated).
 
 **Say it exactly:** Call the K38 deposit and withdraw an **owner-mandated rehearsal under a 2-of-2 Safe mandate, executed by the
-on-device AI's session key**. Do not say "the AI chose to invest". `[PENDING: K38M]` until the hashes are in the index.
+on-device AI's session key**. Do not say "the AI chose to invest". Both hashes are in the index and labeled **Owner-mandated rehearsal (2-of-2)**.
 
 **Speaker note (75 s):** "Everything here is a real Base Sepolia transaction. Each is tagged by who sent it, and we never
 guess the tag. Five were sent by the AI's own key: bill payments, one through the delay queue. Our scripts also
@@ -200,7 +200,7 @@ owners mandated. The AI's key executed them, but the AI did not decide to invest
 `days = (gas + slippage) × 365 / (size × ΔAPY)`.
 
 **Source:** `evidence/app/agent/K44_economics.md`, `src/fusion-core/src/quant.rs`.
-`[PENDING: K47 autonomous profitable deposit tx hash]`
+`[PENDING: K47]` The 50 USDC quote is UNPROFITABLE_AFTER_GAS at 17.44 days; no policy change or app execution was made.
 
 **Speaker note (45 s):** "Many demos just push money into a vault. Ours first asks whether it pays. We measure the pool,
 the real gas we paid, and the oracle price. At ten dollars, gas eats the yield for almost two months, so the AI correctly
@@ -314,7 +314,6 @@ keys. Thank you. The verify command is on the screen."
 
 - `[PENDING: source re-check]` external fraud statistics on slide 2
 - `[PENDING: K36]` new false-block numbers (slide 9)
-- `[PENDING: K38M]` K38 rehearsal hashes (slide 7)
 - `[PENDING: K47]` autonomous profitable deposit (slides 7, 8)
 - `[PENDING: K41]` automatic risk reflex (slides 6, 12)
 - `[PENDING: K45]` wake reasons on timeline rows (slides 6, 12)

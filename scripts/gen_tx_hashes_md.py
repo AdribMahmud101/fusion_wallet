@@ -130,6 +130,8 @@ def usdc(raw):
 def describe(row, f):
     kind = row["kind"]
     text = KIND_TEXT.get(kind, kind.replace("_", " ").title())
+    if row.get("notes"):
+        text = f"{row['notes']} · {text}"
     if kind == "INTENTIONAL_REVERT" and f.get("scenario"):
         text = f"Attack rejected on purpose: {f['scenario']}"
     if row.get("payeeLabel") and kind in PAYMENT_KINDS | {"OWNER_PAY", "PAY_OWNER_TIER", "PAYEE_ADDED"}:
@@ -243,6 +245,10 @@ def build():
                        "They were an owner-mandated rehearsal under a Safe 2-of-2 mandate, not a decision to invest. "
                        "They are not in `evidence/tx_index.json` yet, so they are not listed above.")
         pending.append("- `[PENDING: K47]` A deposit the AI chose on its own because it pays, with no owner mandate.")
+    elif not any(r.get("source") == "APP" and r.get("kind") == "DEPOSIT" and
+                 str(r.get("notes", "")).startswith("AI-initiated · break-even ") for r in rows):
+        pending.append("- `[PENDING: K47]` A deposit the AI chooses on its own because it pays, with no owner mandate. "
+                       "The fresh 50 USDC quote is currently UNPROFITABLE_AFTER_GAS; see `K44_economics.md`.")
     pending.append("- `[PENDING: K41]` An automatic guardian pause triggered by the risk reflex (today's pause rows are manual).")
     for line in pending:
         w(line)

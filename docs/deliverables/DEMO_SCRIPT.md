@@ -129,9 +129,9 @@ It went to the module, not to a person. The event carries a decision hash, which
 
 **Numbers to quote:** 37 transactions in the index; sent by the AI's key: 5 (4 AGENT, 1 APP) (`docs/deliverables/TX_HASHES.md`).
 
-**Optional 15 s, only if merged:** `[PENDING: K38M]` the deposit and withdraw. Say exactly: "These two were an
+**Optional 15 s:** show the two K38 rows labeled **Owner-mandated rehearsal (2-of-2)**. Say exactly: "These two were an
 owner-mandated rehearsal under a two-of-two Safe mandate, executed by the AI's session key." Do **not** say the AI decided to invest.
-`[PENDING: K47]` a deposit the AI chooses on its own because it pays. Show it only when the tx is in the index and passes `verify_all`.
+`[PENDING: K47]` A profitable self-initiated deposit is not recorded; the live 50 USDC quote is not actionable.
 
 ### 8. 4:20–4:50 · Verify it yourself
 
@@ -181,6 +181,6 @@ They carry the security score, the task-completion proof and the on-chain bonus.
 - `[PENDING: bundled arena asset]` the APK's bundled `arena-latest.json` is stale (checklist item 7b)
 - `[PENDING: K40 on-device check]` the advisor screens on the demo phone (checklist item 1)
 - `[PENDING: K36]` new false-block numbers (shot 5)
-- `[PENDING: K38M]`, `[PENDING: K47]` AI asset-management transactions (shot 7)
+- `[PENDING: K47]` autonomous profitable deposit (shot 7)
 - `[PENDING: K41]`, `[PENDING: K45]`, `[PENDING: K46]` features not to be shown yet
 - `[PENDING: live re-run]` `verify_all` output on the day (shot 8)

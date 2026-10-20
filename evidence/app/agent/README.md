@@ -117,14 +117,19 @@ fixes, explicit owner-signed strategy scope and exact transaction hashes.
 - APP withdrawal: 9.999999 USDC, `0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a`.
 - OWNER strategy mandate: `0xb4896d5bd3207eee5d05bc2bd956a23d820691c8d4eb7fc80209b432fc353f7a`.
 
-Both actions were chosen by MNN/AHEM-G in Android, signed in `:signer` with the
-existing Keystore session envelope and broadcast through the leased edge relay.
+Both transfers were an **Owner-mandated rehearsal (2-of-2)**: MNN/AHEM-G made
+the phase choices in Android, then `:signer` used the existing Keystore session
+envelope and the leased edge relay. The owner mandate authorized the 10 USDC
+round trip, so it is not evidence that the AI selected a profitable investment.
 The original successful sends were recovered through receipt-only app journal
 reconciliation; no second signature/send or host choice override occurred.
 `K38_verification.json` is the independent result. `K38_deposit.png` and
 `K38_withdraw.png` show the confirmed device cards. Safe cash is 9399001234 raw
 USDC afterward; waUSDC holdings are zero. The round trip intentionally pays gas
 under a one-time owner mandate; the ordinary profitability gate remains intact.
+The current K47 re-quote for 50 USDC is `UNPROFITABLE_AFTER_GAS` (17.44-day
+break-even), so no policy change or new autonomous deposit was made; see
+`K44_economics.md` and its captured inputs/report.
 
 Run `python3 scripts/android_planner/verify_allocation.py` and
 `python3 scripts/judge/verify_all.py` for keyless verification. Rebuild the public
