@@ -45,3 +45,19 @@ Charts work and the data is right. Now match the reference's visual restraint:
 5. **Where it sits / Cash runway:** keep the reference layout exactly: title top-left, chart centered, center label (value + unit), legend rows "● Cash  95 %" (single line, ellipsize long labels), runway status line colored + text ("Keep an eye on it").
 6. Tile titles one line where possible (reduce to the reference's small muted title style: "Where it sits", "Cash runway", "Spending by week", "Interest per year").
 Re-run the DoD; commit on card/K28.
+
+## REVISION 3 — match the reference pixel-for-pixel (owner: "still not as polished as the reference")
+**Open and study `docs/ux/reference/home_top.png` and `docs/ux/reference/home_bottom.png` before writing code** (606×1280 screenshots; 1 px ≈ 0.68 dp). Ignore their words/numbers; copy their visual system exactly. Measured spec:
+- **Screen**: side padding 18 dp; tile gap 12 dp; 2-column rows split 50/50, both tiles same height.
+- **Tile**: radius 18 dp; fill `#111418`; 1 dp border `#1F242B`; inner padding 16 dp. Hero tile: subtle diagonal gradient `#0F2A22` → `#0E1512`.
+- **Typography**: tile title = 14 sp regular, muted `#8B949E`, single line ("Where it sits"). Big values use the **sans** face (IBM Plex Sans / Space Grotesk SemiBold), NOT monospace: hero 32 sp; tile values 24–26 sp; unit "USDC" 16 sp muted, baseline-aligned after the number. Monospace only for hashes/addresses.
+- **Status line**: icon + 16 sp text in tone color ("✓ Your bills are covered" green, "Keep an eye on it" amber) — one line.
+- **Donut**: diameter 122 dp, stroke 17 dp, 2° gaps, butt ends; center "9.4K" 18 sp bold + "USDC" 12 sp muted; legend: 8 dp dot + "Cash 95%" 15 sp, one line each, left-aligned under the donut.
+- **Runway gauge**: same diameter/stroke; track `#262B33`; progress arc amber `#F59E0B` with round cap starting at 12 o'clock clockwise; center "N" 18 sp bold + "days" 12 sp muted; status line under it.
+- **Area line**: line 2.5 dp `#38BDF8`, fill gradient `#38BDF8` 28% → 0%, NO axes, NO gridlines, NO point markers; end dot 7 dp `#38BDF8` with 14 dp soft glow; chart height 120 dp; header: title, value (32 sp sans), "▲/▼ N% in 30 days" 16 sp green/red.
+- **Weekly bars**: 4 columns, bar width 24 dp, fully rounded (pill) bars, 22 dp gaps; colors teal `#2DD4BF` and coral `#F87171` (stacked if both); empty week = 4 dp flat stub `#262B33`; x labels 13 sp muted ("3w 2w 1w Now"); legend rows "● Payroll Co.   500" with the value right-aligned.
+- **Interest bars**: per row: label left 15 sp white, value right "0.21%"; bar below 8 dp tall pill, track `#262B33`, fill `#38BDF8`, scaled to the largest rate shown; simulated vault: value "simulated", empty track.
+- **Chart palette** (add to FusionTokens as `FusionChart`): green `#19C37D` (cash), amber `#F59E0B` (bills/reserved), sky `#38BDF8` (earning/line), teal `#2DD4BF`, coral `#F87171`.
+- Method/explanation text → ⓘ bottom sheets (revision 2 item 1).
+Home order like the reference: Spare-cash hero → [Where it sits | Cash runway] → Total, last 30 days → [Spending by week | Interest per year] → Worth knowing → AI Agent tile → vault tiles.
+Commit after each tile; run the DoD.
