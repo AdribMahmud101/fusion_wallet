@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "generated_at": "2026-10-20T11:30:12.658351+00:00",
-  "git_commit": "a1d37e9e8ed779ac59ff0fd60694ff271aca081e",
+  "git_commit": "40ce132d10d3645e496aaf8e25901827fe28aef0",
   "host": "aarch64",
   "environment": "Linux host + local Anvil 31337",
   "scenarios": [
@@ -1538,5 +1538,14 @@
     "stopped": 24,
     "escaped": 0,
     "not_implemented": 0
+  },
+  "core_probe_refresh": {
+    "generated_at": "2026-10-20T11:30:41.232036+00:00",
+    "source_base": "40ce132d10d3645e496aaf8e25901827fe28aef0",
+    "source_sha256": {
+      "src/fusion-core/src/sign.rs": "21e8ebcad247366853ce3db1a69c7ce7325fb9cf532105065ae836888e1af8eb",
+      "src/fusion-core/tests/arena_pipeline.rs": "3ff9099b12ee990b489162a310ec150fc46ba229eb4ab4257c99ef29289ca4e6",
+      "src/contracts/src/IKavachiModule.sol": "ee5ba90f7ec74c5a8ed944e07721ff88cf11feead839dd2c2fad8f6e3fbabf88"
+    }
   }
 }

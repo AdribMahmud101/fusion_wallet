@@ -1,6 +1,8 @@
 # Generated attack arena
 
-Run: 2026-10-20T11:30:12.658351+00:00 · Linux host + local Anvil 31337 · source `a1d37e9e8ed779ac59ff0fd60694ff271aca081e`
+Run: 2026-10-20T11:30:12.658351+00:00 · Linux host + local Anvil 31337 · source `40ce132d10d3645e496aaf8e25901827fe28aef0`
+
+Core probes refreshed: 2026-10-20T11:30:41.232036+00:00 · source base `40ce132d10d3645e496aaf8e25901827fe28aef0` plus source hashes in latest.json. Planner and chain measurements retain their original run above.
 
 Run `bash arena/run_arena.sh` from the repository root. All counts below are computed from fresh execution. The corpus is frozen before inference and verified against [its manifest](../../arena/corpus/SHA256SUMS).
 
