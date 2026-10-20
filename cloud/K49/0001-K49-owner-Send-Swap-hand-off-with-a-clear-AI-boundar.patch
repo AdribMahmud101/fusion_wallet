@@ -1,0 +1,1126 @@
+From a0cdebcd157f9ec89b9a914fe393a6a167dd51de Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 20 Oct 2026 11:58:18 +0000
+Subject: [PATCH] K49: owner Send / Swap hand-off with a clear AI boundary
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The owners keep sovereign Send and Swap. The app only BUILDS the Safe transaction and hands off to
+Safe{Wallet}. Nothing is signed or broadcast from the app, and the AI cannot send.
+
+- Home hero: three buttons (Receive, Send, Earn) and two compact "who can do what" lines under them.
+- Send sheet (ui/send/OwnerSendSheet.kt): recipient validation (40 hex, EIP-55 checksum, zero address and the
+  treasury's own Safe blocked, contract and non-payee warnings, "Known payee" for an ACTIVE registered payee),
+  USDC amount (<= 6 decimals, > 0), reserve check from the live WalletState buckets (amount <= Spare cash:
+  green; above: red "dip by X" plus an "I understand" switch before any payload; above Safe cash: never built;
+  unverified bills: "I understand" required). Output is the exact Safe tx: Base Sepolia, to = USDC token,
+  value 0, operation 0 (CALL), data = transfer(recipient, amount), as copyable fields, a QR of the JSON, and
+  "Open in Safe{Wallet}" (https://app.safe.global/home?safe=basesep:<Safe>). Label: "Owner-signed 2-of-2 ·
+  this app holds no owner keys · the AI cannot send".
+- Swap: honest hand-off. We could not confirm Safe{Wallet} swaps on Base Sepolia, so the sheet says "Swaps are not
+  available on the Base Sepolia test network" and shows no quote (SwapHandoff.CONFIRMED_ON_BASE_SEPOLIA = false).
+- Who can do what (Safety card + Home lines): Owner (2-of-2): Send, Swap, policy, resume. Guardian: pause, cancel
+  queued. AI agent: Deposit, Withdraw, Pay verified bills, Hold, with the per-move and daily limits from the
+  existing allowance formatter (allowanceCopy). DEVIATION FROM THE BRIEF: Rebalance is not listed as an AI power,
+  because the deployed contract reverts REBALANCE with UnsupportedAction; a footnote says so.
+- CustodySplit text updated: the app now prepares a Send or Swap for the owners but never signs.
+- Pure logic lives in ownersend/ (no Android UI). It encodes the transfer calldata with the existing
+  Abi.addressWord / Abi.uintWord helpers. No file in ownersend/ or ui/send/ imports or calls any signer, session,
+  planner or AgentRuntime class (enforced by OwnerSendBoundaryTest, which scans the real source files).
+
+Tests: app/src/test/java/app/fusion/wallet/ownersend/ (27 tests): exact calldata bytes (expected strings computed
+independently in Python; selector == keccak("transfer(address,uint256)")), EIP-55 spec vectors and the deployed
+Safe/token/module addresses, recipient and amount validation, reserve verdicts on real BucketMath buckets, payload
+gating (no payload until acknowledged, never above Safe cash), Safe{Wallet} link, swap honesty, role lines, and the
+dependency-boundary scan (plus tests that the scanner itself catches violations).
+
+WHAT RAN AND WHAT DID NOT (cloud session; verify on the edge before merging):
+- RAN, PASSED: the 27 ownersend tests, 0 failures, compiled with Kotlin 2.0.21 on JVM 21 in a scratch Gradle JVM
+  project that pulls the real ownersend/, chain/ and data/ sources (minus 3 Android-only files) from this tree.
+  Harness stub: android.content.Context (for EventIndex). MUTATION CHECK: wrong transfer selector, "<" instead of
+  "<=" in the reserve check, and a forbidden AgentRuntime import added to the real OwnerSendSheet.kt made 4 tests
+  fail as expected; all three were restored and the suite is green again.
+- NOT RUN: ./gradlew testDebugUnitTest assembleDebug (the Android SDK/AGP downloads are blocked here). NOT
+  COMPILED: OwnerSendSheet.kt, WhoCanDoWhatUi.kt and the TreasuryScreen, SafetyScreen and CustodySplit edits. I read
+  them against the repo's existing Compose usage, but expect possible compile fixes on the edge.
+- NOT DONE: no on-device check, no screenshots, no Safe{Wallet} round trip. Whether Safe{Wallet} supports swaps on
+  Base Sepolia was not confirmed (no network access to check).
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Fty9R6vJDDs3bHJWD1s8uT
+---
+ .../app/fusion/wallet/ownersend/OwnerSend.kt  | 244 ++++++++++++++
+ .../fusion/wallet/ownersend/WhoCanDoWhat.kt   |  38 +++
+ .../fusion/wallet/ui/common/CustodySplit.kt   |   6 +-
+ .../fusion/wallet/ui/safety/SafetyScreen.kt   |   2 +
+ .../fusion/wallet/ui/send/OwnerSendSheet.kt   | 202 ++++++++++++
+ .../fusion/wallet/ui/send/WhoCanDoWhatUi.kt   |  44 +++
+ .../wallet/ui/treasury/TreasuryScreen.kt      |  14 +-
+ .../wallet/ownersend/OwnerSendBoundaryTest.kt |  79 +++++
+ .../fusion/wallet/ownersend/OwnerSendTest.kt  | 310 ++++++++++++++++++
+ 9 files changed, 932 insertions(+), 7 deletions(-)
+ create mode 100644 fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/OwnerSend.kt
+ create mode 100644 fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/WhoCanDoWhat.kt
+ create mode 100644 fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/OwnerSendSheet.kt
+ create mode 100644 fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/WhoCanDoWhatUi.kt
+ create mode 100644 fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendBoundaryTest.kt
+ create mode 100644 fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendTest.kt
+
+diff --git a/fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/OwnerSend.kt b/fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/OwnerSend.kt
+new file mode 100644
+index 0000000..1c0657b
+--- /dev/null
++++ b/fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/OwnerSend.kt
+@@ -0,0 +1,244 @@
++package app.fusion.wallet.ownersend
++
++import app.fusion.wallet.chain.Abi
++import app.fusion.wallet.data.LoadStatus
++import app.fusion.wallet.data.Payee
++import app.fusion.wallet.data.PayeeStatus
++import app.fusion.wallet.data.WalletState
++import java.math.BigDecimal
++import java.math.BigInteger
++import org.bouncycastle.crypto.digests.KeccakDigest
++
++/*
++ * K49: the owner's Send path. This package only BUILDS the Safe transaction the two owners must sign.
++ * It holds no key and signs, broadcasts and plans nothing, so it imports no signer, session, planner or
++ * AgentRuntime class (enforced by OwnerSendBoundaryTest). The owners sign in Safe{Wallet}.
++ */
++
++/** EIP-55 mixed-case checksum addresses. */
++object Eip55 {
++    private val HEX40 = Regex("^0x[0-9a-fA-F]{40}$")
++
++    private fun keccakHex(bytes: ByteArray): String {
++        val out = ByteArray(32)
++        KeccakDigest(256).apply { update(bytes, 0, bytes.size); doFinal(out, 0) }
++        return out.joinToString("") { "%02x".format(it.toInt() and 255) }
++    }
++
++    fun isAddress(s: String) = HEX40.matches(s)
++
++    fun toChecksum(address: String): String {
++        require(isAddress(address)) { "Not a 20-byte hex address" }
++        val lower = address.drop(2).lowercase()
++        val hash = keccakHex(lower.toByteArray(Charsets.US_ASCII))
++        return "0x" + lower.mapIndexed { i, c -> if (c.isLetter() && hash[i] >= '8') c.uppercaseChar() else c }.joinToString("")
++    }
++
++    /** True for an all-lower or all-upper address (no checksum claimed) or a correct mixed-case one. */
++    fun checksumConsistent(address: String): Boolean {
++        if (!isAddress(address)) return false
++        val body = address.drop(2)
++        val mixed = body.any { it.isLowerCase() } && body.any { it.isUpperCase() }
++        return !mixed || toChecksum(address) == address
++    }
++}
++
++/** ERC-20 `transfer(address,uint256)` calldata, built with the app's existing ABI word helpers. */
++object Erc20Calldata {
++    const val TRANSFER_SELECTOR = "0xa9059cbb"
++
++    fun transfer(recipient: String, amountRaw: BigInteger): String {
++        require(amountRaw.signum() > 0) { "Amount must be above zero" }
++        return TRANSFER_SELECTOR + Abi.addressWord(recipient) + Abi.uintWord(amountRaw)
++    }
++}
++
++/** A USDC amount typed by a person: plain decimal, at most 6 places, above zero. */
++object UsdcInput {
++    sealed interface Result {
++        data class Ok(val raw: BigInteger) : Result
++        data class Error(val reason: String) : Result
++    }
++
++    private val FORMAT = Regex("^(0|[1-9][0-9]{0,11})(\\.[0-9]{1,6})?$")
++
++    fun parse(text: String): Result {
++        val t = text.trim()
++        if (t.isEmpty()) return Result.Error("Enter an amount")
++        if (!FORMAT.matches(t)) return Result.Error("Use digits with up to 6 decimals, for example 25.50")
++        val raw = BigDecimal(t).movePointRight(6).toBigIntegerExact()
++        return if (raw.signum() == 0) Result.Error("Amount must be above 0") else Result.Ok(raw)
++    }
++}
++
++/** Addresses of this treasury that make a recipient special. Built from the live WalletState. */
++data class RecipientContext(
++    val safe: String,
++    val token: String,
++    val module: String?,
++    val vaults: List<String>,
++    val payees: List<Payee>,
++) {
++    companion object {
++        fun from(state: WalletState): RecipientContext? {
++            val t = state.treasury ?: return null
++            return RecipientContext(t.safeAddress, t.assetAddress, state.module?.address, state.vaults.map { it.address }, state.payees)
++        }
++    }
++}
++
++sealed interface RecipientCheck {
++    data class Invalid(val reason: String) : RecipientCheck
++
++    /** [address] is the checksummed form. [knownPayee] is the label of an ACTIVE registered payee. */
++    data class Valid(val address: String, val knownPayee: String?, val warnings: List<String>) : RecipientCheck
++}
++
++object RecipientValidator {
++    private const val ZERO = "0x0000000000000000000000000000000000000000"
++
++    fun check(input: String, ctx: RecipientContext): RecipientCheck {
++        val text = input.trim()
++        if (!Eip55.isAddress(text)) return RecipientCheck.Invalid("Enter a 0x address with 40 hex characters")
++        if (!Eip55.checksumConsistent(text)) return RecipientCheck.Invalid("The capital letters do not match this address's checksum. Check each character")
++        val address = Eip55.toChecksum(text)
++        if (address.equals(ZERO, true)) return RecipientCheck.Invalid("The zero address would burn the funds")
++        if (address.equals(ctx.safe, true)) return RecipientCheck.Invalid("That is this treasury's own Safe")
++
++        val warnings = mutableListOf<String>()
++        val own = when {
++            address.equals(ctx.token, true) -> "the USDC token contract"
++            ctx.module?.equals(address, true) == true -> "the Kavachi module"
++            ctx.vaults.any { it.equals(address, true) } -> "one of this treasury's vaults"
++            else -> null
++        }
++        if (own != null) warnings += "This is $own. Funds sent to a contract may be unrecoverable"
++
++        val payee = ctx.payees.firstOrNull { it.address.equals(address, true) }
++        var known: String? = null
++        when {
++            payee == null -> warnings += "Not a known payee. Confirm the address with the recipient"
++            payee.status == PayeeStatus.ACTIVE -> known = payee.label
++            payee.status == PayeeStatus.COOLING -> warnings += "${payee.label} is a registered payee still in its cooling period"
++            else -> warnings += "${payee.label} was a payee but is cancelled"
++        }
++        return RecipientCheck.Valid(address, known, warnings)
++    }
++}
++
++/** The live numbers the reserve check reads. Nothing here is typed in or estimated. */
++data class LiveBalances(
++    /** The "Spare cash" bucket: cash left after reserved bills and the safety cushion. */
++    val spareCash: BigInteger,
++    /** All USDC the Safe holds. */
++    val safeCash: BigInteger,
++    /** True when the bill metadata matches the on-chain commitment, so the buckets can be trusted. */
++    val billsVerified: Boolean,
++    /** True when the snapshot is older than the display freshness limit. */
++    val stale: Boolean,
++    val symbol: String,
++) {
++    companion object {
++        /** Null unless a ready snapshot with buckets and a treasury is loaded. */
++        fun from(state: WalletState, nowMillis: Long): LiveBalances? {
++            val buckets = state.buckets ?: return null
++            val treasury = state.treasury ?: return null
++            if (state.status != LoadStatus.READY) return null
++            return LiveBalances(buckets.surplus.raw, treasury.balance.raw, state.accountingMatches == true, state.isDisplayStale(nowMillis), treasury.symbol)
++        }
++    }
++}
++
++sealed interface ReserveVerdict {
++    /** Amount is within spare cash. [billsUnverified] means the buckets could not be cross-checked. */
++    data class Covered(val billsUnverified: Boolean) : ReserveVerdict
++
++    /** Amount is above spare cash by [by]; the difference comes out of reserved bills or the cushion. */
++    data class DipsIntoReserve(val by: BigInteger) : ReserveVerdict
++
++    /** More than the Safe holds. The transaction would revert, so no payload is built. */
++    data object ExceedsSafeBalance : ReserveVerdict
++
++    val needsAcknowledgement: Boolean
++        get() = this is DipsIntoReserve || (this is Covered && billsUnverified)
++}
++
++object ReserveCheck {
++    fun evaluate(amountRaw: BigInteger, live: LiveBalances): ReserveVerdict = when {
++        amountRaw > live.safeCash -> ReserveVerdict.ExceedsSafeBalance
++        amountRaw <= live.spareCash -> ReserveVerdict.Covered(billsUnverified = !live.billsVerified)
++        else -> ReserveVerdict.DipsIntoReserve(amountRaw - live.spareCash)
++    }
++}
++
++/** The exact transaction the owners must sign in the Safe. Operation 0 is CALL. */
++data class OwnerSafeTx(
++    val chainId: Long,
++    val safe: String,
++    val to: String,
++    val value: String,
++    val data: String,
++    val operation: Int,
++) {
++    /** Stable field order, so the QR and the copied text are identical every time. */
++    fun toJson(): String =
++        """{"chainId":$chainId,"safe":"$safe","to":"$to","value":"$value","data":"$data","operation":$operation}"""
++}
++
++object SafeWalletLink {
++    /** `basesep` is Safe{Wallet}'s prefix for Base Sepolia. */
++    fun home(safeAddress: String) = "https://app.safe.global/home?safe=basesep:${Eip55.toChecksum(safeAddress)}"
++}
++
++data class SendEvaluation(
++    /** Set when the live data needed for the reserve check is missing. Nothing is built. */
++    val notReady: String?,
++    val live: LiveBalances?,
++    /** Null when the recipient field is empty. */
++    val recipient: RecipientCheck?,
++    val amountRaw: BigInteger?,
++    val amountError: String?,
++    val verdict: ReserveVerdict?,
++    val needsAcknowledgement: Boolean,
++    /** Present only when recipient, amount and the reserve check all pass and any acknowledgement was given. */
++    val tx: OwnerSafeTx?,
++)
++
++object OwnerSend {
++    fun evaluate(state: WalletState, recipientText: String, amountText: String, acknowledged: Boolean, nowMillis: Long): SendEvaluation {
++        val live = LiveBalances.from(state, nowMillis)
++        val ctx = RecipientContext.from(state)
++        if (live == null || ctx == null) {
++            return SendEvaluation("Live balances are not loaded yet. Refresh and try again", null, null, null, null, null, false, null)
++        }
++        val recipient = if (recipientText.isBlank()) null else RecipientValidator.check(recipientText, ctx)
++        val amount = if (amountText.isBlank()) null else UsdcInput.parse(amountText)
++        val raw = (amount as? UsdcInput.Result.Ok)?.raw
++        val verdict = raw?.let { ReserveCheck.evaluate(it, live) }
++        val needsAck = verdict?.needsAcknowledgement == true
++        val buildable = recipient is RecipientCheck.Valid && verdict != null && verdict != ReserveVerdict.ExceedsSafeBalance &&
++            (!needsAck || acknowledged)
++        val tx = if (buildable) {
++            OwnerSafeTx(
++                chainId = state.chainId,
++                safe = Eip55.toChecksum(ctx.safe),
++                to = Eip55.toChecksum(ctx.token),
++                value = "0",
++                data = Erc20Calldata.transfer((recipient as RecipientCheck.Valid).address, raw!!),
++                operation = 0,
++            )
++        } else null
++        return SendEvaluation(null, live, recipient, raw, (amount as? UsdcInput.Result.Error)?.reason, verdict, needsAck, tx)
++    }
++}
++
++/** Swap is an honest hand-off to Safe{Wallet}. The app never quotes, routes or signs a swap. */
++object SwapHandoff {
++    /** We could not confirm that Safe{Wallet} swaps work on Base Sepolia. Flip only with evidence. */
++    const val CONFIRMED_ON_BASE_SEPOLIA = false
++
++    const val HEADLINE = "Swaps are owner-signed in Safe{Wallet}. The AI never swaps."
++    val networkNote: String =
++        if (CONFIRMED_ON_BASE_SEPOLIA) "Open Safe{Wallet} and choose Swap. Both owners must sign."
++        else "Swaps are not available on the Base Sepolia test network. This app does not quote or route swaps."
++}
+diff --git a/fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/WhoCanDoWhat.kt b/fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/WhoCanDoWhat.kt
+new file mode 100644
+index 0000000..408169c
+--- /dev/null
++++ b/fusion-core-android/app/src/main/java/app/fusion/wallet/ownersend/WhoCanDoWhat.kt
+@@ -0,0 +1,38 @@
++package app.fusion.wallet.ownersend
++
++import app.fusion.wallet.data.ModuleState
++import app.fusion.wallet.data.Money
++import app.fusion.wallet.data.allowanceCopy
++
++data class RoleLine(val role: String, val can: String)
++
++/**
++ * The authority split in one place: owners are sovereign, the guardian only stops things, the AI acts only inside
++ * on-chain limits. The AI's limits come from the same allowance formatter as Home, Agent and Safety.
++ */
++object WhoCanDoWhat {
++    const val OWNER = "Send · Swap · policy · resume"
++    const val GUARDIAN = "pause · cancel queued"
++    const val AI_ACTIONS = "Deposit · Withdraw · Pay verified bills · Hold"
++
++    /** The deployed contract rejects REBALANCE (`UnsupportedAction`), so it is not listed as an AI power. */
++    const val AI_NOT_SUPPORTED = "Rebalance is not supported by the deployed contract."
++
++    fun aiLimits(module: ModuleState?, format: (Money) -> String): String {
++        module ?: return "limits unavailable until the policy loads"
++        val copy = allowanceCopy(module.policy, module.dailyUsed, format)
++        return "${copy.perMove.removePrefix("Per move: ")} · ${copy.dailyCap.removePrefix("Daily cap: ")} daily cap"
++    }
++
++    fun lines(module: ModuleState?, format: (Money) -> String): List<RoleLine> = listOf(
++        RoleLine("Owner (2-of-2)", OWNER),
++        RoleLine("Guardian", GUARDIAN),
++        RoleLine("AI agent", "$AI_ACTIONS, within on-chain limits: ${aiLimits(module, format)}"),
++    )
++
++    /** Compact text for under the Home hero. */
++    fun compact(module: ModuleState?, format: (Money) -> String): List<String> = listOf(
++        "Owner (2-of-2): $OWNER · Guardian: $GUARDIAN",
++        "AI agent: $AI_ACTIONS · ${aiLimits(module, format)}",
++    )
++}
+diff --git a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/common/CustodySplit.kt b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/common/CustodySplit.kt
+index 39cf9ce..e48ee5f 100644
+--- a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/common/CustodySplit.kt
++++ b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/common/CustodySplit.kt
+@@ -36,12 +36,12 @@ import app.fusion.wallet.ui.components.StatusChip
+ import app.fusion.wallet.ui.theme.FusionColors
+ import app.fusion.wallet.ui.theme.FusionType
+ 
+-/** Legal-safe custody statement; never offers Send or Swap. */
++/** Legal-safe custody statement. The app prepares owner Send/Swap hand-offs but never signs or sends them. */
+ private fun custodyBody(ratio: String?): String =
+     "Owner keys are not in this app. " +
+         (ratio?.let { "This Safe is $it. " } ?: "The Safe threshold is unavailable. ") +
+-        "This app can Receive, preview moves, and run the limited agent. " +
+-        "Sending and admin changes need the Safe owners."
++        "This app can Receive, prepare a Send or Swap for the owners to sign in Safe{Wallet}, preview moves, and run the limited agent. " +
++        "Sending, swapping and admin changes are signed by the Safe owners, never by this app."
+ 
+ fun custodyRatio(threshold: Int?, owners: Int?): String? =
+     if (threshold != null && owners != null && threshold > 0 && owners > 0) "$threshold-of-$owners" else null
+diff --git a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/safety/SafetyScreen.kt b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/safety/SafetyScreen.kt
+index 003e4da..8ced243 100644
+--- a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/safety/SafetyScreen.kt
++++ b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/safety/SafetyScreen.kt
+@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
+ import app.fusion.wallet.R
+ import app.fusion.wallet.ui.MainViewModel
+ import app.fusion.wallet.ui.agent.*
++import app.fusion.wallet.ui.send.WhoCanDoWhatCard
+ import app.fusion.wallet.ui.common.CustodySplitCard
+ import app.fusion.wallet.ui.common.allowanceLabels
+ import app.fusion.wallet.ui.advisor.CheckExternalTextCard
+@@ -66,6 +67,7 @@ fun SafetyScreen(modifier: Modifier = Modifier, vm: MainViewModel = viewModel(),
+                 }
+             }
+             item { CustodySplitCard(state) }
++            item { WhoCanDoWhatCard(state) }
+             item { BentoTile(Modifier.fillMaxWidth()) {
+                 Text("AI allowance", style = FusionType.HeadingSmall)
+                 state.module?.let { m -> allowanceLabels(m, state.blockTime).forEach { Text(it, style = FusionType.BodySmall) } }
+diff --git a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/OwnerSendSheet.kt b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/OwnerSendSheet.kt
+new file mode 100644
+index 0000000..6a242cf
+--- /dev/null
++++ b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/OwnerSendSheet.kt
+@@ -0,0 +1,202 @@
++package app.fusion.wallet.ui.send
++
++import android.content.ClipData
++import android.content.ClipboardManager
++import android.content.Context
++import android.content.Intent
++import android.net.Uri
++import androidx.compose.foundation.Canvas
++import androidx.compose.foundation.background
++import androidx.compose.foundation.layout.Arrangement
++import androidx.compose.foundation.layout.Column
++import androidx.compose.foundation.layout.Row
++import androidx.compose.foundation.layout.fillMaxWidth
++import androidx.compose.foundation.layout.heightIn
++import androidx.compose.foundation.layout.padding
++import androidx.compose.foundation.layout.size
++import androidx.compose.foundation.rememberScrollState
++import androidx.compose.foundation.text.KeyboardOptions
++import androidx.compose.foundation.text.selection.SelectionContainer
++import androidx.compose.foundation.verticalScroll
++import androidx.compose.material3.Button
++import androidx.compose.material3.ExperimentalMaterial3Api
++import androidx.compose.material3.FilterChip
++import androidx.compose.material3.ModalBottomSheet
++import androidx.compose.material3.OutlinedButton
++import androidx.compose.material3.OutlinedTextField
++import androidx.compose.material3.Switch
++import androidx.compose.material3.Text
++import androidx.compose.material3.rememberModalBottomSheetState
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.getValue
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.runtime.saveable.rememberSaveable
++import androidx.compose.runtime.setValue
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.geometry.Offset
++import androidx.compose.ui.geometry.Size
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.platform.LocalContext
++import androidx.compose.ui.semantics.contentDescription
++import androidx.compose.ui.semantics.semantics
++import androidx.compose.ui.text.input.KeyboardType
++import androidx.compose.ui.unit.dp
++import app.fusion.wallet.data.WalletState
++import app.fusion.wallet.ownersend.OwnerSafeTx
++import app.fusion.wallet.ownersend.OwnerSend
++import app.fusion.wallet.ownersend.RecipientCheck
++import app.fusion.wallet.ownersend.ReserveVerdict
++import app.fusion.wallet.ownersend.SafeWalletLink
++import app.fusion.wallet.ownersend.SwapHandoff
++import app.fusion.wallet.ui.common.startActivitySafe
++import app.fusion.wallet.ui.components.formatBigIntegerAmount
++import app.fusion.wallet.ui.theme.FusionColors
++import app.fusion.wallet.ui.theme.FusionType
++import com.google.zxing.BarcodeFormat
++import com.google.zxing.qrcode.QRCodeWriter
++
++const val OWNER_BOUNDARY_LABEL = "Owner-signed 2-of-2 · this app holds no owner keys · the AI cannot send"
++
++/**
++ * Owner Send / Swap (K49). It builds the Safe transaction and hands off to Safe{Wallet}. Nothing is signed or sent
++ * from this app. It takes only the live WalletState; it has no handle on any signer, session or agent runtime.
++ */
++@OptIn(ExperimentalMaterial3Api::class)
++@Composable
++fun OwnerSendSheet(state: WalletState, onDismiss: () -> Unit) {
++    var swap by rememberSaveable { mutableStateOf(false) }
++    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
++        Column(
++            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp),
++            verticalArrangement = Arrangement.spacedBy(12.dp),
++        ) {
++            Text(if (swap) "Swap" else "Send USDC", style = FusionType.HeadingMedium)
++            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
++                FilterChip(selected = !swap, onClick = { swap = false }, label = { Text("Send") })
++                FilterChip(selected = swap, onClick = { swap = true }, label = { Text("Swap") })
++            }
++            Text(OWNER_BOUNDARY_LABEL, style = FusionType.BodySmall, color = FusionColors.Amber)
++            if (swap) SwapPane(state) else SendPane(state)
++        }
++    }
++}
++
++@Composable
++private fun SwapPane(state: WalletState) {
++    val context = LocalContext.current
++    Text(SwapHandoff.HEADLINE, style = FusionType.BodyMedium)
++    Text(SwapHandoff.networkNote, style = FusionType.BodyMedium, color = FusionColors.Amber)
++    Text("No quote is shown because this app does not fetch or route swaps.", style = FusionType.BodySmall, color = FusionColors.TextMuted)
++    OpenInSafe(state, context)
++}
++
++@Composable
++private fun OpenInSafe(state: WalletState, context: Context) {
++    val safe = state.treasury?.safeAddress
++    Button(
++        onClick = { safe?.let { context.startActivitySafe(Intent(Intent.ACTION_VIEW, Uri.parse(SafeWalletLink.home(it)))) } },
++        enabled = safe != null,
++        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
++    ) { Text("Open in Safe{Wallet}") }
++    if (safe == null) Text("Safe address unavailable until the chain snapshot loads.", style = FusionType.BodySmall, color = FusionColors.TextMuted)
++}
++
++@Composable
++private fun SendPane(state: WalletState) {
++    val context = LocalContext.current
++    var recipient by rememberSaveable { mutableStateOf("") }
++    var amount by rememberSaveable { mutableStateOf("") }
++    var ack by rememberSaveable { mutableStateOf(false) }
++    val eval = remember(state, recipient, amount, ack) { OwnerSend.evaluate(state, recipient, amount, ack, System.currentTimeMillis()) }
++    val symbol = eval.live?.symbol ?: "USDC"
++
++    OutlinedTextField(
++        value = recipient, onValueChange = { recipient = it.trim().take(66); ack = false }, modifier = Modifier.fillMaxWidth(),
++        label = { Text("Recipient address (0x…)") }, singleLine = true,
++    )
++    when (val r = eval.recipient) {
++        null -> {}
++        is RecipientCheck.Invalid -> Text(r.reason, style = FusionType.BodySmall, color = FusionColors.Red)
++        is RecipientCheck.Valid -> {
++            Text(r.address, style = FusionType.NumberCaption)
++            r.knownPayee?.let { Text("Known payee: $it", style = FusionType.BodySmall, color = FusionColors.Green) }
++            r.warnings.forEach { Text("⚠ $it", style = FusionType.BodySmall, color = FusionColors.Amber) }
++        }
++    }
++    OutlinedTextField(
++        value = amount, onValueChange = { amount = it.trim().take(20); ack = false }, modifier = Modifier.fillMaxWidth(),
++        label = { Text("Amount ($symbol)") }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
++    )
++    eval.amountError?.let { Text(it, style = FusionType.BodySmall, color = FusionColors.Red) }
++
++    eval.notReady?.let { Text(it, style = FusionType.BodySmall, color = FusionColors.Amber) }
++    eval.live?.let { live ->
++        Text("Spare cash ${formatBigIntegerAmount(live.spareCash)} $symbol · Safe holds ${formatBigIntegerAmount(live.safeCash)} $symbol",
++            style = FusionType.BodySmall, color = FusionColors.TextMuted)
++        if (live.stale) Text("Balances may be out of date. Refresh before you rely on this check.", style = FusionType.BodySmall, color = FusionColors.Amber)
++    }
++    when (val v = eval.verdict) {
++        null -> {}
++        is ReserveVerdict.Covered ->
++            if (v.billsUnverified) Text("Bill coverage could not be verified, so spare cash may be wrong. Confirm below to continue.",
++                style = FusionType.BodyMedium, color = FusionColors.Amber)
++            else Text("Bills and safety cushion stay covered", style = FusionType.BodyMedium, color = FusionColors.Green)
++        is ReserveVerdict.DipsIntoReserve ->
++            Text("This would dip into reserved bills/cushion by ${formatBigIntegerAmount(v.by)} $symbol", style = FusionType.BodyMedium, color = FusionColors.Red)
++        ReserveVerdict.ExceedsSafeBalance ->
++            Text("More than the Safe holds. This transaction would fail.", style = FusionType.BodyMedium, color = FusionColors.Red)
++    }
++    if (eval.needsAcknowledgement) {
++        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
++            Switch(checked = ack, onCheckedChange = { ack = it }, modifier = Modifier.semantics { contentDescription = "I understand" })
++            Text("I understand", style = FusionType.BodyMedium)
++        }
++    }
++
++    eval.tx?.let { tx -> Payload(tx, symbol) }
++    OpenInSafe(state, context)
++}
++
++@Composable
++private fun Payload(tx: OwnerSafeTx, symbol: String) {
++    val context = LocalContext.current
++    val json = remember(tx) { tx.toJson() }
++    val qr = remember(json) { QRCodeWriter().encode(json, BarcodeFormat.QR_CODE, 0, 0) }
++    var copied by remember { mutableStateOf<String?>(null) }
++    fun copy(label: String, text: String) {
++        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(label, text))
++        copied = "$label copied"
++    }
++    Text("Safe transaction for both owners to sign", style = FusionType.HeadingSmall)
++    Field("Network", "Base Sepolia (chain ${tx.chainId})")
++    Field("Safe", tx.safe) { copy("Safe", tx.safe) }
++    Field("To ($symbol token)", tx.to) { copy("To", tx.to) }
++    Field("Value", tx.value)
++    Field("Operation", "${tx.operation} (CALL)")
++    Field("Data (ERC-20 transfer)", tx.data) { copy("Data", tx.data) }
++    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
++        Canvas(Modifier.size(220.dp).background(Color.White).semantics {
++            contentDescription = "QR code of the Safe transaction JSON"
++        }) {
++            val cell = size.minDimension / qr.width
++            for (y in 0 until qr.height) for (x in 0 until qr.width) if (qr[x, y]) {
++                drawRect(Color.Black, Offset(x * cell, y * cell), Size(cell, cell))
++            }
++        }
++    }
++    OutlinedButton(onClick = { copy("Transaction JSON", json) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("Copy transaction JSON") }
++    copied?.let { Text(it, style = FusionType.BodySmall, color = FusionColors.Green) }
++    Text("Nothing is signed or sent from this app. Create this same transaction in Safe{Wallet}; both owners must sign it there.",
++        style = FusionType.BodySmall, color = FusionColors.TextMuted)
++}
++
++@Composable
++private fun Field(label: String, value: String, onCopy: (() -> Unit)? = null) {
++    Column {
++        Text(label, style = FusionType.BodySmall, color = FusionColors.TextMuted)
++        SelectionContainer { Text(value, style = FusionType.NumberCaption) }
++        if (onCopy != null) OutlinedButton(onClick = onCopy, modifier = Modifier.heightIn(min = 48.dp)) { Text("Copy $label") }
++    }
++}
+diff --git a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/WhoCanDoWhatUi.kt b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/WhoCanDoWhatUi.kt
+new file mode 100644
+index 0000000..b93194c
+--- /dev/null
++++ b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/send/WhoCanDoWhatUi.kt
+@@ -0,0 +1,44 @@
++package app.fusion.wallet.ui.send
++
++import androidx.compose.foundation.layout.Arrangement
++import androidx.compose.foundation.layout.Column
++import androidx.compose.foundation.layout.fillMaxWidth
++import androidx.compose.foundation.layout.padding
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++import app.fusion.wallet.data.WalletState
++import app.fusion.wallet.ownersend.WhoCanDoWhat
++import app.fusion.wallet.ui.components.BentoTile
++import app.fusion.wallet.ui.components.formatBigIntegerAmount
++import app.fusion.wallet.ui.theme.FusionColors
++import app.fusion.wallet.ui.theme.FusionType
++
++/** Safety screen card: who can do what. AI limits come from the same allowance formatter as Home and Agent. */
++@Composable
++fun WhoCanDoWhatCard(state: WalletState) {
++    BentoTile(Modifier.fillMaxWidth()) {
++        Text("Who can do what", style = FusionType.HeadingSmall)
++        Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
++            WhoCanDoWhat.lines(state.module) { formatBigIntegerAmount(it.raw) }.forEach { line ->
++                Column {
++                    Text(line.role, style = FusionType.BodySmall, color = FusionColors.TextMuted)
++                    Text(line.can, style = FusionType.BodyMedium)
++                }
++            }
++            Text(WhoCanDoWhat.AI_NOT_SUPPORTED, style = FusionType.BodySmall, color = FusionColors.TextMuted)
++            Text(OWNER_BOUNDARY_LABEL, style = FusionType.BodySmall, color = FusionColors.Amber)
++        }
++    }
++}
++
++/** Compact two-line version for under the Home hero. */
++@Composable
++fun WhoCanDoWhatLine(state: WalletState, modifier: Modifier = Modifier) {
++    Column(modifier) {
++        WhoCanDoWhat.compact(state.module) { formatBigIntegerAmount(it.raw) }.forEach {
++            Text(it, style = FusionType.BodySmall, color = FusionColors.TextMuted)
++        }
++    }
++}
+diff --git a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/treasury/TreasuryScreen.kt b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/treasury/TreasuryScreen.kt
+index ee5da09..e4ce37f 100644
+--- a/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/treasury/TreasuryScreen.kt
++++ b/fusion-core-android/app/src/main/java/app/fusion/wallet/ui/treasury/TreasuryScreen.kt
+@@ -24,6 +24,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
+ import androidx.lifecycle.viewmodel.compose.viewModel
+ import app.fusion.wallet.onboarding.OnboardingPrefs
+ import app.fusion.wallet.ui.receive.ReceiveSheet
++import app.fusion.wallet.ui.send.OwnerSendSheet
++import app.fusion.wallet.ui.send.WhoCanDoWhatLine
+ import app.fusion.wallet.R
+ import app.fusion.wallet.agent.autopilot.autopilotStatus
+ import app.fusion.wallet.agent.AgentRuntime
+@@ -57,6 +59,7 @@ fun TreasuryScreen(modifier: Modifier = Modifier, vm: MainViewModel = viewModel(
+     val scope = rememberCoroutineScope()
+     var moreOpen by rememberSaveable { mutableStateOf(false) }
+     var receiveOpen by rememberSaveable { mutableStateOf(false) }
++    var sendOpen by rememberSaveable { mutableStateOf(false) }
+     var previewOpen by rememberSaveable { mutableStateOf(false) }
+     val previewMove: () -> Unit = {
+         previewOpen = true
+@@ -92,7 +95,7 @@ fun TreasuryScreen(modifier: Modifier = Modifier, vm: MainViewModel = viewModel(
+             } }
+             if (state.treasury == null && state.status == LoadStatus.LOADING) item {
+                 SkeletonTile(height = 180.dp)
+-            } else item { TreasuryHero(state, now, onReceive = { receiveOpen = true }, onEarn = previewMove, running = agent.running) }
++            } else item { TreasuryHero(state, now, onReceive = { receiveOpen = true }, onSend = { sendOpen = true }, onEarn = previewMove, running = agent.running) }
+             item { CustodySplitPill(state) }
+             if (approvalBannerVisible(state.queue)) item { ApprovalBanner(state, now / 1000, txIndex) }
+             item { ProofChip(txIndex, onOpenProof) }
+@@ -168,6 +171,7 @@ fun TreasuryScreen(modifier: Modifier = Modifier, vm: MainViewModel = viewModel(
+         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
+     }
+     if (receiveOpen) state.treasury?.let { ReceiveSheet(it.safeAddress, onDismiss = { receiveOpen = false }) }
++    if (sendOpen) OwnerSendSheet(state, onDismiss = { sendOpen = false })
+     if (previewOpen) EarnPreviewSheet(agent, state, txIndex, onDismiss = { previewOpen = false })
+     if (askOpen) {
+         val accountant: AccountantViewModel = viewModel()
+@@ -184,7 +188,7 @@ fun TreasuryScreen(modifier: Modifier = Modifier, vm: MainViewModel = viewModel(
+ }
+ 
+ @Composable
+-private fun TreasuryHero(state: WalletState, now: Long, onReceive: () -> Unit, onEarn: () -> Unit, running: Boolean) {
++private fun TreasuryHero(state: WalletState, now: Long, onReceive: () -> Unit, onSend: () -> Unit, onEarn: () -> Unit, running: Boolean) {
+     ChartTile(Modifier.fillMaxWidth(), hero = true) {
+         val age = state.capturedAtEpochMillis?.let { ((now - it).coerceAtLeast(0) / 1000) }
+         val source = when {
+@@ -221,9 +225,11 @@ private fun TreasuryHero(state: WalletState, now: Long, onReceive: () -> Unit, o
+         Text("What is left after bills and the safety cushion. Your AI agent can only use this.",
+             style = FusionType.BodyMedium, color = FusionChart.Muted, modifier = Modifier.padding(top = 10.dp))
+         Row(Modifier.fillMaxWidth().padding(top = 16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+-            OutlinedButton(onClick = onReceive, enabled = state.treasury != null, modifier = Modifier.weight(1f)) { Text("↓ Receive") }
+-            Button(onClick = onEarn, enabled = !running && state.treasury != null, modifier = Modifier.weight(1f)) { Text("+ Earn") }
++            OutlinedButton(onClick = onReceive, enabled = state.treasury != null, modifier = Modifier.weight(1f)) { Text("↓ Receive", maxLines = 1) }
++            OutlinedButton(onClick = onSend, enabled = state.treasury != null, modifier = Modifier.weight(1f)) { Text("↑ Send", maxLines = 1) }
++            Button(onClick = onEarn, enabled = !running && state.treasury != null, modifier = Modifier.weight(1f)) { Text("+ Earn", maxLines = 1) }
+         }
++        WhoCanDoWhatLine(state, Modifier.padding(top = 12.dp))
+     }
+ }
+ 
+diff --git a/fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendBoundaryTest.kt b/fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendBoundaryTest.kt
+new file mode 100644
+index 0000000..4c1382f
+--- /dev/null
++++ b/fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendBoundaryTest.kt
+@@ -0,0 +1,79 @@
++package app.fusion.wallet.ownersend
++
++import java.io.File
++import org.junit.Assert.assertEquals
++import org.junit.Assert.assertTrue
++import org.junit.Test
++
++/**
++ * K49 boundary: Send/Swap only BUILD a transaction for the owners. They must not reach any signer, session,
++ * planner or agent-runtime class, and must not sign or broadcast. This scans the real source files.
++ */
++internal object BoundaryScanner {
++    private val blockComment = Regex("(?s)/\\*.*?\\*/")
++    private val lineComment = Regex("(?<!:)//[^\\n]*")
++
++    /** Packages the agent, signer and planner live in. Importing anything from them is a violation. */
++    private val forbiddenImport = Regex("""^\s*import\s+app\.fusion\.wallet\.(agent|signer|inference)\b""")
++
++    /** Class and function names that carry signing, session, planning or agent authority. */
++    private val forbiddenName = Regex(
++        """\b(AgentRuntime|AgentNetwork|AutopilotController|SessionSigner\w*|SessionKeys|SessionEntryPoints|SessionSigningPolicy|""" +
++            """GuardianKeyStore|GuardianSigner\w*|GuardianTransaction|GuardianPauseEngine|GuardianStopDialog|PlannerClient|PlannerService|""" +
++            """NativePlanner|MainViewModel|requestGuardianPause|runAgentTick|signTransaction|sendRawTransaction|eth_sendRawTransaction)\b""",
++    )
++
++    fun strip(source: String) = source.replace(blockComment, "").replace(lineComment, "")
++
++    fun violations(fileName: String, source: String): List<String> =
++        strip(source).lines().flatMapIndexed { i, line ->
++            buildList {
++                if (forbiddenImport.containsMatchIn(line)) add("$fileName:${i + 1} imports agent/signer/inference: ${line.trim()}")
++                forbiddenName.find(line)?.let { add("$fileName:${i + 1} uses ${it.value}") }
++            }
++        }
++}
++
++class OwnerSendBoundaryTest {
++    private val roots = listOf("src/main/java/app/fusion/wallet/ownersend", "src/main/java/app/fusion/wallet/ui/send")
++
++    private fun sourceFiles(): List<File> {
++        val base = System.getProperty("k49.appDir")?.let(::File) ?: File(".")
++        return roots.flatMap { r -> File(base, r).listFiles { f -> f.extension == "kt" }?.toList().orEmpty() }
++    }
++
++    @Test fun send_and_swap_sources_are_found() {
++        val names = sourceFiles().map { it.name }.toSet()
++        // A wrong working directory must fail loudly instead of scanning nothing.
++        assertTrue("sources not found, got $names", names.containsAll(setOf("OwnerSend.kt", "WhoCanDoWhat.kt", "OwnerSendSheet.kt", "WhoCanDoWhatUi.kt")))
++    }
++
++    @Test fun send_and_swap_code_touches_no_signer_session_planner_or_agent_runtime() {
++        val found = sourceFiles().flatMap { BoundaryScanner.violations(it.name, it.readText()) }
++        assertEquals("boundary violations:\n" + found.joinToString("\n"), emptyList<String>(), found)
++    }
++
++    @Test fun the_scanner_catches_violations() {
++        val bad = listOf(
++            "import app.fusion.wallet.agent.AgentRuntime",
++            "import app.fusion.wallet.signer.GuardianStopDialog",
++            "import app.fusion.wallet.inference.PlannerClient",
++            "val r = AgentRuntime.run(context, repo, false)",
++            "SessionSignerClient(context).sign(tx)",
++            "vm.requestGuardianPause()",
++            "rpc.call(\"eth_sendRawTransaction\", raw)",
++        )
++        for (line in bad) assertTrue("missed: $line", BoundaryScanner.violations("Bad.kt", line).isNotEmpty())
++    }
++
++    @Test fun comments_and_strings_with_urls_do_not_hide_or_cause_violations() {
++        val ok = """
++            // AgentRuntime is mentioned only in a comment
++            /* import app.fusion.wallet.signer.Something */
++            val link = "https://app.safe.global/home?safe=basesep:0xabc"
++        """.trimIndent()
++        assertEquals(emptyList<String>(), BoundaryScanner.violations("Ok.kt", ok))
++        // A violation after a URL on the same line is still seen.
++        assertTrue(BoundaryScanner.violations("Bad.kt", "val x = \"https://a.b\"; AgentRuntime.run()").isNotEmpty())
++    }
++}
+diff --git a/fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendTest.kt b/fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendTest.kt
+new file mode 100644
+index 0000000..722a146
+--- /dev/null
++++ b/fusion-core-android/app/src/test/java/app/fusion/wallet/ownersend/OwnerSendTest.kt
+@@ -0,0 +1,310 @@
++package app.fusion.wallet.ownersend
++
++import app.fusion.wallet.data.BucketMath
++import app.fusion.wallet.data.LoadStatus
++import app.fusion.wallet.data.ModuleState
++import app.fusion.wallet.data.Money
++import app.fusion.wallet.data.Payee
++import app.fusion.wallet.data.PayeeStatus
++import app.fusion.wallet.data.PermissionTier
++import app.fusion.wallet.data.Policy
++import app.fusion.wallet.data.Treasury
++import app.fusion.wallet.data.VaultPosition
++import app.fusion.wallet.data.WalletState
++import java.math.BigInteger
++import org.bouncycastle.crypto.digests.KeccakDigest
++import org.junit.Assert.assertEquals
++import org.junit.Assert.assertFalse
++import org.junit.Assert.assertNotNull
++import org.junit.Assert.assertNull
++import org.junit.Assert.assertTrue
++import org.junit.Test
++
++private fun usdc(whole: Long, frac: Long = 0) = BigInteger.valueOf(whole).multiply(BigInteger.TEN.pow(6)).add(BigInteger.valueOf(frac))
++private fun m(whole: Long) = Money(usdc(whole))
++
++internal object OwnerFx {
++    const val NOW = 1_760_000_000L
++    const val SAFE = "0x029869910714D9e09b854a2688311AFd42fBb44E"
++    const val TOKEN = "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f"
++    const val MODULE = "0xA560ec10259657E9bADd297E68286d2838Cd5a8f"
++    const val VAULT_A = "0xf430cb6E2b85f99222fBFA6dFEa18Ff60FA6B32a"
++    const val VAULT_B = "0xf052C0ED8404adEaAEA773A5F8Ae4628134aff6D"
++    const val ACME = "0x61dd06cE2f07d3E4F97d097741b0D7FD50F97F79"
++    const val COOLING = "0xC78Be9Da2204CC3020B055520102479FA3175066"
++    const val STRANGER = "0x208Bfee9F222d611b4Db71d5ee53b3dAB1A2188A"
++    const val GUARDIAN = "0x46B8E40EB9767BD46E03C5eCF398C10E1372251E"
++
++    val policy = Policy(PermissionTier.AUTONOMOUS, m(100), m(10), m(50), m(100), m(4000), 300, 50, GUARDIAN, 86_400, 259_200)
++
++    /** Cash 2,500, owed 58, cushion 100, so free 2,442 and spare cash 2,342. Computed by the real BucketMath. */
++    fun state(
++        status: LoadStatus = LoadStatus.READY,
++        cash: Long = 2500,
++        owed: Long = 58,
++        accountingMatches: Boolean? = true,
++        capturedAt: Long = NOW * 1000,
++    ): WalletState = WalletState(
++        status = status, blockNumber = 30_000_000, blockTime = NOW, capturedAtEpochMillis = capturedAt, observedHeadBlock = 30_000_000,
++        treasury = Treasury(SAFE, TOKEN, m(cash)),
++        buckets = BucketMath.compute(m(cash).raw, m(owed).raw, m(100).raw, m(400).raw),
++        vaults = listOf(
++            VaultPosition("vaultA", "Aave vault", VAULT_A, BigInteger.ONE, m(300), m(300), m(1000)),
++            VaultPosition("vaultB", "Demo vault", VAULT_B, BigInteger.ONE, m(100), m(100), m(500)),
++        ),
++        module = ModuleState(
++            address = MODULE, configured = true, paused = false, sessionActive = true, policy = policy,
++            policyEpoch = BigInteger.valueOf(7), policyHash = "0x" + "11".repeat(32), mandateHash = "0x" + "22".repeat(32),
++            obligationsRoot = "0x" + "33".repeat(32), reserved = m(owed), obligationCount = BigInteger.TWO, actionNonce = BigInteger.TEN,
++            dailyUsed = m(20), dailyRemaining = m(3980), sessionId = "0x" + "44".repeat(32), sessionKey = "0x5e55100000000000000000000000000000000001",
++            sessionExpiresAt = NOW + 3600, sessionLimit = m(8000), sessionUsed = m(20),
++        ),
++        payees = listOf(
++            Payee("acme", ACME, "Acme Hosting", "0x" + "aa".repeat(32), PayeeStatus.ACTIVE, NOW - 10, false),
++            Payee("newbank", COOLING, "Acme new bank details", "0x" + "bb".repeat(32), PayeeStatus.COOLING, NOW + 3000, false),
++        ),
++        accountingMatches = accountingMatches,
++    )
++}
++
++class OwnerSendTest {
++    private val now = OwnerFx.NOW * 1000
++    private val ctx = RecipientContext.from(OwnerFx.state())!!
++
++    // ---- calldata ---------------------------------------------------------------------------------
++
++    @Test fun erc20_transfer_calldata_has_the_exact_bytes() {
++        // Expected strings were computed independently (Python): selector + 32-byte padded address + 32-byte padded amount.
++        assertEquals(
++            "0xa9059cbb" +
++                "00000000000000000000000061dd06ce2f07d3e4f97d097741b0d7fd50f97f79" +
++                "000000000000000000000000000000000000000000000000000000000016e360",
++            Erc20Calldata.transfer(OwnerFx.ACME, usdc(1, 500_000)),
++        )
++        assertEquals(
++            "0xa9059cbb00000000000000000000000061dd06ce2f07d3e4f97d097741b0d7fd50f97f79" +
++                "0000000000000000000000000000000000000000000000000000000001851960",
++            Erc20Calldata.transfer(OwnerFx.ACME.lowercase(), usdc(25, 500_000)),
++        )
++        assertEquals(
++            "0xa9059cbb00000000000000000000000061dd06ce2f07d3e4f97d097741b0d7fd50f97f79" +
++                "0000000000000000000000000000000000000000000000000000000000000001",
++            Erc20Calldata.transfer(OwnerFx.ACME, BigInteger.ONE),
++        )
++        val max = BigInteger.TWO.pow(256) - BigInteger.ONE
++        assertTrue(Erc20Calldata.transfer(OwnerFx.ACME, max).endsWith("f".repeat(64)))
++        // 4 + 32 + 32 bytes.
++        assertEquals(2 + 8 + 64 + 64, Erc20Calldata.transfer(OwnerFx.ACME, BigInteger.TEN).length)
++    }
++
++    @Test fun selector_is_keccak_of_the_transfer_signature() {
++        val out = ByteArray(32)
++        KeccakDigest(256).apply { val b = "transfer(address,uint256)".toByteArray(); update(b, 0, b.size); doFinal(out, 0) }
++        assertEquals(Erc20Calldata.TRANSFER_SELECTOR, "0x" + out.take(4).joinToString("") { "%02x".format(it) })
++        assertEquals("0xa9059cbb", Erc20Calldata.TRANSFER_SELECTOR)
++    }
++
++    @Test fun calldata_refuses_bad_input() {
++        assertFailsWith { Erc20Calldata.transfer(OwnerFx.ACME, BigInteger.ZERO) }
++        assertFailsWith { Erc20Calldata.transfer("0x1234", BigInteger.ONE) }
++        assertFailsWith { Erc20Calldata.transfer(OwnerFx.ACME, BigInteger.TWO.pow(256)) }
++    }
++
++    private fun assertFailsWith(block: () -> Unit) {
++        try { block() } catch (e: IllegalArgumentException) { return }
++        throw AssertionError("expected IllegalArgumentException")
++    }
++
++    // ---- address validation -------------------------------------------------------------------------
++
++    @Test fun eip55_matches_the_spec_vectors_and_the_deployed_addresses() {
++        for (a in listOf(
++            "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed", "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359",
++            "0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB", "0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb",
++            OwnerFx.SAFE, OwnerFx.TOKEN, OwnerFx.MODULE, OwnerFx.ACME,
++        )) {
++            assertEquals(a, Eip55.toChecksum(a.lowercase()))
++            assertTrue(Eip55.checksumConsistent(a))
++        }
++    }
++
++    @Test fun recipient_accepts_lowercase_and_shows_the_checksummed_form() {
++        val r = RecipientValidator.check(OwnerFx.STRANGER.lowercase(), ctx) as RecipientCheck.Valid
++        assertEquals(OwnerFx.STRANGER, r.address)
++        assertNull(r.knownPayee)
++        assertTrue(r.warnings.single().contains("Not a known payee"))
++    }
++
++    @Test fun recipient_rejects_malformed_and_wrong_checksum() {
++        for (bad in listOf("", "0x", "hello", "0x1234", OwnerFx.ACME.drop(2), OwnerFx.ACME + "00", OwnerFx.ACME.replace("61dd", "61dg"))) {
++            assertTrue("$bad accepted", RecipientValidator.check(bad, ctx) is RecipientCheck.Invalid)
++        }
++        // One flipped capital letter: the checksum no longer matches.
++        val flipped = OwnerFx.ACME.replace("cE2f", "ce2f")
++        assertTrue(flipped != OwnerFx.ACME)
++        val r = RecipientValidator.check(flipped, ctx) as RecipientCheck.Invalid
++        assertTrue(r.reason.contains("checksum"))
++    }
++
++    @Test fun recipient_blocks_zero_address_and_the_treasury_itself() {
++        assertTrue(RecipientValidator.check("0x" + "0".repeat(40), ctx) is RecipientCheck.Invalid)
++        val self = RecipientValidator.check(OwnerFx.SAFE.lowercase(), ctx) as RecipientCheck.Invalid
++        assertTrue(self.reason.contains("own Safe"))
++    }
++
++    @Test fun recipient_flags_treasury_contracts_and_payee_states() {
++        for (c in listOf(OwnerFx.TOKEN, OwnerFx.MODULE, OwnerFx.VAULT_A, OwnerFx.VAULT_B)) {
++            val r = RecipientValidator.check(c, ctx) as RecipientCheck.Valid
++            assertTrue(r.warnings.any { it.contains("may be unrecoverable") })
++        }
++        val known = RecipientValidator.check(OwnerFx.ACME, ctx) as RecipientCheck.Valid
++        assertEquals("Acme Hosting", known.knownPayee)
++        assertTrue(known.warnings.isEmpty())
++        val cooling = RecipientValidator.check(OwnerFx.COOLING, ctx) as RecipientCheck.Valid
++        assertNull(cooling.knownPayee)
++        assertTrue(cooling.warnings.single().contains("cooling"))
++    }
++
++    // ---- amount ------------------------------------------------------------------------------------
++
++    @Test fun amount_parsing() {
++        assertEquals(usdc(25, 500_000), (UsdcInput.parse("25.50") as UsdcInput.Result.Ok).raw)
++        assertEquals(BigInteger.ONE, (UsdcInput.parse("0.000001") as UsdcInput.Result.Ok).raw)
++        assertEquals(usdc(1000), (UsdcInput.parse(" 1000 ") as UsdcInput.Result.Ok).raw)
++        for (bad in listOf("", "0", "0.0", "-1", "+1", "1e6", "1,000", ".5", "1.", "1.1234567", "abc", "0x10", "01", "9999999999999")) {
++            assertTrue("'$bad' accepted", UsdcInput.parse(bad) is UsdcInput.Result.Error)
++        }
++    }
++
++    // ---- reserve invariant from the live buckets ---------------------------------------------------------
++
++    @Test fun spare_cash_comes_from_the_real_buckets() {
++        val live = LiveBalances.from(OwnerFx.state(), now)!!
++        assertEquals(usdc(2342), live.spareCash) // cash 2500 - owed 58 - cushion 100
++        assertEquals(usdc(2500), live.safeCash)
++        assertTrue(live.billsVerified); assertFalse(live.stale)
++    }
++
++    @Test fun within_spare_cash_is_covered_and_over_it_dips_by_the_exact_difference() {
++        val live = LiveBalances.from(OwnerFx.state(), now)!!
++        assertEquals(ReserveVerdict.Covered(false), ReserveCheck.evaluate(usdc(2342), live))
++        assertEquals(ReserveVerdict.DipsIntoReserve(BigInteger.ONE), ReserveCheck.evaluate(usdc(2342, 1), live))
++        assertEquals(ReserveVerdict.DipsIntoReserve(usdc(58)), ReserveCheck.evaluate(usdc(2400), live))
++        assertEquals(ReserveVerdict.DipsIntoReserve(usdc(158)), ReserveCheck.evaluate(usdc(2500), live))
++        assertEquals(ReserveVerdict.ExceedsSafeBalance, ReserveCheck.evaluate(usdc(2500, 1), live))
++        assertFalse(ReserveCheck.evaluate(usdc(1), live).needsAcknowledgement)
++        assertTrue(ReserveCheck.evaluate(usdc(2400), live).needsAcknowledgement)
++    }
++
++    @Test fun underfunded_bills_leave_no_spare_cash() {
++        val live = LiveBalances.from(OwnerFx.state(cash = 100, owed = 300), now)!!
++        assertEquals(BigInteger.ZERO, live.spareCash)
++        assertEquals(ReserveVerdict.DipsIntoReserve(usdc(1)), ReserveCheck.evaluate(usdc(1), live))
++    }
++
++    @Test fun unverified_bills_need_an_acknowledgement_even_when_within_spare_cash() {
++        val live = LiveBalances.from(OwnerFx.state(accountingMatches = false), now)!!
++        val v = ReserveCheck.evaluate(usdc(10), live)
++        assertEquals(ReserveVerdict.Covered(true), v)
++        assertTrue(v.needsAcknowledgement)
++        assertFalse(LiveBalances.from(OwnerFx.state(accountingMatches = null), now)!!.billsVerified)
++    }
++
++    @Test fun no_live_data_means_no_check_and_no_payload() {
++        assertNull(LiveBalances.from(OwnerFx.state(status = LoadStatus.LOADING), now))
++        assertNull(LiveBalances.from(OwnerFx.state().copy(buckets = null), now))
++        assertNull(LiveBalances.from(OwnerFx.state().copy(treasury = null), now))
++        val e = OwnerSend.evaluate(OwnerFx.state(status = LoadStatus.ERROR), OwnerFx.ACME, "5", true, now)
++        assertNotNull(e.notReady); assertNull(e.tx); assertNull(e.verdict)
++    }
++
++    @Test fun a_stale_snapshot_is_reported() {
++        val old = OwnerFx.state(capturedAt = (OwnerFx.NOW - 600) * 1000)
++        assertTrue(LiveBalances.from(old, now)!!.stale)
++    }
++
++    // ---- the Safe transaction ----------------------------------------------------------------------------
++
++    @Test fun covered_send_builds_the_exact_safe_transaction() {
++        val e = OwnerSend.evaluate(OwnerFx.state(), OwnerFx.ACME.lowercase(), "25.50", false, now)
++        val tx = e.tx!!
++        assertEquals(84532L, tx.chainId)
++        assertEquals(OwnerFx.SAFE, tx.safe)
++        assertEquals(OwnerFx.TOKEN, tx.to)            // to = the USDC token, not the recipient
++        assertEquals("0", tx.value)
++        assertEquals(0, tx.operation)                  // CALL
++        assertEquals(Erc20Calldata.transfer(OwnerFx.ACME, usdc(25, 500_000)), tx.data)
++        assertEquals(
++            """{"chainId":84532,"safe":"${OwnerFx.SAFE}","to":"${OwnerFx.TOKEN}","value":"0","data":"${tx.data}","operation":0}""",
++            tx.toJson(),
++        )
++        assertEquals(ReserveVerdict.Covered(false), e.verdict)
++        assertFalse(e.needsAcknowledgement)
++    }
++
++    @Test fun dipping_into_reserve_gives_no_payload_until_acknowledged() {
++        val withoutAck = OwnerSend.evaluate(OwnerFx.state(), OwnerFx.ACME, "2400", false, now)
++        assertEquals(ReserveVerdict.DipsIntoReserve(usdc(58)), withoutAck.verdict)
++        assertTrue(withoutAck.needsAcknowledgement)
++        assertNull(withoutAck.tx)
++        val withAck = OwnerSend.evaluate(OwnerFx.state(), OwnerFx.ACME, "2400", true, now)
++        assertEquals(Erc20Calldata.transfer(OwnerFx.ACME, usdc(2400)), withAck.tx!!.data)
++    }
++
++    @Test fun more_than_the_safe_holds_never_builds_even_if_acknowledged() {
++        val e = OwnerSend.evaluate(OwnerFx.state(), OwnerFx.ACME, "2500.01", true, now)
++        assertEquals(ReserveVerdict.ExceedsSafeBalance, e.verdict)
++        assertNull(e.tx)
++    }
++
++    @Test fun bad_recipient_or_amount_never_builds() {
++        assertNull(OwnerSend.evaluate(OwnerFx.state(), "0x123", "5", true, now).tx)
++        assertNull(OwnerSend.evaluate(OwnerFx.state(), OwnerFx.SAFE, "5", true, now).tx)
++        assertNull(OwnerSend.evaluate(OwnerFx.state(), OwnerFx.ACME, "0", true, now).tx)
++        assertNull(OwnerSend.evaluate(OwnerFx.state(), OwnerFx.ACME, "", true, now).tx)
++        assertNull(OwnerSend.evaluate(OwnerFx.state(), "", "5", true, now).tx)
++        assertNotNull(OwnerSend.evaluate(OwnerFx.state(), OwnerFx.ACME, "0", true, now).amountError)
++        // Blank fields are not errors yet.
++        val blank = OwnerSend.evaluate(OwnerFx.state(), "", "", false, now)
++        assertNull(blank.recipient); assertNull(blank.amountError)
++    }
++
++    // ---- Safe{Wallet} hand-off and Swap -------------------------------------------------------------------
++
++    @Test fun safe_wallet_link_is_the_base_sepolia_home_url() {
++        assertEquals("https://app.safe.global/home?safe=basesep:${OwnerFx.SAFE}", SafeWalletLink.home(OwnerFx.SAFE))
++        assertEquals("https://app.safe.global/home?safe=basesep:${OwnerFx.SAFE}", SafeWalletLink.home(OwnerFx.SAFE.lowercase()))
++    }
++
++    @Test fun swap_is_an_honest_hand_off_with_no_quote() {
++        assertFalse("flip this only with evidence that Safe{Wallet} swaps work on Base Sepolia", SwapHandoff.CONFIRMED_ON_BASE_SEPOLIA)
++        assertTrue(SwapHandoff.HEADLINE.contains("owner-signed in Safe{Wallet}"))
++        assertTrue(SwapHandoff.HEADLINE.contains("The AI never swaps"))
++        assertTrue(SwapHandoff.networkNote.contains("Swaps are not available on the Base Sepolia test network"))
++        assertFalse(SwapHandoff.networkNote.contains("rate", ignoreCase = true))
++    }
++
++    // ---- who can do what -----------------------------------------------------------------------------------
++
++    @Test fun roles_use_the_allowance_formatter_for_the_ai_limits() {
++        val module = OwnerFx.state().module!!
++        val fmt = { x: Money -> x.display.substringBefore('.') }
++        val lines = WhoCanDoWhat.lines(module, fmt)
++        assertEquals("Send · Swap · policy · resume", lines[0].can)
++        assertEquals("pause · cancel queued", lines[1].can)
++        val ai = lines[2].can
++        assertTrue(ai.startsWith("Deposit · Withdraw · Pay verified bills · Hold"))
++        assertTrue(ai.contains("up to 10 USDC (auto)"))
++        assertTrue(ai.contains("4000 USDC daily cap"))
++        assertFalse("Rebalance is not an AI power on the deployed contract", ai.contains("Rebalance"))
++        assertTrue(WhoCanDoWhat.AI_NOT_SUPPORTED.contains("Rebalance"))
++        assertTrue(WhoCanDoWhat.aiLimits(null, fmt).contains("unavailable"))
++        assertEquals(2, WhoCanDoWhat.compact(module, fmt).size)
++    }
++
++    @Test fun read_only_policy_says_so_instead_of_inventing_a_limit() {
++        val readOnly = OwnerFx.state().module!!.let { it.copy(policy = it.policy.copy(permissionTier = PermissionTier.READ_ONLY)) }
++        val text = WhoCanDoWhat.aiLimits(readOnly) { it.display }
++        assertTrue(text.contains("agent execution disabled (read-only)"))
++    }
++}
+-- 
+2.43.0
+
