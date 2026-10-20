@@ -15,3 +15,8 @@ deposit 0x7acca495…aaaf and withdraw 0xe6f0105b…709a (from session key, to K
    Android `flock /root/.gradle/fusion-build.lock ./gradlew testDebugUnitTest assembleDebug` (`ANDROID_HOME=/opt/android-sdk
    GRADLE_USER_HOME=/root/.gradle`; first run `scripts/android_planner/build_core.sh` from worktree root), `python3 scripts/judge/verify_all.py`.
 6. Commit submodule merge, then root merge. Message lists conflicts and how each was resolved.
+
+## Also merge K37 (custody split, allowance labels, cached gas)
+Root branch `card/K37`; submodule commit 64181aa in `/root/projects/fusion_wallet-wt/K37/src/Fintech_Wallet_Agent`.
+It overlaps K45's shared allowance formatter: K45's formatter wins (one source of truth for Home/Agent/Safety); keep K37's custody
+split card + Home pill and the "(cached)" gas suffix. Build/test as above, commit.

@@ -62,6 +62,27 @@ The deployed policy is `AUTONOMOUS`, with these configured values (`src/contract
 - The decision passport binds the chain, Safe, module, snapshot block/hash, mandate hash, candidate-set digest, chosen label, route, model hashes, and AHEM statistics.
 - The signer/verifier rejects stale candidate-set digests and re-runs an independent core preview before signing. It also verifies RPC code pins, EIP-1967 implementation pins, live authority, `eth_call` simulation, fee/gas bounds, receipt, transaction bytes, and the `ActionExecuted` event.
 
+### AI roles
+On-device AI acts. Cloud AI explains and proposes. On-chain rules decide. Humans hold the keys.
+
+| Role | Runs where | May do | May never do |
+|---|---|---|---|
+| Planner (LFM2.5 + AHEM-G) | Phone, `:inference` | Pick one letter from the candidates `fusion-core` generated and checked | Invent an action, amount or recipient; see off-chain text |
+| Session signer | Phone, `:signer` | Sign `KavachiModule` calls on Base Sepolia, value 0, ABI-derived selectors | Sign anything else (arbitrary calldata and x402 are refused) |
+| Cloud advisor (K40) | DeepInfra, optional, off by default | Explain a decision ("Why?"), answer questions about the live wallet with cited figures, draft a policy proposal, label pasted external text | Sign, pick or trigger an action, receive keys or session material, apply a policy |
+| Risk classifier (K40) | DeepInfra, zero-privilege | Return `source`, `detected_action`, `affected_asset`, `severity` (0–1), `posture` as enums | Pass any free text to the risk monitor, planner or signer |
+| Owners (Safe 2-of-2) | Their own wallets | Apply policy changes, resume, commit bills, add payees | — (owner keys never enter the app) |
+
+Cloud advisor details (`app/src/main/java/app/fusion/wallet/advisor/`):
+- **Endpoint and models.** `https://api.deepinfra.com/v1/openai/chat/completions` (host pinned by `DeepInfraClient`). Default `deepseek-ai/DeepSeek-V3.2`, fallback `Qwen/Qwen3-235B-A22B-Instruct-2507`. 20 s timeout, no retries, at most one fallback call on a network/server/rate-limit failure, one request at a time. The model id is shown on every answer.
+- **What is sent.** Public chain state and our own decision reports only. Free text typed or pasted by the user has addresses and hashes replaced with placeholders; a payload that still contains the API key, an API-key shape, 32+ hex characters or a recovery-phrase shape is blocked on the phone before any request.
+- **What comes back.** Strict JSON, validated deterministically before use. A rejected reply is final (no asking a second model until one passes).
+  - Explanations: `{"explanation","points"}`, length-capped, no links or addresses.
+  - Live-wallet answers: `{"answer","citations"}`; every citation must name a fact that was sent and quote its exact value.
+  - Policy proposals: `{"schema":"fw.advisor.policy.v1","changes","rationale"}`. Only the editable `Policy` fields (tier, buffer, micro/delayed/hard/daily limits, delay, slippage, payee delay, pay-early window, the two vault caps) are accepted. Guardian and vault addresses cannot be changed. The merged policy must pass the same checks as `KavachiPolicyLib.validateAndHash`. The phone then builds `configurePolicy` calldata (selector `0x7b6d8b05`, byte-identical to the `getPolicy()` layout the app already decodes) and a Safe transaction (`to` = module, value 0, CALL) for the 2-of-2 owners to sign. Applying it resets the module (pause, session ends, epoch +1), so owners then start a session and resume.
+  - Risk labels: exactly five enum/number keys; the result type has no string field. Validated labels go to `RiskSignalBus` for the risk monitor (K41).
+- **Key handling.** The user pastes the DeepInfra key in Settings → Cloud advisor; it is stored AES-GCM encrypted under a non-exportable Android Keystore key. No build type compiles a key into the APK (the earlier debug `BuildConfig` key from `local.properties` was removed in K40). Debug builds have `AdvisorKeyImportActivity` (FLAG_SECURE, local socket `fusion.advisor.key.import.v1`, shell/root peers only) so the demo phone can be provisioned without typing. `scripts/advisor_smoke.py` reads `DEEPINFRA_API_KEY` from the environment and prints only model outputs.
+
 ### Accountant
 - The **Local Accountant** runs on-device as pure Kotlin and is the source of exact figures. It compares app totals with chain-derived records and surfaces mismatches.
 - The cloud accountant is opt-in and **OFF by default**. When enabled, it receives only a capped, sanitized, coarse brief, not the private ledger or raw balances.
