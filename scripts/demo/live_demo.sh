@@ -30,5 +30,8 @@ echo "[Lock] Exclusive lock acquired. Executing live demo..."
 # Run demo engine
 python3 "${SCRIPT_DIR}/demo_engine.py" "$@"
 
+# Publish this run's bill set under its on-chain root so the app can show it.
+python3 "${WORKTREE_DIR}/scripts/index_obligations.py"
+
 echo "[Lock] Releasing session lock."
 flock -u 200
