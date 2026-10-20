@@ -1,0 +1,18 @@
+name = "fusion-proxy"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+# Per-client and global request budgets. The DeepInfra key is a Worker secret and never leaves it.
+[[ratelimits]]
+name = "PER_CLIENT"
+namespace_id = "2101"
+  [ratelimits.simple]
+  limit = 20
+  period = 60
+
+[[ratelimits]]
+name = "GLOBAL"
+namespace_id = "2102"
+  [ratelimits.simple]
+  limit = 120
+  period = 60

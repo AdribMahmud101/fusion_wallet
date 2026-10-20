@@ -127,3 +127,9 @@ Reachable from a Home chip above and Settings → Verified on-chain proof. Reach
 - **Cloud advisor (optional)** (K40): off by default. Paste a DeepInfra API key (stored AES-GCM under a non-exportable Android Keystore key, never shown again; **Remove key** turns the advisor off), on/off switch (enabled only with a key), model chips `deepseek-ai/DeepSeek-V3.2` (default) / `Qwen/Qwen3-235B-A22B-Instruct-2507` (fallback). Debug builds add **Import (debug)**, which opens `AdvisorKeyImportActivity` for adb provisioning. No key is compiled into any APK.
 - **Verified on-chain proof (K43):** quick entry into the Proof screen (same as the Home chip).
 - **Judge mode**: every evidence row with its transaction link, plus the two verify commands (`bash scripts/judge/verify_all.sh` → 48/48 with no keys).
+
+## Yield Scout (Home tile and full screen)
+- **Home tile:** "Yield Scout", the top pick and its conservative APY, and "N of M pools eligible". Opens the Scout screen.
+- **Scout screen:** data-age chip (DeFiLlama, cached when offline), spare cash chip, a card for the venue the app can execute (Aave v3 on Base Sepolia, with live utilization, conservative APY and break-even from the K44 report), All / Eligible filters, and one card per pool (score ring, conservative APY, 30-day sparkline, TVL, badges).
+- **Pool sheet:** the seven rules with value, threshold, source and PASS / FAIL / NOT MEASURED; the break-even line; "Why this pick?" (cloud explanation, top pick only); "Ask the AI agent to act on this" (Aave only; opens the AI Agent timeline) or "Share proposal with owners" (other pools); DeFiLlama link.
+- Data: `proxy/` Worker feed, rules in `scout/ScoutRules.kt`. See `docs/YIELD_SCOUT.md`.
