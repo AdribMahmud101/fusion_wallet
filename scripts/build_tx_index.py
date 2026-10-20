@@ -84,6 +84,31 @@ def receipt_fields(tx, rows, module, rpc_urls):
     raise RuntimeError(f"Cannot enrich {tx} from public RPC: {failure}") from failure
 
 
+SAFE_MULTISIG_SIG = ("SafeMultiSigTransaction(address,uint256,bytes,uint8,uint256,uint256,"
+                     "uint256,address,address,bytes,bytes)")
+
+
+def owner_txs_from_chain(rpc, deployment, known, step=2_000):
+    """Every successful 2-of-2 Safe transaction of the treasury, as OWNER rows."""
+    safe = deployment["contracts"]["safe"]
+    address = safe["address"]
+    start = int(safe.get("deploymentBlock") or deployment["deploymentBlock"])
+    topic = keccak("0x" + SAFE_MULTISIG_SIG.encode().hex())
+    latest = int(rpc.call("eth_blockNumber", []), 16)
+    rows = []
+    for lo in range(start, latest + 1, step):
+        logs = rpc.call("eth_getLogs", [{"address": address, "topics": [topic],
+                                          "fromBlock": hex(lo), "toBlock": hex(min(lo + step - 1, latest))}])
+        for log in logs:
+            tx = log["transactionHash"].lower()
+            if tx in known:
+                continue
+            known.add(tx)
+            rows.append({"txHash": tx, "source": "OWNER", "kind": "SAFE_MULTISIG",
+                         "evidenceFile": "chain: SafeMultiSigTransaction from the treasury Safe (2-of-2 owners)"})
+    return rows
+
+
 def main():
     grouped = defaultdict(list)
     for path in INPUTS:
@@ -187,6 +212,13 @@ def main():
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         index = list(pool.map(build, sorted(grouped.items())))
+
+    # Owner actions need no evidence file: a SafeMultiSigTransaction event from our
+    # Safe is on-chain proof that the threshold (2 of 2 owners) signed the tx.
+    known = {row["txHash"] for row in index}
+    # sepolia.base.org rejects eth_getLogs (HTTP 413); publicnode serves it.
+    index += owner_txs_from_chain(Rpc("https://base-sepolia-rpc.publicnode.com"), deployment, known)
+    index.sort(key=lambda row: row["txHash"])
     write_json(ROOT / "evidence/tx_index.json", index)
     print(f"Indexed {len(index)} transactions from {len(INPUTS)} evidence files")
 

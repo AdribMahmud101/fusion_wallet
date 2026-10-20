@@ -15,6 +15,12 @@
     "amountRaw": "10000000"
   },
   {
+    "txHash": "0x168038b04b9e79104d4c070d6e567194cc50d300b8815776668f5d40136c7eac",
+    "source": "OWNER",
+    "kind": "SAFE_MULTISIG",
+    "evidenceFile": "chain: SafeMultiSigTransaction from the treasury Safe (2-of-2 owners)"
+  },
+  {
     "txHash": "0x35ff759c17bc48442a1d25b02a75fb66aac2307502cd0402e36b40916d65d726",
     "source": "SCRIPT",
     "kind": "DEPOSIT",
@@ -92,6 +98,12 @@
     "kind": "ACTION_QUEUED",
     "evidenceFile": "evidence/agent/golden.json",
     "planner": "mnn+ahem-g"
+  },
+  {
+    "txHash": "0x6415f09ace3aae89d44fa1539d778fef6e5a573c94dd1af2a703124100a081a5",
+    "source": "OWNER",
+    "kind": "SAFE_MULTISIG",
+    "evidenceFile": "chain: SafeMultiSigTransaction from the treasury Safe (2-of-2 owners)"
   },
   {
     "txHash": "0x7e069c86c94e06fda563190567876b467f0b2facf9189ebb1a0939253182c4b5",
@@ -213,6 +225,12 @@
     "amountRaw": "75000000",
     "recipient": "0x61dd06ce2f07d3e4f97d097741b0d7fd50f97f79",
     "payeeLabel": "Acme Hosting"
+  },
+  {
+    "txHash": "0xd28f2346a5f91d4a307e1b1cb14e53787a872385f90e80ad7aef8bd6967ac99d",
+    "source": "OWNER",
+    "kind": "SAFE_MULTISIG",
+    "evidenceFile": "chain: SafeMultiSigTransaction from the treasury Safe (2-of-2 owners)"
   },
   {
     "txHash": "0xd8d145e6795471b8fcc68c98c3b1e3763e5e95cbb383140fbcc04c256065e299",
