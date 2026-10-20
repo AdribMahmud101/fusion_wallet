@@ -1,3 +1,12 @@
+# FIRST: merge K45R (it must land before K38 and K37)
+Main now also has K40 (cloud advisor: "Why?" on Autopilot rows, Accountant, policy proposal, Safety "Check external text").
+K45R (K45 router + compact AI Agent screen, already merged with K44) is root branch `card/K45R`, submodule HEAD in
+`/root/projects/fusion_wallet-wt/K45R/src/Fintech_Wallet_Agent`. Merging it into main's submodule conflicts in
+`agent/autopilot/AutopilotCard.kt`, `ui/agent/AgentScreen.kt`, `ui/safety/SafetyScreen.kt`. Keep K45's compact layout
+(hero, 2x2 tiles, 5 rows + sheets, collapsed Safety sections) AND K40's features placed inside it ("Why?" per timeline row
+and in the decision sheet; Safety "Check external text" as a collapsed section; Accountant unchanged). Build/test, commit the
+submodule merge, then `git merge card/K45R` in root and commit. Then continue below with K38 and K37.
+
 # K38M — Merge K38 (AI asset management, verified on-chain) onto current main
 
 Main now has K43, K44 and (once K45R lands) K45. K38 branched before them. K38's work: root branch `card/K38` and submodule commit
