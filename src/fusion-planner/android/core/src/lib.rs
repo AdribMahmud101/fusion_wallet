@@ -96,11 +96,12 @@ pub fn encode_call(kind: String, args: String) -> String {
     fusion_core::encode_call(kind, args)
 }
 #[uniffi::export]
-pub fn sign_prepared(tx: String, key: String) -> String {
+pub fn sign_prepared(tx: String, key: String, policy: String) -> String {
     let key = zeroize::Zeroizing::new(key);
     guarded(
-        || match fusion_core::sign::sign_prepared_json(&tx, key.as_str()) {
+        || match fusion_core::sign::sign_prepared_json(&tx, key.as_str(), &policy) {
             Ok(out) => Ok(json!({"ok":true,"rawTx":out.raw_tx,"txHash":out.tx_hash})),
+            Err(fusion_core::sign::SignError::Refused(reason)) => Err(reason.to_string()),
             Err(_) => Err("SIGNING_FAILED".into()),
         },
     )
@@ -355,6 +356,51 @@ mod android_boundary_tests {
         report["model"]["candidateSetDigest"] = json!(set.candidate_set_digest.to_string());
         (report, snapshot, safe.to_string(), module.to_string())
     }
+    #[test]
+    fn native_signing_boundary_refuses_a12_and_accepts_real_app_calldata() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../..");
+        let golden: serde_json::Value = serde_json::from_str(
+            &std::fs::read_to_string(root.join("evidence/app/agent/golden_app.json")).unwrap(),
+        )
+        .unwrap();
+        let tx: serde_json::Value = serde_json::from_str(
+            &std::fs::read_to_string(root.join(golden[0]["transaction"].as_str().unwrap()))
+                .unwrap(),
+        )
+        .unwrap();
+        let q = |field: &str| {
+            u64::from_str_radix(tx[field].as_str().unwrap().trim_start_matches("0x"), 16).unwrap()
+        };
+        let mut prepared = json!({"chainId":84532,"nonce":q("nonce"),"to":tx["to"],
+            "value":"0x0","data":tx["input"],"gasLimit":q("gas"),
+            "maxFeePerGas":q("maxFeePerGas"),"maxPriorityFeePerGas":q("maxPriorityFeePerGas")});
+        let policy = json!({"module":golden[0]["to"],"chainId":84532}).to_string();
+        let signed: serde_json::Value = serde_json::from_str(&sign_prepared(
+            prepared.to_string(),
+            "42".repeat(32),
+            policy.clone(),
+        ))
+        .unwrap();
+        assert_eq!(signed["ok"], true);
+        assert!(signed["rawTx"].as_str().unwrap().starts_with("0x02"));
+        prepared["to"] = json!("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        prepared["chainId"] = json!(31337);
+        prepared["data"] = json!(format!(
+            "0xa9059cbb{:0>64}{:064x}",
+            "ee".repeat(20),
+            99_000_000u64
+        ));
+        let refused: serde_json::Value = serde_json::from_str(&sign_prepared(
+            prepared.to_string(),
+            "42".repeat(32),
+            policy,
+        ))
+        .unwrap();
+        assert_eq!(refused["ok"], false);
+        assert_eq!(refused["error"]["message"], "SignerRefused::NotModuleCall");
+        assert!(refused.get("rawTx").is_none());
+    }
+
     #[test]
     fn canonical_bound_decision_encodes_real_module_and_passport_hash() {
         let (report, snapshot, safe, module) = fixture();

@@ -231,7 +231,7 @@
     "attempted_charge_raw": 99000000,
     "id": "A12",
     "layer": "signer",
-    "note": "Generic signer accepts arbitrary calldata. Dedicated x402 authority/budget signer is not implemented; no broadcast.",
+    "note": "Generic arbitrary-calldata signing is refused by the module-call allowlist. Dedicated x402 payment/budget flow is not implemented; no broadcast.",
     "prepared_transaction": {
       "chainId": 31337,
       "data": "0xa9059cbb000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000000000005e69ec0",
@@ -243,7 +243,8 @@
       "value": "0x0"
     },
     "quoted_charge_raw": 10000,
-    "signed_hash": "0xf1678c120174534b54505c6e812bf38a2ec52971c4d7b6e7130eb6346ab1cf23",
-    "stopped": false
+    "refusal_reason": "SignerRefused::NotModuleCall",
+    "signed_hash": null,
+    "stopped": true
   }
 ]

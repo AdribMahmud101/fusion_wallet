@@ -327,8 +327,14 @@ fn arena_pipeline() {
             let signed = fusion_core::sign::sign_eip1559_transaction(
                 &tx,
                 &zeroize::Zeroizing::new([0x42; 32]),
+                &fusion_core::sign::SessionSigningPolicy {
+                    module: Address::repeat_byte(0x11),
+                    chain_id: 31337,
+                },
             );
-            rows.push(json!({"id":"A12","layer":"signer","stopped":signed.is_err(),"signed_hash":signed.ok().map(|x|x.tx_hash),"quoted_charge_raw":10_000,"attempted_charge_raw":99_000_000,"prepared_transaction":tx,"note":"Generic signer accepts arbitrary calldata. Dedicated x402 authority/budget signer is not implemented; no broadcast."}));
+            let refusal = signed.as_ref().err().map(|e| e.to_string());
+            assert_eq!(refusal.as_deref(), Some("SignerRefused::NotModuleCall"));
+            rows.push(json!({"id":"A12","layer":"signer","stopped":signed.is_err(),"refusal_reason":refusal,"signed_hash":signed.ok().map(|x|x.tx_hash),"quoted_charge_raw":10_000,"attempted_charge_raw":99_000_000,"prepared_transaction":tx,"note":"Generic arbitrary-calldata signing is refused by the module-call allowlist. Dedicated x402 payment/budget flow is not implemented; no broadcast."}));
             fs::write(
                 dir.join("core-probes.json"),
                 serde_json::to_string_pretty(&rows).unwrap(),
