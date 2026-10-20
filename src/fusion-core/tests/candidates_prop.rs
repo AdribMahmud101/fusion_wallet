@@ -199,3 +199,43 @@ fn test_bill_ordering_earliest_due_at() {
     assert_eq!(res.candidates[1].label, "B");
     assert_eq!(res.candidates[1].action.assets, U256::from(20_000_000));
 }
+
+#[test]
+fn surplus_deposit_is_sized_within_hard_cap_and_still_requires_profit() {
+    let mut snapshot = make_sample_snapshot();
+    snapshot.safe_cash = U256::from(9_399_001_235_u64);
+    snapshot.module_state.reserved_raw = U256::ZERO;
+    let rates = [VaultRateInfo {
+        vault: snapshot.policy.vaults[0].vault,
+        rate_bps: 500,
+        is_simulated: false,
+    }];
+    let enumerate = |snapshot: &Snapshot| {
+        enumerate_candidates(
+            snapshot,
+            &[],
+            &[],
+            &BTreeMap::new(),
+            &rates,
+            U256::from(84532),
+            Address::repeat_byte(0x11),
+            Address::repeat_byte(0x22),
+            snapshot.module_state.mandate_hash,
+            snapshot.module_state.session_id,
+            true,
+        )
+    };
+    // Previously this emitted 6,000 USDC / REJECT, even though a smaller
+    // profitable owner-approved allocation was valid.
+    let set = enumerate(&snapshot);
+    let deposit = set
+        .candidates
+        .iter()
+        .find(|c| c.kind == ActionKind::Deposit)
+        .unwrap();
+    assert_eq!(deposit.action.assets, snapshot.policy.hard_max_raw);
+    assert_eq!(deposit.route, fusion_core::candidates::Route::Approve);
+    // A small owner cap is still subject to the original economics test.
+    snapshot.policy.hard_max_raw = U256::from(10_000_000);
+    assert!(enumerate(&snapshot).candidates.is_empty());
+}

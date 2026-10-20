@@ -1,0 +1,28 @@
+Compiling 19 files with Solc 0.8.24
+Solc 0.8.24 finished in 12.07s
+Compiler run successful!
+Script ran successfully.
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 84532
+
+Estimated gas price: 0.011 gwei
+
+Estimated total gas used for script: 97445
+
+Estimated amount required: 0.000001071895 ETH
+
+==========================
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /root/projects/fusion_wallet-wt/K38/scripts/android_planner/.forge/broadcast/OwnerAllocationMandate.s.sol/84532/run-latest.json
+
+Sensitive values saved to: /root/projects/fusion_wallet-wt/K38/scripts/android_planner/.forge/cache/OwnerAllocationMandate.s.sol/84532/run-latest.json
+

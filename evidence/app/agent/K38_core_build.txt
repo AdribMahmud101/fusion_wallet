@@ -1,0 +1,4 @@
+    Blocking waiting for file lock on build directory
+   Compiling fusion-core v0.1.0 (/root/projects/fusion_wallet-wt/K38/src/fusion-core)
+   Compiling fusion-android-core v1.0.0 (/root/projects/fusion_wallet-wt/K38/src/fusion-planner/android/core)
+    Finished `release` profile [optimized] target(s) in 3m 29s

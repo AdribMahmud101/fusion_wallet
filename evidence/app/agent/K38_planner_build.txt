@@ -1,0 +1,37 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling libc v0.2.191
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling cfg-if v1.0.5
+   Compiling generic-array v0.14.7
+   Compiling memchr v2.8.3
+   Compiling jni-sys v0.3.1
+   Compiling thiserror v1.0.69
+   Compiling bytes v1.12.1
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.154
+   Compiling syn v2.0.119
+   Compiling syn v3.0.9
+   Compiling cpufeatures v0.2.17
+   Compiling combine v4.6.9
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling itoa v1.0.18
+   Compiling cesu8 v1.1.0
+   Compiling digest v0.10.7
+   Compiling log v0.4.34
+   Compiling fusion-planner-android v1.0.0 (/root/projects/fusion_wallet-wt/K38/src/fusion-planner/android)
+   Compiling sha2 v0.10.9
+   Compiling libloading v0.8.9
+   Compiling serde_derive v1.0.229
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+   Compiling jni-sys v0.4.1
+   Compiling jni v0.21.1
+    Finished `release` profile [optimized] target(s) in 12.76s
+Installed verified AHEM MNN libraries into /root/projects/fusion_wallet-wt/K38/src/Fintech_Wallet_Agent/fusion-core-android/app/src/main/jniLibs/arm64-v8a
+Model files not present locally: keeping the committed ProvisionedHashes.kt (it pins the published libraries).

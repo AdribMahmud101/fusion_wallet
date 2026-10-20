@@ -1,0 +1,27 @@
+============================================================================
+ FUSION WALLET — COMPREHENSIVE JUDGE VERIFICATION SUITE
+ Working Directory: /root/projects/fusion_wallet-wt/K38
+ RPC URL:           https://sepolia.base.org
+ Time:              2026-10-20 09:25:30Z
+============================================================================
+
+[1/5] Verifying Base Sepolia evidence rows (verify_evidence.py)...
+[2/5] Verifying autonomous agent golden path (check_golden.py)...
+[3/5] Verifying app transactions (evidence/app/*.json)...
+[4/5] Verifying live demo runs (evidence/demo/runs.json)...
+[5/5] Verifying Sourcify contract source verification links...
+
+============================================================================
+                     VERIFICATION SUMMARY TABLE
+============================================================================
+Verification Category                    Total   Passed   Failed     Status
+----------------------------------------------------------------------------
+Base Sepolia Evidence (K2)                  30       30        0       PASS
+Agent Golden Path (K9)                       3        3        0       PASS
+App Proofs (evidence/app/*.json)             5        5        0       PASS
+Demo Runs (evidence/demo/runs.json)          1        1        0       PASS
+Sourcify Source Links (84532.json)          11       11        0       PASS
+----------------------------------------------------------------------------
+OVERALL VERIFICATION                        50       50        0       PASS
+============================================================================
+All 50 verification checks PASSED cleanly with 0 keys required.

@@ -1,6 +1,6 @@
 # K17 in-app agent evidence
 
-Highest reached milestone: **M3** (2026-10-19). APP-sourced agent transaction successfully planned by on-device MNN+AHEM-G, signed by the Android Keystore session key in :signer, and verified on Base Sepolia under the canonical session lock.
+Highest reached milestone: **M3 + K38 asset-management round trip** (2026-10-20). APP-sourced agent transaction successfully planned by on-device MNN+AHEM-G, signed by the Android Keystore session key in :signer, and verified on Base Sepolia under the canonical session lock.
 
 ## Device and provenance
 
@@ -105,3 +105,28 @@ The locked on-device agent tick was executed with `dryRun=false` under the canon
 - `m3_verification.json`: independent 11-point verification result from `verify_app.py`.
 - `m3.png`: device screenshot showing the confirmed transaction card rendered in `AgentControlActivity`.
 - `./gradlew testDebugUnitTest assembleDebug` exits 0 (115 tests passed, 0 failures).
+
+
+## K38: real Android asset management
+
+OnePlus 11 / CPH2447, Android 16, Base Sepolia. See
+[K38_hold_diagnosis.md](K38_hold_diagnosis.md) for the live HOLD findings, root
+fixes, explicit owner-signed strategy scope and exact transaction hashes.
+
+- APP deposit: 10 USDC, `0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf`.
+- APP withdrawal: 9.999999 USDC, `0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a`.
+- OWNER strategy mandate: `0xb4896d5bd3207eee5d05bc2bd956a23d820691c8d4eb7fc80209b432fc353f7a`.
+
+Both actions were chosen by MNN/AHEM-G in Android, signed in `:signer` with the
+existing Keystore session envelope and broadcast through the leased edge relay.
+The original successful sends were recovered through receipt-only app journal
+reconciliation; no second signature/send or host choice override occurred.
+`K38_verification.json` is the independent result. `K38_deposit.png` and
+`K38_withdraw.png` show the confirmed device cards. Safe cash is 9399001234 raw
+USDC afterward; waUSDC holdings are zero. The round trip intentionally pays gas
+under a one-time owner mandate; the ordinary profitability gate remains intact.
+
+Run `python3 scripts/android_planner/verify_allocation.py` and
+`python3 scripts/judge/verify_all.py` for keyless verification. Rebuild the public
+index with `scripts/build_tx_index.py`. `K38_arena.tar.gz` preserves a separate
+fresh arena run at canonical archive paths; prior arena evidence is untouched.

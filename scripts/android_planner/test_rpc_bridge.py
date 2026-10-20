@@ -24,6 +24,30 @@ class BridgeTests(unittest.TestCase):
   s,calls=self.start()
   self.assertIn('error',self.request(s,'batch',[{'method':'eth_sendRawTransaction','params':['0x02c0']}]))
   self.assertEqual([],calls)
+ def test_batch_preserves_top_level_range_error(self):
+  s,calls=self.start()
+  s.forward=lambda payload:{'error':{'message':'range limit','httpStatus':413}}
+  reply=self.request(s,'batch',[{'method':'eth_getLogs','params':[]}])
+  self.assertEqual(413,reply['error']['httpStatus']); self.assertNotIn('result',reply)
+ def test_batch_preserves_results_and_does_not_admit_a_write(self):
+  s,calls=self.start()
+  s.forward=lambda payload:[{'jsonrpc':'2.0','id':p['id'],'result':'0x14a34'} for p in payload]
+  self.assertEqual('0x14a34',self.request(s,'batch',[{'method':'eth_chainId','params':[]}])['result'][0]['result'])
+ def test_upstream_batches_are_bounded_and_preserve_response_ids(self):
+  s,calls=self.start(); del s.forward
+  class Connection:
+   payloads=[]
+   def request(self,*args,**kwargs): self.payload=json.loads(kwargs['body']); self.payloads.append(self.payload)
+   def getresponse(self):
+    payload=self.payload
+    class Response:
+     status=200
+     def read(self): return json.dumps([{'id':p['id'],'result':'0x14a34'} for p in payload]).encode()
+    return Response()
+   def close(self): pass
+  connection=Connection(); s.upstream=connection
+  result=s.forward([{'jsonrpc':'2.0','id':i,'method':'eth_chainId','params':[]} for i in range(24)])
+  self.assertEqual([20,4],[len(p) for p in connection.payloads]); self.assertEqual(list(range(24)),[r['id'] for r in result])
  def test_lock_lease_holds_real_flock_and_stops_writes_before_release(self):
   with tempfile.TemporaryDirectory() as d:
    old=rpc_bridge.SESSION_LOCK; rpc_bridge.SESSION_LOCK=str(pathlib.Path(d)/'session.lock')

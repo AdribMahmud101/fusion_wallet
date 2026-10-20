@@ -405,7 +405,12 @@ pub fn enumerate_candidates(
             let headroom = vault_limit
                 .max_exposure_raw
                 .saturating_sub(current_exposure);
-            let deposit_amount = buckets_before.sweepable.min(headroom);
+            // Do not manufacture a REJECT candidate when a smaller policy-valid
+            // allocation exists. Keep the economics test on the actual amount.
+            let deposit_amount = buckets_before
+                .sweepable
+                .min(headroom)
+                .min(snapshot.policy.hard_max_raw);
 
             if deposit_amount > U256::ZERO {
                 let rate_bps = rates
