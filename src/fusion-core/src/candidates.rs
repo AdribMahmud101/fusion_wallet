@@ -421,6 +421,9 @@ pub fn enumerate_candidates(
             } else {
                 snapshot.policy.hard_max_raw
             };
+            // Size within all owner and permission caps before applying the
+            // measured economics filter; never create a larger rejected move
+            // when a smaller policy-valid allocation exists.
             let deposit_amount = buckets_before
                 .sweepable
                 .min(headroom)

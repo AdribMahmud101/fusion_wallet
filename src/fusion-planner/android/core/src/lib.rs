@@ -92,6 +92,272 @@ pub fn quant_report(inputs_json: String, timestamp: u64, size_raw: String) -> St
     })
 }
 
+/// A separate owner-signed operational mandate, not a yield recommendation.
+/// Kotlin in BOTH runtime and signer independently verifies the successful 2/2
+/// Safe authorization receipt. The ordinary economics strategy is unchanged.
+#[uniffi::export]
+pub fn allocation_candidates(
+    snapshot_json: String,
+    mandate_json: String,
+    safe: String,
+    module: String,
+) -> String {
+    guarded(|| {
+        use fusion_core::buckets::Buckets;
+        use fusion_core::candidates::{Candidate, CandidateSummary, FeeAssumptions, Route, Tier};
+        use fusion_core::types::{ActionKind, Snapshot};
+        let snapshot: Snapshot = serde_json::from_str(&snapshot_json).map_err(|e| e.to_string())?;
+        let mandate: serde_json::Value =
+            serde_json::from_str(&mandate_json).map_err(|e| e.to_string())?;
+        let amount: U256 = mandate["assetsRaw"]
+            .as_str()
+            .ok_or("INVALID_OWNER_ALLOCATION")?
+            .parse()
+            .map_err(|_| "INVALID_OWNER_ALLOCATION")?;
+        let nonce: U256 = mandate["depositNonce"]
+            .as_str()
+            .ok_or("INVALID_OWNER_ALLOCATION")?
+            .parse()
+            .map_err(|_| "INVALID_OWNER_ALLOCATION")?;
+        let vault: Address = mandate["vault"]
+            .as_str()
+            .ok_or("INVALID_OWNER_ALLOCATION")?
+            .parse()
+            .map_err(|_| "INVALID_OWNER_ALLOCATION")?;
+        let safe: Address = safe.parse().map_err(|_| "INVALID_CONTEXT")?;
+        let module: Address = module.parse().map_err(|_| "INVALID_CONTEXT")?;
+        if !matches!(mandate["phase"].as_str(), Some("DEPOSIT" | "WITHDRAW")) {
+            return Err("INVALID_OWNER_ALLOCATION".into());
+        }
+        let deposit = mandate["phase"] == "DEPOSIT";
+        let st = &snapshot.module_state;
+        if snapshot.policy.permission_tier != fusion_core::types::PermissionTier::Autonomous
+            || st.reserved_raw != U256::ZERO
+            || amount == U256::ZERO
+            || amount > U256::from(10_000_000)
+            || amount > snapshot.policy.micro_max_raw
+            || mandate["expiresAt"].as_u64().unwrap_or(u64::MAX) > st.session_expires_at
+            || snapshot.block_timestamp
+                >= mandate["expiresAt"]
+                    .as_u64()
+                    .ok_or("INVALID_OWNER_ALLOCATION")?
+            || mandate["sessionId"] != st.session_id.to_string()
+            || mandate["policyHash"] != st.policy_hash.to_string()
+            || st.action_nonce != nonce + if deposit { U256::ZERO } else { U256::from(1) }
+            || snapshot.policy.vaults.first().map(|v| v.vault) != Some(vault)
+        {
+            return Err("INVALID_OWNER_ALLOCATION".into());
+        }
+        let mut set = fusion_core::candidates::enumerate_candidates(
+            &snapshot,
+            &[],
+            &[],
+            &Default::default(),
+            &[],
+            U256::from(84532),
+            safe,
+            module,
+            st.mandate_hash,
+            st.session_id,
+            true,
+        );
+        let before = Buckets::from_snapshot(&snapshot);
+        let assets = if deposit {
+            amount
+        } else {
+            amount.min(snapshot.vault_a_assets)
+        };
+        let cap = snapshot
+            .policy
+            .vaults
+            .first()
+            .ok_or("INVALID_OWNER_ALLOCATION")?
+            .max_exposure_raw;
+        if assets == U256::ZERO
+            || (deposit
+                && (assets > before.sweepable
+                    || assets > cap.saturating_sub(snapshot.vault_a_assets)))
+        {
+            return Err("INVALID_OWNER_ALLOCATION".into());
+        }
+        let mut action = set.hold.action.clone();
+        action.kind = if deposit {
+            ActionKind::Deposit
+        } else {
+            ActionKind::Withdraw
+        };
+        action.assets = assets;
+        action.deadline = action.deadline.min(
+            mandate["expiresAt"]
+                .as_u64()
+                .ok_or("INVALID_OWNER_ALLOCATION")?,
+        );
+        if deposit {
+            action.destination_vault = vault;
+        } else {
+            action.source_vault = vault;
+        }
+        let id = fusion_core::hashing::compute_candidate_id_from_action(
+            U256::from(84532),
+            safe,
+            module,
+            st.mandate_hash,
+            st.session_id,
+            snapshot.block_hash,
+            &action,
+        );
+        let after = Buckets::compute(
+            if deposit {
+                snapshot.safe_cash - assets
+            } else {
+                snapshot.safe_cash + assets
+            },
+            st.reserved_raw,
+            snapshot.policy.operating_buffer_raw,
+            if deposit {
+                before.deployed + assets
+            } else {
+                before.deployed.saturating_sub(assets)
+            },
+        );
+        let owner_hash = mandate["ownerTxHash"]
+            .as_str()
+            .ok_or("INVALID_OWNER_ALLOCATION")?;
+        let _: B256 = owner_hash.parse().map_err(|_| "INVALID_OWNER_ALLOCATION")?;
+        set.candidates = vec![Candidate {
+            label: "A".into(),
+            id,
+            kind: action.kind,
+            action,
+            proof: vec![],
+            tier: Tier::Instant,
+            route: Route::Instant,
+            reason: format!("OWNER_ALLOCATION_REHEARSAL:{owner_hash}"),
+            before_buckets: before,
+            after_buckets: after,
+            fee_assumptions: FeeAssumptions {
+                fee_raw: U256::from(50_000),
+            },
+        }];
+        let summaries: Vec<CandidateSummary> = set
+            .candidates
+            .iter()
+            .chain(std::iter::once(&set.hold))
+            .map(|c| CandidateSummary {
+                assets: c.action.assets,
+                id: c.id,
+                kind: c.kind.name().into(),
+                label: c.label.clone(),
+                reason: c.reason.clone(),
+            })
+            .collect();
+        set.candidate_set_digest =
+            fusion_core::candidates::compute_candidate_set_digest(&summaries);
+        Ok(json!({"ok":true,"set":set}))
+    })
+}
+
+/// Bind policy share limits to real ERC-4626 conversions before presenting
+/// candidates to the planner. Every quote must match the snapshot and exact
+/// asset amount. This changes IDs/digest before inference, never after choice.
+#[uniffi::export]
+pub fn quote_candidates(
+    set_json: String,
+    snapshot_json: String,
+    quotes_json: String,
+    safe: String,
+    module: String,
+) -> String {
+    guarded(|| {
+        use fusion_core::candidates::{CandidateSet, CandidateSummary};
+        use fusion_core::types::{ActionKind, Snapshot};
+        let mut set: CandidateSet = serde_json::from_str(&set_json).map_err(|e| e.to_string())?;
+        let snapshot: Snapshot = serde_json::from_str(&snapshot_json).map_err(|e| e.to_string())?;
+        let quotes: Vec<serde_json::Value> =
+            serde_json::from_str(&quotes_json).map_err(|e| e.to_string())?;
+        let safe: Address = safe.parse().map_err(|_| "INVALID_CONTEXT")?;
+        let module: Address = module.parse().map_err(|_| "INVALID_CONTEXT")?;
+        for candidate in &mut set.candidates {
+            let action = &mut candidate.action;
+            let vault = match action.kind {
+                ActionKind::Deposit => action.destination_vault,
+                ActionKind::Withdraw => action.source_vault,
+                _ => continue,
+            };
+            let quote = quotes
+                .iter()
+                .find(|q| {
+                    q["vault"].as_str().and_then(|v| v.parse::<Address>().ok()) == Some(vault)
+                        && q["assets"].as_str().and_then(|v| v.parse::<U256>().ok())
+                            == Some(action.assets)
+                        && q["kind"].as_u64() == Some(action.kind as u64)
+                        && q["blockHash"].as_str() == Some(snapshot.block_hash.to_string().as_str())
+                })
+                .ok_or("MISSING_PINNED_VAULT_QUOTE")?;
+            let shares: U256 = quote["convertToShares"]
+                .as_str()
+                .ok_or("INVALID_QUOTE")?
+                .parse()
+                .map_err(|_| "INVALID_QUOTE")?;
+            let preview: U256 = quote["preview"]
+                .as_str()
+                .ok_or("INVALID_QUOTE")?
+                .parse()
+                .map_err(|_| "INVALID_QUOTE")?;
+            let bps = U256::from(snapshot.policy.max_share_slippage_bps);
+            let denominator = U256::from(10_000);
+            if action.kind == ActionKind::Deposit {
+                let floor = shares
+                    .checked_mul(denominator - bps)
+                    .ok_or("QUOTE_OVERFLOW")?
+                    / denominator;
+                if preview == U256::ZERO || preview < floor {
+                    return Err("SHARE_BOUND_VIOLATION".into());
+                }
+                action.min_shares_out = floor;
+            } else {
+                let ceiling = shares
+                    .checked_mul(denominator + bps)
+                    .ok_or("QUOTE_OVERFLOW")?
+                    .checked_add(denominator - U256::from(1))
+                    .ok_or("QUOTE_OVERFLOW")?
+                    / denominator;
+                if preview == U256::ZERO || preview > ceiling {
+                    return Err("SHARE_BOUND_VIOLATION".into());
+                }
+                // Use the exact observed preview, inside the policy ceiling.
+                // A maximum equal to the ceiling can exceed a later ceiling
+                // by one share unit as waUSDC's exchange rate accrues upward.
+                action.max_shares_burn = preview;
+            }
+            candidate.id = fusion_core::hashing::compute_candidate_id_from_action(
+                U256::from(84532),
+                safe,
+                module,
+                snapshot.module_state.mandate_hash,
+                snapshot.module_state.session_id,
+                snapshot.block_hash,
+                action,
+            );
+        }
+        let summaries: Vec<CandidateSummary> = set
+            .candidates
+            .iter()
+            .chain(std::iter::once(&set.hold))
+            .map(|c| CandidateSummary {
+                assets: c.action.assets,
+                id: c.id,
+                kind: c.kind.name().into(),
+                label: c.label.clone(),
+                reason: c.reason.clone(),
+            })
+            .collect();
+        set.candidate_set_digest =
+            fusion_core::candidates::compute_candidate_set_digest(&summaries);
+        Ok(json!({"ok":true,"set":set}))
+    })
+}
+
 #[uniffi::export]
 pub fn preview(
     candidate_json: String,
@@ -393,6 +659,106 @@ mod android_boundary_tests {
         report["model"]["candidateSetDigest"] = json!(set.candidate_set_digest.to_string());
         (report, snapshot, safe.to_string(), module.to_string())
     }
+    #[test]
+    fn owner_allocation_is_nonce_expiry_amount_and_reserve_bound() {
+        let (_, mut snapshot, safe, module) = fixture();
+        snapshot.module_state.reserved_raw = U256::ZERO;
+        snapshot.module_state.session_expires_at = snapshot.block_timestamp + 3600;
+        let nonce = snapshot.module_state.action_nonce;
+        let mut mandate = json!({"assetsRaw":"10000000", "depositNonce":nonce.to_string(),
+            "vault":snapshot.policy.vaults[0].vault, "phase":"DEPOSIT",
+            "expiresAt":snapshot.block_timestamp+60, "sessionId":snapshot.module_state.session_id,
+            "policyHash":snapshot.module_state.policy_hash, "ownerTxHash":B256::repeat_byte(0xab)});
+        let call = |snapshot: &Snapshot, mandate: &serde_json::Value| -> serde_json::Value {
+            serde_json::from_str(&allocation_candidates(
+                serde_json::to_string(snapshot).unwrap(),
+                mandate.to_string(),
+                safe.clone(),
+                module.clone(),
+            ))
+            .unwrap()
+        };
+        let result = call(&snapshot, &mandate);
+        assert_eq!(result["ok"], true);
+        assert_eq!(
+            result["set"]["candidates"][0]["action"]["assets"],
+            "10000000"
+        );
+        assert_eq!(
+            result["set"]["candidates"][0]["action"]["deadline"],
+            snapshot.block_timestamp + 60
+        );
+        mandate["assetsRaw"] = json!("10000001");
+        assert_eq!(call(&snapshot, &mandate)["ok"], false);
+        mandate["assetsRaw"] = json!("10000000");
+        snapshot.module_state.reserved_raw = U256::from(1);
+        assert_eq!(call(&snapshot, &mandate)["ok"], false);
+        snapshot.module_state.reserved_raw = U256::ZERO;
+        snapshot.module_state.action_nonce += U256::from(1);
+        assert_eq!(call(&snapshot, &mandate)["ok"], false);
+        mandate["phase"] = json!("WITHDRAW");
+        snapshot.vault_a_assets = U256::from(9_999_999);
+        assert_eq!(
+            call(&snapshot, &mandate)["set"]["candidates"][0]["action"]["assets"],
+            "9999999"
+        );
+        snapshot.module_state.action_nonce += U256::from(1);
+        assert_eq!(call(&snapshot, &mandate)["ok"], false);
+    }
+
+    #[test]
+    fn erc4626_quotes_bind_real_share_units_and_reject_stale_or_bad_bounds() {
+        let (report, snapshot, safe, module) = fixture();
+        let mut set: CandidateSet = serde_json::from_value(report["candidateSet"].clone()).unwrap();
+        let candidate = &mut set.candidates[0];
+        candidate.kind = fusion_core::types::ActionKind::Deposit;
+        candidate.action.kind = candidate.kind;
+        candidate.action.destination_vault = snapshot.policy.vaults[0].vault;
+        candidate.action.assets = U256::from(10_000_000);
+        let original_digest = set.candidate_set_digest;
+        let mut quotes = json!([{"vault": snapshot.policy.vaults[0].vault,
+            "kind": 0, "assets": "10000000", "blockHash": snapshot.block_hash,
+            "convertToShares": "8000001", "preview": "8000001"}]);
+        let call = |set: &CandidateSet, quotes: &serde_json::Value| -> serde_json::Value {
+            serde_json::from_str(&quote_candidates(
+                serde_json::to_string(set).unwrap(),
+                serde_json::to_string(&snapshot).unwrap(),
+                quotes.to_string(),
+                safe.clone(),
+                module.clone(),
+            ))
+            .unwrap()
+        };
+        let result = call(&set, &quotes);
+        assert_eq!(result["ok"], true);
+        assert_eq!(
+            result["set"]["candidates"][0]["action"]["minSharesOut"],
+            "7960000"
+        );
+        assert_ne!(
+            result["set"]["candidateSetDigest"],
+            original_digest.to_string()
+        );
+        quotes[0]["preview"] = json!("7959999");
+        assert_eq!(call(&set, &quotes)["ok"], false);
+        quotes[0]["preview"] = json!("8000001");
+        quotes[0]["blockHash"] = json!(B256::ZERO);
+        assert_eq!(call(&set, &quotes)["ok"], false);
+        quotes[0]["blockHash"] = json!(snapshot.block_hash);
+        quotes[0]["kind"] = json!(1);
+        set.candidates[0].kind = fusion_core::types::ActionKind::Withdraw;
+        set.candidates[0].action.kind = set.candidates[0].kind;
+        set.candidates[0].action.source_vault = snapshot.policy.vaults[0].vault;
+        let result = call(&set, &quotes);
+        assert_eq!(result["ok"], true);
+        assert_eq!(
+            result["set"]["candidates"][0]["action"]["maxSharesBurn"],
+            "8000001"
+        );
+        quotes[0]["preview"] = json!("8040003");
+        assert_eq!(call(&set, &quotes)["ok"], false);
+    }
+
     #[test]
     fn native_signing_boundary_refuses_a12_and_accepts_real_app_calldata() {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../..");

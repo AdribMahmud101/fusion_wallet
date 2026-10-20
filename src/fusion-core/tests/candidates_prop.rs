@@ -285,3 +285,31 @@ fn safety_withdraw_is_capped_at_available_underlying_not_total_deposits() {
     assert_eq!(set.candidates[0].kind, ActionKind::Withdraw);
     assert_eq!(set.candidates[0].action.assets, U256::from(17));
 }
+
+#[test]
+fn surplus_deposit_respects_micro_limit_and_still_requires_profit() {
+    let mut snapshot = make_sample_snapshot();
+    snapshot.safe_cash = U256::from(9_399_001_235_u64);
+    snapshot.module_state.reserved_raw = U256::ZERO;
+    let vault = snapshot.policy.vaults[0].vault;
+    let rates = [VaultRateInfo { vault, rate_bps: 500, is_simulated: false }];
+    let enumerate = |snapshot: &Snapshot| {
+        enumerate_candidates(
+            snapshot, &[], &[], &BTreeMap::new(), &rates, U256::from(84532),
+            Address::repeat_byte(0x11), Address::repeat_byte(0x22),
+            snapshot.module_state.mandate_hash, snapshot.module_state.session_id, true,
+        )
+    };
+    // K44's measured economics gate wins: an unmeasured rate never authorizes a deposit.
+    assert!(enumerate(&snapshot).candidates.is_empty());
+    snapshot.quant = Some(serde_json::from_value(serde_json::json!({
+        "blockNumber":100,"vault":vault,"medianGasWei":"1","quotedSizeRaw":"10000000","depositSlippageRaw":"1",
+        "oracle":{"feed":fusion_core::quant::ETH_USD_FEED,"decimals":8,"answer":"200000000000","roundId":"1","answeredInRound":"1","updatedAt":1700000000},
+        "reserve":{"availableRaw":"1000000000","variableDebtRaw":"100000000","stableDebtRaw":"0","liquidityRateRay":"2000000000000000000000000","liquidityIndex":"1000000000000000000000000000"}
+    })).unwrap());
+    let set = enumerate(&snapshot);
+    let deposit = set.candidates.iter().find(|c| c.kind == ActionKind::Deposit).unwrap();
+    assert_eq!(deposit.action.assets, snapshot.policy.micro_max_raw);
+    assert_eq!(deposit.route, fusion_core::candidates::Route::Instant);
+    assert_eq!(set.quant.candidates[0].status, "ACTIONABLE");
+}

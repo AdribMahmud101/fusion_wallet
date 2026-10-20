@@ -1,0 +1,18 @@
+   Compiling fusion-core v0.1.0 (/root/projects/fusion_wallet-wt/K38/src/fusion-core)
+   Compiling fusion-android-core v1.0.0 (/root/projects/fusion_wallet-wt/K38/src/fusion-planner/android/core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 31.85s
+     Running unittests src/lib.rs (src/fusion-core/target/debug/deps/fusion_android_core-89c06540f0e9f490)
+
+running 9 tests
+test android_boundary_tests::modified_action_cannot_keep_old_candidate_or_passport_binding ... ok
+test android_boundary_tests::stale_five_block_result_is_rejected ... ok
+test android_boundary_tests::raw_output_with_extra_fields_is_rejected_independently ... ok
+test android_boundary_tests::hold_never_enters_signing_surface ... ok
+test android_boundary_tests::owner_allocation_is_nonce_expiry_amount_and_reserve_bound ... ok
+test android_boundary_tests::erc4626_quotes_bind_real_share_units_and_reject_stale_or_bad_bounds ... ok
+test android_boundary_tests::native_signing_boundary_refuses_a12_and_accepts_real_app_calldata ... ok
+test android_boundary_tests::noncanonical_passport_bytes_are_rejected ... ok
+test android_boundary_tests::canonical_bound_decision_encodes_real_module_and_passport_hash ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
