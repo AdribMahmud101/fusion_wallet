@@ -190,6 +190,20 @@ Other points:
 
 ## 8. Known risks and limits
 
+### Bounded K38 owner allocation verifier
+
+The K38 `OwnerAllocationMandate` verifier remains in the Android runtime as a
+legacy check for the two rehearsal transactions. It accepts only a successful
+Base Sepolia Safe transaction with threshold 2 and the two configured owners,
+an inert zero-value Safe call to the owner's EOA, and the exact mandate selector
+and canonical Safe, module, vault, session, and policy hash. The mandate is
+bounded to at most 10 USDC and the current micro tier, one deposit nonce and its
+next withdrawal nonce, and an expiry no later than the active session expiry.
+At or after expiry it returns no authorization; the signer repeats the checks
+against a fresh snapshot. It does not change module state or waive the yield
+economics gate. Both K38 transfers are labeled **Owner-mandated rehearsal
+(2-of-2)** in the transaction index and proof screen.
+
 | # | Item | Detail | Source |
 |---|---|---|---|
 | 1 | **Testnet only** | Base Sepolia. Test USDC and Aave test deployments. Not evaluated for mainnet custody | `README.md` §7 |
@@ -198,8 +212,8 @@ Other points:
 | 4 | **Reviewer mode is off** | The K25 model-as-reviewer failed its gate: frozen ASR 1/30 against 0/30, held-out ASR 1/20. The default chooser stays | `evidence/planner/REVIEWER_K25.md` |
 | 5 | **False block rate (FBR)** | Safe, but not good. Frozen corpus 6/30 (20%), held-out 10/20 (50%). A false block is a held proposal, never a wrong payment. Older docs quote 9/30 and 13/20. Those come from an earlier run and are superseded by the later regeneration recorded with K44. `[PENDING: K36 new FBR numbers and root-cause table]` | `evidence/app/agent/K44_validation.md`, `evidence/results/heldout/HELDOUT.md` |
 | 6 | **Small model** | The on-device model is LFM2.5-230M. It holds on many ordinary benign cases. The safety design does not depend on its judgment | `HELDOUT.md` |
-| 7 | **Yield moves are gated by economics** | At the measured costs a 10 USDC deposit is `UNPROFITABLE_AFTER_GAS` (break-even 56.96 days) and is not offered. The threshold is 41 USDC at those costs. This is a measured proposal, not an authorization. `[PENDING: K47 autonomous profitable deposit tx]` | `evidence/app/agent/K44_economics.md` |
-| 8 | **Owner-mandated rehearsal (K38)** | The on-chain deposit and withdraw were a rehearsal under a Safe 2-of-2 mandate. They were executed by the on-device AI's session key. The AI did not decide to invest. `[PENDING: K38M, the two hashes are not in evidence/tx_index.json yet]` | `helper/prompts/K38M_merge_k38.md` |
+| 7 | **Yield moves are gated by economics** | The fresh 50 USDC quote is `UNPROFITABLE_AFTER_GAS` (break-even 17.44 days); the measured 14-day actionable minimum was 62.278519 USDC. No policy change was made. | `evidence/app/agent/K44_economics.md` |
+| 8 | **Owner-mandated rehearsal (K38)** | The two indexed APP transfers were a rehearsal under a Safe 2-of-2 mandate. The AI did not decide to invest. They are labeled **Owner-mandated rehearsal (2-of-2)** in the index and proof screen. | `evidence/app/agent/K38_hold_diagnosis.md` |
 | 9 | **A17 relies on an off-chain pin** | The contract's code-hash check alone does not detect a proxy implementation swap | `latest.json` A17 |
 | 10 | **No automatic depeg reflex** | A10 is covered by a paused snapshot and a manual guardian pause. `[PENDING: K41]` | `latest.json` A10 |
 | 11 | **Demo parameters** | Payee cooling is 3,600 s at setup (24 h is the production default). The sanctions oracle is a **test list** | `docs/SYSTEM_OVERVIEW.md` §2 |
@@ -222,7 +236,6 @@ bash scripts/judge/verify_all.sh      # 48 checks: receipts, passports, Sourcify
 ## 10. Remaining `[PENDING]` markers
 
 - `[PENDING: K36]` new FBR numbers and per-case diagnosis (section 8, item 5)
-- `[PENDING: K38M]` K38 deposit and withdraw hashes in the evidence index (item 8)
 - `[PENDING: K41]` automatic risk reflex (section 4 note A10, item 10)
-- `[PENDING: K47]` autonomous profitable deposit tx hash (item 7)
+- `[PENDING: K47]` profitable self-initiated deposit tx hash; the current 50 USDC quote is not actionable (item 7)
 - `[PENDING: release check]` build type of the published APK (section 7)

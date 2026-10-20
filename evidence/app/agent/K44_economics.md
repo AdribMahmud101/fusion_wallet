@@ -67,3 +67,21 @@ its runtime edits were uncommitted and were not copied over. The requested
 project worktrees; the explicit K44 brief and frozen WIN_PLAN supply the rules.
 The K38 legacy 30-day / fixed-fee scenario filter is replaced for yield moves by
 the requested measured 14-day break-even gate. No owner policy is relaxed.
+
+## K47 live re-quote for 50 USDC (2026-10-20)
+
+The requested fresh capture is [K47_50_live_inputs.json](K47_50_live_inputs.json),
+with the production Rust result in [K47_50_quant_report.json](K47_50_quant_report.json).
+At Base Sepolia block **48,364,253**, utilization was **20.32%** and the
+conservative APY was **0.1983033%** (the lower of spot and the approximately
+24-hour realized rate). The latest Chainlink ETH/USD answer was **2,385.018**;
+the median actual receipt fee was **1,985,676,000,148 wei**. For a 50 USDC
+deposit, the exact ERC-4626 preview round-trip loss was **0.000001 USDC**, the
+gas estimate rounded upward to **0.004736 USD**, and break-even was **17.44
+days**. The production report classifies it **UNPROFITABLE_AFTER_GAS**; the
+measured minimum size for the 14-day ACTIONABLE gate was **62.278519 USDC**.
+
+Therefore the proposed 50 USDC instant-tier change was not submitted and no
+policy field, session, or epoch was changed. The live planner was not triggered:
+the 50 USDC candidate is excluded before inference by the same economics gate.
+This capture does not justify substituting a larger policy change.

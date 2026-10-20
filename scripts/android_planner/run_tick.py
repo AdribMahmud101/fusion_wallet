@@ -79,7 +79,16 @@ try:
        'receipt':str((out/'receipts'/f'{tx_hash}.json').relative_to(ROOT)),
        'transaction':str((out/'transactions'/f'{tx_hash}.json').relative_to(ROOT)),
        'sessionLock':'fcntl.flock LOCK_EX held by edge run_tick.py through verified receipt'}
-  if 'allocationMandate' in result: row['allocationOwnerTx']=result['allocationMandate']['ownerTxHash']
+  if 'allocationMandate' in result:
+   row['allocationOwnerTx']=result['allocationMandate']['ownerTxHash']
+   row['notes']='Owner-mandated rehearsal (2-of-2)'
+  elif row['kind']=='DEPOSIT':
+   economics=next((q for q in result.get('quant',{}).get('candidates',[])
+       if q.get('sizeRaw')==result['chosenCandidate']['action'].get('assets') and q.get('status')=='ACTIONABLE'
+       and q.get('breakEvenDaysHundredths') is not None),None)
+   if economics:
+    days=int(economics['breakEvenDaysHundredths'])
+    row['notes']=f"AI-initiated · break-even {days // 100}.{days % 100:02d} days"
   golden=out/'golden_app.json'; rows=json.loads(golden.read_text()) if golden.exists() else []
   rows=[r for r in rows if r['txHash']!=tx_hash]+[row]; golden.write_text(json.dumps(rows,indent=2)+'\n')
   print('APP transaction confirmed:',tx_hash,'status=1; session sender, event, calldata and passport hash verified.',flush=True)

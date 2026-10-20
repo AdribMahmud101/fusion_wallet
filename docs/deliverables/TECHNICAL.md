@@ -19,7 +19,7 @@ risk control)". Where we stand on each (`docs/WIN_PLAN.md` for the plan, `eviden
 | Topic F operation | What exists today | Still open |
 |---|---|---|
 | Transaction execution | 5 txs sent by the on-device AI's key (4 AGENT, 1 APP): 4 bill payments and 1 queue step (`docs/deliverables/TX_HASHES.md`) | none for the core path |
-| Asset management | A deposit and a withdraw by operator script (`SCRIPT`, deterministic planner, not the AI). A rehearsal by the AI's session key under an owner mandate `[PENDING: K38M]` | A deposit the AI chooses because it pays `[PENDING: K47]` |
+| Asset management | K38's 10 USDC deposit and withdrawal by the AI session key under an owner 2-of-2 rehearsal mandate; explicitly not an autonomous investment | A profitable, self-initiated deposit remains pending: live 50 USDC quote is not actionable (17.44 days) |
 | Risk control | In-app guardian pause (APP) and a 2-of-2 resume (OWNER). 24 of 24 attacks stopped | Automatic pause on an anomaly `[PENDING: K41]` |
 
 ## 2. Architecture
@@ -210,7 +210,7 @@ Measured example (read-only capture at Base Sepolia block 48,358,262, `evidence/
 
 This is a measured proposal for the owners, not an authorization. The per-move cap stays at the owners' setting.
 A threshold holds only for the costs captured with it. Yield is tiny on a testnet pool, so the guard mostly says HOLD.
-That is the correct answer there. `[PENDING: K47 autonomous profitable deposit tx hash]`
+That is the correct answer there. The fresh 50 USDC quote remains UNPROFITABLE_AFTER_GAS; no policy change was made.
 
 Tests recorded with K44 (`evidence/app/agent/K44_validation.md`): `cargo test` in `src/fusion-core` 190 passed;
 Android `testDebugUnitTest` 261 passed with 4 live or device tests skipped. Later cards were not re-run here.
@@ -338,7 +338,6 @@ no x402 payment flow, reviewer mode off, FBR 6/30 and 10/20, Autopilot runs only
 ## 10. Remaining `[PENDING]` markers
 
 - `[PENDING: K36]` new FBR numbers
-- `[PENDING: K38M]` K38 rehearsal tx hashes in the evidence index
 - `[PENDING: K41]` automatic risk reflex
 - `[PENDING: K45]` event router (cognitive trigger, gas defer, wake reasons)
-- `[PENDING: K47]` autonomous profitable deposit tx hash
+- `[PENDING: K47]` profitable self-initiated deposit tx hash; current 50 USDC quote is not actionable.

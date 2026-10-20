@@ -147,6 +147,16 @@ def main():
         kinds = list(dict.fromkeys(r["kind"] for _, r in records))
         result = {"txHash": tx, "source": sources.pop(), "kind": "+".join(kinds),
                   "evidenceFile": records[0][0]}
+        notes = set()
+        for _, row in records:
+            if row.get("notes"):
+                notes.add(row["notes"])
+            if row.get("allocationOwnerTx"):
+                notes.add("Owner-mandated rehearsal (2-of-2)")
+        if len(notes) > 1:
+            raise ValueError(f"Conflicting transaction notes for {tx}: {notes}")
+        if notes:
+            result["notes"] = notes.pop()
         planners = set()
         for _, row in records:
             planner = row.get("planner")

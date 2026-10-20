@@ -110,6 +110,7 @@
     "source": "APP",
     "kind": "DEPOSIT",
     "evidenceFile": "evidence/app/agent/golden_app.json",
+    "notes": "Owner-mandated rehearsal (2-of-2)",
     "planner": "mnn+ahem-g@android",
     "amountRaw": "10000000"
   },
@@ -286,6 +287,7 @@
     "source": "APP",
     "kind": "WITHDRAW",
     "evidenceFile": "evidence/app/agent/golden_app.json",
+    "notes": "Owner-mandated rehearsal (2-of-2)",
     "planner": "mnn+ahem-g@android",
     "amountRaw": "9999999"
   },

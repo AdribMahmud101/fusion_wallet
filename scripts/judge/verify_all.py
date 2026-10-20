@@ -231,6 +231,31 @@ def run_step3_check_app_evidence(manifest: dict) -> tuple[int, int, list[str]]:
         try:
             from verify_allocation import verify_round_trip
             verify_round_trip(allocation_rows, manifest, full=False)
+            index = {row["txHash"].lower(): row for row in json.loads((ROOT / "evidence/tx_index.json").read_text())}
+            for row in allocation_rows:
+                indexed = index.get(row["txHash"].lower())
+                if not indexed or indexed.get("source") != "APP" or indexed.get("notes") != "Owner-mandated rehearsal (2-of-2)":
+                    raise ValueError(f"K38 transaction lacks its owner-mandated label: {row['txHash']}")
+                if indexed.get("notes", "").startswith("AI-initiated"):
+                    raise ValueError(f"K38 mandate transaction mislabeled autonomous: {row['txHash']}")
+
+            # Any later APP deposit claimed as self-initiated must have a fresh,
+            # actionable economics record and no owner mandate in its report.
+            golden = json.loads((ROOT / "evidence/app/agent/golden_app.json").read_text())
+            for row in golden:
+                if row.get("kind") != "DEPOSIT" or row.get("allocationOwnerTx"):
+                    continue
+                indexed = index.get(row["txHash"].lower())
+                if not indexed or indexed.get("source") != "APP" or not indexed.get("notes", "").startswith("AI-initiated · break-even "):
+                    raise ValueError(f"APP deposit lacks an AI-initiated economics label: {row['txHash']}")
+                report_path = ROOT / "evidence/app/agent/runs" / f"{row['txHash']}.json"
+                report = json.loads(report_path.read_text())
+                if "allocationMandate" in report:
+                    raise ValueError(f"AI-initiated deposit report contains allocationMandate: {row['txHash']}")
+                amount = report["chosenCandidate"]["action"]["assets"]
+                if not any(item.get("sizeRaw") == amount and item.get("status") == "ACTIONABLE"
+                           for item in report.get("quant", {}).get("candidates", [])):
+                    raise ValueError(f"AI-initiated deposit has no matching ACTIONABLE quote: {row['txHash']}")
         except Exception as error:
             errors.append(f"K38 allocation round trip verification failed: {error}")
             return passed, max(1, total - passed), errors

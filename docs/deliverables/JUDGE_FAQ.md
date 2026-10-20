@@ -105,11 +105,12 @@ The recorded facts (`docs/deliverables/TX_HASHES.md`): **5 transactions** were s
 
 Where we stop short of the claim:
 
-- A deposit or withdraw by the AI's key exists only as an **owner-mandated rehearsal under a 2-of-2 Safe mandate**.
-  The AI did not decide to invest. `[PENDING: K38M]`
-- A deposit the AI chooses on its own because it pays: `[PENDING: K47]`
-- The measured economics say a 10 USDC deposit does not pay (break-even 56.96 days), so the AI correctly holds.
-  Source: `evidence/app/agent/K44_economics.md`.
+- The two K38 transfers are **Owner-mandated rehearsal (2-of-2)** transactions.
+  They do not show the AI independently choosing an investment.
+- A profitable, self-initiated deposit is not yet recorded. The fresh 50 USDC
+  quote is `UNPROFITABLE_AFTER_GAS` (17.44 days); the 14-day gate currently
+  requires at least 62.278519 USDC at the captured costs. No policy change or
+  app execution was made. Source: `evidence/app/agent/K44_economics.md`.
 - Autopilot runs only while the app is open (`docs/ux/DASHBOARD_LAYOUT.md`).
 - All four `AGENT` transactions were produced by the same model running on a Linux host (`host: linux-host`). The one `APP` transaction was planned and signed on a OnePlus 11 phone (`evidence/agent/golden.json`, `evidence/demo/runs.json`, `evidence/app/agent/golden_app.json`).
 
@@ -187,7 +188,6 @@ bills were all signed by two humans, and the AI could only act inside them.
 ## Remaining `[PENDING]` markers
 
 - `[PENDING: K36]` new false-block numbers and root-cause table (question 8)
-- `[PENDING: K38M]` K38 rehearsal transactions in the evidence index (question 9)
-- `[PENDING: K47]` autonomous profitable deposit (question 9)
+- `[PENDING: K47]` profitable self-initiated deposit (question 9); 50 USDC is currently not actionable at live measured costs.
 - `[PENDING: K45]` gas-spike defer rule (question 10)
 - `[PENDING: K41]` automatic risk reflex (question 10)
