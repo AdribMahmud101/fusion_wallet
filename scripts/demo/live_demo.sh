@@ -32,6 +32,8 @@ python3 "${SCRIPT_DIR}/demo_engine.py" "$@"
 
 # Publish this run's bill set under its on-chain root so the app can show it.
 python3 "${WORKTREE_DIR}/scripts/index_obligations.py"
+# Refresh the provenance index the app reads (who did what, amount, vendor).
+python3 "${WORKTREE_DIR}/scripts/build_tx_index.py"
 
 echo "[Lock] Releasing session lock."
 flock -u 200
