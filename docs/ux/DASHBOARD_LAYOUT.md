@@ -24,12 +24,14 @@ One-tap demo accounts: **Lin Mei** (Owner), **Chen Wei** (Finance approver), **G
 
 | Step | What it does (really) |
 |---|---|
-| 1 Welcome & role | Owner / Finance approver / Auditor; preselects the signed-in role |
+| 1 Welcome & role | Owner / Finance approver / Auditor; preselects the signed-in role — or tap **Watch the live demo wallet** (default path for judges, step 1) |
 | 2 Network & currency | Base Sepolia TESTNET; treasury currency USDC read from the deployment; language |
 | 3 Connect treasury | Live checks at one block: Safe has code, threshold 2 of 2, KavachiModule enabled, Sourcify links |
 | 4 On-device AI model | Downloads LFM2.5-230M (~131 MB, resumable, Wi-Fi-only option), SHA-256 verifies 5 files, then a warm-up self-test decision (letter + decode ms) |
 | 5 Keys | Authority table (owners = Safe 2-of-2; agent session key = module only; guardian = Stop only); import keys into Android Keystore or stay view-only |
 | 6 Policy review | Read-only from chain: permission tier, daily and session limits, reserve buffer, verified vendors (vendors load after the rest) |
+
+**Watch-only judges path (K43):** on the welcome step, **Watch the live demo wallet** skips the six-step owner setup and lands on Home watching the real deployed Safe/module read-only, with the plain line: "This phone has no keys. You are watching the real wallet the AI runs." The same one-liner stays pinned as a tile on Home so the install is never mistaken for a signer.
 
 ---
 
@@ -46,6 +48,8 @@ One-tap demo accounts: **Lin Mei** (Owner), **Chen Wei** (Finance approver), **G
 9. **Vault** tiles: Aave waUSDC (on-chain assets) and the demo vault (labelled simulated yield). Each shows **Available anytime: X USDC** from `maxWithdraw`; shares, exposure cap, and vault address are in ⓘ. There are no Add/Withdraw buttons.
 
 **Queue banner, immediately under the hero:** **Waiting for your approval** appears only when the live module queue contains an item (including an expired item that is still present on-chain). It shows the actual action, amount and vendor label when recorded, "Above the AI's auto-limit" only above the instant maximum, "Your bills stay covered" only when the buckets support it, and a second-by-second countdown to `readyAt` (or ready/expired status). **Approve in Safe (2 of 2)** opens an explanatory sheet with the action digest and Safe link; opening it does not submit an approval.
+
+**"Verified on-chain" chip (K43), directly under the hero:** green tile with a count read only from the recorded index ("N recorded transactions · tap for the full proof"), one tap opens the **Proof** screen below. When the index has not arrived yet it says "Open the proof screen" instead of a number. On a watch-only install a second tile states the watch-only line above.
 
 **K30 cancellation dependency:** the current `GuardianSignerClient` exposes only `requestPause`; its `:signer` service accepts only empty PAUSE IPC. There is no public guardian queue-cancellation API. In this build the banner states that cancellation is unavailable and offers guardian-import instructions when absent. A transaction-producing Cancel button is deliberately omitted until the signer owner supplies a digest-bound cancellation API or scope permission allows that API to be added. Pause is never presented as queue cancellation.
 
@@ -78,6 +82,18 @@ Freshness: cached snapshot paints instantly; "Updated N s ago · refreshing" unt
 - One card per transaction: human title ("Bill paid", "Bills committed by both owners", "Agent resumed by both owners", "Guardian pause"…), amount, vendor name, local time, **source chip** (App / Agent / Owner / Script), planner chip, BaseScan link. Tap → detail sheet (passport hash, block, gas).
 - Provenance comes from `evidence/tx_index.json` (37 txs): built from evidence files plus on-chain proof (every `SafeMultiSigTransaction` from the treasury Safe = OWNER). Unknown transactions say "Source not recorded"; they never default to a guess.
 
+## Proof — "Verified on-chain" (K43)
+
+Reachable from a Home chip above and Settings → Verified on-chain proof. Reachable even when the wallet cannot execute (judges' keyless APKs).
+
+- **Header counts, from the recorded index only:** "N AI-executed txs" (rows whose recorded source is AGENT) and "N transactions in the recorded index".
+- **Attacks tile:** "24 / 24 attacks stopped" linking to `ARENA.md` on GitHub; if arena evidence cannot load it says so and offers a refresh — never a silent zero.
+- **Operations** (Topic F, from the index `kind`): Asset management (deposit / withdraw / rebalance / owner allocation) · Transactions (payments, instant and delayed, queued actions) · Risk control (guardian pause, resume, emergency unwind, intentional reverts) · Owner / setup (Safe creation, module enable, policy configuration). Compound kinds read the first recorded operation.
+- **Row = one recorded transaction:** source badge (AI agent / App / Owner / Script), time (recorded block time, or "Block N", or "Time not recorded"), amount when the index recorded one, planner chip, BaseScan link.
+- **Live receipt check on tap:** the pinned Base Sepolia RPC returns the real receipt, verified against the recorded block and its canonical header hash; the sheet shows Confirmed / Reverted, gas, and block time. Read-only — nothing is signed. Verification failure is stated plainly with a retry.
+- **Deployed contracts:** every address from `deployments/84532.json` with BaseScan links.
+- Missing index: "No transaction index yet." with the hint and refresh.
+
 ## Safety — "Attacks blocked by contract and policy guards"
 
 - **Score**: 23 / 24 attacks stopped · 0 attacks succeeded (frozen 0/30 · held-out 0/20), measured time, links to arena evidence and the held-out evaluation.
@@ -90,4 +106,5 @@ Freshness: cached snapshot paints instantly; "Updated N s ago · refreshing" unt
 ## Settings and Judge mode
 
 - Network & deployment (addresses, Sourcify verification links), on-device model (hash, size, last latency, re-download/verify), keys (imported or not; remove), language, redo setup, about.
+- **Verified on-chain proof (K43):** quick entry into the Proof screen (same as the Home chip).
 - **Judge mode**: every evidence row with its transaction link, plus the two verify commands (`bash scripts/judge/verify_all.sh` → 48/48 with no keys).

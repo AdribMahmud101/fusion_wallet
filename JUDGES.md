@@ -10,8 +10,8 @@
    **https://github.com/AdribMahmud101/fusion_wallet/releases/download/app-latest/fusion-wallet.apk**
    (allow installing from your browser when asked; SHA-256 in the `.sha256` file next to it).
 2. Sign in with one tap: choose **Guest Judge** (view-only) or **Lin Mei** (owner) on the sign-in screen — the demo credentials fill in automatically.
-3. First-run setup (6 steps, each with **Skip**): live treasury checks read from Base Sepolia, and the on-device AI model download (~131 MB, SHA-256 verified, about a minute on Wi-Fi). Skip the model to browse instantly in monitor mode.
-4. Tour: **Home** (treasury, buckets) → **AI Agent** (*Run Agent* = the on-device model decides on live chain state) → **Activity** (every on-chain action, with BaseScan links) → **Safety** (23/24 attacks stopped, with evidence) → **Settings → Judge mode** (every evidence row).
+3. First-run setup (6 steps, each with **Skip**): live treasury checks read from Base Sepolia, and the on-device AI model download (~131 MB, SHA-256 verified, about a minute on Wi-Fi). Skip the model to browse instantly in monitor mode — or choose **Watch the live demo wallet** at step 1 to skip setup entirely: the public APK holds no keys, so you watch the real wallet the AI runs, read-only.
+4. Tour: **Home** (treasury, buckets) → **AI Agent** (*Run Agent* = the on-device model decides on live chain state) → **Activity** (every on-chain action, with BaseScan links) → **Safety** (23/24 attacks stopped, with evidence) → **"Verified on-chain" chip on Home or Settings → Verified on-chain proof** (the K43 proof screen: every recorded transaction grouped by AI operation, live receipt checks, deployed contracts, and the attack arena report) → **Settings → Judge mode** (every evidence row).
 
 Every number in the app is read from the chain or from the evidence files in this repository.
 
