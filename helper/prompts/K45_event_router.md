@@ -36,3 +36,12 @@ Unify when the agent thinks:
    epoch reset, hard max, any per-move cap) and the policy reader; find which number is wrong or stale, fix it at the source, and make
    every screen (Home, AI Agent, Safety) show the same numbers from one formatter. Reuse K37's allowance labels if merged. If the
    daily counter has reset since `daily_used` was recorded, say "resets at <time>" instead of showing a stale number.
+12. No endless scroll. The AI Agent screen must fit in about 2 phone screens (1080x2436) at most:
+   - Top: compact Autopilot hero (status, toggle, interval, Run now, next tick countdown) in one card.
+   - Then a 2x2 bento of small summary tiles: Daily limit (ring), Decision mix (mini bar), Queue (count), How it decides (opens sheet).
+   - Then the timeline: show the latest 5 rows only, with "See all ticks" opening a full-screen list or bottom sheet.
+   - Everything long (decision detail, candidates, policy checks, passport, how it decides) lives in sheets or collapsed sections,
+     never inline. Policy checks: summary line "16 passed · 0 failed" that expands.
+   - Use segmented tabs inside the screen if needed (e.g. "Autopilot | Decisions | Limits") rather than stacking.
+   Apply the same rule to Home and Safety if they exceed ~2.5 screens: collapse secondary cards, move detail to sheets.
+   Take before/after screenshots on the emulator or describe heights in the commit message.
