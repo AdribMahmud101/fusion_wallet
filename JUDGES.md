@@ -1,9 +1,19 @@
-# Fusion Wallet — Judge Verification Guide
-> **FinTechathon 2026 (Topic F — Self-Driving Money)**  
-> **Repository Worktree:** `/root/projects/fusion_wallet-wt/K19`  
-> **Target Network:** Base Sepolia (Chain ID 84532)
+# Fusion Wallet — for judges
+> **FinTechathon 2026 · International Track · Topic F — Agent Wallet**
+> **Network:** Base Sepolia (chain 84532) · test money only
 
 ---
+
+## Try the app in 2 minutes (no build needed)
+
+1. On an arm64 Android phone (Android 10+), download and install
+   **https://github.com/AdribMahmud101/fusion_wallet/releases/download/app-latest/fusion-wallet.apk**
+   (allow installing from your browser when asked; SHA-256 in the `.sha256` file next to it).
+2. Sign in with one tap: choose **Guest Judge** (view-only) or **Lin Mei** (owner) on the sign-in screen — the demo credentials fill in automatically.
+3. First-run setup (6 steps, each with **Skip**): live treasury checks read from Base Sepolia, and the on-device AI model download (~131 MB, SHA-256 verified, about a minute on Wi-Fi). Skip the model to browse instantly in monitor mode.
+4. Tour: **Home** (treasury, buckets) → **AI Agent** (*Run Agent* = the on-device model decides on live chain state) → **Activity** (every on-chain action, with BaseScan links) → **Safety** (23/24 attacks stopped, with evidence) → **Settings → Judge mode** (every evidence row).
+
+Every number in the app is read from the chain or from the evidence files in this repository.
 
 ## Verify in 2 Minutes (Keyless & Read-Only)
 
