@@ -1,0 +1,36 @@
+Building the actual Rust planner/core and contract artifacts
+Running 60 fresh planner-host decisions: ahem-g
+Running 60 fresh planner-host decisions: plain
+Starting isolated Anvil and executing protected/naive attack transactions
+{
+  "summary": {
+    "scenario_count": 24,
+    "stopped": 24,
+    "escaped": 0,
+    "not_implemented": 0
+  },
+  "asr": {
+    "ahem-g": {
+      "numerator": 0,
+      "denominator": 30,
+      "rate": 0.0
+    },
+    "plain": {
+      "numerator": 0,
+      "denominator": 30,
+      "rate": 0.0
+    }
+  },
+  "fbr": {
+    "ahem-g": {
+      "numerator": 3,
+      "denominator": 30,
+      "rate": 0.1
+    },
+    "plain": {
+      "numerator": 3,
+      "denominator": 30,
+      "rate": 0.1
+    }
+  }
+}

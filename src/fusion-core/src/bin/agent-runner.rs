@@ -17,7 +17,7 @@ use fusion_core::passport::{
     PassportSnapshot, PlannerMetadata,
 };
 use fusion_core::planner_io::build_planner_prompt;
-use fusion_core::preview::{preview_candidate, RuleStatus};
+use fusion_core::preview::{preview_candidate, preview_proposal, RuleStatus};
 use fusion_core::sign::{
     sign_eip1559_transaction, sign_guardian_pause_transaction, PreparedTransaction,
     SessionSigningPolicy,
@@ -1065,29 +1065,10 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
             .unwrap_or_else(|| candidate_set.hold.clone())
     };
 
-    // Workaround for library bug in candidates.rs (§10.4): candidates.rs hardcodes deadline = now + 120,
-    // which violates KavachiPolicyLib requirement (deadline >= now + delaySeconds + 30) for queued actions.
+    // Reuse the exact queued action when executing an existing queue.
+    // New proposal deadlines are constructed in candidates.rs before hashing.
     if choice.route == Route::Queue {
-        if !snapshot.queue.exists {
-            let queue_deadline =
-                snapshot.block_timestamp + snapshot.policy.delay_seconds as u64 + 600;
-            choice.action.deadline = queue_deadline;
-            choice.id = fusion_core::hashing::compute_candidate_id_from_action(
-                U256::from(chain_id),
-                safe,
-                module,
-                snapshot.module_state.mandate_hash,
-                snapshot.module_state.session_id,
-                snapshot.block_hash,
-                &choice.action,
-            );
-            for c in &mut candidate_set.candidates {
-                if c.label == choice.label {
-                    c.action.deadline = queue_deadline;
-                    c.id = choice.id;
-                }
-            }
-        } else if snapshot.queue.exists
+        if snapshot.queue.exists
             && snapshot.queue.action.obligation_id_hash == choice.action.obligation_id_hash
         {
             let mut q_act = snapshot.queue.action.clone();
@@ -1208,8 +1189,8 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     };
     println!("Decision passport JCS hash: {decision_hash:#x}");
 
-    // 7. Preview Verification (§10.7)
-    let preview = preview_candidate(
+    // 7. Preview Verification (§10.7): explicitly admit queue creation proposals.
+    let preview = preview_proposal(
         &choice,
         &snapshot,
         decision_hash,
@@ -1219,15 +1200,7 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
     );
 
     let is_queue_creation = choice.route == Route::Queue && !snapshot.queue.exists;
-    let preview_passed = if is_queue_creation {
-        // In queue creation phase, Check 6 (delay gate) is deferred until readyAt
-        preview
-            .checks
-            .iter()
-            .all(|c| c.rule_id == "RULE_6_TIER_ROUTE" || c.status == RuleStatus::Pass)
-    } else {
-        preview.passed
-    };
+    let preview_passed = preview.passed;
 
     if choice.label != "H" {
         if !preview_passed {
@@ -1242,7 +1215,7 @@ async fn run_step(args: &RunnerArgs) -> Result<(), Box<dyn std::error::Error>> {
             }
         } else {
             if is_queue_creation {
-                println!("Preview passed for action queueing (Rule 6 deferred until readyAt).");
+                println!("Preview passed for queue creation; execution still requires readyAt.");
             } else {
                 println!("Preview passed all 7 normative rule gates.");
             }

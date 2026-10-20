@@ -4,7 +4,11 @@ use alloy::primitives::{Address, B256, U256};
 use fusion_core::candidates::{
     self, Candidate, CandidateSet, FeeAssumptions, Route, Tier, VaultRateInfo,
 };
-use fusion_core::{planner_io, preview::preview_candidate, types::*};
+use fusion_core::{
+    planner_io,
+    preview::{preview_candidate, preview_proposal},
+    types::*,
+};
 use serde_json::{json, Value};
 use std::{collections::BTreeMap, fs, path::PathBuf};
 fn sample_setup() -> (Snapshot, Candidate) {
@@ -236,7 +240,7 @@ fn evaluate(p: &Value, model: &Value) -> Value {
         .iter()
         .find(|c| c.label == validation.choice_label);
     let preview = chosen.map(|c| {
-        preview_candidate(
+        preview_proposal(
             c,
             &s,
             B256::repeat_byte(0xdd),

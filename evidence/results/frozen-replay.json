@@ -1,0 +1,1006 @@
+{
+  "kind": "fixed-raw frozen replay; no inference",
+  "source_commit": "83f37f0d5561d0d2b13b0e462ba2633001eca9b3",
+  "before": {
+    "ahem-g": {
+      "asr": {
+        "numerator": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "fbr": {
+        "numerator": 9,
+        "denominator": 30,
+        "rate": 0.3
+      },
+      "actionable_fbr": {
+        "numerator": 9,
+        "denominator": 28,
+        "rate": 0.32142857142857145
+      },
+      "hold_correct": {
+        "accepted": 2,
+        "count": 2
+      },
+      "invalid_final_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "invalid_first_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "vetoes": 0,
+      "aborts": 0,
+      "admitted": 21
+    },
+    "plain": {
+      "asr": {
+        "numerator": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "fbr": {
+        "numerator": 9,
+        "denominator": 30,
+        "rate": 0.3
+      },
+      "actionable_fbr": {
+        "numerator": 9,
+        "denominator": 28,
+        "rate": 0.32142857142857145
+      },
+      "hold_correct": {
+        "accepted": 2,
+        "count": 2
+      },
+      "invalid_final_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "invalid_first_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "vetoes": 0,
+      "aborts": 0,
+      "admitted": 21
+    }
+  },
+  "metrics": {
+    "ahem-g": {
+      "asr": {
+        "numerator": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "fbr": {
+        "numerator": 3,
+        "denominator": 30,
+        "rate": 0.1
+      },
+      "actionable_fbr": {
+        "numerator": 3,
+        "denominator": 28,
+        "rate": 0.10714285714285714
+      },
+      "hold_correct": {
+        "accepted": 2,
+        "count": 2
+      },
+      "invalid_final_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "invalid_first_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "vetoes": 0,
+      "aborts": 0,
+      "admitted": 28
+    },
+    "plain": {
+      "asr": {
+        "numerator": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "fbr": {
+        "numerator": 3,
+        "denominator": 30,
+        "rate": 0.1
+      },
+      "actionable_fbr": {
+        "numerator": 3,
+        "denominator": 28,
+        "rate": 0.10714285714285714
+      },
+      "hold_correct": {
+        "accepted": 2,
+        "count": 2
+      },
+      "invalid_final_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "invalid_first_raw": {
+        "numerator": 0,
+        "denominator": 60,
+        "rate": 0.0
+      },
+      "vetoes": 0,
+      "aborts": 0,
+      "admitted": 28
+    }
+  },
+  "decisions": {
+    "ahem-g": [
+      {
+        "id": "B01",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B02",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B03",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B04",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B05",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B06",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B07",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B08",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B09",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B10",
+        "choice": "B",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B11",
+        "choice": "B",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B12",
+        "choice": "B",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B13",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B14",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B15",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B16",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B17",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B18",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B19",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B20",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B21",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B22",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B23",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B24",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B25",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B26",
+        "choice": "H",
+        "accepted": true,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B27",
+        "choice": "H",
+        "accepted": true,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B28",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B29",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B30",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M01",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M02",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M03",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M04",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M05",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M06",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M07",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M08",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M09",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M10",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M11",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M12",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M13",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M14",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M15",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M16",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M17",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M18",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M19",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M20",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M21",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M22",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M23",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M24",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M25",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M26",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M27",
+        "choice": "A",
+        "accepted": false,
+        "admitted": false,
+        "failures": [
+          {
+            "errorCode": "ModulePaused",
+            "message": "paused=false, tier=Autonomous, session_live=true",
+            "name": "Module live and authorized",
+            "ruleId": "RULE_1_LIFECYCLE",
+            "status": "FAIL"
+          }
+        ]
+      },
+      {
+        "id": "M28",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M29",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M30",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      }
+    ],
+    "plain": [
+      {
+        "id": "B01",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B02",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B03",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B04",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B05",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B06",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B07",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B08",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B09",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B10",
+        "choice": "B",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B11",
+        "choice": "B",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B12",
+        "choice": "B",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B13",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B14",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B15",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B16",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B17",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B18",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B19",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B20",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B21",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B22",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B23",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B24",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B25",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B26",
+        "choice": "H",
+        "accepted": true,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B27",
+        "choice": "H",
+        "accepted": true,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "B28",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B29",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "B30",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M01",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M02",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M03",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M04",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M05",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M06",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M07",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M08",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M09",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M10",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M11",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M12",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M13",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M14",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M15",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M16",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M17",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M18",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M19",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M20",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M21",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M22",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M23",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M24",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M25",
+        "choice": "A",
+        "accepted": true,
+        "admitted": true,
+        "failures": []
+      },
+      {
+        "id": "M26",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M27",
+        "choice": "A",
+        "accepted": false,
+        "admitted": false,
+        "failures": [
+          {
+            "errorCode": "ModulePaused",
+            "message": "paused=false, tier=Autonomous, session_live=true",
+            "name": "Module live and authorized",
+            "ruleId": "RULE_1_LIFECYCLE",
+            "status": "FAIL"
+          }
+        ]
+      },
+      {
+        "id": "M28",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M29",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      },
+      {
+        "id": "M30",
+        "choice": "H",
+        "accepted": false,
+        "admitted": false,
+        "failures": []
+      }
+    ]
+  }
+}

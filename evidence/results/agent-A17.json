@@ -15,5 +15,22 @@
     "gasUsed": 0,
     "passport": "evidence/agent/passports/0x9d7d9d0a7f3e232665d02ef3de043dca6db1d3181495d69c68f606ad3ba50ad7.json",
     "passportFile": "0x9d7d9d0a7f3e232665d02ef3de043dca6db1d3181495d69c68f606ad3ba50ad7.json"
+  },
+  {
+    "id": "A17",
+    "source": "AGENT",
+    "planner": "critical_latch",
+    "host": "linux-host",
+    "decisionHash": "0x2fa84ea2922ed0d2c9f6b471a8982d12878518f00f6ecb3fbfb9b9fc79d1e27d",
+    "actionDigest": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "candidateId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "choiceLabel": "H",
+    "kind": "HOLD",
+    "route": "HOLD",
+    "status": 1,
+    "blockNumber": 28,
+    "gasUsed": 0,
+    "passport": "evidence/agent/passports/0x2fa84ea2922ed0d2c9f6b471a8982d12878518f00f6ecb3fbfb9b9fc79d1e27d.json",
+    "passportFile": "0x2fa84ea2922ed0d2c9f6b471a8982d12878518f00f6ecb3fbfb9b9fc79d1e27d.json"
   }
 ]

@@ -1,0 +1,573 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling libc v0.2.190
+   Compiling serde_core v1.0.229
+   Compiling serde v1.0.229
+   Compiling cfg-if v1.0.5
+   Compiling zeroize v1.9.1
+   Compiling typenum v1.20.1
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling subtle v2.6.1
+   Compiling version_check v0.9.5
+   Compiling const-oid v0.9.6
+   Compiling generic-array v0.14.9
+   Compiling once_cell v1.21.4
+   Compiling unicode-segmentation v1.13.3
+   Compiling hybrid-array v0.4.15
+   Compiling syn v3.0.9
+   Compiling syn v2.0.119
+   Compiling convert_case v0.10.0
+   Compiling getrandom v0.2.17
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.6
+   Compiling foldhash v0.2.0
+   Compiling ruint-macro v1.2.1
+   Compiling unicode-xid v0.2.6
+   Compiling rand_core v0.6.4
+   Compiling paste v1.0.15
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.3.1
+   Compiling block-buffer v0.12.1
+   Compiling crypto-common v0.2.2
+   Compiling keccak v0.2.2
+   Compiling pin-project-lite v0.2.17
+   Compiling der v0.7.10
+   Compiling ff v0.13.1
+   Compiling base16ct v0.2.0
+   Compiling group v0.13.0
+   Compiling hmac v0.12.1
+   Compiling crypto-bigint v0.5.5
+   Compiling arrayvec v0.7.8
+   Compiling hashbrown v0.17.1
+   Compiling digest v0.11.3
+   Compiling sha3 v0.11.0
+   Compiling rfc6979 v0.4.0
+   Compiling sec1 v0.7.3
+   Compiling spki v0.7.3
+   Compiling signature v2.2.0
+   Compiling cpufeatures v0.2.17
+   Compiling zmij v1.0.23
+   Compiling const-hex v1.19.3
+   Compiling sha2 v0.10.9
+   Compiling dunce v1.0.5
+   Compiling winnow v1.0.4
+   Compiling equivalent v1.0.2
+   Compiling elliptic-curve v0.13.8
+   Compiling heck v0.5.0
+   Compiling thiserror v2.0.21
+   Compiling ecdsa v0.16.9
+   Compiling strsim v0.11.1
+   Compiling futures-core v0.3.34
+   Compiling serde_json v1.0.154
+   Compiling ident_case v1.0.1
+   Compiling stable_deref_trait v1.2.1
+   Compiling tracing-core v0.1.36
+   Compiling k256 v0.13.4
+   Compiling indexmap v2.14.2
+   Compiling ruint v1.20.1
+   Compiling synstructure v0.14.0
+   Compiling socket2 v0.6.5
+   Compiling mio v1.2.4
+   Compiling jobserver v0.1.35
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.14
+   Compiling cc v1.8.0
+   Compiling macro-string v0.2.0
+   Compiling syn-solidity v1.7.3
+   Compiling proc-macro-error-attr3 v3.0.1
+   Compiling fs_extra v1.3.0
+   Compiling futures-sink v0.3.34
+   Compiling futures-io v0.3.34
+   Compiling bitflags v2.13.2
+   Compiling pkg-config v0.3.34
+   Compiling derive_more-impl v2.1.1
+   Compiling alloy-rlp-derive v0.3.16
+   Compiling tracing-attributes v0.1.31
+   Compiling serde_derive v1.0.229
+   Compiling thiserror-impl v2.0.21
+   Compiling zerofrom-derive v0.1.8
+   Compiling yoke-derive v0.8.4
+   Compiling tracing v0.1.44
+   Compiling tokio-macros v2.7.2
+   Compiling zerovec-derive v0.11.6
+   Compiling zerofrom v0.1.8
+   Compiling displaydoc v0.2.7
+   Compiling cmake v0.1.58
+   Compiling yoke v0.8.3
+   Compiling auto_impl v1.4.0
+   Compiling proc-macro-error3 v3.0.1
+   Compiling aws-lc-sys v0.46.0
+   Compiling darling_core v0.24.1
+   Compiling zerovec v0.11.8
+   Compiling writeable v0.6.4
+   Compiling litemap v0.8.3
+   Compiling zerotrie v0.2.5
+   Compiling futures-macro v0.3.34
+   Compiling futures-channel v0.3.34
+   Compiling tinystr v0.8.4
+   Compiling potential_utf v0.1.6
+   Compiling icu_locale_core v2.3.0
+   Compiling icu_properties_data v2.3.0
+   Compiling bytes v1.12.1
+   Compiling smallvec v1.16.3
+   Compiling alloy-sol-type-parser v1.7.3
+   Compiling either v1.19.0
+   Compiling derive_more v2.1.1
+   Compiling alloy-primitives v1.7.3
+   Compiling darling_core v0.23.0
+   Compiling alloy-rlp v0.3.16
+   Compiling tokio v1.53.2
+   Compiling http v1.5.0
+   Compiling slab v0.4.12
+   Compiling icu_normalizer_data v2.3.0
+   Compiling crc-catalog v2.5.0
+   Compiling alloy-json-abi v1.7.3
+   Compiling darling_macro v0.24.1
+   Compiling utf8_iter v1.0.4
+   Compiling futures-task v0.3.34
+   Compiling aws-lc-rs v1.18.2
+   Compiling futures-util v0.3.34
+   Compiling icu_collections v2.3.0
+   Compiling darling v0.24.1
+   Compiling serde_with_macros v3.24.0
+   Compiling alloy-sol-macro-input v1.7.3
+   Compiling alloy-sol-macro-expander v1.7.3
+   Compiling darling_macro v0.23.0
+   Compiling crc v3.4.0
+   Compiling icu_provider v2.3.1
+   Compiling anyhow v1.0.104
+   Compiling darling v0.23.0
+   Compiling serde_with v3.24.0
+   Compiling alloy-eip2124 v0.2.0
+   Compiling alloy-eip7702 v0.6.3
+   Compiling alloy-eip7928 v0.4.11
+   Compiling alloy-serde v2.5.0
+   Compiling alloy-eip2930 v0.2.4
+   Compiling alloy-eip8141 v0.1.1
+   Compiling nybbles v0.4.8
+   Compiling rustls-pki-types v1.15.1
+   Compiling siphasher v1.0.4
+   Compiling getrandom v0.4.3
+   Compiling rustix v1.1.5
+   Compiling percent-encoding v2.3.2
+   Compiling alloy-trie v0.9.8
+   Compiling icu_normalizer v2.3.0
+   Compiling alloy-tx-macros v2.5.0
+   Compiling alloy-eips v2.5.0
+   Compiling alloy-sol-macro v1.7.3
+   Compiling icu_properties v2.3.0
+   Compiling http-body v1.1.0
+   Compiling httparse v1.10.1
+   Compiling untrusted v0.9.0
+   Compiling linux-raw-sys v0.12.1
+   Compiling tower-service v0.3.3
+   Compiling rustls v0.23.45
+   Compiling alloy-sol-types v1.7.3
+   Compiling itertools v0.14.0
+   Compiling try-lock v0.2.5
+   Compiling alloy-consensus v2.5.0
+   Compiling parking_lot_core v0.9.12
+   Compiling idna_adapter v1.2.2
+   Compiling log v0.4.34
+   Compiling fastrand v2.5.0
+   Compiling idna v1.1.0
+   Compiling want v0.3.2
+   Compiling uniffi_internal_macros v0.32.2
+   Compiling form_urlencoded v1.2.2
+   Compiling sync_wrapper v1.0.2
+   Compiling tower-layer v0.3.3
+   Compiling atomic-waker v1.1.2
+   Compiling scopeguard v1.2.0
+   Compiling tower v0.5.3
+   Compiling lock_api v0.4.14
+   Compiling hyper v1.12.0
+   Compiling url v2.5.8
+   Compiling tempfile v3.27.0
+   Compiling alloy-json-rpc v2.5.0
+   Compiling ipnet v2.12.2
+   Compiling openssl-probe v0.2.1
+   Compiling zerocopy v0.8.62
+   Compiling alloy-network-primitives v2.5.0
+   Compiling alloy-consensus-any v2.5.0
+   Compiling futures-utils-wasm v0.1.0
+   Compiling base64 v0.23.1
+   Compiling rustls-native-certs v0.8.5
+   Compiling futures-executor v0.3.34
+   Compiling alloy-rpc-types-eth v2.5.0
+   Compiling rustversion v1.0.23
+   Compiling rustc-hash v2.1.3
+   Compiling hyper-util v0.1.21
+   Compiling autocfg v1.5.1
+   Compiling askama_parser v0.16.1
+   Compiling futures v0.3.34
+   Compiling parking_lot v0.12.5
+   Compiling tower-http v0.6.11
+   Compiling fs-err v3.3.2
+   Compiling http-body-util v0.1.5
+   Compiling basic-toml v0.1.10
+   Compiling async-trait v0.1.92
+   Compiling toml_writer v1.1.3+spec-1.1.0
+   Compiling crossbeam-utils v0.8.23
+   Compiling glob v0.3.4
+   Compiling camino v1.2.6
+   Compiling base64 v0.22.1
+   Compiling minimal-lexical v0.2.1
+   Compiling alloy-transport v2.5.0
+   Compiling alloy-signer v2.5.0
+   Compiling nom v7.1.3
+   Compiling uniffi_pipeline v0.32.2
+   Compiling alloy-rpc-types-any v2.5.0
+   Compiling phf_shared v0.14.0
+   Compiling tokio-util v0.7.20
+   Compiling pin-project-internal v1.1.13
+   Compiling scroll_derive v0.12.1
+   Compiling num_enum_derive v0.7.6
+   Compiling smawk v0.3.3
+   Compiling askama_derive v0.16.1
+   Compiling weedle2 v5.0.0
+   Compiling scroll v0.12.0
+   Compiling pin-project v1.1.13
+   Compiling textwrap v0.16.4
+   Compiling num_enum v0.7.6
+   Compiling tokio-stream v0.1.19
+   Compiling phf v0.14.0
+   Compiling ppv-lite86 v0.2.21
+   Compiling alloy-network v2.5.0
+   Compiling rand_chacha v0.3.1
+   Compiling uniffi_meta v0.32.2
+   Compiling async-stream-impl v0.3.6
+   Compiling toml_parser v1.1.5+spec-1.1.0
+   Compiling toml_datetime v1.1.2+spec-1.1.0
+   Compiling serde_spanned v1.1.2
+   Compiling semver v1.0.28
+   Compiling cargo-platform v0.3.3
+   Compiling clap_lex v1.1.1
+   Compiling hashbrown v0.14.5
+   Compiling plain v0.2.3
+   Compiling anstyle v1.0.14
+   Compiling goblin v0.8.2
+   Compiling cargo_metadata v0.23.1
+   Compiling toml v1.1.8+spec-1.1.0
+   Compiling clap_builder v4.6.7
+   Compiling async-stream v0.3.6
+   Compiling dashmap v6.2.1
+   Compiling askama_macros v0.16.1
+   Compiling uniffi_udl v0.32.2
+   Compiling askama v0.16.1
+   Compiling rand v0.8.8
+   Compiling alloy-chains v0.2.39
+   Compiling async-compat v0.2.6
+   Compiling clap_derive v4.6.7
+   Compiling lru v0.18.5
+   Compiling static_assertions v1.1.0
+   Compiling alloy-signer-local v2.5.0
+   Compiling uniffi_core v0.32.2
+   Compiling alloy-rpc-types v2.5.0
+   Compiling alloy-core v1.7.3
+   Compiling uniffi_bindgen v0.32.2
+   Compiling uniffi_macros v0.32.2
+   Compiling clap v4.6.7
+   Compiling rustls-webpki v0.103.15
+   Compiling tokio-rustls v0.26.6
+   Compiling rustls-platform-verifier v0.7.1
+   Compiling hyper-rustls v0.27.10
+   Compiling reqwest v0.13.5
+   Compiling alloy-transport-http v2.5.0
+   Compiling alloy-rpc-client v2.5.0
+   Compiling alloy-provider v2.5.0
+   Compiling alloy v2.5.0
+   Compiling uniffi v0.32.2
+   Compiling fusion-core v0.1.0 (/root/projects/fusion_wallet-wt/K36R/src/fusion-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7m 10s
+     Running unittests src/lib.rs (src/fusion-core/target/debug/deps/fusion_core-9afc09ca19881890)
+
+running 140 tests
+test amount::tests::checked_arithmetic ... ok
+test buckets::tests::test_underfunded_treasury ... ok
+test amount::tests::parses_raw_strings ... ok
+test buckets::tests::test_healthy_treasury_with_surplus ... ok
+test amount::tests::rejects_more_than_6_decimals ... ok
+test amount::tests::parses_and_formats_decimals ... ok
+test config::tests::builtin_asset_literals_agree_with_their_bytes ... ok
+test config::tests::applies_defaults_when_only_rpc_url_is_set ... ok
+test config::tests::blank_ledger_path_is_treated_as_unset ... ok
+test config::tests::rejects_non_http_rpc_urls ... ok
+test config::tests::parses_overrides ... ok
+test config::tests::rejects_malformed_overrides ... ok
+test config::tests::rejects_non_positive_limits ... ok
+test config::tests::rejects_unknown_token_symbols ... ok
+test config::tests::requires_rpc_url ... ok
+test config::tests::reports_decimals_and_symbols ... ok
+test config::tests::resolves_tokens_by_symbol_case_insensitively_and_by_address ... ok
+test executor::tests::accepts_keys_without_the_hex_prefix ... ok
+test executor::tests::approval_cap_survives_a_maximal_uint256 ... ok
+test executor::tests::debug_never_reveals_the_secret ... ok
+test encode::tests::encodes_execute_calldata ... ok
+test executor::tests::erc20_approve_is_capped ... ok
+test executor::tests::erc20_approve_targets_the_token_and_encodes_real_calldata ... ok
+test executor::tests::erc20_transfer_calldata_decodes_back_to_the_arguments ... ok
+test executor::tests::erc20_transfer_targets_the_token_and_encodes_real_calldata ... ok
+test executor::tests::key_errors_never_echo_the_secret ... ok
+test executor::tests::loads_a_known_private_key ... ok
+test executor::tests::native_transfer_carries_to_and_value ... ok
+test executor::tests::never_places_the_signer_in_the_request ... ok
+test executor::tests::rejects_malformed_private_keys ... ok
+test executor::tests::routes_erc20_reservations_to_token_calls ... ok
+test executor::tests::routes_native_reservations_to_value_transfers ... ok
+test executor::tests::tolerates_surrounding_whitespace ... ok
+test guardrails::tests::accepts_a_positive_finite_amount ... ok
+test guardrails::tests::amount_minor_is_authoritative_when_consistent ... ok
+test guardrails::tests::amount_minor_must_be_digits ... ok
+test guardrails::tests::amount_minor_still_requires_a_sane_float_companion ... ok
+test guardrails::tests::amount_minor_that_contradicts_amount_is_rejected ... ok
+test guardrails::tests::atomic_amounts_that_fit_f64_but_contradict_the_claim_are_rejected ... ok
+test guardrails::tests::atomic_amounts_too_large_for_f64_are_rejected ... ok
+test guardrails::tests::blank_amount_minor_falls_back_to_the_float ... ok
+test guardrails::tests::destination_accepts_a_valid_address ... ok
+test guardrails::tests::commit_persists_and_survives_a_fresh_engine ... ok
+test guardrails::tests::corrupt_ledger_falls_back_to_empty ... ok
+test guardrails::tests::destination_rejects_malformed_and_zero_addresses ... ok
+test guardrails::tests::destination_requires_a_value ... ok
+test guardrails::tests::engine_approves_a_well_formed_transfer ... ok
+test guardrails::tests::engine_blocks_unlisted_tokens_including_native ... ok
+test guardrails::tests::engine_blocks_unsupported_actions ... ok
+test guardrails::tests::engine_debug_does_not_leak_configuration_secrets ... ok
+test guardrails::tests::engine_enforces_the_daily_cap_across_calls ... ok
+test guardrails::tests::engine_resolves_tokens_given_as_addresses ... ok
+test guardrails::tests::engine_from_env_reports_config_errors ... ok
+test guardrails::tests::engine_size_limit_beats_the_daily_cap ... ok
+test guardrails::tests::error_codes_are_stable ... ok
+test guardrails::tests::fresh_ledger_starts_empty ... ok
+test guardrails::tests::future_ledger_version_falls_back_to_empty ... ok
+test guardrails::tests::ledger_json_shape_is_stable ... ok
+test guardrails::tests::ledger_creates_missing_parent_directories ... ok
+test guardrails::tests::native_asset_must_be_opted_into ... ok
+test guardrails::tests::nonsensical_ledger_values_fall_back_to_empty ... ok
+test guardrails::tests::only_transfer_is_executable ... ok
+test guardrails::tests::ledger_round_trips_through_the_configured_path ... ok
+test guardrails::tests::engine_survives_a_poisoned_lock ... ok
+test guardrails::tests::ledger_rolls_over_when_the_day_changes ... ok
+test guardrails::tests::persist_reports_an_unwritable_target ... ok
+test guardrails::tests::persist_without_a_path_is_a_no_op ... ok
+test guardrails::tests::rejects_non_finite_amounts ... ok
+test guardrails::tests::rejects_non_finite_and_non_positive_float_amounts ... ok
+test guardrails::tests::rejects_zero_and_negative_amounts ... ok
+test guardrails::tests::release_refunds_a_failed_transaction ... ok
+test guardrails::tests::release_returns_budget_and_clamps_at_zero ... ok
+test guardrails::tests::resolves_float_amounts_without_precision_drift ... ok
+test guardrails::tests::tx_size_allows_exactly_the_limit ... ok
+test guardrails::tests::tx_size_rejects_one_cent_over_the_limit ... ok
+test guardrails::tests::uncommitted_reservations_do_not_persist ... ok
+test guardrails::tests::rollover_preserves_the_persisted_previous_day ... ok
+test guardrails::tests::velocity_allows_landing_exactly_on_the_cap ... ok
+test guardrails::tests::velocity_rejects_one_cent_over_the_cap ... ok
+test guardrails::tests::velocity_reports_the_full_projection ... ok
+test guardrails::tests::whitelist_accepts_only_listed_assets ... ok
+test guardrails::tests::whitelist_rejects_unregistered_token ... ok
+test manifest::tests::parses_and_validates_valid_manifest ... ok
+test manifest::tests::parses_vault_implementations_from_contracts_and_field ... ok
+test manifest::tests::rejects_unsupported_chain_id ... ok
+test merkle::tests::empty_tree_returns_empty_root ... ok
+test merkle::tests::single_leaf_root_equals_leaf ... ok
+test models::tests::parses_a_complete_transfer_intent ... ok
+test models::tests::parses_a_minimal_intent_with_optional_fields_absent ... ok
+test models::tests::parses_every_action_variant ... ok
+test models::tests::parses_exact_amount_minor_field ... ok
+test models::tests::rejects_malformed_json ... ok
+test models::tests::rejects_missing_required_fields ... ok
+test models::tests::rejects_out_of_range_number_literals ... ok
+test models::tests::rejects_unknown_fields ... ok
+test models::tests::rejects_unrecognised_action ... ok
+test models::tests::rejects_wrongly_typed_amount ... ok
+test models::tests::result_constructors_set_status_and_hash ... ok
+test models::tests::result_round_trips_through_json ... ok
+test models::tests::serializes_result_to_expected_json_contract ... ok
+test passport::tests::canonicalizes_matching_reference_vector ... ok
+test planner_io::tests::facts_preserve_small_amounts_routes_and_binding ... ok
+test planner_io::tests::note_cannot_forge_candidate_lines_and_is_character_capped ... ok
+test planner_io::tests::review_binds_approval_to_policy_proposal_without_relabeling ... ok
+test planner_io::tests::review_passport_records_veto_and_honest_kind ... ok
+test planner_io::tests::review_policy_fallback_excludes_withdraw_and_rejected_routes ... ok
+test planner_io::tests::test_hold_choice ... ok
+test planner_io::tests::test_invalid_choice_falls_back_to_hold_with_retry ... ok
+test planner_io::tests::test_valid_json_choice ... ok
+test router::tests::a_bad_key_does_not_consume_daily_budget ... ok
+test router::tests::a_bad_private_key_is_a_failure_not_a_guardrail_block ... ok
+test router::tests::a_panicking_pipeline_is_converted_into_a_failure ... ok
+test router::tests::configure_rejects_invalid_json ... ok
+test router::tests::configure_rejects_invalid_settings ... ok
+test router::tests::execute_reports_a_configuration_failure_without_panicking ... ok
+test router::tests::guardrail_rejections_are_reported_with_their_rule_code ... ok
+test router::tests::host_settings_go_through_the_same_validation_as_the_environment ... ok
+test router::tests::host_settings_mirror_the_environment_variables ... ok
+test router::tests::host_settings_reject_unknown_fields_and_bad_json ... ok
+test router::tests::install_engine_refuses_to_reconfigure_after_startup ... ok
+test router::tests::malformed_json_is_blocked_before_any_key_or_rpc_access ... ok
+test sign::tests::a12_exact_prepared_transaction_is_refused ... ok
+test sign::tests::guardian_pause_is_separate_and_bounded ... ok
+test sign::tests::queue_entrypoint_is_signable ... ok
+test sign::tests::refuses_erc20_even_at_module_address ... ok
+test sign::tests::refuses_missing_truncated_invalid_and_noncanonical_calldata ... ok
+test sign::tests::refuses_native_value ... ok
+test sign::tests::refuses_owner_and_guardian_entrypoints ... ok
+test sign::tests::refuses_wrong_chain ... ok
+test sign::tests::refuses_wrong_destination ... ok
+test snapshot::tests::test_convert_module_state_mapping ... ok
+test snapshot::tests::test_convert_policy_invalid_tier ... ok
+test snapshot::tests::test_convert_policy_mapping ... ok
+test tests::core_version_reports_expected_contract ... ok
+test tests::hash_vectors_selftest_passes ... ok
+test sign::tests::real_golden_app_transaction_is_still_signable_and_deterministic ... ok
+test tests::panic_guard_catches_unwind_and_reports_clean_json ... ok
+test router::tests::a_broadcast_failure_releases_the_reserved_budget ... ok
+test router::tests::execute_returns_json_for_every_outcome ... ok
+test router::tests::a_daily_limit_rejection_mentions_the_cap ... ok
+
+test result: ok. 140 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.49s
+
+     Running unittests src/bin/agent-runner.rs (src/fusion-core/target/debug/deps/agent_runner-ba463d2b2549f4fe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/quant-report.rs (src/fusion-core/target/debug/deps/quant_report-de71b1ed72dd5653)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/uniffi-bindgen.rs (src/fusion-core/target/debug/deps/uniffi_bindgen-4f7c9d82ecd3a708)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/arena_pipeline.rs (src/fusion-core/target/debug/deps/arena_pipeline-431ed72d670ab027)
+
+running 1 test
+test arena_pipeline ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/candidates_prop.rs (src/fusion-core/target/debug/deps/candidates_prop-516e535c526346da)
+
+running 5 tests
+test measured_economics_filter_precedes_planner_and_reports_rejections ... ok
+test safety_withdraw_is_capped_at_available_underlying_not_total_deposits ... ok
+test surplus_deposit_respects_micro_limit_and_still_requires_profit ... ok
+test test_bill_ordering_earliest_due_at ... ok
+test test_enumeration_determinism ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/impl_pin.rs (src/fusion-core/target/debug/deps/impl_pin-b7252372675bc95b)
+
+running 4 tests
+test test_eip1967_slot_constant ... ok
+test test_read_snapshot_at_block_mismatch_raises_vault_impl_changed ... ok
+test test_read_vault_implementation_matching ... ok
+test test_manifest_parses_deployments_84532 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+     Running tests/journal.rs (src/fusion-core/target/debug/deps/journal-a9c18ba9430519ba)
+
+running 4 tests
+test test_reconcile_still_in_flight_when_no_receipt_and_nonce_equal ... ok
+test test_journal_append_and_fsync ... ok
+test test_reconcile_mined_unknown_entry_on_restart ... ok
+test test_reconcile_reverted_unknown_entry_on_restart ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/labels.rs (src/fusion-core/target/debug/deps/labels-39aa4be903b32cd5)
+
+running 2 tests
+test test_prompt_facts_contain_no_addresses_or_hashes ... ok
+test test_hold_is_always_label_h ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/merkle.rs (src/fusion-core/target/debug/deps/merkle-89721fb001b63ee0)
+
+running 4 tests
+test test_empty_merkle_tree ... ok
+test test_single_leaf ... ok
+test test_two_leaves ... ok
+test test_many_leaves_and_tamper_detection ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/mock_executor.rs (src/fusion-core/target/debug/deps/mock_executor-09bbcf8f9300028f)
+
+running 10 tests
+test signatures_are_bound_to_the_configured_chain_id ... ok
+test only_guardrail_approved_transactions_reach_the_executor ... ok
+test a_blocked_intent_never_produces_a_transaction_request ... ok
+test broadcasts_and_returns_the_node_hash ... ok
+test an_unreachable_transport_surfaces_as_an_error ... ok
+test a_node_rejection_is_reported_rather_than_swallowed ... ok
+test native_transfers_broadcast_through_the_same_path ... ok
+test a_successful_send_drains_exactly_four_rpc_calls ... ok
+test signing_the_same_transaction_twice_is_deterministic ... ok
+test the_loaded_key_produces_signatures_that_recover_to_the_expected_address ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+     Running tests/preview_parity.rs (src/fusion-core/target/debug/deps/preview_parity-365114b030bed24d)
+
+running 9 tests
+test test_preview_delayed_queue_fails_when_queue_not_ready ... ok
+test test_preview_delayed_queue_proposal_passes_when_queue_empty ... ok
+test test_preview_catches_reserve_raid ... ok
+test test_preview_catches_paused_module ... ok
+test test_preview_catches_missing_decision_hash ... ok
+test test_preview_catches_bad_nonce ... ok
+test daily_usage_resets_at_snapshot_utc_midnight_but_session_usage_does_not ... ok
+test test_preview_instant_deposit_passes_all_checks ... ok
+test delayed_proposal_does_not_authorize_execution_or_bypass_safety ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/quant.rs (src/fusion-core/target/debug/deps/quant-1d3a748534588998)
+
+running 5 tests
+test gas_usd_is_ceiled_and_oracle_fails_closed ... ok
+test break_even_exact_fourteen_days_and_nonpositive_delta ... ok
+test missing_or_wrong_quote_cannot_authorize ... ok
+test realized_apy_caps_spot_and_spot_only_is_explicit ... ok
+test utilization_boundary_and_available_underlying ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+     Running tests/reviewer_k25.rs (src/fusion-core/target/debug/deps/reviewer_k25-478a28be80421dbf)
+
+running 1 test
+test reviewer_bridge ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/vectors.rs (src/fusion-core/target/debug/deps/vectors-d3c8654ed84511ed)
+
+running 10 tests
+test test_vector_actions ... ok
+test test_vector_commitments_empty ... ok
+test test_vector_candidate_id ... ok
+test test_vector_commitments_single_leaf ... ok
+test test_vector_commitments_three_leaves ... ok
+test test_vector_constants ... ok
+test test_vector_decision_hash ... ok
+test test_vector_mandate_hash ... ok
+test test_vector_policy_hash ... ok
+test test_vector_session_id ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+   Doc-tests fusion_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

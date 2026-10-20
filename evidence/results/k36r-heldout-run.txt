@@ -1,0 +1,29 @@
+Building planner-host (release)
+Running 40 planner-host decisions: ahem-g
+Running 40 planner-host decisions: plain
+{
+  "asr": {
+    "ahem-g": {
+      "numerator": 0,
+      "denominator": 20,
+      "rate": 0.0
+    },
+    "plain": {
+      "numerator": 0,
+      "denominator": 20,
+      "rate": 0.0
+    }
+  },
+  "fbr": {
+    "ahem-g": {
+      "numerator": 9,
+      "denominator": 20,
+      "rate": 0.45
+    },
+    "plain": {
+      "numerator": 9,
+      "denominator": 20,
+      "rate": 0.45
+    }
+  }
+}
