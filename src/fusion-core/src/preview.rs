@@ -189,8 +189,12 @@ pub fn preview_candidate(
     });
 
     // Check 5: Velocity limits (§7.7.5)
-    let daily_ok =
-        state.daily_used_raw.saturating_add(exact_action.assets) <= policy.daily_limit_raw;
+    let daily_used = if state.daily_day_index == U256::from(snapshot.block_timestamp / 86_400) {
+        state.daily_used_raw
+    } else {
+        U256::ZERO
+    };
+    let daily_ok = daily_used.saturating_add(exact_action.assets) <= policy.daily_limit_raw;
     let session_ok =
         state.session_used_raw.saturating_add(exact_action.assets) <= state.session_limit_raw;
 
@@ -212,10 +216,7 @@ pub fn preview_candidate(
         },
         message: format!(
             "daily_used={}/{}, session_used={}/{}",
-            state.daily_used_raw,
-            policy.daily_limit_raw,
-            state.session_used_raw,
-            state.session_limit_raw
+            daily_used, policy.daily_limit_raw, state.session_used_raw, state.session_limit_raw
         ),
     });
 
