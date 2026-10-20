@@ -1,5 +1,6 @@
 //! Preview parity and rule coverage tests (§7.7, §10.7).
 
+mod common;
 use alloy::primitives::{Address, B256, U256};
 use fusion_core::candidates::{Candidate, FeeAssumptions, Route, Tier};
 use fusion_core::preview::{preview_candidate, RuleStatus};
@@ -46,6 +47,7 @@ fn sample_setup() -> (Snapshot, Candidate) {
     };
 
     let snapshot = Snapshot {
+        quant: None,
         block_number: 100,
         block_hash: B256::repeat_byte(0x99),
         block_timestamp: 1_700_000_000,
@@ -114,6 +116,13 @@ fn sample_setup() -> (Snapshot, Candidate) {
         },
     };
 
+    let mut snapshot = snapshot;
+    snapshot.quant = Some(common::measured(
+        snapshot.block_number,
+        snapshot.block_timestamp,
+        vault_a,
+        candidate.action.assets,
+    ));
     (snapshot, candidate)
 }
 

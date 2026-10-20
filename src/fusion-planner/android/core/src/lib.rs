@@ -55,6 +55,43 @@ pub fn candidates(
     })
 }
 
+/// Shared deposit/rebalance economics; APY values are fractions in parts per billion.
+#[uniffi::export]
+pub fn evaluate_economics(
+    size_raw: String,
+    new_apy_ppb: u64,
+    current_apy_ppb: u64,
+    gas_usd_raw: Option<String>,
+    slippage_usd_raw: String,
+) -> String {
+    guarded(|| {
+        let parse = |s: &str| s.parse::<U256>().map_err(|e| e.to_string());
+        let gas = gas_usd_raw.as_deref().map(parse).transpose()?;
+        Ok(
+            json!({"ok":true,"economics":fusion_core::quant::break_even(parse(&size_raw)?,new_apy_ppb,current_apy_ppb,gas,parse(&slippage_usd_raw)?)}),
+        )
+    })
+}
+
+/// Same integer quant report used by enumeration, exposed for Home before a model tick.
+#[uniffi::export]
+pub fn quant_report(inputs_json: String, timestamp: u64, size_raw: String) -> String {
+    guarded(|| {
+        let inputs: fusion_core::quant::QuantInputs =
+            serde_json::from_str(&inputs_json).map_err(|e| e.to_string())?;
+        let size: U256 = size_raw.parse::<U256>().map_err(|e| e.to_string())?;
+        let mut report = fusion_core::quant::QuantReport::from_inputs(
+            inputs.block_number,
+            timestamp,
+            Some(&inputs),
+        );
+        report
+            .candidates
+            .push(report.evaluate(inputs.vault, size, 0, Some(&inputs)));
+        Ok(json!({"ok":true,"quant":report}))
+    })
+}
+
 #[uniffi::export]
 pub fn preview(
     candidate_json: String,

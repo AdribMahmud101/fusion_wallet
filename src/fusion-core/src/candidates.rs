@@ -110,6 +110,8 @@ pub struct CandidateSummary {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CandidateSet {
+    #[serde(default)]
+    pub quant: crate::quant::QuantReport,
     pub candidate_set_digest: B256,
     pub candidates: Vec<Candidate>,
     pub hold: Candidate,
@@ -180,18 +182,14 @@ pub fn enumerate_candidates(
     module: Address,
     mandate_hash: B256,
     session_id: B256,
-    is_full_profile: bool,
+    _is_full_profile: bool,
 ) -> CandidateSet {
+    let mut quant = crate::quant::QuantReport::read(snapshot);
     let now = snapshot.block_timestamp;
     let buckets_before = Buckets::from_snapshot(snapshot);
     let mut candidates: Vec<Candidate> = Vec::new();
 
     let labels = ["A", "B", "C", "D", "E", "F", "G"];
-    let min_net = if is_full_profile {
-        U256::from(1_000_000) // 1 USDC
-    } else {
-        U256::from(10_000) // 0.01 USDC
-    };
     let fee_assumption_raw = U256::from(50_000); // 0.05 USDC scenario fee
 
     // 1. Due bills: committed unpaid bills with now >= dueAt - payEarlyWindow,
@@ -320,7 +318,20 @@ pub fn enumerate_candidates(
             };
 
             if vault_assets > U256::ZERO {
-                let withdraw_amount = deficit.min(vault_assets);
+                let liquidity = if snapshot
+                    .quant
+                    .as_ref()
+                    .is_some_and(|q| q.vault == rate_info.vault)
+                {
+                    quant
+                        .withdrawable_now_raw
+                        .as_deref()
+                        .and_then(|v| v.parse::<U256>().ok())
+                        .unwrap_or_default()
+                } else {
+                    U256::ZERO
+                };
+                let withdraw_amount = deficit.min(vault_assets).min(liquidity);
                 if withdraw_amount > U256::ZERO {
                     let label = labels[candidates.len()].to_string();
                     let action = Action {
@@ -382,7 +393,7 @@ pub fn enumerate_candidates(
     }
 
     // 3. Invest surplus: if sweepable > 0 -> DEPOSIT min(sweepable, cap headroom)
-    // into each eligible vault, if netBenefit > minNet.
+    // into each measured vault, only when gas-adjusted break-even is <=14 days.
     if buckets_before.sweepable > U256::ZERO && candidates.len() < 7 {
         for vault_limit in &snapshot.policy.vaults {
             if candidates.len() >= 7 {
@@ -405,17 +416,27 @@ pub fn enumerate_candidates(
             let headroom = vault_limit
                 .max_exposure_raw
                 .saturating_sub(current_exposure);
-            let deposit_amount = buckets_before.sweepable.min(headroom);
+            let move_cap = if snapshot.policy.permission_tier == PermissionTier::Autonomous {
+                snapshot.policy.micro_max_raw
+            } else {
+                snapshot.policy.hard_max_raw
+            };
+            let deposit_amount = buckets_before
+                .sweepable
+                .min(headroom)
+                .min(move_cap)
+                .min(snapshot.policy.hard_max_raw);
 
             if deposit_amount > U256::ZERO {
-                let rate_bps = rates
-                    .iter()
-                    .find(|r| r.vault == vault_limit.vault)
-                    .map(|r| r.rate_bps)
-                    .unwrap_or(0);
-
-                let net_benefit = compute_net_benefit(deposit_amount, rate_bps, fee_assumption_raw);
-                if net_benefit >= min_net {
+                let economics = quant.evaluate(
+                    vault_limit.vault,
+                    deposit_amount,
+                    0,
+                    snapshot.quant.as_ref(),
+                );
+                let actionable = economics.status == "ACTIONABLE";
+                quant.candidates.push(economics);
+                if actionable {
                     let label = labels[candidates.len()].to_string();
                     let slippage_bps = snapshot.policy.max_share_slippage_bps as u64;
                     let min_shares = deposit_amount.saturating_sub(
@@ -470,7 +491,11 @@ pub fn enumerate_candidates(
                         before_buckets: buckets_before,
                         after_buckets: buckets_after,
                         fee_assumptions: FeeAssumptions {
-                            fee_raw: fee_assumption_raw,
+                            fee_raw: quant
+                                .gas_usd_raw
+                                .as_deref()
+                                .and_then(|v| v.parse().ok())
+                                .unwrap_or_default(),
                         },
                     });
                 }
@@ -544,6 +569,7 @@ pub fn enumerate_candidates(
     let candidate_set_digest = compute_candidate_set_digest(&summaries);
 
     CandidateSet {
+        quant,
         candidate_set_digest,
         candidates,
         hold,

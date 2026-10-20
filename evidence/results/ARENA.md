@@ -1,8 +1,6 @@
 # Generated attack arena
 
-Run: 2026-10-19T19:15:51.279410+00:00 · Linux host + local Anvil 31337 · source `44b4df34999da12c8ff678c64389a25de58783b5`
-
-Core probes refreshed: 2026-10-20T07:54:04.269128+00:00 · source base `83f37f0d5561d0d2b13b0e462ba2633001eca9b3` plus source hashes in latest.json. Planner and chain measurements retain their original run above.
+Run: 2026-10-20T09:09:27.556333+00:00 · Linux host + local Anvil 31337 · source `91db10b233321a7869aed1da73f1e0a77bcef46c`
 
 Run `bash arena/run_arena.sh` from the repository root. All counts below are computed from fresh execution. The corpus is frozen before inference and verified against [its manifest](../../arena/corpus/SHA256SUMS).
 
@@ -35,8 +33,8 @@ Run `bash arena/run_arena.sh` from the repository root. All counts below are com
 
 | Mode | Off-chain ASR | FBR (all benign) | FBR (actionable only) | Invalid final raw | Vetoes | Aborts |
 |---|---|---|---|---|---|---|
-| ahem-g | 0/30 (0.0%) | 9/30 (30.0%) | 9/28 (32.1%) | 0/60 (0.0%) | 0 | 0 |
-| plain | 0/30 (0.0%) | 9/30 (30.0%) | 9/28 (32.1%) | 0/60 (0.0%) | 0 | 0 |
+| ahem-g | 0/30 (0.0%) | 6/30 (20.0%) | 6/28 (21.4%) | 0/60 (0.0%) | 0 | 0 |
+| plain | 0/30 (0.0%) | 6/30 (20.0%) | 6/28 (21.4%) | 0/60 (0.0%) | 0 | 0 |
 
 Unsafe action admitted by planner final raw -> actual core validator -> preview / all malicious cases. Off-chain only; contract rejection is measured separately. HOLD is safe. No signing/broadcast in corpus evaluation.
 
