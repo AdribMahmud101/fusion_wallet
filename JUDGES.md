@@ -25,16 +25,17 @@ Judges can independently verify every on-chain claim, receipt, state invariant, 
 
 ### The Command
 ```bash
-cd /root/projects/fusion_wallet-wt/K19
+git clone --recurse-submodules https://github.com/AdribMahmud101/fusion_wallet.git
+cd fusion_wallet
 bash scripts/judge/verify_all.sh
 ```
 
 ### What `verify_all.sh` Verifies
-1. **Base Sepolia Evidence (`scripts/verify_evidence.py`):** Checks all 30 on-chain receipts in [`evidence/base-sepolia.json`](file:///root/projects/fusion_wallet-wt/K19/evidence/base-sepolia.json), validating Safe threshold-2 invariants, contract bytecode hashes, receipt statuses, log topics, and decoded event fields.
-2. **Autonomous Agent Golden Path (`scripts/agent/check_golden.py`):** Verifies the 3 live autonomous agent transactions in [`evidence/agent/golden.json`](file:///root/projects/fusion_wallet-wt/K19/evidence/agent/golden.json), ensuring status `0x1`, session signer authorization, passport `keccak256` integrity, and `ActionExecuted`/`ActionQueued` event anchoring.
-3. **App & Mobile Proofs (`evidence/app/*.json`):** Checks guardian pause and owner resume transactions ([`evidence/app/guardian_pause.json`](file:///root/projects/fusion_wallet-wt/K19/evidence/app/guardian_pause.json)), verifying hardware Keystore-backed guardian actions.
+1. **Base Sepolia Evidence (`scripts/verify_evidence.py`):** Checks all 30 on-chain receipts in [`evidence/base-sepolia.json`](evidence/base-sepolia.json), validating Safe threshold-2 invariants, contract bytecode hashes, receipt statuses, log topics, and decoded event fields.
+2. **Autonomous Agent Golden Path (`scripts/agent/check_golden.py`):** Verifies the 3 live autonomous agent transactions in [`evidence/agent/golden.json`](evidence/agent/golden.json), ensuring status `0x1`, session signer authorization, passport `keccak256` integrity, and `ActionExecuted`/`ActionQueued` event anchoring.
+3. **App & Mobile Proofs (`evidence/app/*.json`):** Checks guardian pause and owner resume transactions ([`evidence/app/guardian_pause.json`](evidence/app/guardian_pause.json)), verifying hardware Keystore-backed guardian actions.
 4. **Live Demo Runs (`evidence/demo/runs.json`):** Verifies every live demo execution row, confirming receipt inclusion, session signer identity, and passport hash alignment.
-5. **Contract Source Verification (Sourcify):** Directly queries Sourcify's public API to verify exact compiler matches (`0.8.24`, Cancun, 200 runs, via-IR) for all deployed contracts in [`deployments/84532.json`](file:///root/projects/fusion_wallet-wt/K19/deployments/84532.json).
+5. **Contract Source Verification (Sourcify):** Directly queries Sourcify's public API to verify exact compiler matches (`0.8.24`, Cancun, 200 runs, via-IR) for all deployed contracts in [`deployments/84532.json`](deployments/84532.json).
 
 ---
 
@@ -43,7 +44,7 @@ bash scripts/judge/verify_all.sh
 To watch the complete autonomous system execute live on Base Sepolia:
 
 ```bash
-cd /root/projects/fusion_wallet-wt/K19
+cd fusion_wallet
 bash scripts/demo/live_demo.sh
 ```
 
@@ -53,7 +54,7 @@ bash scripts/demo/live_demo.sh
 3. **Agent Tick (MNN + AHEM-G):** The edge planner loads weights, enumerates candidates, applies token-level steering, and outputs candidate `A` with full decision passport.
 4. **Autonomous Payment:** The agent runner signs with `SESSION_PRIVATE_KEY` and broadcasts `execute()` on Base Sepolia.
 5. **On-Chain Verification:** Confirms receipt status `1`, signer == session key, `decisionHash` anchored in event logs, `isPaid` == `true`, and verifies that duplicate payment attempts revert on-chain (`ObligationAlreadyPaid`).
-6. **Provenance Logging:** Appends run evidence to [`evidence/demo/runs.json`](file:///root/projects/fusion_wallet-wt/K19/evidence/demo/runs.json) adhering to the §19.5 schema.
+6. **Provenance Logging:** Appends run evidence to [`evidence/demo/runs.json`](evidence/demo/runs.json) adhering to the §19.5 schema.
 
 ---
 
@@ -70,5 +71,5 @@ bash scripts/demo/live_demo.sh
 ## Definition of Done Check
 
 ```bash
-cd /root/projects/fusion_wallet-wt/K19 && bash scripts/judge/verify_all.sh && python3 -c "import json;r=json.load(open('evidence/demo/runs.json'));assert len(r)>=1 and r[-1]['txHash'];print('ok')"
+cd fusion_wallet && bash scripts/judge/verify_all.sh && python3 -c "import json;r=json.load(open('evidence/demo/runs.json'));assert len(r)>=1 and r[-1]['txHash'];print('ok')"
 ```

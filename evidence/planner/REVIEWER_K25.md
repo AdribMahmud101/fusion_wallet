@@ -130,7 +130,7 @@ Build and run from the repository root (the available native fork is reused):
 
 ```sh
 export FUSION_MODEL_DIR=/root/projects/feros/sdk/demo-app/app/src/main/assets/models/lfm_230m
-export MNN_LIB_DIR=/root/projects/fusion_wallet-wt/K8/src/fusion-planner/target/mnn-host
+export MNN_LIB_DIR=src/fusion-planner/target/mnn-host
 cargo build --locked --manifest-path src/fusion-planner/Cargo.toml --bin planner-host
 python3 evidence/planner/run_reviewer_k25.py --set dev --tag dev-1
 # Only after dev selection, each final set exactly once:

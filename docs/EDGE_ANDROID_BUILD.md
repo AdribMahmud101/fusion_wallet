@@ -197,10 +197,10 @@ Sets up environment variables:
 ### 6.2 `scripts/edge_android_build.sh`
 Builds the entire application and verifies the APK output:
 ```bash
-bash /root/projects/fusion_wallet-wt/K10/scripts/edge_android_build.sh
+bash scripts/edge_android_build.sh
 ```
 
 **Build Output:**
-- **APK Location:** `/root/projects/fusion_wallet-wt/K10/src/Fintech_Wallet_Agent/fusion-core-android/app/build/outputs/apk/debug/app-debug.apk`
+- **APK Location:** `src/Fintech_Wallet_Agent/fusion-core-android/app/build/outputs/apk/debug/app-debug.apk`
 - **APK Size:** ~22 MB
 - **Bundled Architectures:** `lib/arm64-v8a/libfusion_core.so`

@@ -9,9 +9,9 @@ All downstream implementations—**K1 (Solidity contracts)**, **K3 (fusion-core 
 ## What Is Frozen
 
 1. **Solidity Specification Interfaces (`spec/abi/`)**
-   - [`IKavachiModule.json`](file:///root/projects/fusion_wallet-wt/K0/spec/abi/IKavachiModule.json): Complete ABI specification for the Kavachi V4.1 smart contract module. Generated verbatim from §24 Appendix A.
-   - [`ISafeMinimal.json`](file:///root/projects/fusion_wallet-wt/K0/spec/abi/ISafeMinimal.json): Minimal Safe v1.4.1 interface utilized by the module.
-   - [`ISanctionsList.json`](file:///root/projects/fusion_wallet-wt/K0/spec/abi/ISanctionsList.json): Sanctions screening oracle interface.
+   - [`IKavachiModule.json`](spec/abi/IKavachiModule.json): Complete ABI specification for the Kavachi V4.1 smart contract module. Generated verbatim from §24 Appendix A.
+   - [`ISafeMinimal.json`](spec/abi/ISafeMinimal.json): Minimal Safe v1.4.1 interface utilized by the module.
+   - [`ISanctionsList.json`](spec/abi/ISanctionsList.json): Sanctions screening oracle interface.
 
 2. **Reference Hashing Library (`spec/reference/src/HashV41.sol`)**
    - Reference Solidity implementation of every formula in §9:
@@ -47,7 +47,7 @@ All downstream implementations—**K1 (Solidity contracts)**, **K3 (fusion-core 
 To verify that the reference implementation, ABIs, and vector definitions remain in complete synchronization:
 
 ```bash
-cd /root/projects/fusion_wallet-wt/K0 && bash spec/check_freeze.sh
+cd fusion_wallet && bash spec/check_freeze.sh
 ```
 
 ### What `check_freeze.sh` Does:
