@@ -4,7 +4,7 @@
   "patchedSourceSha256": "8cac24836c3be65decfa0c687602fe8be7018d2a5305aefa774e057307e508a7",
   "patchSha256": "0d727e1ce4c97701c3c1dd2ce95693a0b9a0e2d79e0916a804f59283fcbe4eb2",
   "originalLibllmSha256": "073811bd8d84a8966b9d336ea9713e909adedbc83e5f802c0bed2c4d655db3c2",
-  "patchedLibllmUnstrippedSha256": "057656ace3f6d3b5ef755468bef93a1573ad7fd95df0028b24309bc2751d38a0",
+  "patchedLibllmUnstrippedSha256": "b75218d35fa7a2826124004a22d56265cd408253ad9dc665ff00ebcbc2c2cabf",
   "compile": [
     "clang++",
     "--target=aarch64-linux-android34",
@@ -86,9 +86,9 @@
     "-fPIC",
     "-fvisibility=default",
     "-c",
-    "/root/projects/fusion_wallet-wt/K17/src/fusion-planner/android/target/mnn-patched/llm.cpp",
+    "/root/projects/fusion_wallet/src/fusion-planner/android/target/mnn-patched/llm.cpp",
     "-o",
-    "/root/projects/fusion_wallet-wt/K17/src/fusion-planner/android/target/mnn-patched/llm.cpp.o"
+    "/root/projects/fusion_wallet/src/fusion-planner/android/target/mnn-patched/llm.cpp.o"
   ],
   "link": [
     "clang++",
@@ -105,10 +105,10 @@
     "-Wl,--gc-sections",
     "-Wl,-soname,libllm.so",
     "-o",
-    "/root/projects/fusion_wallet-wt/K17/src/fusion-planner/android/target/mnn-patched/libllm.so",
+    "/root/projects/fusion_wallet/src/fusion-planner/android/target/mnn-patched/libllm.so",
     "/root/projects/victor_fusion/ahem/third_party/MNN/build_a64_qnn/CMakeFiles/llm.dir/transformers/llm/engine/src/diskembedding.cpp.o",
     "/root/projects/victor_fusion/ahem/third_party/MNN/build_a64_qnn/CMakeFiles/llm.dir/transformers/llm/engine/src/embedding.cpp.o",
-    "/root/projects/fusion_wallet-wt/K17/src/fusion-planner/android/target/mnn-patched/llm.cpp.o",
+    "/root/projects/fusion_wallet/src/fusion-planner/android/target/mnn-patched/llm.cpp.o",
     "/root/projects/victor_fusion/ahem/third_party/MNN/build_a64_qnn/CMakeFiles/llm.dir/transformers/llm/engine/src/llmconfig.cpp.o",
     "/root/projects/victor_fusion/ahem/third_party/MNN/build_a64_qnn/CMakeFiles/llm.dir/transformers/llm/engine/src/omni.cpp.o",
     "/root/projects/victor_fusion/ahem/third_party/MNN/build_a64_qnn/CMakeFiles/llm.dir/transformers/llm/engine/src/sampler.cpp.o",
