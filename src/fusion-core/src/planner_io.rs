@@ -126,30 +126,38 @@ pub fn build_planner_prompt(
     for c in &candidate_set.candidates {
         labels.push(c.label.clone());
         let amount_display = RawAmount::from_raw(c.action.assets).to_decimal_string();
-        let desc = match c.kind {
-            crate::types::ActionKind::PayObligation => {
-                let order = labels.len();
-                let order_note = if order == 1 {
-                    "earliest due committed bill is expected"
-                } else {
-                    "subsequent due bill"
-                };
-                format!("Pay {amount_display} USDC; bill due window ELIGIBLE; due order {order} ({order_note}); payee ACTIVE in supplied registry; cash FUNDED ({})", c.reason)
+        let desc = if c.reason.starts_with("OWNER_ALLOCATION_REHEARSAL:") {
+            match c.kind {
+                crate::types::ActionKind::Deposit => format!("Deposit {amount_display} USDC to allowlisted Aave waUSDC; verified 2-of-2 owner-signed one-time allocation mandate; spare cash FUNDED; rehearsal gas expense authorized; not a yield recommendation ({})", c.reason),
+                crate::types::ActionKind::Withdraw => format!("Withdraw {amount_display} USDC from Aave waUSDC back to Safe cash; verified 2-of-2 owner-signed one-time mandate; restore rehearsal allocation to cash ({})", c.reason),
+                _ => format!("Unsupported allocation kind; choose H ({})", c.reason),
             }
-            crate::types::ActionKind::Deposit => {
-                format!(
-                    "Invest {amount_display} USDC — surplus above cushion ({})",
-                    c.reason
-                )
-            }
-            crate::types::ActionKind::Withdraw => {
-                format!(
-                    "Withdraw {amount_display} USDC — liquidity reserve ({})",
-                    c.reason
-                )
-            }
-            crate::types::ActionKind::Rebalance => {
-                format!("Rebalance {amount_display} USDC ({})", c.reason)
+        } else {
+            match c.kind {
+                crate::types::ActionKind::PayObligation => {
+                    let order = labels.len();
+                    let order_note = if order == 1 {
+                        "earliest due committed bill is expected"
+                    } else {
+                        "subsequent due bill"
+                    };
+                    format!("Pay {amount_display} USDC; bill due window ELIGIBLE; due order {order} ({order_note}); payee ACTIVE in supplied registry; cash FUNDED ({})", c.reason)
+                }
+                crate::types::ActionKind::Deposit => {
+                    format!(
+                        "Invest {amount_display} USDC — surplus above cushion ({})",
+                        c.reason
+                    )
+                }
+                crate::types::ActionKind::Withdraw => {
+                    format!(
+                        "Withdraw {amount_display} USDC — liquidity reserve ({})",
+                        c.reason
+                    )
+                }
+                crate::types::ActionKind::Rebalance => {
+                    format!("Rebalance {amount_display} USDC ({})", c.reason)
+                }
             }
         };
         let amount_status = if c.tier == Tier::Reject {

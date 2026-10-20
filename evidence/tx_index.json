@@ -106,6 +106,14 @@
     "evidenceFile": "chain: SafeMultiSigTransaction from the treasury Safe (2-of-2 owners)"
   },
   {
+    "txHash": "0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf",
+    "source": "APP",
+    "kind": "DEPOSIT",
+    "evidenceFile": "evidence/app/agent/golden_app.json",
+    "planner": "mnn+ahem-g@android",
+    "amountRaw": "10000000"
+  },
+  {
     "txHash": "0x7e069c86c94e06fda563190567876b467f0b2facf9189ebb1a0939253182c4b5",
     "source": "SCRIPT",
     "kind": "QUEUE_CANCELLED",
@@ -196,6 +204,12 @@
     "evidenceFile": "evidence/app/guardian_pause.json"
   },
   {
+    "txHash": "0xb4896d5bd3207eee5d05bc2bd956a23d820691c8d4eb7fc80209b432fc353f7a",
+    "source": "OWNER",
+    "kind": "ALLOCATION_MANDATE",
+    "evidenceFile": "evidence/app/agent/K38_owner_allocation_receipt.json"
+  },
+  {
     "txHash": "0xb8927af265a7d73d84bbefcafe512698bd6547a3cbbef64a6baa1c49659a27fa",
     "source": "SCRIPT",
     "kind": "POLICY_CONFIGURED+OBLIGATIONS_COMMITTED+SESSION_STARTED+RESUMED",
@@ -266,6 +280,14 @@
     "kind": "GUARDIAN_PAUSE",
     "evidenceFile": "evidence/base-sepolia.json",
     "planner": "deterministic"
+  },
+  {
+    "txHash": "0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a",
+    "source": "APP",
+    "kind": "WITHDRAW",
+    "evidenceFile": "evidence/app/agent/golden_app.json",
+    "planner": "mnn+ahem-g@android",
+    "amountRaw": "9999999"
   },
   {
     "txHash": "0xf1e0afcb65cda6355cf8743b26f159afe76f0a634629a96e519eab98e9525f33",

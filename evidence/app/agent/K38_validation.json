@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "network": "Base Sepolia",
+  "device": "OnePlus CPH2447 / Android 16",
+  "coreTestsPassed": 184,
+  "nativeBoundaryTestsPassed": 9,
+  "relayTestsPassed": 8,
+  "android": {
+    "tests": 250,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 4
+  },
+  "judgeChecksPassed": 50,
+  "arena": {
+    "stopped": 24,
+    "total": 24,
+    "asr": {
+      "ahem-g": {
+        "numerator": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "plain": {
+        "numerator": 0,
+        "denominator": 30,
+        "rate": 0.0
+      }
+    },
+    "fbr": {
+      "ahem-g": {
+        "numerator": 9,
+        "denominator": 30,
+        "rate": 0.3
+      },
+      "plain": {
+        "numerator": 9,
+        "denominator": 30,
+        "rate": 0.3
+      }
+    }
+  },
+  "apkSha256": "ce4315c344abcc4bc719749a3fec005f9d84e1d4fb304506a13567a49fb7787e",
+  "apkIncludesModel": false,
+  "source": "Actual command outputs and canonical RPC-verified receipts; no private keys required for verification",
+  "commands": [
+    "cargo test --manifest-path src/fusion-core/Cargo.toml",
+    "scripts/android_planner/build.sh",
+    "scripts/android_planner/build_core.sh",
+    "ANDROID_HOME=/opt/android-sdk GRADLE_USER_HOME=/root/.gradle flock /root/.gradle/fusion-build.lock ./gradlew testDebugUnitTest assembleDebug",
+    "python3 scripts/android_planner/test_rpc_bridge.py",
+    "python3 scripts/android_planner/verify_allocation.py",
+    "python3 scripts/judge/verify_all.py",
+    "python3 scripts/android_planner/check_allocation_arena.py"
+  ]
+}

@@ -4,7 +4,7 @@
 No planner/model code. Only forwards allowlisted live JSON-RPC to pinned HTTPS.
 Standalone mode is read-only. The locked tick driver supplies a write lease.
 """
-import argparse,fcntl,http.client,os,json,secrets,shlex,socketserver,subprocess,threading,time,urllib.parse
+import argparse,collections,fcntl,http.client,os,json,secrets,shlex,socketserver,subprocess,threading,time,urllib.parse
 RPC='https://base-sepolia-rpc.publicnode.com'
 SESSION_LOCK='/root/projects/fusion_wallet/.session.lock'
 READ={'eth_chainId','eth_call','eth_getLogs','eth_getBlockByNumber','eth_getTransactionCount',
@@ -24,7 +24,10 @@ class Gateway(socketserver.StreamRequestHandler):
                 if not isinstance(calls,list) or not 1<=len(calls)<=50: raise ValueError('invalid read batch')
                 if any(c['method'] not in READ for c in calls): raise ValueError('write batch forbidden')
                 batch=[{'jsonrpc':'2.0','id':i,'method':c['method'],'params':c['params']} for i,c in enumerate(calls)]
-                out={'result':self.server.forward(batch)}
+                reply=self.server.forward(batch)
+                # Preserve top-level HTTP/RPC errors (not a batch result array),
+                # including range-limit status used by K4's adaptive log paging.
+                out=reply if isinstance(reply,dict) and 'error' in reply else {'result':reply}
             else:
                 if method not in READ and not (self.server.locked and self.server.accept_writes and method=='eth_sendRawTransaction'):
                     raise ValueError('method unavailable without session flock')
@@ -51,24 +54,46 @@ class Server(socketserver.ThreadingTCPServer):
             else: self.session_lock=open(SESSION_LOCK,'a+')
             fcntl.flock(self.session_lock,fcntl.LOCK_EX)
             self.locked=True; self.accept_writes=True
-        self.rpc_lock=threading.Lock(); self.upstream=None
+        self.rpc_lock=threading.Lock(); self.upstream=None; self.read_window=collections.deque()
     def forward(self,payload):
-        # Reuse HTTPS connections: a fresh TLS handshake for every state word can
-        # make K4's strictly pinned snapshot exceed its five-block freshness bound.
+        # Keep-alive and a shared rolling read budget. Batches count per item,
+        # not per HTTP request. This preserves K4 batching without provider bursts.
         with self.rpc_lock:
-            if isinstance(payload,dict) and payload.get('method')=='eth_sendRawTransaction':
-                if not self.locked or not self.accept_writes or self.session_lock is None or self.session_lock.closed: raise ValueError('session flock lost')
-            url=urllib.parse.urlsplit(RPC)
-            if self.upstream is None: self.upstream=http.client.HTTPSConnection(url.netloc,timeout=25)
-            try:
-                self.upstream.request('POST',url.path or '/',body=json.dumps(payload),headers={'Content-Type':'application/json','User-Agent':'fusion-wallet-android/1.0'})
-                response=self.upstream.getresponse(); body=response.read()
-                if response.status!=200:
-                    return {'error':{'message':'RPC HTTP range/availability error','httpStatus':response.status}}
-                return json.loads(body)
-            except Exception:
-                self.upstream.close(); self.upstream=None
-                raise
+            write=isinstance(payload,dict) and payload.get('method')=='eth_sendRawTransaction'
+            if write and (not self.locked or not self.accept_writes or self.session_lock is None or self.session_lock.closed):
+                raise ValueError('session flock lost')
+            parts=[payload[i:i+20] for i in range(0,len(payload),20)] if isinstance(payload,list) else [payload]
+            combined=[]
+            for part in parts:
+                count=len(part) if isinstance(part,list) else 1
+                for attempt in range(2 if not write else 1):
+                    while True:
+                        now=time.monotonic()
+                        while self.read_window and self.read_window[0][0]<=now-1: self.read_window.popleft()
+                        if sum(n for _,n in self.read_window)+count<=20: break
+                        time.sleep(max(.001,self.read_window[0][0]+1-now))
+                    self.read_window.append((time.monotonic(),count))
+                    url=urllib.parse.urlsplit(RPC)
+                    if self.upstream is None: self.upstream=http.client.HTTPSConnection(url.netloc,timeout=25)
+                    try:
+                        self.upstream.request('POST',url.path or '/',body=json.dumps(part),headers={'Content-Type':'application/json','User-Agent':'fusion-wallet-android/1.0'})
+                        response=self.upstream.getresponse(); body=response.read()
+                        if response.status!=200:
+                            if not write and attempt==0 and response.status in (429,502,503,504):
+                                time.sleep(.25); continue
+                            return {'error':{'message':'RPC HTTP range/availability error','httpStatus':response.status}}
+                        value=json.loads(body)
+                        break
+                    except Exception:
+                        self.upstream.close(); self.upstream=None
+                        # Never retry a write: its durable app journal must resolve
+                        # an ambiguous send by hash while the flock remains held.
+                        if write or attempt: raise
+                if isinstance(payload,list):
+                    if not isinstance(value,list): return value
+                    combined.extend(value)
+                else: return value
+            return combined
     def disable_writes(self):
         with self.rpc_lock: self.accept_writes=False
     def server_close(self):

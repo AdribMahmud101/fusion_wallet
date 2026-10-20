@@ -40,5 +40,91 @@
     "receipt": "evidence/app/agent/receipts/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json",
     "transaction": "evidence/app/agent/transactions/0x4d09be10bc6c75395cf5910844d9126715ebd15e8f20dbb4a6ab38f0d3be5c89.json",
     "sessionLock": "fcntl.flock LOCK_EX held by edge run_tick.py through verified receipt"
+  },
+  {
+    "id": "K38-APP-DEPOSIT",
+    "source": "APP",
+    "chainId": 84532,
+    "planner": {
+      "ahem": {
+        "g": {
+          "forcedTokens": 10,
+          "mode": "ENFORCED",
+          "retries": 0,
+          "vetoes": 0
+        },
+        "l": {
+          "mode": "OFF"
+        }
+      },
+      "host": "device",
+      "kind": "mnn+ahem-g@android",
+      "libMnnSha256": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+      "libllmSha256": "717fb3a1366352011317dba4b3b6bcfa2fb4871a9402685858d30140cdf96f92",
+      "modelId": "LFM2.5-230M-MNN",
+      "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+    },
+    "host": "device",
+    "device": "OnePlus CPH2447",
+    "txHash": "0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf",
+    "decisionHash": "0x028e38a8a6658f5fd4e313cf5731e1d29ff4f17e09d378d318ed1127a67e6dd5",
+    "actionDigest": "0x9a11a03b31119eccf282e6e8b3791b45ef3e2b197b3e6cf851ad3a5e615765e0",
+    "candidateId": "0x41ce25bf8f4d8713507d04c17db4fe395b9583af09e77fcd136b9fd4f5259f0f",
+    "choiceLabel": "A",
+    "kind": "DEPOSIT",
+    "route": "INSTANT",
+    "status": 1,
+    "blockNumber": 48359626,
+    "gasUsed": 392565,
+    "from": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+    "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+    "passport": "evidence/app/agent/passports/0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf.json",
+    "receipt": "evidence/app/agent/receipts/0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf.json",
+    "transaction": "evidence/app/agent/transactions/0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf.json",
+    "sessionLock": "fcntl.flock LOCK_EX held by edge run_tick.py through verified receipt",
+    "allocationOwnerTx": "0xb4896d5bd3207eee5d05bc2bd956a23d820691c8d4eb7fc80209b432fc353f7a"
+  },
+  {
+    "id": "K38-APP-WITHDRAW",
+    "source": "APP",
+    "chainId": 84532,
+    "planner": {
+      "ahem": {
+        "g": {
+          "forcedTokens": 10,
+          "mode": "ENFORCED",
+          "retries": 0,
+          "vetoes": 0
+        },
+        "l": {
+          "mode": "OFF"
+        }
+      },
+      "host": "device",
+      "kind": "mnn+ahem-g@android",
+      "libMnnSha256": "f011627beeb487256f05e9d3b6cc1c406a3996272dc191282fa5238a55a8fde9",
+      "libllmSha256": "717fb3a1366352011317dba4b3b6bcfa2fb4871a9402685858d30140cdf96f92",
+      "modelId": "LFM2.5-230M-MNN",
+      "modelSha256": "9ddd326541c3cb1e5e137ec717a91e5f3542c5ae2c1aa59046c180792544a907"
+    },
+    "host": "device",
+    "device": "OnePlus CPH2447",
+    "txHash": "0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a",
+    "decisionHash": "0xbc732e13cada313f3fb1a74643b0bbe05c98ad6971108092c588a4c89d2870cb",
+    "actionDigest": "0x5ad3408c34c9db088d772c00f4d61e8bdd08d1d8658f96bc7465b4509c7e822a",
+    "candidateId": "0x031ef6271648579632c78d36b2dae506bc5b5c5ec833e81cacb89293f6283433",
+    "choiceLabel": "A",
+    "kind": "WITHDRAW",
+    "route": "INSTANT",
+    "status": 1,
+    "blockNumber": 48359868,
+    "gasUsed": 330946,
+    "from": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+    "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+    "passport": "evidence/app/agent/passports/0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a.json",
+    "receipt": "evidence/app/agent/receipts/0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a.json",
+    "transaction": "evidence/app/agent/transactions/0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a.json",
+    "sessionLock": "fcntl.flock LOCK_EX held by edge run_tick.py through verified receipt",
+    "allocationOwnerTx": "0xb4896d5bd3207eee5d05bc2bd956a23d820691c8d4eb7fc80209b432fc353f7a"
   }
 ]

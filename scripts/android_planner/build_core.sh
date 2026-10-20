@@ -15,7 +15,12 @@ cp "$CARGO_TARGET_DIR/aarch64-linux-android/release/libfusion_android_core.so" "
 cargo build --manifest-path "$ROOT/src/fusion-planner/android/core/Cargo.toml" --locked -j 4
 # Bindgen reads ELF metadata, so the host executable can consume the Android .so.
 BINDGEN=${UNIFFI_BINDGEN:-$CARGO_TARGET_DIR/debug/uniffi-bindgen}
-if [[ -z "${UNIFFI_BINDGEN:-}" && ! -x "$BINDGEN" ]]; then
+if [[ -n "${UNIFFI_BINDGEN:-}" ]]; then
+  if [[ ! -x "$BINDGEN" ]]; then
+    echo "UNIFFI_BINDGEN must name an executable" >&2
+    exit 1
+  fi
+elif [[ ! -x "$BINDGEN" ]]; then
   cargo build --manifest-path "$ROOT/src/fusion-core/Cargo.toml" --bin uniffi-bindgen --locked -j 4
 fi
 cd "$ROOT/src/fusion-planner/android/core"

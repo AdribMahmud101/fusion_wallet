@@ -49,8 +49,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1293.6783329999998,
-          "ttftMs": 1258.031718
+          "totalMs": 1176.906666,
+          "ttftMs": 1136.159166
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -62,11 +62,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 907.204063,
-        "actionTtftMs": 875.304375,
-        "reviewMs": 1293.6783329999998,
-        "totalMs": 2214.9599470000003,
-        "ttftMs": 1258.031718
+        "actionMs": 847.968021,
+        "actionTtftMs": 818.0291669999999,
+        "reviewMs": 1176.906666,
+        "totalMs": 2037.83802,
+        "ttftMs": 1136.159166
       }
     },
     "preview": {
@@ -216,8 +216,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1249.318177,
-          "ttftMs": 1216.138594
+          "totalMs": 1162.805729,
+          "ttftMs": 1130.9509369999998
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -229,11 +229,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 890.626771,
-        "actionTtftMs": 858.240104,
-        "reviewMs": 1249.318177,
-        "totalMs": 2151.591978,
-        "ttftMs": 1216.138594
+        "actionMs": 837.9692180000001,
+        "actionTtftMs": 806.956406,
+        "reviewMs": 1162.805729,
+        "totalMs": 2011.701979,
+        "ttftMs": 1130.9509369999998
       }
     },
     "preview": {
@@ -383,8 +383,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1242.777343,
-          "ttftMs": 1209.971406
+          "totalMs": 1157.447916,
+          "ttftMs": 1126.797551
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -396,11 +396,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1103.642551,
-        "actionTtftMs": 1071.541718,
-        "reviewMs": 1242.777343,
-        "totalMs": 2358.128176,
-        "ttftMs": 1209.971406
+        "actionMs": 848.784948,
+        "actionTtftMs": 811.9663539999999,
+        "reviewMs": 1157.447916,
+        "totalMs": 2016.692603,
+        "ttftMs": 1126.797551
       }
     },
     "preview": {
@@ -550,8 +550,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1248.1151559999998,
-          "ttftMs": 1215.564635
+          "totalMs": 1147.725989,
+          "ttftMs": 1115.697447
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -563,11 +563,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 903.493073,
-        "actionTtftMs": 870.7865099999999,
-        "reviewMs": 1248.1151559999998,
-        "totalMs": 2163.58052,
-        "ttftMs": 1215.564635
+        "actionMs": 846.859166,
+        "actionTtftMs": 817.627135,
+        "reviewMs": 1147.725989,
+        "totalMs": 2005.215572,
+        "ttftMs": 1115.697447
       }
     },
     "preview": {
@@ -717,8 +717,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1319.961926,
-          "ttftMs": 1284.058124
+          "totalMs": 1160.611405,
+          "ttftMs": 1129.38401
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -730,11 +730,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 902.308021,
-        "actionTtftMs": 868.999375,
-        "reviewMs": 1319.961926,
-        "totalMs": 2234.080728,
-        "ttftMs": 1284.058124
+        "actionMs": 843.334115,
+        "actionTtftMs": 812.5786459999999,
+        "reviewMs": 1160.611405,
+        "totalMs": 2014.77052,
+        "ttftMs": 1129.38401
       }
     },
     "preview": {
@@ -884,8 +884,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1275.644375,
-          "ttftMs": 1240.2378119999998
+          "totalMs": 1158.863594,
+          "ttftMs": 1127.057083
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -897,11 +897,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 904.957916,
-        "actionTtftMs": 870.702291,
-        "reviewMs": 1275.644375,
-        "totalMs": 2192.421822,
-        "ttftMs": 1240.2378119999998
+        "actionMs": 848.2504170000001,
+        "actionTtftMs": 818.4855210000001,
+        "reviewMs": 1158.863594,
+        "totalMs": 2017.842552,
+        "ttftMs": 1127.057083
       }
     },
     "preview": {
@@ -1051,8 +1051,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1172.173125,
-          "ttftMs": 1139.532968
+          "totalMs": 1158.251614,
+          "ttftMs": 1125.027083
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -1064,11 +1064,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 867.047395,
-        "actionTtftMs": 828.014739,
-        "reviewMs": 1172.173125,
-        "totalMs": 2051.070052,
-        "ttftMs": 1139.532968
+        "actionMs": 866.284791,
+        "actionTtftMs": 817.8967700000001,
+        "reviewMs": 1158.251614,
+        "totalMs": 2035.3197390000005,
+        "ttftMs": 1125.027083
       }
     },
     "preview": {
@@ -1218,8 +1218,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1895.163281,
-          "ttftMs": 1855.892447
+          "totalMs": 1140.68802,
+          "ttftMs": 1109.51052
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -1231,11 +1231,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 940.774792,
-        "actionTtftMs": 886.5290620000001,
-        "reviewMs": 1895.163281,
-        "totalMs": 2847.718332,
-        "ttftMs": 1855.892447
+        "actionMs": 855.0825,
+        "actionTtftMs": 823.157239,
+        "reviewMs": 1140.68802,
+        "totalMs": 2006.506718,
+        "ttftMs": 1109.51052
       }
     },
     "preview": {
@@ -1385,8 +1385,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1946.818489,
-          "ttftMs": 1917.021301
+          "totalMs": 1158.557656,
+          "ttftMs": 1125.911249
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -1398,11 +1398,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 893.3607810000001,
-        "actionTtftMs": 863.039948,
-        "reviewMs": 1946.818489,
-        "totalMs": 2857.345676,
-        "ttftMs": 1917.021301
+        "actionMs": 906.701093,
+        "actionTtftMs": 874.481718,
+        "reviewMs": 1158.557656,
+        "totalMs": 2075.8883840000003,
+        "ttftMs": 1125.911249
       }
     },
     "preview": null,
@@ -1464,8 +1464,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1144.660573,
-          "ttftMs": 1113.836562
+          "totalMs": 1157.287291,
+          "ttftMs": 1127.66203
         }
       },
       "raw": "{\"choice\":\"B\"}",
@@ -1477,11 +1477,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1016.888489,
-        "actionTtftMs": 977.350676,
-        "reviewMs": 1144.660573,
-        "totalMs": 2173.156197,
-        "ttftMs": 1113.836562
+        "actionMs": 1011.383541,
+        "actionTtftMs": 979.076562,
+        "reviewMs": 1157.287291,
+        "totalMs": 2179.695624,
+        "ttftMs": 1127.66203
       }
     },
     "preview": {
@@ -1631,8 +1631,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1136.7417180000002,
-          "ttftMs": 1104.702291
+          "totalMs": 1134.613594,
+          "ttftMs": 1100.675573
         }
       },
       "raw": "{\"choice\":\"B\"}",
@@ -1644,11 +1644,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1217.627708,
-        "actionTtftMs": 1184.343905,
-        "reviewMs": 1136.7417180000002,
-        "totalMs": 2366.771145,
-        "ttftMs": 1104.702291
+        "actionMs": 1219.054583,
+        "actionTtftMs": 1181.553905,
+        "reviewMs": 1134.613594,
+        "totalMs": 2365.5300509999997,
+        "ttftMs": 1100.675573
       }
     },
     "preview": {
@@ -1798,8 +1798,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1157.625625,
-          "ttftMs": 1125.332396
+          "totalMs": 1161.550885,
+          "ttftMs": 1130.202291
         }
       },
       "raw": "{\"choice\":\"B\"}",
@@ -1811,11 +1811,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1342.211093,
-        "actionTtftMs": 1310.922968,
-        "reviewMs": 1157.625625,
-        "totalMs": 2514.341092,
-        "ttftMs": 1125.332396
+        "actionMs": 1386.910885,
+        "actionTtftMs": 1353.906718,
+        "reviewMs": 1161.550885,
+        "totalMs": 2561.2392699999996,
+        "ttftMs": 1130.202291
       }
     },
     "preview": {
@@ -1965,8 +1965,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1137.592604,
-          "ttftMs": 1107.598385
+          "totalMs": 1154.704739,
+          "ttftMs": 1125.082291
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -1978,11 +1978,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 805.98474,
-        "actionTtftMs": 775.610469,
-        "reviewMs": 1137.592604,
-        "totalMs": 1955.21953,
-        "ttftMs": 1107.598385
+        "actionMs": 778.28026,
+        "actionTtftMs": 749.100781,
+        "reviewMs": 1154.704739,
+        "totalMs": 1944.182916,
+        "ttftMs": 1125.082291
       }
     },
     "preview": {
@@ -2139,8 +2139,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1150.658906,
-          "ttftMs": 1117.724999
+          "totalMs": 1148.551771,
+          "ttftMs": 1118.383125
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2152,11 +2152,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 792.784531,
-        "actionTtftMs": 763.003541,
-        "reviewMs": 1150.658906,
-        "totalMs": 1954.356666,
-        "ttftMs": 1117.724999
+        "actionMs": 789.435572,
+        "actionTtftMs": 758.879947,
+        "reviewMs": 1148.551771,
+        "totalMs": 1948.537708,
+        "ttftMs": 1118.383125
       }
     },
     "preview": {
@@ -2313,8 +2313,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1152.748281,
-          "ttftMs": 1123.213542
+          "totalMs": 1150.136615,
+          "ttftMs": 1119.672917
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2326,11 +2326,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 795.525052,
-        "actionTtftMs": 766.958072,
-        "reviewMs": 1152.748281,
-        "totalMs": 1959.130364,
-        "ttftMs": 1123.213542
+        "actionMs": 787.725052,
+        "actionTtftMs": 758.823437,
+        "reviewMs": 1150.136615,
+        "totalMs": 1948.12526,
+        "ttftMs": 1119.672917
       }
     },
     "preview": {
@@ -2487,8 +2487,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1157.860052,
-          "ttftMs": 1125.925468
+          "totalMs": 1151.740312,
+          "ttftMs": 1121.814062
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2500,11 +2500,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 796.8078119999999,
-        "actionTtftMs": 767.532187,
-        "reviewMs": 1157.860052,
-        "totalMs": 1965.653281,
-        "ttftMs": 1125.925468
+        "actionMs": 792.9091139999999,
+        "actionTtftMs": 761.682187,
+        "reviewMs": 1151.740312,
+        "totalMs": 1954.931718,
+        "ttftMs": 1121.814062
       }
     },
     "preview": {
@@ -2661,8 +2661,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1155.119635,
-          "ttftMs": 1121.57
+          "totalMs": 1156.3752599999998,
+          "ttftMs": 1124.112968
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2674,11 +2674,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 794.585677,
-        "actionTtftMs": 763.523021,
-        "reviewMs": 1155.119635,
-        "totalMs": 1960.597083,
-        "ttftMs": 1121.57
+        "actionMs": 790.900885,
+        "actionTtftMs": 761.599271,
+        "reviewMs": 1156.3752599999998,
+        "totalMs": 1957.529843,
+        "ttftMs": 1124.112968
       }
     },
     "preview": {
@@ -2835,8 +2835,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1154.716822,
-          "ttftMs": 1124.045208
+          "totalMs": 1153.655833,
+          "ttftMs": 1123.526926
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -2848,11 +2848,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 795.695469,
-        "actionTtftMs": 766.410781,
-        "reviewMs": 1154.716822,
-        "totalMs": 1961.330312,
-        "ttftMs": 1124.045208
+        "actionMs": 798.366197,
+        "actionTtftMs": 767.149791,
+        "reviewMs": 1153.655833,
+        "totalMs": 1962.379947,
+        "ttftMs": 1123.526926
       }
     },
     "preview": {
@@ -3009,8 +3009,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1158.488749,
-          "ttftMs": 1126.141458
+          "totalMs": 1158.386198,
+          "ttftMs": 1126.7950520000002
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3022,11 +3022,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 797.921823,
-        "actionTtftMs": 768.411875,
-        "reviewMs": 1158.488749,
-        "totalMs": 1967.54276,
-        "ttftMs": 1126.141458
+        "actionMs": 798.4008849999999,
+        "actionTtftMs": 767.1094790000001,
+        "reviewMs": 1158.386198,
+        "totalMs": 1966.994583,
+        "ttftMs": 1126.7950520000002
       }
     },
     "preview": {
@@ -3183,8 +3183,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1164.303281,
-          "ttftMs": 1134.147239
+          "totalMs": 1159.112291,
+          "ttftMs": 1125.888281
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3196,11 +3196,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 793.1490620000001,
-        "actionTtftMs": 764.134062,
-        "reviewMs": 1164.303281,
-        "totalMs": 1968.476197,
-        "ttftMs": 1134.147239
+        "actionMs": 794.984219,
+        "actionTtftMs": 762.586302,
+        "reviewMs": 1159.112291,
+        "totalMs": 1964.309426,
+        "ttftMs": 1125.888281
       }
     },
     "preview": {
@@ -3357,8 +3357,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1106.259114,
-          "ttftMs": 1072.730573
+          "totalMs": 1149.210989,
+          "ttftMs": 1118.694062
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3370,11 +3370,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 833.873854,
-        "actionTtftMs": 804.652864,
-        "reviewMs": 1106.259114,
-        "totalMs": 1951.378593,
-        "ttftMs": 1072.730573
+        "actionMs": 845.5869270000001,
+        "actionTtftMs": 807.873229,
+        "reviewMs": 1149.210989,
+        "totalMs": 2005.053541,
+        "ttftMs": 1118.694062
       }
     },
     "preview": {
@@ -3524,8 +3524,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1154.74453,
-          "ttftMs": 1122.403853
+          "totalMs": 1149.03802,
+          "ttftMs": 1119.334895
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -3537,8 +3537,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1161.336718,
-        "ttftMs": 1122.403853
+        "totalMs": 1155.056927,
+        "ttftMs": 1119.334895
       }
     },
     "preview": null,
@@ -3600,8 +3600,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1159.021093,
-          "ttftMs": 1127.448593
+          "totalMs": 1138.601354,
+          "ttftMs": 1107.4119790000002
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -3613,8 +3613,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1165.388021,
-        "ttftMs": 1127.448593
+        "totalMs": 1144.651718,
+        "ttftMs": 1107.4119790000002
       }
     },
     "preview": null,
@@ -3676,8 +3676,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1152.422291,
-          "ttftMs": 1121.981405
+          "totalMs": 1157.684062,
+          "ttftMs": 1126.675572
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3689,11 +3689,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 812.369166,
-        "actionTtftMs": 781.29552,
-        "reviewMs": 1152.422291,
-        "totalMs": 1975.636458,
-        "ttftMs": 1121.981405
+        "actionMs": 831.499011,
+        "actionTtftMs": 800.7091670000001,
+        "reviewMs": 1157.684062,
+        "totalMs": 1999.414583,
+        "ttftMs": 1126.675572
       }
     },
     "preview": {
@@ -3843,8 +3843,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1155.4459370000002,
-          "ttftMs": 1123.53974
+          "totalMs": 1151.468801,
+          "ttftMs": 1120.214947
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -3856,11 +3856,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 849.45276,
-        "actionTtftMs": 817.146614,
-        "reviewMs": 1155.4459370000002,
-        "totalMs": 2015.919583,
-        "ttftMs": 1123.53974
+        "actionMs": 842.2434370000001,
+        "actionTtftMs": 810.830468,
+        "reviewMs": 1151.468801,
+        "totalMs": 2004.080728,
+        "ttftMs": 1120.214947
       }
     },
     "preview": {
@@ -3992,8 +3992,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 727.132396,
-        "ttftMs": 697.8609369999999
+        "totalMs": 718.588802,
+        "ttftMs": 687.7125520000001
       }
     },
     "preview": null,
@@ -4037,8 +4037,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 731.3133849999999,
-        "ttftMs": 701.686354
+        "totalMs": 714.511145,
+        "ttftMs": 684.27052
       }
     },
     "preview": null,
@@ -4100,8 +4100,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1148.006406,
-          "ttftMs": 1115.523697
+          "totalMs": 1154.381927,
+          "ttftMs": 1124.151093
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -4113,11 +4113,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 878.995989,
-        "actionTtftMs": 848.967291,
-        "reviewMs": 1148.006406,
-        "totalMs": 2038.04177,
-        "ttftMs": 1115.523697
+        "actionMs": 845.9529679999999,
+        "actionTtftMs": 813.986145,
+        "reviewMs": 1154.381927,
+        "totalMs": 2011.026666,
+        "ttftMs": 1124.151093
       }
     },
     "preview": {
@@ -4267,8 +4267,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1150.3172909999998,
-          "ttftMs": 1119.587239
+          "totalMs": 1152.627916,
+          "ttftMs": 1122.365207
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -4280,11 +4280,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 851.446094,
-        "actionTtftMs": 821.04724,
-        "reviewMs": 1150.3172909999998,
-        "totalMs": 2012.844218,
-        "ttftMs": 1119.587239
+        "actionMs": 850.428542,
+        "actionTtftMs": 817.791511,
+        "reviewMs": 1152.627916,
+        "totalMs": 2013.6329160000005,
+        "ttftMs": 1122.365207
       }
     },
     "preview": {
@@ -4434,8 +4434,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1148.08526,
-          "ttftMs": 1116.868593
+          "totalMs": 1154.466094,
+          "ttftMs": 1123.22776
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -4447,11 +4447,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 856.465156,
-        "actionTtftMs": 822.508385,
-        "reviewMs": 1148.08526,
-        "totalMs": 2015.610936,
-        "ttftMs": 1116.868593
+        "actionMs": 833.970208,
+        "actionTtftMs": 801.439062,
+        "reviewMs": 1154.466094,
+        "totalMs": 1998.913489,
+        "ttftMs": 1123.22776
       }
     },
     "preview": {
@@ -4601,8 +4601,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1159.363646,
-          "ttftMs": 1127.359375
+          "totalMs": 1215.16026,
+          "ttftMs": 1181.134896
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4614,8 +4614,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1165.843958,
-        "ttftMs": 1127.359375
+        "totalMs": 1221.359427,
+        "ttftMs": 1181.134896
       }
     },
     "preview": null,
@@ -4677,8 +4677,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1210.606771,
-          "ttftMs": 1177.709844
+          "totalMs": 1189.233489,
+          "ttftMs": 1158.266614
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4690,8 +4690,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1217.066666,
-        "ttftMs": 1177.709844
+        "totalMs": 1195.380728,
+        "ttftMs": 1158.266614
       }
     },
     "preview": null,
@@ -4753,8 +4753,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1162.490208,
-          "ttftMs": 1129.4898440000002
+          "totalMs": 1149.321354,
+          "ttftMs": 1103.031927
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4766,8 +4766,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1168.923906,
-        "ttftMs": 1129.4898440000002
+        "totalMs": 1155.409843,
+        "ttftMs": 1103.031927
       }
     },
     "preview": null,
@@ -4829,8 +4829,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1160.465521,
-          "ttftMs": 1130.106562
+          "totalMs": 1143.655155,
+          "ttftMs": 1106.929687
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -4842,8 +4842,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1166.876197,
-        "ttftMs": 1130.106562
+        "totalMs": 1149.789062,
+        "ttftMs": 1106.929687
       }
     },
     "preview": null,
@@ -4905,8 +4905,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1178.591405,
-          "ttftMs": 1144.5224469999998
+          "totalMs": 1145.454166,
+          "ttftMs": 1114.456041
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -4918,11 +4918,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 811.993594,
-        "actionTtftMs": 780.0466670000001,
-        "reviewMs": 1178.591405,
-        "totalMs": 2001.563645,
-        "ttftMs": 1144.5224469999998
+        "actionMs": 839.033802,
+        "actionTtftMs": 809.098125,
+        "reviewMs": 1145.454166,
+        "totalMs": 1994.91526,
+        "ttftMs": 1114.456041
       }
     },
     "preview": {
@@ -5061,8 +5061,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 728.482083,
-        "ttftMs": 689.924531
+        "totalMs": 725.150521,
+        "ttftMs": 694.5178119999999
       }
     },
     "preview": null,
@@ -5106,8 +5106,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 717.4539060000001,
-        "ttftMs": 684.74026
+        "totalMs": 733.886146,
+        "ttftMs": 704.1883330000001
       }
     },
     "preview": null,
@@ -5151,8 +5151,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 723.1830209999999,
-        "ttftMs": 690.517708
+        "totalMs": 732.732396,
+        "ttftMs": 703.238333
       }
     },
     "preview": null,
@@ -5214,8 +5214,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1079.597708,
-          "ttftMs": 1050.27026
+          "totalMs": 1140.6647400000002,
+          "ttftMs": 1109.831042
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5227,8 +5227,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1086.023281,
-        "ttftMs": 1050.27026
+        "totalMs": 1147.037917,
+        "ttftMs": 1109.831042
       }
     },
     "preview": null,
@@ -5290,8 +5290,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1104.788385,
-          "ttftMs": 1069.640937
+          "totalMs": 1151.628645,
+          "ttftMs": 1120.6561450000002
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5303,8 +5303,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1111.620103,
-        "ttftMs": 1069.640937
+        "totalMs": 1157.676197,
+        "ttftMs": 1120.6561450000002
       }
     },
     "preview": null,
@@ -5348,8 +5348,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 718.20276,
-        "ttftMs": 683.847083
+        "totalMs": 729.710052,
+        "ttftMs": 699.730989
       }
     },
     "preview": null,
@@ -5411,8 +5411,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1148.978125,
-          "ttftMs": 1116.649791
+          "totalMs": 1159.595729,
+          "ttftMs": 1127.135677
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5424,8 +5424,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1155.109635,
-        "ttftMs": 1116.649791
+        "totalMs": 1165.660364,
+        "ttftMs": 1127.135677
       }
     },
     "preview": null,
@@ -5487,8 +5487,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1093.739062,
-          "ttftMs": 1061.3828649999998
+          "totalMs": 1157.61625,
+          "ttftMs": 1125.94375
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5500,8 +5500,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1100.191822,
-        "ttftMs": 1061.3828649999998
+        "totalMs": 1163.673332,
+        "ttftMs": 1125.94375
       }
     },
     "preview": null,
@@ -5563,8 +5563,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1168.2442179999998,
-          "ttftMs": 1133.7479159999998
+          "totalMs": 1159.028906,
+          "ttftMs": 1128.453125
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5576,8 +5576,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1174.674479,
-        "ttftMs": 1133.7479159999998
+        "totalMs": 1165.114635,
+        "ttftMs": 1128.453125
       }
     },
     "preview": null,
@@ -5639,8 +5639,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1147.694166,
-          "ttftMs": 1117.339791
+          "totalMs": 1314.562031,
+          "ttftMs": 1280.413854
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5652,8 +5652,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1154.634322,
-        "ttftMs": 1117.339791
+        "totalMs": 1320.565625,
+        "ttftMs": 1280.413854
       }
     },
     "preview": null,
@@ -5715,8 +5715,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1156.962708,
-          "ttftMs": 1126.86927
+          "totalMs": 1156.612083,
+          "ttftMs": 1125.623698
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -5728,11 +5728,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 821.977864,
-        "actionTtftMs": 786.622864,
-        "reviewMs": 1156.962708,
-        "totalMs": 1989.84703,
-        "ttftMs": 1126.86927
+        "actionMs": 785.950052,
+        "actionTtftMs": 755.8886460000001,
+        "reviewMs": 1156.612083,
+        "totalMs": 1952.787552,
+        "ttftMs": 1125.623698
       }
     },
     "preview": {
@@ -5889,8 +5889,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1685.394947,
-          "ttftMs": 1625.030729
+          "totalMs": 1159.260103,
+          "ttftMs": 1126.714426
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5902,8 +5902,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1691.811145,
-        "ttftMs": 1625.030729
+        "totalMs": 1165.332187,
+        "ttftMs": 1126.714426
       }
     },
     "preview": null,
@@ -5965,8 +5965,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1137.76026,
-          "ttftMs": 1106.033646
+          "totalMs": 1155.45651,
+          "ttftMs": 1124.385729
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -5978,8 +5978,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1144.158385,
-        "ttftMs": 1106.033646
+        "totalMs": 1161.5070300000002,
+        "ttftMs": 1124.385729
       }
     },
     "preview": null,
@@ -6041,8 +6041,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1551.2789059999998,
-          "ttftMs": 1476.904427
+          "totalMs": 1155.140416,
+          "ttftMs": 1123.009583
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6054,11 +6054,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 1518.296353,
-        "actionTtftMs": 1407.7045830000002,
-        "reviewMs": 1551.2789059999998,
-        "totalMs": 3080.63302,
-        "ttftMs": 1476.904427
+        "actionMs": 837.78651,
+        "actionTtftMs": 805.4629679999999,
+        "reviewMs": 1155.140416,
+        "totalMs": 2003.304479,
+        "ttftMs": 1123.009583
       }
     },
     "preview": null,
@@ -6120,8 +6120,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1795.5760409999998,
-          "ttftMs": 1765.85927
+          "totalMs": 1163.111562,
+          "ttftMs": 1129.2066140000002
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6133,8 +6133,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1802.085989,
-        "ttftMs": 1765.85927
+        "totalMs": 1169.178645,
+        "ttftMs": 1129.2066140000002
       }
     },
     "preview": null,
@@ -6196,8 +6196,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1106.283958,
-          "ttftMs": 1072.214218
+          "totalMs": 1159.175989,
+          "ttftMs": 1126.878021
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6209,8 +6209,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1113.136406,
-        "ttftMs": 1072.214218
+        "totalMs": 1165.220052,
+        "ttftMs": 1126.878021
       }
     },
     "preview": null,
@@ -6272,8 +6272,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1148.059635,
-          "ttftMs": 1116.360729
+          "totalMs": 1132.615677,
+          "ttftMs": 1100.708229
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6285,8 +6285,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1154.42677,
-        "ttftMs": 1116.360729
+        "totalMs": 1138.652187,
+        "ttftMs": 1100.708229
       }
     },
     "preview": null,
@@ -6348,8 +6348,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1276.46427,
-          "ttftMs": 1243.472291
+          "totalMs": 1156.1325,
+          "ttftMs": 1125.409531
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6361,8 +6361,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1282.826145,
-        "ttftMs": 1243.472291
+        "totalMs": 1162.205,
+        "ttftMs": 1125.409531
       }
     },
     "preview": null,
@@ -6424,8 +6424,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1498.248697,
-          "ttftMs": 1468.402239
+          "totalMs": 1155.489427,
+          "ttftMs": 1124.242135
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6437,8 +6437,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1504.711406,
-        "ttftMs": 1468.402239
+        "totalMs": 1161.751301,
+        "ttftMs": 1124.242135
       }
     },
     "preview": null,
@@ -6500,8 +6500,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1154.630989,
-          "ttftMs": 1122.344791
+          "totalMs": 1148.544426,
+          "ttftMs": 1117.061978
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -6513,11 +6513,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 836.771927,
-        "actionTtftMs": 807.1945310000001,
-        "reviewMs": 1154.630989,
-        "totalMs": 2002.312968,
-        "ttftMs": 1122.344791
+        "actionMs": 836.290729,
+        "actionTtftMs": 805.033229,
+        "reviewMs": 1148.544426,
+        "totalMs": 1995.701353,
+        "ttftMs": 1117.061978
       }
     },
     "preview": {
@@ -6667,8 +6667,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1155.964583,
-          "ttftMs": 1124.4014579999998
+          "totalMs": 1151.055676,
+          "ttftMs": 1119.776614
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6680,8 +6680,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1162.733958,
-        "ttftMs": 1124.4014579999998
+        "totalMs": 1157.045833,
+        "ttftMs": 1119.776614
       }
     },
     "preview": null,
@@ -6743,8 +6743,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1162.011614,
-          "ttftMs": 1128.997447
+          "totalMs": 1155.702708,
+          "ttftMs": 1122.54552
         }
       },
       "raw": "{\"choice\":\"A\"}",
@@ -6756,11 +6756,11 @@
         "type": "greedy"
       },
       "timings": {
-        "actionMs": 846.420052,
-        "actionTtftMs": 816.810833,
-        "reviewMs": 1162.011614,
-        "totalMs": 2019.475363,
-        "ttftMs": 1128.997447
+        "actionMs": 836.2834369999999,
+        "actionTtftMs": 807.4283330000001,
+        "reviewMs": 1155.702708,
+        "totalMs": 2002.579426,
+        "ttftMs": 1122.54552
       }
     },
     "preview": {
@@ -6910,8 +6910,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1160.933958,
-          "ttftMs": 1130.626353
+          "totalMs": 1155.800729,
+          "ttftMs": 1123.48776
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6923,8 +6923,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1167.67724,
-        "ttftMs": 1130.626353
+        "totalMs": 1161.927135,
+        "ttftMs": 1123.48776
       }
     },
     "preview": null,
@@ -6986,8 +6986,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1168.571354,
-          "ttftMs": 1135.782396
+          "totalMs": 1162.537291,
+          "ttftMs": 1129.395937
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -6999,8 +6999,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1175.391718,
-        "ttftMs": 1135.782396
+        "totalMs": 1168.688489,
+        "ttftMs": 1129.395937
       }
     },
     "preview": null,
@@ -7062,8 +7062,8 @@
           "type": "greedy"
         },
         "timings": {
-          "totalMs": 1156.401093,
-          "ttftMs": 1125.819791
+          "totalMs": 1151.6514579999998,
+          "ttftMs": 1122.220416
         }
       },
       "raw": "{\"choice\":\"H\"}",
@@ -7075,8 +7075,8 @@
         "type": "greedy"
       },
       "timings": {
-        "totalMs": 1162.79151,
-        "ttftMs": 1125.819791
+        "totalMs": 1157.7422390000002,
+        "ttftMs": 1122.220416
       }
     },
     "preview": null,

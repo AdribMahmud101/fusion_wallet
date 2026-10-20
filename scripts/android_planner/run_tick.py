@@ -7,7 +7,7 @@ creates/signs a transaction. The app performs all financial decisions and signin
 import argparse,json,pathlib,subprocess,threading,time,uuid
 from rpc_bridge import Server,command,provision,wait_for_receipt
 ROOT=pathlib.Path(__file__).resolve().parents[2]
-AP=argparse.ArgumentParser(); AP.add_argument('--local-host',action='store_true'); AP.add_argument('--serial',default='192.168.0.105:5555'); AP.add_argument('--dry-run',action='store_true'); args=AP.parse_args()
+AP=argparse.ArgumentParser(); AP.add_argument('--local-host',action='store_true'); AP.add_argument('--serial',default='192.168.0.105:5555'); AP.add_argument('--dry-run',action='store_true'); AP.add_argument('--reconcile',action='store_true',help='Read-only app reconciliation of its durable attempt, with no new signature'); args=AP.parse_args()
 def app_read(path):
  return command(args.local_host,args.serial,'run-as','app.fusion.wallet','cat',path,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL).stdout
 request_id=str(uuid.uuid4())
@@ -19,7 +19,7 @@ thread=threading.Thread(target=server.serve_forever,daemon=True); thread.start()
 try:
  print('Session flock held; triggering Android app tick',request_id,flush=True)
  provision(server,args.local_host,args.serial)
- mode='dry-run' if args.dry_run else 'broadcast'
+ mode='reconcile' if args.reconcile else ('dry-run' if args.dry_run else 'broadcast')
  command(args.local_host,args.serial,'input','keyevent','KEYCODE_WAKEUP',stdout=subprocess.PIPE,stderr=subprocess.PIPE)
  command(args.local_host,args.serial,'wm','dismiss-keyguard',stdout=subprocess.PIPE,stderr=subprocess.PIPE)
  # Android's cmd passes stdio FDs to system_server over Binder. A redirected
@@ -70,7 +70,7 @@ try:
   (out/'runs'/f'{tx_hash}.json').write_text(json.dumps(result,indent=2)+'\n')
   # Independent on-edge hash check on exact app-produced passport bytes.
   assert subprocess.check_output(['cast','keccak',result['passportJson']],text=True).strip()==result['decisionHash']
-  row={'id':'K17-APP','source':'APP','chainId':84532,'planner':passport['planner'],'host':'device','device':result['device'],
+  row={'id':('K38-APP-'+['DEPOSIT','WITHDRAW','REBALANCE','PAY_INSTANT'][result['chosenCandidate']['kind']] if 'allocationMandate' in result else 'K17-APP'),'source':'APP','chainId':84532,'planner':passport['planner'],'host':'device','device':result['device'],
        'txHash':tx_hash,'decisionHash':result['decisionHash'],'actionDigest':execution['actionDigest'],
        'candidateId':passport['choiceId'],'choiceLabel':passport['choiceLabel'],
        'kind':['DEPOSIT','WITHDRAW','REBALANCE','PAY_INSTANT'][result['chosenCandidate']['kind']],
@@ -79,9 +79,18 @@ try:
        'receipt':str((out/'receipts'/f'{tx_hash}.json').relative_to(ROOT)),
        'transaction':str((out/'transactions'/f'{tx_hash}.json').relative_to(ROOT)),
        'sessionLock':'fcntl.flock LOCK_EX held by edge run_tick.py through verified receipt'}
+  if 'allocationMandate' in result: row['allocationOwnerTx']=result['allocationMandate']['ownerTxHash']
   golden=out/'golden_app.json'; rows=json.loads(golden.read_text()) if golden.exists() else []
   rows=[r for r in rows if r['txHash']!=tx_hash]+[row]; golden.write_text(json.dumps(rows,indent=2)+'\n')
   print('APP transaction confirmed:',tx_hash,'status=1; session sender, event, calldata and passport hash verified.',flush=True)
+  if 'allocationMandate' in result:
+   try:
+    time.sleep(1)
+    png=command(args.local_host,args.serial,'screencap','-p',stdout=subprocess.PIPE,stderr=subprocess.PIPE).stdout
+    if png.startswith(bytes.fromhex('89504e470d0a1a0a')):
+     (out/('K38_'+row['kind'].lower()+'.png')).write_bytes(png)
+   except (OSError,subprocess.CalledProcessError):
+    print('Verified receipt recorded; optional device screenshot unavailable.',flush=True)
 finally:
  # Stop admitting writes while retaining the actual flock. Any in-flight send
  # completes before this mutex returns, and its durable journal then exists.

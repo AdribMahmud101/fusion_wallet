@@ -4,7 +4,7 @@
     "source": "AGENT",
     "planner": "critical_latch",
     "host": "linux-host",
-    "decisionHash": "0x084071b867ae655c5fdeb3d901e2fb8f8b115bece64162f987b0117f5cbcaba8",
+    "decisionHash": "0x9d7d9d0a7f3e232665d02ef3de043dca6db1d3181495d69c68f606ad3ba50ad7",
     "actionDigest": "0x0000000000000000000000000000000000000000000000000000000000000000",
     "candidateId": "0x0000000000000000000000000000000000000000000000000000000000000000",
     "choiceLabel": "H",
@@ -13,7 +13,7 @@
     "status": 1,
     "blockNumber": 28,
     "gasUsed": 0,
-    "passport": "evidence/agent/passports/0x084071b867ae655c5fdeb3d901e2fb8f8b115bece64162f987b0117f5cbcaba8.json",
-    "passportFile": "0x084071b867ae655c5fdeb3d901e2fb8f8b115bece64162f987b0117f5cbcaba8.json"
+    "passport": "evidence/agent/passports/0x9d7d9d0a7f3e232665d02ef3de043dca6db1d3181495d69c68f606ad3ba50ad7.json",
+    "passportFile": "0x9d7d9d0a7f3e232665d02ef3de043dca6db1d3181495d69c68f606ad3ba50ad7.json"
   }
 ]

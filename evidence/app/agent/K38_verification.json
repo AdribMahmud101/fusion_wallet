@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "network": "Base Sepolia",
+  "device": "OnePlus CPH2447",
+  "ownerTxHash": "0xb4896d5bd3207eee5d05bc2bd956a23d820691c8d4eb7fc80209b432fc353f7a",
+  "ownerSource": "OWNER",
+  "planner": "mnn+ahem-g@android",
+  "depositTxHash": "0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf",
+  "withdrawTxHash": "0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a",
+  "depositAssetsRaw": "10000000",
+  "withdrawAssetsRaw": "9999999",
+  "safeCashAfterRaw": "9399001234",
+  "vaultSharesAfterRaw": "0",
+  "vaultAssetsAfterRaw": "0",
+  "transactions": [
+    {
+      "status": "PASS",
+      "txHash": "0x7acca495d3bd0da2e62f92d0f6f1f20ef22c1e4bd8dc985be59c37ad4bd2aaaf",
+      "decisionHash": "0x028e38a8a6658f5fd4e313cf5731e1d29ff4f17e09d378d318ed1127a67e6dd5",
+      "blockNumber": 48359626,
+      "assetsRaw": "10000000",
+      "recipient": "0xf430cb6e2b85f99222fbfa6dfea18ff60fa6b32a",
+      "from": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+      "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+      "checks": [
+        "APP/device provenance",
+        "distinct Android inference and signer processes",
+        "AHEM-G enforced, legal model output",
+        "exact passport keccak",
+        "canonical successful live receipt",
+        "session sender and module destination",
+        "stored receipt and transaction match RPC",
+        "decisionHash in calldata and ActionExecuted",
+        "USDC payment or canonical ERC-4626 event",
+        "action nonce increment and expected reserve"
+      ]
+    },
+    {
+      "status": "PASS",
+      "txHash": "0xe6f0105b8cd4a941943112f7507efb1dee6adc47e08aa45852223c7c62cc709a",
+      "decisionHash": "0xbc732e13cada313f3fb1a74643b0bbe05c98ad6971108092c588a4c89d2870cb",
+      "blockNumber": 48359868,
+      "assetsRaw": "9999999",
+      "recipient": "0x029869910714D9e09b854a2688311AFd42fBb44E",
+      "from": "0xb52cb48ec1cc5ad1171c83f162228e31752f87fa",
+      "to": "0xa560ec10259657e9badd297e68286d2838cd5a8f",
+      "checks": [
+        "APP/device provenance",
+        "distinct Android inference and signer processes",
+        "AHEM-G enforced, legal model output",
+        "exact passport keccak",
+        "canonical successful live receipt",
+        "session sender and module destination",
+        "stored receipt and transaction match RPC",
+        "decisionHash in calldata and ActionExecuted",
+        "USDC payment or canonical ERC-4626 event",
+        "action nonce increment and expected reserve"
+      ]
+    }
+  ],
+  "purpose": "Explicitly owner-authorized gas-paying allocation rehearsal; ordinary yield economics unchanged"
+}

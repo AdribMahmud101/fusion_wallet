@@ -139,7 +139,8 @@ def run_step3_check_app_evidence(manifest: dict) -> tuple[int, int, list[str]]:
     total = 0
     passed = 0
     errors = []
-    
+    allocation_rows = []
+
     for fpath in app_files:
         try:
             with open(fpath) as f:
@@ -210,10 +211,29 @@ def run_step3_check_app_evidence(manifest: dict) -> tuple[int, int, list[str]]:
                         errors.append(f"[{item_id}] decisionHash {exp_dh} not anchored in module event logs")
                         continue
                 
+                if Path(fpath).name == "golden_app.json":
+                    # Verify model/signing process provenance and the exact event
+                    # signature, action kind, amount and session-bound passport.
+                    from importlib.util import spec_from_file_location, module_from_spec
+                    android_dir = ROOT / "scripts" / "android_planner"
+                    sys.path.insert(0, str(android_dir))
+                    spec = spec_from_file_location("fusion_verify_app", android_dir / "verify_app.py")
+                    verifier = module_from_spec(spec)
+                    spec.loader.exec_module(verifier)
+                    verifier.verify(item, manifest)
+                    if item.get("id", "").startswith("K38-APP-"):
+                        allocation_rows.append(item)
                 passed += 1
             except Exception as e:
                 errors.append(f"[{item_id}] Verification exception: {e}")
                 
+    if allocation_rows or (ROOT / "evidence/app/agent/K38_owner_allocation_receipt.json").exists():
+        try:
+            from verify_allocation import verify_round_trip
+            verify_round_trip(allocation_rows, manifest, full=False)
+        except Exception as error:
+            errors.append(f"K38 allocation round trip verification failed: {error}")
+            return passed, max(1, total - passed), errors
     return passed, total - passed, errors
 
 def run_step4_check_demo_runs(manifest: dict) -> tuple[int, int, list[str]]:
