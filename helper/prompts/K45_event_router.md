@@ -16,3 +16,6 @@ Unify when the agent thinks:
 7. Unit tests; `flock /root/.gradle/fusion-build.lock ./gradlew testDebugUnitTest assembleDebug`
    (`ANDROID_HOME=/opt/android-sdk GRADLE_USER_HOME=/root/.gradle`). Update `docs/ux/DASHBOARD_LAYOUT.md` and the flow
    diagram in `docs/SYSTEM_OVERVIEW.md`.
+8. Timeline rows must say WHY: a HOLD row currently reads "H · Hold / Hold · no transaction requested". Show the real reason from
+   the decision report (e.g. "Nothing worth moving: deposit breaks even in 70 days" from K44, "Bill not due until 24 Oct",
+   "Gas spike, deferred"). Same for the Home agent tile "Last decision".
