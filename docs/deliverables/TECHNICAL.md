@@ -18,7 +18,7 @@ risk control)". Where we stand on each (`docs/WIN_PLAN.md` for the plan, `eviden
 
 | Topic F operation | What exists today | Still open |
 |---|---|---|
-| Transaction execution | Bill payments by the on-device AI: 4 AGENT txs and 1 APP tx in the index | none for the core path |
+| Transaction execution | 5 txs sent by the on-device AI's key (4 AGENT, 1 APP): 4 bill payments and 1 queue step (`docs/deliverables/TX_HASHES.md`) | none for the core path |
 | Asset management | A deposit and a withdraw by operator script (`SCRIPT`, deterministic planner, not the AI). A rehearsal by the AI's session key under an owner mandate `[PENDING: K38M]` | A deposit the AI chooses because it pays `[PENDING: K47]` |
 | Risk control | In-app guardian pause (APP) and a 2-of-2 resume (OWNER). 24 of 24 attacks stopped | Automatic pause on an anomaly `[PENDING: K41]` |
 
@@ -248,7 +248,7 @@ Short form. The full table is in `SECURITY_SELF_ASSESSMENT.md`.
 - **Fail closed.** Missing or stale input is a HOLD with a reason.
 - **Honest provenance.** Every transaction is indexed as `AGENT`, `APP`, `OWNER` or `SCRIPT`.
   Unknown source shows as unknown (`evidence/tx_index.json`).
-- **Cloud model is advisory** (K40, `…/app/java/app/fusion/wallet/advisor/`). It returns text or strict JSON that the
+- **Cloud model is advisory** (K40, `src/Fintech_Wallet_Agent/fusion-core-android/app/src/main/java/app/fusion/wallet/advisor/`). It returns text or strict JSON that the
   phone validates. A policy proposal becomes a Safe transaction that only the 2-of-2 owners can send.
   Off by default. No key is compiled into the APK.
 - **Arena.** 24 of 24 scenarios stopped. Frozen-corpus ASR 0/30 and held-out ASR 0/20 (`evidence/results/ARENA.md`).

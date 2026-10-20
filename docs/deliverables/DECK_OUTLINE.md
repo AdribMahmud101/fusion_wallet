@@ -151,7 +151,7 @@ so anyone can check why the AI did what it did."
 **Show:** AI Agent screen: Autopilot card and timeline, then tap **Why?** on a row. Then Ask the Accountant → goal → proposal with the red
 "Needs owner signatures" chip. Capture on the phone.
 
-**Source:** `docs/ux/DASHBOARD_LAYOUT.md` (AI Agent, Home); Autopilot code in `…/agent/autopilot/`; advisor in `…/advisor/` (K40, off by default).
+**Source:** `docs/ux/DASHBOARD_LAYOUT.md` (AI Agent, Home); Autopilot code in `src/Fintech_Wallet_Agent/fusion-core-android/app/src/main/java/app/fusion/wallet/agent/autopilot/`; advisor in `src/Fintech_Wallet_Agent/fusion-core-android/app/src/main/java/app/fusion/wallet/advisor/` (K40, off by default).
 `[PENDING: K45]` wake reason on each timeline row (heartbeat, trigger, reflex). `[PENDING: K41]` automatic risk reflex.
 
 **Speaker note (60 s):** "This is the live screen. Autopilot wakes on a timer and runs the same safe path. Every row says

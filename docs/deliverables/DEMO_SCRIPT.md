@@ -118,12 +118,14 @@ Transaction execution, Risk control, Owner and setup. **Tap** one `AGENT` row. S
 ("Confirmed", gas, block time).
 
 Cut to BaseScan for `0x8bab484456d4f6c842281b1dfdf1ffcbd25ad3c0d0221353242c8c9530ebb3a6` (an AGENT bill payment, 8 USDC).
-Show: status Success; **From** = the session key; **To** = the KavachiModule; in the Logs tab, the `ActionExecuted` event
+Show: status Success; **From** = the session key (`0xB52C…87fA`); **To** = the KavachiModule (`0xA560…5a8f`); in the Logs tab, the `ActionExecuted` event
 and its `decisionHash`.
 
 **Say:** "Every row is a real transaction, tagged by who sent it. Agent means the on-device AI's session key sent it.
 Script means one of our operator scripts, and we never count those as autonomous. Here is one AI payment on BaseScan.
 It went to the module, not to a person. The event carries a decision hash, which is a fingerprint of the full reasoning."
+
+**Check before recording:** open the tx on BaseScan and confirm From, To and the `ActionExecuted` log. The repo's `scripts/agent/check_golden.py` checks the sender is the session key, but the evidence file does not store From/To, so this was not re-read when the script was written.
 
 **Numbers to quote:** 37 transactions in the index; sent by the AI's key: 5 (4 AGENT, 1 APP) (`docs/deliverables/TX_HASHES.md`).
 

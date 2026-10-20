@@ -41,7 +41,7 @@ A policy proposal is only a draft: the app builds the exact Safe transaction and
 Only the two owners can send it, and they see a diff against the live policy first.
 
 The residual risk is a persuasive but bad proposal that two humans approve. The diff view marks each row Looser or Tighter,
-and warns that applying it pauses the module. Sources: `src/Fintech_Wallet_Agent/…/app/java/app/fusion/wallet/advisor/`
+and warns that applying it pauses the module. Sources: `src/Fintech_Wallet_Agent/fusion-core-android/app/src/main/java/app/fusion/wallet/advisor/`
 (`PolicyProposal.kt`, `CloudAdvisor.kt`), `docs/SYSTEM_OVERVIEW.md` "AI roles".
 
 ### 4. What if the phone is stolen or hacked?
@@ -52,7 +52,7 @@ on one contract). Both are Android Keystore keys in a separate process. Even wit
 committed bills, registered payees, two pinned vaults, daily and session limits.
 
 Honest limits: the sign-in screen is a local role gate, a convenience. The money limits are enforced on chain, not by who is logged in
-(`…/auth/Auth.kt`). We did not test against a rooted device with live malware. Source: `SECURITY_SELF_ASSESSMENT.md` sections 2, 3 and 7.
+(`src/Fintech_Wallet_Agent/fusion-core-android/app/src/main/java/app/fusion/wallet/auth/Auth.kt`). We did not test against a rooted device with live malware. Source: `SECURITY_SELF_ASSESSMENT.md` sections 2, 3 and 7.
 
 ### 5. What if the session key leaks?
 
@@ -92,9 +92,10 @@ Safe, but not good enough. On benign requests the system wrongly holds on **6 of
 **10 of 20** (50%) in the held-out set (`evidence/app/agent/K44_validation.md`, `evidence/results/heldout/HELDOUT.md`).
 A false block is a held proposal. It is never a wrong payment.
 
-Part of it is correct behavior. A small deposit that does not repay its gas is held on purpose (see question 9).
-Older documents quote 9/30 and 13/20; those were measured before the K44 economics guard and are superseded.
-`[PENDING: K36 root-cause table and new numbers]`
+Some holds are by design: a deposit that does not repay its gas is held on purpose (see question 9). How much of the 6/30 and 10/20
+is by design, and how much is a rule or fixture problem, is what card K36 is measuring. We have not published that split yet.
+Older documents quote 9/30 and 13/20. Those come from an earlier run and are superseded by the later regeneration recorded in
+`evidence/app/agent/K44_validation.md`. `[PENDING: K36 root-cause table and new numbers]`
 
 ### 9. Is it really autonomous?
 
