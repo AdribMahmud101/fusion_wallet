@@ -129,6 +129,9 @@ def run_step2_check_golden() -> tuple[int, int, list[str]]:
 def run_step3_check_app_evidence(manifest: dict) -> tuple[int, int, list[str]]:
     """Checks every transaction in evidence/app/*.json (status, from, decisionHash)."""
     app_files = sorted(glob.glob(str(ROOT / "evidence" / "app" / "*.json")))
+    # The in-app agent transaction (model decided inside the Android app, signed by
+    # the Keystore session key) lives with its device evidence under app/agent/.
+    app_files += sorted(glob.glob(str(ROOT / "evidence" / "app" / "agent" / "golden_app.json")))
     if not app_files:
         return 0, 0, []
     
