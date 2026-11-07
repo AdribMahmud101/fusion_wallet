@@ -1,0 +1,169 @@
+{
+ "lines": [
+  "Every few seconds, a new block is written on Base. Money moves without a bank, without a clerk, without a pause.",
+  "And more and more, the one moving it is not a person. It is an AI.",
+  "So here is the question nobody has answered well: what happens when someone talks that AI into sending the money away?",
+  "In May 2026, according to public reports, someone hid a command inside Morse code.",
+  "Grok decoded it and repeated it. A trading bot called Bankrbot read that reply as an order, and sent out tokens reported at around two hundred thousand dollars.",
+  "No key was stolen. No contract was broken. The AI was simply asked, and the AI said yes.",
+  "The lesson is simple. If the model can sign anything, then anyone who can talk to the model can spend your money.",
+  "This is Fusion Wallet. An AI that runs a treasury on its own, on-chain, and cannot be talked into losing money.",
+  "The AI acts. The rules on the blockchain decide. And humans hold the keys.",
+  "This is the real app, running on a phone, reading a real Safe wallet on Base Sepolia.",
+  "It splits the money into bills, a safety cushion, and spare cash. The AI is only ever allowed to touch the spare cash.",
+  "Here is the agent. One tap, and it reads the chain, builds its options, and asks the on-device model to choose.",
+  "The model runs on this phone, privately, in about three seconds. And it can only pick a letter. It never writes an address or an amount.",
+  "Then sixteen policy checks run, and only a call to our own module can ever be signed.",
+  "It also does the math. Ten dollars into Aave would take fifty-seven days to pay for its gas, so the AI holds.",
+  "The two owners raised the per-move limit to seventy-five, with both of their signatures. Now the same move pays off in about twelve days.",
+  "Autopilot lets it do this on its own, every few minutes, and every decision lands on a timeline with its reason.",
+  "Yield Scout screens real lending pools with seven fixed rules: size, no rate spikes, real yield, audited code, and whether the move pays for its gas.",
+  "The cloud advisor explains a pick in plain words. But it can never sign, and it never sees a key.",
+  "And when a human wants to send money, the app only prepares the transaction. Both owners sign it in their Safe.",
+  "Now, the attack. We rebuilt twenty-four of them, including encoded instructions like that Morse code.",
+  "Every single one is stopped. Zero attacks succeeded, on thirty frozen cases and twenty held-out ones.",
+  "Every transaction is real, grouped by what it did, and checked live against the chain when you tap it.",
+  "And you don't have to trust us. Clone the code, run one script, no keys needed, and fifty-nine checks pass.",
+  "AI is becoming a financial participant. The question is not whether it will hold money, but who it listens to.",
+  "Fusion Wallet listens to its rules, and to its owners. Nothing else.",
+  "You can hand it the car keys. Never the house keys."
+ ],
+ "segments": [
+  [
+   3.0,
+   10.930434782608698,
+   9.430434782608698
+  ],
+  [
+   13.930434782608698,
+   8.756521739130434,
+   7.256521739130435
+  ],
+  [
+   22.686956521739134,
+   11.930434782608698,
+   9.430434782608698
+  ],
+  [
+   34.617391304347834,
+   7.886956521739131,
+   6.386956521739131
+  ],
+  [
+   42.50434782608696,
+   13.973913043478262,
+   12.473913043478262
+  ],
+  [
+   56.478260869565226,
+   9.62608695652174,
+   8.12608695652174
+  ],
+  [
+   66.10434782608696,
+   12.86521739130435,
+   9.86521739130435
+  ],
+  [
+   78.96956521739132,
+   10.930434782608698,
+   9.430434782608698
+  ],
+  [
+   89.90000000000002,
+   8.38695652173913,
+   6.386956521739131
+  ],
+  [
+   98.28695652173914,
+   9.191304347826087,
+   7.691304347826088
+  ],
+  [
+   107.47826086956523,
+   11.8,
+   10.3
+  ],
+  [
+   119.27826086956523,
+   10.930434782608698,
+   9.430434782608698
+  ],
+  [
+   130.20869565217393,
+   13.104347826086958,
+   11.604347826086958
+  ],
+  [
+   143.31304347826088,
+   9.191304347826087,
+   7.691304347826088
+  ],
+  [
+   152.50434782608696,
+   11.36521739130435,
+   9.86521739130435
+  ],
+  [
+   163.8695652173913,
+   12.234782608695653,
+   10.734782608695653
+  ],
+  [
+   176.10434782608695,
+   10.930434782608698,
+   9.430434782608698
+  ],
+  [
+   187.03478260869565,
+   13.104347826086958,
+   11.604347826086958
+  ],
+  [
+   200.1391304347826,
+   10.495652173913046,
+   8.995652173913046
+  ],
+  [
+   210.63478260869564,
+   11.430434782608698,
+   9.430434782608698
+  ],
+  [
+   222.06521739130434,
+   8.321739130434782,
+   6.821739130434783
+  ],
+  [
+   230.38695652173914,
+   9.256521739130434,
+   7.256521739130435
+  ],
+  [
+   239.64347826086959,
+   10.060869565217393,
+   8.560869565217393
+  ],
+  [
+   249.70434782608697,
+   11.495652173913046,
+   8.995652173913046
+  ],
+  [
+   261.20000000000005,
+   10.495652173913046,
+   8.995652173913046
+  ],
+  [
+   271.6956521739131,
+   7.017391304347826,
+   5.517391304347826
+  ],
+  [
+   278.71304347826094,
+   8.082608695652175,
+   5.0826086956521745
+  ]
+ ],
+ "lead": 3.0
+}
